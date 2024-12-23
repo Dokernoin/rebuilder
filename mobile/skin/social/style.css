@@ -1,0 +1,222 @@
+@charset "utf-8";
+
+.social_info_guide {background:#f3f3f3;border:1px solid #ddd;margin:0 10px 10px;padding:10px 15px;line-height:1.5em}
+.bg-warning {margin:0 10px 10px;padding:10px 15px;line-height:1.5em}
+.bg-warning1 {background:#f7dfe4;border:1px solid #eac3cb}
+.bg-warning2 {background:#deeabf;border:1px solid #bde498}
+.bg-warning3 {background:#fff8dc;border:1px solid #f1e4b2}
+
+/* SNS LOGIN */
+.login-sns {padding-bottom:10px;margin-top:5px;clear:both}
+.login-sns h3 {padding-top:10px;text-align:center;color:#b2b2b2;margin-top:15px;font-weight:normal}
+.sns-wrap {margin:10px 0 0;text-align:center}
+.sns-icon {display:inline-block;vertical-align:middle;text-decoration:none}
+.sns-icon:hover {text-decoration:none}
+.sns-icon .ico {display:block;vertical-align:middle}
+.sns-icon .txt i {font-style:normal}
+
+#fregisterform .form_01 .reg-form {margin-bottom:20px}
+#fregisterform .form_01 .reg-form .sns-wrap {margin:10px 0 0;text-align:left}
+.reg-form .sns-icon {display:inline-block;vertical-align:middle;text-decoration:none;border-width:1px;border-style:solid;overflow:hidden;margin:0 1px}
+.reg-form .sns-icon:hover {text-decoration:none}
+.reg-form .sns-icon .ico {display:block;background:url('./img/sns_logo.png') no-repeat;vertical-align:middle;width:24px;height:24px}
+.reg-form .sns-icon-not .ico {display:block;background:url('./img/sns_logo_not.png') no-repeat;vertical-align:middle}
+.reg-form .sns-icon .txt {position:absolute;line-height:0;font-size:0;vertical-align:middle;overflow:hidden}
+.reg-form .sns-icon .txt i {font-style:normal}
+
+.sns-wrap-reg .sns-naver {border-color:#18a400;background:#2db400}
+.sns-wrap-reg .sns-naver .ico {background-position:-29px 0}
+.sns-wrap-reg .sns-google {border-color:#ca2c19;background:#dd5443}
+.sns-wrap-reg .sns-google .ico {background-position:-58px 0}
+.sns-wrap-reg .sns-facebook {border-color:#2e5393;background:#3a5897}
+.sns-wrap-reg .sns-facebook .ico {background-position:0 0}
+
+.sns-wrap-reg .sns-icon {border-color:#dcdcdc}
+.sns-wrap-reg .sns-icon-not {border-color:#8b8b8b}
+.sns-wrap-reg .sns-naver {border-color:#18a400}
+.sns-wrap-reg .sns-naver .ico {background-position:-29px 0}
+.sns-wrap-reg .sns-google .ico {background-position:-58px 0}
+.sns-wrap-reg .sns-google {border-color:#ca2c19}
+.sns-wrap-reg .sns-facebook .ico {background-position:0 0}
+.sns-wrap-reg .sns-facebook {border-color:#2e5393}
+.sns-wrap-reg .sns-kakao .ico {background-position:-87px 0}
+.sns-wrap-reg .sns-twitter {border-color:#488FC9}
+.sns-wrap-reg .sns-twitter .ico {background-position:-145px 0}
+.sns-wrap-reg .sns-payco {border-color:#C44646}
+.sns-wrap-reg .sns-payco .ico {background-position:-116px 0}
+.sns-wrap-reg .sns-kakao {border-color:#f2df00}
+
+/* SNS by COLOR */
+.sns-wrap-over .sns-naver {background:url('./img/sns_naver_s.png') no-repeat}
+.sns-wrap-over .sns-google {background:url('./img/sns_gp_s.png') no-repeat}
+.sns-wrap-over .sns-facebook {background:url('./img/sns_fb_s.png') no-repeat}
+.sns-wrap-over .sns-twitter {background:url('./img/sns_twitter_s.png') no-repeat}
+.sns-wrap-over .sns-payco {background:url('./img/sns_payco_s.png') no-repeat}
+.sns-wrap-over .sns-kakao {background:url('./img/sns_kakao_s.png') no-repeat}
+.reg-form .sns-icon-not {border-color:#8b8b8b}
+
+
+/* 아웃로그인 */
+#sns_outlogin {clear:both}
+#sns_outlogin .sns-icon {overflow:hidden;margin:0 1px}
+#sns_outlogin .sns-icon .txt {position:absolute;line-height:0;font-size:0;vertical-align:middle;overflow:hidden}
+#sns_outlogin .sns-icon .ico {width:30px;height:30px}
+
+/*로그인 */
+#sns_login {border:0;margin-top:15px;padding:0; border-top:1px solid #edeaea}
+#sns_login h3 {padding:0;font-weight:bold;color:#888;text-align:center}
+#sns_login .sns-icon {position:relative;display:block;height:40px;line-height:40px;width:100%;margin:0 0 5px;padding-left:40px;text-align:left;color:#fff;border-radius:2px}
+#sns_login .sns-naver {background-color:#1fc800;background-position:5px 5px;border-bottom:1px solid #1ea505}
+#sns_login .sns-kakao {background-color:#ffeb00;background-position:5px 5px;border-bottom:1px solid #e2c10a}
+#sns_login .sns-kakao {color:#3c1e1e}
+#sns_login .sns-facebook {background-color:#3b579d;background-position:5px 5px;border-bottom:1px solid #28458f}
+#sns_login .sns-google {background-color:#4285F4;background-position:5px 5px;border-bottom:1px solid #3567c6}
+#sns_login .sns-google .ico {position:absolute;top:3px;left:3px;width:33px;height:33px;background:url('./img/sns_gp_s.png') no-repeat center center;background-color:#fff;background-size:28px 28px!important;border-radius:2px}
+#sns_login .sns-twitter {background-color:#1ea1f2;background-position:5px 5px;border-bottom:1px solid #1e82c0}
+#sns_login .sns-payco {background-color:#df0b00;background-position:5px 5px;border-bottom:1px solid #9d0800}
+#sns_login .txt {text-align:left;padding-left:10px;border-left:1px solid rgba(0,0,0,0.1);display:block;font-weight:bold}
+
+/*회원가입 */
+#sns_register {margin:0 0 10px;padding:0;text-align:center;background:#fff;border:1px solid #dbdbdb}
+#sns_register h2 {font-size:1.167em;text-align:left;padding:15px 20px;border-bottom:1px solid #dbdbdb}
+#sns_register .sns-wrap:after {display:block;visibility:hidden;clear:both;content:""}
+#sns_register .sns-wrap {display:inline-block;width:100%;padding:20px;vertical-align:top;margin:0}
+#sns_register .sns-icon {position:relative;display:inline-block;height:40px;line-height:40px;width:100%;margin:0 0 5px;padding-left:40px;text-align:left;color:#fff;border-radius:2px;float:left}
+#sns_register .sns-icon:nth-child(3n+1) {clear:both}
+#sns_register .sns-naver {background-color:#1fc800;background-position:5px 5px;border-bottom:1px solid #1ea505}
+#sns_register .sns-kakao {background-color:#ffeb00;background-position:5px 5px;border-bottom:1px solid #e2c10a}
+#sns_register .sns-kakao {color:#3c1e1e}
+#sns_register .sns-facebook {background-color:#3b579d;background-position:5px 5px;border-bottom:1px solid #28458f}
+#sns_register .sns-google {background-color:#4285F4;background-position:5px 5px;border-bottom:1px solid #3567c6}
+#sns_register .sns-google .ico {position:absolute;top:3px;left:3px;width:33px;height:33px;background:url('./img/sns_gp_s.png') no-repeat center center;background-color:#fff;background-size:28px 28px!important;border-radius:2px}
+#sns_register .sns-twitter {background-color:#1ea1f2;background-position:5px 5px;border-bottom:1px solid #1e82c0}
+#sns_register .sns-payco {background-color:#df0b00;background-position:5px 5px;border-bottom:1px solid #9d0800}
+#sns_register .txt {display:block;padding-left:10px;border-left:1px solid rgba(0,0,0,0.1);font-weight:bold}
+
+/* 회원가입 공통 */
+.social_register {padding:15px}
+.social_register #register_form {margin-top:30px}
+
+/* 회원가입 약관 */
+#fregisterform section {position:relative;background:#fff;border-bottom:1px solid #e5e9f0;padding:15px}
+#fregister_chkall {position:relative;font-size:bold;text-align:left;background:#fff;padding:15px;border-top:1px solid #e5e9f0;border-bottom:1px solid #e5e9f0;border-radius:3px}
+#fregisterform h2 {text-align:left;padding-bottom:15px;line-height:1.7em;font-size:1.4em}
+#fregisterform textarea {display:block;width:100%;height:180px;padding:10px;background:#fbfbfb;border:1px solid #d1d7d8;line-height:1.5em;color:#555}
+#fregisterform p {position:relative;text-align:left;color:#fff;line-height:18px;padding:15px;font-size:1.1em;background:#f2838f;margin:15px;border-radius:5px}
+#fregisterform p:before {content:"";position:absolute;top:0;left:0;width:5px;height:100%;border-radius:5px 0 0 5px;background:#da4453}
+#fregisterform p i {font-size:1.2em;vertical-align:middle}
+#fregisterform .btn_confirm {margin:15px 10px}
+#fregister_private .tbl_head01 {margin:0}
+#fregister_private .tbl_head01 caption {position:absolute;font-size:0;line-height:0;overflow:hidden;top:0;color:#fff}
+
+/* 회원가입 입력 */
+#fregisterform .btn_confirm {text-align:center;margin:20px 0}
+#fregisterform .btn_confirm .btn_submit {width:49%;height:45px;padding:0 30px;font-weight:bold;font-size:1.083em}
+#fregisterform .btn_confirm .btn_cancel {width:49%;line-height:45px;height:45px;padding:0 30px;font-weight:bold;border-radius:3px;border:1px solid #dcdcdc;font-size:1.083em;background:#fff}
+#fregisterform .cert_req {margin-left:5px;line-height:28px;}
+
+#fregisterform #reg_mb_email, #fregisterform .frm_address {width:100%}
+#fregisterform textarea {width:100%;height:84px}
+#fregisterform #msg_certify {margin:5px 0;padding:5px;border:1px solid #dbecff;background:#eaf4ff;text-align:center}
+#fregisterform .frm_address,
+#fregisterform .password {margin:-1px 0 0}
+#fregisterform .password .frm_input {border-bottom:0}
+#fregisterform #mb_addr3 {display:block;margin:5px 0 0}
+#fregisterform #mb_addr_jibeon {display:block;margin:5px 0 0}
+#fregisterform .form_01 {margin-bottom:30px}
+#fregisterform .form_01 h2 {font-size:1.167em;margin:0 0 5px}
+#fregisterform .frm_label {display:block;font-size:1.083em;margin:15px 0 5px;color:#555}
+#fregisterform .btn_frmline {margin-bottom:5px;width:auto;height:30px;line-height:30px;padding:0 10px;font-weight:bold}
+#fregisterform .rgs_name_li button {margin:5px 0 0;width:auto}
+#fregisterform .reg_mb_img_file {margin-bottom:30px}
+#fregisterform .reg_mb_img_file img {max-width:100%;height:auto}
+
+.filebox .fileName {display:inline-block;position:relative;width:100%;height:45px;padding-left:10px;margin-right:5px;line-height:30px;border: 1px solid #d0d3db;background-color:#fff;color:red;vertical-align:middle}
+.filebox .btn_file {display:inline-block;position:absolute;right:8px;top:8px;border:1px solid #3a8afd;border-radius:3px;width:70px;height:30px;color:#3a8afd;font-size:1em;line-height:30px;font-weight:bold;text-align:center;vertical-align:middle}
+.filebox input[type="file"] {position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+.adress {background:red;width:100%}
+.adress #reg_mb_zip {width:100%;position:relative}
+.adress .btn_frmline {position:absolute;top:8px;right:15px;height:40px;padding:0 10px;border-radius:3px}
+
+.chk_box {position:relative}
+.chk_box input[type="checkbox"] + label {padding-left:10px;color:#676e70}
+.chk_box input[type="checkbox"] + label:hover{color:#2172f8}
+.chk_box input[type="checkbox"] + label span {position:absolute;top:1px;left:0;width:17px;height:17px;display:block;background:#fff;border:1px solid #d0d4df;border-radius:3px}
+.chk_box input[type="checkbox"]:checked + label {color:#000}
+.chk_box input[type="checkbox"]:checked + label span {background:url('./img/chk.png') no-repeat 50% 50% #3a8afd;border-color:#1471f6;border-radius:3px}
+.chk_li {padding-left:10px;line-height:20px}
+
+.selec_chk {position:absolute;top:0;left:0;width:0;height:0;opacity:0;outline:0;z-index:-1;overflow:hidden}
+.fregister_agree input[type="checkbox"] + label {color:#676e70}
+.fregister_agree input[type="checkbox"] + label:hover {color:#2172f8}
+.fregister_agree input[type="checkbox"] + label span {position:absolute;top:20px;right:15px;width:17px;height:17px;display:block;background:#fff;border:1px solid #999;border-radius:3px}
+.fregister_agree input[type="checkbox"]:checked + label {color:#000}
+.fregister_agree input[type="checkbox"]:checked + label span {background:url('./img/chk.png') no-repeat 50% 50% #3a8afd;border-color:#1471f6;border-radius:3px}
+.fregister_agree.chk_all input[type="checkbox"] + label span {top:15px}
+
+.member_connect:after {display:block;visibility:hidden;clear:both;content:""}
+.member_connect {margin-top:1em;border:2px solid #cacaca;margin:10px;padding:10px;text-align:left}
+.member_connect .strong {font-weight:bold;margin:0 0 10px;font-size:0.97em}
+.member_connect button {color:#fff;border:0;padding:7px 13px;border:1px solid #6446e7;font-weight:bold;background:#6f50e7;border-radius:3px;font-size:0.92em}
+.member_connect button:hover {background:#6446e7}
+.member_connect {margin-top:30px}
+
+/* LOGIN LOADING */
+.social-login-loading {width:100%;height:auto;text-align:center}
+.social-login-loading p {display:inline-block;margin-top:10px;padding:40px 0 0;line-height:30px}
+
+/*기존 계정에 연결하기*/
+
+/* Styles for Accordion */
+.mbskin .toggle {position:relative;display:block;border:1px solid #c6cacc;margin-top:-1px;background-color:#fcfcfc;margin:0 0 5px}
+.mbskin .toggle .toggle-title {padding:13px 15px;line-height:20px}
+.mbskin .toggle .title-name {display:block}
+.mbskin .toggle .toggle-inner {padding:15px;line-height:1.5em;display:none;background:#fff;border-top:1px solid #e2e2e2}
+.mbskin .toggle .toggle-inner div {max-width:100%}
+.mbskin .right_i {position:absolute;font-size:0.92em;top:10px;right:10px;padding:0 10px 0 0;border-radius:3px;display:inline-block;z-index:2;background:#3497d9;color:#fff;border-bottom-color:#1977b5}
+.mbskin .toggle .toggle-title .right_i i {background:url("./img/plus_minus.png") 0 -24px no-repeat;width:20px;height:24px;display:inline-block;vertical-align:middle}
+.mbskin .toggle .toggle-title.active .right_i i {background:url("./img/plus_minus.png") 0 0 no-repeat}
+.mbskin .all_agree {position:relative;display:block;margin-bottom:6px;background:#d9d9d9;border-radius:3px;border-top:0;padding:13px 15px;line-height:20px}
+
+#register_member .sns_tbl {background:#fff;margin:10px 0;border:1px solid #c6cacc}
+.sns_tbl table {border:0}
+.sns_tbl caption {padding:0 20px;line-height:45px;font-size:1.083em;border-bottom:1px solid #e2e2e2;color:#4162ff;background:#fff}
+.sns_tbl th {width:80px;text-align:right;vertical-align:top;line-height:40px;padding:10px}
+.sns_tbl td {padding:10px}
+.sns_tbl .email_msg {color:#777;margin:5px 0 0}
+.sns_tbl .frm_input {width:100%}
+
+#fregisterform .btn_confirm {text-align:center;margin:20px 0}
+#fregisterform .btn_confirm .btn_submit {height:45px;padding:0 30px;font-weight:bold;font-size:1.083em}
+#fregisterform .btn_confirm .btn_cancel {line-height:45px;height:45px;padding:0 30px;font-weight:bold;font-size:1.083em}
+
+#sns-link-pnl.remodal {border-radius:5px;max-width:400px;
+-webkit-box-shadow:0 0 10px rgba(0, 0, 0,0.8);
+-moz-box-shadow:0 0 10px rgba(0, 0, 0,0.8);
+box-shadow:0 0 10px rgba(0, 0, 0,0.8)}
+#sns-link-pnl .connect-close {position:absolute;top:10px;right:10px;margin:0;padding:0;width:30px;height:30px;border:0;background:transparent;color:#383838;cursor:pointer;font-size:15px}
+#sns-link-pnl .connect-close:hover {color:#ff5191}
+#sns-link-pnl .connect-close .fa {margin:0 0 0 1px}
+#sns-link-pnl .connect-close .txt {position:absolute;line-height:0;font-size:0;overflow:hidden}
+
+#sns-link-pnl #login_fs {margin:0 auto;width:100%;text-align:left}
+#sns-link-pnl #login_fs label {display:block;display:block;font-size:0.93em;color:#7a7a7a;margin:5px 0}
+#sns-link-pnl #login_fs .lg_id, #sns-link-pnl #login_fs .lg_pw {width:100%;margin-bottom:5px}
+#sns-link-pnl #login_id, #sns-link-pnl #login_pw {width:100%}
+#sns-link-pnl #login_fs .login_submit {width:100%;height:44px;font-size:1.167em;margin:10px auto 0;font-weight:bold;cursor:pointer;display:block}
+#sns-link-pnl .connect-fg {height:320px;text-align:left}
+#sns-link-pnl .login_fs {margin:0 auto;width:260px}
+#sns-link-pnl .connect-fg .connect-desc {margin:0 0 10px;padding:15px;border:1px solid #d6e9c6;background:#dff0d8;color:#3c763d}
+#sns-link-pnl .connect-fg .connect-title {margin-top:25px;margin-bottom:10px;font-size:1.667em;font-weight:bold;text-align:center}
+
+.mbskin .member_connect:after {display:block;visibility:hidden;clear:both;content:""}
+.mbskin .member_connect {margin-top:1em;border:2px solid #cacaca;margin:10px;padding:10px;text-align:left}
+.mbskin .member_connect .strong {font-weight:bold;margin:0 0 10px;font-size:0.97em}
+.mbskin .member_connect button {color:#fff;border:0;padding:7px 13px;border:1px solid #6446e7;font-weight:bold;background:#6f50e7;border-radius:3px;font-size:0.92em}
+.mbskin .member_connect button:hover {background:#6446e7}
+
+.mbskin .btn_group_trigger {margin:10px;text-align:center}
+.mbskin .btn_group_trigger .btn_submit_trigger {display:inline-block;height:45px;line-height:45px;color:#fff;padding:0 30px;font-weight:bold;font-size:1.083em;background:#253dbe}
+
+.mbskin .member_connect {margin-top:50px}
