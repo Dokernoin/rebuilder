@@ -12,14 +12,33 @@ $tablet_size = "1.0"; // 화면 사이즈 조정 - 기기화면에 맞게 수정
     require_once(G5_MSHOP_PATH.'/'.$default['de_pg_service'].'/orderform.1.php');
     ?>
 </div>
-
-<div id="m_pv_sod_frm">
+<style>
+#sod_frm_paysel input[type="radio"] + label:before {opacity: 1;}
+#sod_frm_paysel input[type="radio"] + label:after {opacity: 1;}
+.tbl_frm01 th {padding: 10px 10px;}
+.btn_cancel {
+    width: 100%;
+    height: 50px;
+    line-height: 45px;
+    font-size: 1.25em;
+    margin: 5px 0;
+    border: 1px solid #ccd1d9;
+    border-radius: 10px;
+}
+.sod_right h2 {
+    background: #fff;
+    border-bottom: 1px solid #e2e4e7;
+    font-size: 1.167em;
+    padding: 20px 0px 20px 0px;
+}
+</style>
+<div id="m_pv_sod_frm" class="personal_pay_wrap">
     <form name="forderform" method="post" action="<?php echo $order_action_url; ?>" autocomplete="off">
     <input type="hidden" name="pp_id" value="<?php echo $pp['pp_id']; ?>">
-    <section id="m_sod_frm_orderer">
+    <section id="m_sod_frm_orderer" class="pesonal sod_left mb-0">
         <h2>개인결제정보</h2>
 
-        <div class="odf_tbl">
+        <div class="odf_tbl tbl_frm01 tbl_wrap">
             <table>
             <tbody>
             <?php if(trim($pp['pp_content'])) { ?>
@@ -47,6 +66,10 @@ $tablet_size = "1.0"; // 화면 사이즈 조정 - 기기화면에 맞게 수정
             </tbody>
             </table>
         </div>
+    </section>
+
+    <div class="sod_right">
+        <h2>결제수단</h2>
 
         <?php
         $multi_settle = 0;
@@ -60,34 +83,34 @@ $tablet_size = "1.0"; // 화면 사이즈 조정 - 기기화면에 맞게 수정
         if ($default['de_vbank_use'] || $default['de_iche_use'] || $default['de_card_use'] || $default['de_hp_use']) {
         echo '<fieldset id="sod_frm_paysel">';
         echo '<legend>결제방법 선택</legend>';
-		echo '<ul class="pay_way chk_box">';
+		echo '<ul class="pay_way">';
         }
 
         // 가상계좌 사용
         if ($default['de_vbank_use']) {
             $multi_settle++;
-            echo '<li><input type="radio" id="pp_settle_vbank" name="pp_settle_case" value="가상계좌" '.$checked.'> <label for="pp_settle_vbank"><span></span>'.$escrow_title.'가상계좌</label></li>'.PHP_EOL;
+            echo '<li><input type="radio" id="pp_settle_vbank" name="pp_settle_case" value="가상계좌" '.$checked.'> <label for="pp_settle_vbank" class="lb_icon"><span></span>'.$escrow_title.'가상계좌</label></li>'.PHP_EOL;
             $checked = '';
         }
 
         // 계좌이체 사용
         if ($default['de_iche_use']) {
             $multi_settle++;
-            echo '<li><input type="radio" id="pp_settle_iche" name="pp_settle_case" value="계좌이체" '.$checked.'> <label for="pp_settle_iche"><span></span>'.$escrow_title.'계좌이체</label></li>'.PHP_EOL;
+            echo '<li><input type="radio" id="pp_settle_iche" name="pp_settle_case" value="계좌이체" '.$checked.'> <label for="pp_settle_iche">'.$escrow_title.'계좌이체</label></li>'.PHP_EOL;
             $checked = '';
         }
 
         // 휴대폰 사용
         if ($default['de_hp_use']) {
             $multi_settle++;
-            echo '<li><input type="radio" id="pp_settle_hp" name="pp_settle_case" value="휴대폰" '.$checked.'> <label for="pp_settle_hp"><span></span>휴대폰</label></li>'.PHP_EOL;
+            echo '<li><input type="radio" id="pp_settle_hp" name="pp_settle_case" value="휴대폰" '.$checked.'> <label for="pp_settle_hp">휴대폰</label></li>'.PHP_EOL;
             $checked = '';
         }
 
         // 신용카드 사용
         if ($default['de_card_use']) {
             $multi_settle++;
-            echo '<li><input type="radio" id="pp_settle_card" name="pp_settle_case" value="신용카드" '.$checked.'> <label for="pp_settle_card"><span></span>신용카드</label></li>'.PHP_EOL;
+            echo '<li><input type="radio" id="pp_settle_card" name="pp_settle_case" value="신용카드" '.$checked.'> <label for="pp_settle_card">신용카드</label></li>'.PHP_EOL;
             $checked = '';
         }
 
@@ -102,7 +125,7 @@ $tablet_size = "1.0"; // 화면 사이즈 조정 - 기기화면에 맞게 수정
         if ($multi_settle == 0)
             echo '<p>결제할 방법이 없습니다.<br>운영자에게 알려주시면 감사하겠습니다.</p>';
         ?>
-    </section>
+
 
     <?php
     // 결제대행사별 코드 include (결제대행사 정보 필드 및 주분버튼)
@@ -113,6 +136,8 @@ $tablet_size = "1.0"; // 화면 사이즈 조정 - 기기화면에 맞게 수정
         <img src="<?php echo G5_MOBILE_URL; ?>/shop/img/loading.gif" alt="">
         <span>결제진행 중입니다. 잠시만 기다려 주십시오.</span>
     </div>
+    </div>
+    <div class="cb"></div>
     </form>
 
     <?php
@@ -121,6 +146,8 @@ $tablet_size = "1.0"; // 화면 사이즈 조정 - 기기화면에 맞게 수정
         require_once(G5_MSHOP_PATH.'/'.$default['de_pg_service'].'/orderform.3.php');
     }
     ?>
+
+
 </div>
 
 <script>

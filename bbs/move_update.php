@@ -282,15 +282,75 @@ $opener_href1 = str_replace('&amp;', '&', $opener_href);
 
 run_event('bbs_move_update', $bo_table, $chk_bo_table, $wr_id_list, $opener_href);
 ?>
+<?php if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == $app['ap_title']) { ?>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<style>
+    body,html {background-color: #f9fafb; padding: 0px; margin: 0px;}
+    ul {padding: 0px; margin: 0px;}
+    .rb_alert_wrap {
+        width:100%;
+        height:100%;
+        position: relative;
+        background-color: #f9fafb;
+        box-sizing: border-box;
+    }
+
+    .rb_alert_wrap .rb_alert_wrap_inner {
+        width: 100%;
+        border-radius: 0px;
+        padding: 50px;
+        background-color: #f9fafb;
+        box-sizing: border-box;
+        position: absolute;
+        top:50%;
+        transform: translateY(-50%);
+        box-sizing: border-box;
+    }
+
+    .rb_alert_wrap .rb_alert_title {
+        text-align: center;
+        font-size: 14px;
+        color: #485172;
+        line-height: 130%;
+        word-break: keep-all;
+        box-sizing: border-box;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .rb_alert_wrap .btn_submit {
+        width: 100%;
+        height: 47px;
+        border-radius: 10px;
+        font-size: 16px;
+        background-color: #25282B;
+        color:#fff;
+        border:0px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+</style>
+<div class="rb_alert_wrap">
+    <div class="rb_alert_wrap_inner">
+        <ul class="rb_alert_title"><?php echo $msg; ?></ul>
+        <ul class="rb_alert_btn">
+            <button type="button" class="btn_submit font-B" onclick="location.href='<?php echo $opener_href; ?>';">돌아가기</button>
+        </ul>
+    </div>
+</div>
+<?php } else { ?>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <script>
 alert("<?php echo $msg; ?>");
 opener.document.location.href = "<?php echo $opener_href1; ?>";
 window.close();
 </script>
+
 <noscript>
 <p>
     <?php echo $msg; ?>
 </p>
 <a href="<?php echo $opener_href; ?>">돌아가기</a>
 </noscript>
+<?php } ?>

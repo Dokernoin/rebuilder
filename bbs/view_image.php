@@ -50,6 +50,10 @@ if($file_exists = run_replace('exists_view_image', $file_exists, $filepath, $edi
 }
 ?>
 
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10>,user-scalable=yes" />
+</head>
+
 <div class="bbs-view-image"><?php echo $img ?></div>
 
 <script>

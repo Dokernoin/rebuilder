@@ -238,7 +238,6 @@ class KCAPTCHA{
 }
 
 
-// 캡챠 HTML 코드 출력
 function captcha_html($class="captcha")
 {
     if(is_mobile())
@@ -249,14 +248,35 @@ function captcha_html($class="captcha")
     $html .= "\n".'<script src="'.G5_CAPTCHA_URL.'/kcaptcha.js"></script>';
     $html .= "\n".'<fieldset id="captcha" class="'.$class.'">';
     $html .= "\n".'<legend><label for="captcha_key">자동등록방지</label></legend>';
-    if (is_mobile()) $html .= '<audio id="captcha_audio" controls></audio>';
+    //if (is_mobile()) $html .= '<audio id="captcha_audio" controls></audio>';
     //$html .= "\n".'<img src="#" alt="" id="captcha_img">';
     $html .= "\n".'<img src="'.G5_CAPTCHA_URL.'/img/dot.gif" alt="" id="captcha_img">';
     $html .= '<input type="text" name="captcha_key" id="captcha_key" required class="captcha_box required" size="6" maxlength="6">';
-    if (!is_mobile()) $html .= "\n".'<button type="button" id="captcha_mp3"><span></span>숫자음성듣기</button>';
-    $html .= "\n".'<button type="button" id="captcha_reload"><span></span>새로고침</button>';
+    $html .= "\n".'<button type="button" id="captcha_mp3"><span></span></button>';
+    $html .= "\n".'<button type="button" id="captcha_reload"><span></span></button>';
     $html .= "\n".'<span id="captcha_info">자동등록방지 숫자를 순서대로 입력하세요.</span>';
     $html .= "\n".'</fieldset>';
+
+    //CSS추가
+    $html .= "\n".'<style>';
+    $html .= "\n".'#captcha_info {display: none !important;}';
+    $html .= "\n".'#captcha #captcha_mp3 {background: url(../theme/rb.basic/rb.img/icon/cp_btn_img.png) no-repeat; border:1px solid #ddd}';
+    $html .= "\n".'#captcha #captcha_reload {background: url(../theme/rb.basic/rb.img/icon/cp_btn_img.png) no-repeat 0 -40px; border:1px solid #ddd}';
+    $html .= "\n".'#captcha button:hover {border-color: #000 !important;}';
+    $html .= "\n".'#captcha #captcha_img {border:0px; height:28px; margin-top: 7px; width:auto;}';
+    $html .= "\n".'#captcha #captcha_key {border:1px solid #ddd; font-size: 16px; width:90px;}';
+    $html .= "\n".'#captcha #captcha_key:focus {border:1px solid #000 !important; box-shadow:none;}';
+    $html .= "\n".'#captcha {border:1px solid #ddd; width: auto; padding: 10px; box-sizing: border-box; border-radius: 10px;}';
+
+    $html .= "\n".'#captcha_info {display: none !important;}';
+    $html .= "\n".'#captcha.m_captcha #captcha_mp3 {background: url(../theme/rb.basic/rb.img/icon/cp_btn_img.png) no-repeat; border:1px solid #ddd; width:40px; height:40px;}';
+    $html .= "\n".'#captcha.m_captcha #captcha_reload {background: url(../theme/rb.basic/rb.img/icon/cp_btn_img.png) no-repeat 0 -40px; border:1px solid #ddd}';
+    $html .= "\n".'#captcha.m_captcha button:hover {border-color: #000 !important;}';
+    $html .= "\n".'#captcha.m_captcha #captcha_img {border:0px; height:28px; margin-top: 7px; width:auto; display:inline;}';
+    $html .= "\n".'#captcha.m_captcha #captcha_key {border:1px solid #ddd; font-size: 16px; background:#fff; height:40px; width:90px;}';
+    $html .= "\n".'#captcha.m_captcha #captcha_key:focus {border:1px solid #000 !important; box-shadow:none;}';
+    $html .= "\n".'#captcha.m_captcha {border:1px solid #ddd; width: 100%; padding: 10px; box-sizing: border-box; border-radius: 6px; text-align:center}';
+    $html .= "\n".'</style>';
     return $html;
 }
 

@@ -36,6 +36,15 @@ for ($i=0; $i<$cnt; $i++)
 
     $ct_id = isset($_POST['ct_id'][$k]) ? (int) $_POST['ct_id'][$k] : 0;
 
+    /* 20241018 리빌더 수정 { */
+    if(isset($pa['pa_is']) && $pa['pa_is'] == 1) {
+        $ct_delivery_company = isset($_POST['ct_delivery_company'][$k]) ? $_POST['ct_delivery_company'][$k] : '';
+        $ct_invoice = isset($_POST['ct_invoice'][$k]) ? $_POST['ct_invoice'][$k] : '';
+        $ct_invoice_time = isset($_POST['ct_invoice_time'][$k]) ? $_POST['ct_invoice_time'][$k] : '';
+    }
+    /* } */
+
+
     if(!$ct_id)
         continue;
 
@@ -143,14 +152,36 @@ for ($i=0; $i<$cnt; $i++)
     $now = G5_TIME_YMDHIS;
     $ct_history="\n$ct_status|{$member['mb_id']}|$now|$REMOTE_ADDR";
 
-    $sql = " update {$g5['g5_shop_cart_table']}
-                set ct_point_use  = '$point_use',
-                    ct_stock_use  = '$stock_use',
-                    ct_status     = '$ct_status',
-                    ct_history    = CONCAT(ct_history,'$ct_history')
-                where od_id = '$od_id'
-                and ct_id  = '$ct_id' ";
-    sql_query($sql);
+    /* 20241018 리빌더 수정 { */
+    if(isset($pa['pa_is']) && $pa['pa_is'] == 1) {
+
+        $sql = " update {$g5['g5_shop_cart_table']}
+                    set ct_point_use  = '$point_use',
+                        ct_stock_use  = '$stock_use',
+                        ct_status     = '$ct_status',
+                        ct_delivery_company     = '$ct_delivery_company',
+                        ct_invoice     = '$ct_invoice',
+                        ct_invoice_time     = '$ct_invoice_time',
+                        ct_history    = CONCAT(ct_history,'$ct_history')
+                    where od_id = '$od_id'
+                    and ct_id  = '$ct_id' ";
+        sql_query($sql);
+
+    } else {
+        $sql = " update {$g5['g5_shop_cart_table']}
+                    set ct_point_use  = '$point_use',
+                        ct_stock_use  = '$stock_use',
+                        ct_status     = '$ct_status',
+                        ct_history    = CONCAT(ct_history,'$ct_history')
+                    where od_id = '$od_id'
+                    and ct_id  = '$ct_id' ";
+        sql_query($sql);
+    }
+    /* } */
+
+
+
+
 
     // it_id를 배열에 저장
     if($ct_status == '주문' || $ct_status == '취소' || $ct_status == '반품' || $ct_status == '품절' || $ct_status == '완료')

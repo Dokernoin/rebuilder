@@ -51,7 +51,8 @@ $result = sql_query($sql);
             $cp_target = '배송비 할인';
         } else {
             $it = get_shop_item($row['cp_target'], true);
-            $cp_target = $it['it_name'].' 상품할인';
+            //$cp_target = $it['it_name'].' 상품할인';
+            $cp_target = isset($it['it_name']) ? $it['it_name'].' 상품할인' : '상품할인';
         }
 
         if($row['cp_type'])

@@ -88,3 +88,30 @@ if ($config['cf_sms_use']) {
         }
     }
 }
+
+/* 리빌더 20241016 추가 { */
+if($od['mb_id']) {
+    if ($od_sms_ipgum_check) {
+
+        $od_al = "입금확인 안내
+
+입금금액 : ".number_format($od_receipt_price)."원
+주문번호 : ".$od_id;
+
+        //입금발송
+        memo_auto_send($od_al, '', $od['mb_id'], "system-msg");
+    }
+
+    if ($od_sms_baesong_check) {
+
+        $od_al = "주문 상품 배송처리 안내
+
+배송사 : ".$od_delivery_company."
+운송장번호 : ".$od_invoice."
+주문번호 : ".$od_id;
+
+        //배송발송
+        memo_auto_send($od_al, '', $od['mb_id'], "system-msg");
+    }
+}
+/* } */

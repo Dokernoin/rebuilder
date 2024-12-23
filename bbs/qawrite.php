@@ -75,9 +75,9 @@ if(is_file($skin_file)) {
         $content = html_purifier($qaconfig['qa_insert_content']);
     } else if($w == 'r') {
         if($is_dhtml_editor)
-            $content = '<div><br><br><br>====== 이전 답변내용 =======<br></div>';
+            $content = '<div><br><br><br>====== 이전 질문내용 =======<br></div>';
         else
-            $content = "\n\n\n\n====== 이전 답변내용 =======\n";
+            $content = "\n\n\n\n====== 이전 질문내용 =======\n";
 
         // KISA 취약점 권고사항 Stored XSS (210624)
         $content .= get_text(html_purifier($write['qa_content']), 0);

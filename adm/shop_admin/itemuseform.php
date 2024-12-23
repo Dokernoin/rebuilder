@@ -26,7 +26,8 @@ if (!isset($is['is_reply_subject'])) {
                 ", true);
 }
 
-$name = get_sideview($is['mb_id'], get_text($is['is_name']), $is['mb_email'], $is['mb_homepage']);
+//$name = get_sideview($is['mb_id'], get_text($is['is_name']), $is['mb_email'], $is['mb_homepage'])
+$name = get_text($is['is_name']);
 
 // 확인
 $is_confirm_yes  =  $is['is_confirm'] ? 'checked="checked"' : '';

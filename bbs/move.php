@@ -71,8 +71,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         <thead>
         <tr>
             <th scope="col">
-                <label for="chkall" class="sound_only">현재 페이지 게시판 전체</label>
                 <input type="checkbox" id="chkall" onclick="if (this.checked) all_checked(true); else all_checked(false);">
+                <label for="chkall"></label>
             </th>
             <th scope="col">게시판</th>
         </tr>
@@ -87,9 +87,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
             }
         ?>
         <tr class="<?php echo $atc_bg; ?>">
-            <td class="td_chk">
-                <label for="chk<?php echo $i ?>" class="sound_only"><?php echo $list[$i]['bo_table'] ?></label>
+            <td class="text-center">
+
                 <input type="checkbox" value="<?php echo $list[$i]['bo_table'] ?>" id="chk<?php echo $i ?>" name="chk_bo_table[]">
+                <label for="chk<?php echo $i ?>"></label>
             </td>
             <td>
                 <label for="chk<?php echo $i ?>">

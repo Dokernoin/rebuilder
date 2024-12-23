@@ -148,7 +148,7 @@ else // 장바구니에 담기
     $post_io_ids = (isset($_POST['io_id']) && is_array($_POST['io_id'])) ? $_POST['io_id'] : array();
     $post_io_types = (isset($_POST['io_type']) && is_array($_POST['io_type'])) ? $_POST['io_type'] : array();
     $post_ct_qtys = (isset($_POST['ct_qty']) && is_array($_POST['ct_qty'])) ? $_POST['ct_qty'] : array();
-    
+
     if ($count && $sw_direct) {
         // 바로구매에 있던 장바구니 자료를 지운다.
         sql_query(" delete from {$g5['g5_shop_cart_table']} where od_id = '$tmp_cart_id' and ct_direct = 1 ", false);
@@ -184,6 +184,7 @@ else // 장바구니에 담기
         $it = get_shop_item($it_id, false);
         if(!$it['it_id'])
             alert('상품정보가 존재하지 않습니다.');
+
 
         // 최소, 최대 수량 체크
         if($it['it_buy_min_qty'] || $it['it_buy_max_qty']) {
@@ -284,9 +285,18 @@ else // 장바구니에 담기
 
         // 장바구니에 Insert
         $comma = '';
-        $sql = " INSERT INTO {$g5['g5_shop_cart_table']}
+
+        /* 코어수정 리빌더 20241014 { */
+        if(isset($it['it_partner']) && $it['it_partner']) {
+            $sql = " INSERT INTO {$g5['g5_shop_cart_table']}
+                        ( od_id, mb_id, it_id, it_name, it_sc_type, it_sc_method, it_sc_price, it_sc_minimum, it_sc_qty, ct_status, ct_price, ct_point, ct_point_use, ct_stock_use, ct_option, ct_qty, ct_notax, io_id, io_type, io_price, ct_time, ct_ip, ct_send_cost, ct_direct, ct_select, ct_select_time, ct_partner )
+                    VALUES ";
+        } else {
+            $sql = " INSERT INTO {$g5['g5_shop_cart_table']}
                         ( od_id, mb_id, it_id, it_name, it_sc_type, it_sc_method, it_sc_price, it_sc_minimum, it_sc_qty, ct_status, ct_price, ct_point, ct_point_use, ct_stock_use, ct_option, ct_qty, ct_notax, io_id, io_type, io_price, ct_time, ct_ip, ct_send_cost, ct_direct, ct_select, ct_select_time )
                     VALUES ";
+        }
+        /* } */
 
         for($k=0; $k<$opt_count; $k++) {
             $io_id = isset($_POST['io_id'][$it_id][$k]) ? preg_replace(G5_OPTION_ID_FILTER, '', $_POST['io_id'][$it_id][$k]) : '';
@@ -365,7 +375,14 @@ else // 장바구니에 담기
             $io_value = sql_real_escape_string(strip_tags($io_value));
             $remote_addr = get_real_client_ip();
 
-            $sql .= $comma."( '$tmp_cart_id', '{$member['mb_id']}', '{$it['it_id']}', '".addslashes($it['it_name'])."', '{$it['it_sc_type']}', '{$it['it_sc_method']}', '{$it['it_sc_price']}', '{$it['it_sc_minimum']}', '{$it['it_sc_qty']}', '쇼핑', '{$it['it_price']}', '$point', '0', '0', '$io_value', '$ct_qty', '{$it['it_notax']}', '$io_id', '$io_type', '$io_price', '".G5_TIME_YMDHIS."', '$remote_addr', '$ct_send_cost', '$sw_direct', '$ct_select', '$ct_select_time' )";
+            /* 코어수정 리빌더 20241014 { */
+            if(isset($it['it_partner']) && $it['it_partner']) {
+                $sql .= $comma."( '$tmp_cart_id', '{$member['mb_id']}', '{$it['it_id']}', '".addslashes($it['it_name'])."', '{$it['it_sc_type']}', '{$it['it_sc_method']}', '{$it['it_sc_price']}', '{$it['it_sc_minimum']}', '{$it['it_sc_qty']}', '쇼핑', '{$it['it_price']}', '$point', '0', '0', '$io_value', '$ct_qty', '{$it['it_notax']}', '$io_id', '$io_type', '$io_price', '".G5_TIME_YMDHIS."', '$remote_addr', '$ct_send_cost', '$sw_direct', '$ct_select', '$ct_select_time', '{$it['it_partner']}' )";
+            } else {
+                $sql .= $comma."( '$tmp_cart_id', '{$member['mb_id']}', '{$it['it_id']}', '".addslashes($it['it_name'])."', '{$it['it_sc_type']}', '{$it['it_sc_method']}', '{$it['it_sc_price']}', '{$it['it_sc_minimum']}', '{$it['it_sc_qty']}', '쇼핑', '{$it['it_price']}', '$point', '0', '0', '$io_value', '$ct_qty', '{$it['it_notax']}', '$io_id', '$io_type', '$io_price', '".G5_TIME_YMDHIS."', '$remote_addr', '$ct_send_cost', '$sw_direct', '$ct_select', '$ct_select_time' )";
+            }
+            /* } */
+
             $comma = ' , ';
             $ct_count++;
         }

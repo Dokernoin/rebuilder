@@ -36,6 +36,13 @@ $sql = " select * from {$g5['memo_table']}
             and me_{$kind}_mb_id = '{$member['mb_id']}' ";
 $memo = sql_fetch($sql);
 
+$c = sql_fetch (" select COUNT(*) as cnt from {$g5['memo_table']} where me_id = '$me_id' and me_recv_mb_id = '{$member['mb_id']}' ");
+
+if($c['cnt'] < 1) {
+    alert('삭제 되었거나 존재하지 않는 쪽지 입니다.');
+}
+
+
 set_session('ss_memo_delete_token', $token = uniqid(time()));
 $del_link = 'memo_delete.php?me_id='.$memo['me_id'].'&amp;token='.$token.'&amp;kind='.$kind;
 

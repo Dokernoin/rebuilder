@@ -451,6 +451,22 @@ if($config['cf_sms_use'] == 'icode' && $qaconfig['qa_use_sms']) {
     }
 }
 
+
+// 문의글등록 쪽지 발송
+if($w == '' || $w == 'r') {
+    //문의 > 관리자에게 발송
+    memo_auto_send("신규 1:1문의가 등록 되었습니다.", G5_BBS_URL.'/qalist.php', $config['cf_admin'], "system-msg");
+}
+
+
+// 답변 > 문의자에게 발송
+if($w == 'a') {
+    memo_auto_send("1:1문의에 답변이 등록 되었습니다.", G5_BBS_URL.'/qalist.php', $write['mb_id'], "system-msg");
+}
+
+
+
+
 // 답변 이메일전송
 if($w == 'a' && $write['qa_email_recv'] && trim($write['qa_email'])) {
     include_once(G5_LIB_PATH.'/mailer.lib.php');

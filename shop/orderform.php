@@ -46,7 +46,7 @@ else
 
 // 희망배송일 지정
 if ($default['de_hope_date_use']) {
-    include_once(G5_PLUGIN_PATH.'/jquery-ui/datepicker.php');
+    //include_once(G5_PLUGIN_PATH.'/jquery-ui/datepicker.php');
 }
 
 // 기기별 주문폼 include

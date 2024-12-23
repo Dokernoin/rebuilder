@@ -15,88 +15,86 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
     add_javascript('<script src="'.G5_JS_URL.'/certify.js?v='.G5_JS_VER.'"></script>', 15);
 
 $email_msg = $is_exists_email ? '등록할 이메일이 중복되었습니다.다른 이메일을 입력해 주세요.' : ''; 
+
+add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 0);
 ?>
 
-<!-- 회원가입약관 동의 시작 { -->
-<div class="social_register">
-    
-    <form name="fregisterform" id="fregisterform" action="<?php echo $register_action_url; ?>" onsubmit="return fregisterform_submit(this);" method="POST" autocomplete="off">
 
-        <p><i class="fa fa-check-circle" aria-hidden="true"></i> 회원가입약관 및 개인정보 수집 및 이용의 내용에 동의하셔야 회원가입 하실 수 있습니다.</p>
+<style>
+    body, html {background-color: #f9fafb;}
+    main {background-color: #f9fafb;}
+    #container_title {display: none;}
+    #header {display: none;}
+    .contents_wrap {padding: 0px !important;}
+    .sub {padding-top: 0px;}
+</style>
 
-        <section id="fregister_term">
-            <h2>회원가입약관</h2>
-            <textarea readonly><?php echo get_text($config['cf_stipulation']) ?></textarea>
-            <fieldset class="fregister_agree">
-                <input type="checkbox" name="agree" value="1" id="agree11" class="selec_chk">
-                <label for="agree11"><span></span><b class="sound_only">회원가입약관의 내용에 동의합니다.</b></label>
-            </fieldset>
-        </section>
+<div class="rb_member">
+    <div class="rb_login rb_reg rb_join">
 
-        <section id="fregister_private">
-            <h2>개인정보 수집 및 이용</h2>
-            <div>
-                <table>
-                    <caption>개인정보 수집 및 이용</caption>
-                    <thead>
-                        <tr>
-                            <th>목적</th>
-                            <th>항목</th>
-                            <th>보유기간</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>이용자 식별 및 본인여부 확인</td>
-                            <td>아이디, 이름, 비밀번호<?php echo ($config['cf_cert_use']) ? ", 생년월일, 휴대폰 번호(본인인증 할 때만, 아이핀 제외), 암호화된 개인식별부호(CI)" : ""; ?></td>
-                            <td>회원 탈퇴 시까지</td>
-                        </tr>
-                        <tr>
-                            <td>고객서비스 이용에 관한 통지,<br>CS대응을 위한 이용자 식별</td>
-                            <td>연락처 (이메일, 휴대전화번호)</td>
-                            <td>회원 탈퇴 시까지</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <form name="fregisterform" id="fregisterform" action="<?php echo $register_action_url; ?>" onsubmit="return fregisterform_submit(this);" method="POST" autocomplete="off">
+        <ul class="rb_login_box">
 
-            <fieldset class="fregister_agree">
-                <input type="checkbox" name="agree2" value="1" id="agree21" class="selec_chk">
-                <label for="agree21"><span></span><b class="sound_only">개인정보 수집 및 이용의 내용에 동의합니다.</b></label>
-            </fieldset>
-        </section>
+            <li class="rb_login_logo">
+                <?php if (!empty($rb_builder['bu_logo_pc'])) { ?>
+                        <a href="<?php echo G5_URL ?>"><img src="<?php echo G5_URL ?>/data/logos/pc?ver=<?php echo G5_SERVER_TIME ?>" alt="<?php echo $config['cf_title']; ?>" id="logo_img"></a>
+                    <?php } else { ?>
+                        <a href="<?php echo G5_URL ?>"><img src="<?php echo G5_THEME_URL ?>/rb.img/logos/pc.png?ver=<?php echo G5_SERVER_TIME ?>" alt="<?php echo $config['cf_title']; ?>" id="logo_img"></a>
+                    <?php } ?>
+            </li>
+            <li class="rb_reg_sub_title">안녕하세요! <?php echo $config['cf_title'] ?> 에 오신것을 진심으로 환영해요!<br>다양한 이벤트와 풍성한 혜택 받아가세요 :D</li>
 
-        <div id="fregister_chkall" class="chk_all fregister_agree">
-            <input type="checkbox" name="chk_all" id="chk_all" class="selec_chk">
-            <label for="chk_all"><span></span>회원가입 약관에 모두 동의합니다</label>
-        </div>
-        <!-- } 회원가입 약관 동의 끝 -->
 
-        <!-- 새로가입 시작 -->
-        <input type="hidden" name="w" value="<?php echo $w; ?>">
-        <input type="hidden" name="url" value="<?php echo $urlencode; ?>">
-        <input type="hidden" name="provider" value="<?php echo $provider_name; ?>">
-        <input type="hidden" name="action" value="register">
-        <input type="hidden" name="cert_type" value="<?php echo $member['mb_certify']; ?>">
-        <input type="hidden" name="cert_no" value="">
-        <input type="hidden" name="mb_id" value="<?php echo $user_id; ?>" id="reg_mb_id">
-        <?php if ($config["cf_cert_use"]) { ?>
-            <input type="hidden" id="reg_mb_name" name="mb_name" value="<?php echo $user_name ? $user_name : $user_nick ?>">
-        <?php } ?>
-        <?php if ($config['cf_use_hp'] || ($config["cf_cert_use"] && ($config['cf_cert_hp'] || $config['cf_cert_simple']))) {  ?>
-            <input type="hidden" name="mb_hp" value="<?php echo get_text($user_phone); ?>" id="reg_mb_hp">
-            <?php if ($config['cf_cert_use'] && ($config['cf_cert_hp'] || $config['cf_cert_simple'])) { ?>
-                <input type="hidden" name="old_mb_hp" value="<?php echo get_text($user_phone); ?>">
+            <li>
+                <span>회원가입약관</span>
+                <textarea readonly class="textarea"><?php echo get_text($config['cf_stipulation']) ?></textarea>
+                <div class="mt-10">
+                    <input type="checkbox" name="agree" value="1" id="agree11">
+                    <label for="agree11">회원가입약관의 내용에 동의합니다.</label>
+                </div>
+            </li>
+            <li>
+                <span>개인정보 수집 및 이용정책</span>
+                <textarea readonly class="textarea"><?php echo get_text($config['cf_privacy']) ?></textarea>
+                <div class="mt-10">
+                    <input type="checkbox" name="agree2" value="1" id="agree21">
+                    <label for="agree21">개인정보 수집 및 이용정책의 내용에 동의합니다.</label>
+                </div>
+            </li>
+
+            <li>
+                <div id="fregister_chkall" class="chk_all">
+                    <input type="checkbox" name="chk_all" id="chk_all">
+                    <label for="chk_all">회원가입 약관에 모두 동의합니다</label>
+                </div>
+            </li>
+
+
+
+            <!-- 새로가입 시작 -->
+            <input type="hidden" name="w" value="<?php echo $w; ?>">
+            <input type="hidden" name="url" value="<?php echo $urlencode; ?>">
+            <input type="hidden" name="provider" value="<?php echo $provider_name; ?>">
+            <input type="hidden" name="action" value="register">
+            <input type="hidden" name="cert_type" value="<?php echo $member['mb_certify']; ?>">
+            <input type="hidden" name="cert_no" value="">
+            <input type="hidden" name="mb_id" value="<?php echo $user_id; ?>" id="reg_mb_id">
+
+            <?php if ($config["cf_cert_use"]) { ?>
+                <input type="hidden" id="reg_mb_name" name="mb_name" value="<?php echo $user_name ? $user_name : $user_nick ?>">
             <?php } ?>
-        <?php }  ?>
+            <?php if ($config['cf_use_hp'] || ($config["cf_cert_use"] && ($config['cf_cert_hp'] || $config['cf_cert_simple']))) {  ?>
+                <input type="hidden" name="mb_hp" value="<?php echo get_text($user_phone); ?>" id="reg_mb_hp">
+                <?php if ($config['cf_cert_use'] && ($config['cf_cert_hp'] || $config['cf_cert_simple'])) { ?>
+                    <input type="hidden" name="old_mb_hp" value="<?php echo get_text($user_phone); ?>">
+                <?php } ?>
+            <?php }  ?>
 
-        <div id="register_form" class="form_01">
-            <div class="tbl_frm01 tbl_wrap register_form_inner">
-                <h2>개인정보 입력</h2>
-                <ul>
-                    <li>
-                        <?php 
-                        if ($config['cf_cert_use']) {
+
+            <?php if ($config['cf_cert_use']) { ?>
+            <li>
+                   <span>본인확인</span>
+                    <?php
                             if ($config['cf_cert_simple']) {
                                 echo '<button type="button" id="win_sa_kakao_cert" class="btn_frmline win_sa_cert" data-type="">간편인증</button>'.PHP_EOL;
                             }
@@ -105,58 +103,68 @@ $email_msg = $is_exists_email ? '등록할 이메일이 중복되었습니다.�
                             if ($config['cf_cert_ipin'])
                                 echo '<button type="button" id="win_ipin_cert" class="btn_frmline">아이핀 본인확인</button>' . PHP_EOL;
 
-                            echo '<span class="cert_req">(필수)</span>';
-                            echo '<noscript>본인확인을 위해서는 자바스크립트 사용이 가능해야합니다.</noscript>' . PHP_EOL;
-                        }
                         ?>
-                    </li>
-                    <?php if ($req_nick) {  ?>
-                        <li>
-                            <label for="reg_mb_nick">
-                                닉네임 (필수)
-                                <button type="button" class="tooltip_icon"><i class="fa fa-question-circle-o" aria-hidden="true"></i><span class="sound_only">설명보기</span></button>
-                                <span class="tooltip">공백없이 한글,영문,숫자만 입력 가능 (한글2자, 영문4자 이상)<br> 닉네임을 바꾸시면 앞으로 <?php echo (int)$config['cf_nick_modify'] ?>일 이내에는 변경 할 수 없습니다.</span>
-                            </label>
 
-                            <input type="hidden" name="mb_nick_default" value="<?php echo isset($user_nick) ? get_text($user_nick) : ''; ?>">
-                            <input type="text" name="mb_nick" value="<?php echo isset($user_nick) ? get_text($user_nick) : ''; ?>" id="reg_mb_nick" required class="frm_input required nospace full_input" size="10" maxlength="20" placeholder="닉네임">
-                            <span id="msg_mb_nick"></span>
-                        </li>
-                    <?php }  ?>
-                    <li>
-                        <label for="reg_mb_email">E-mail (필수)
+            </li>
+            <?php } ?>
 
-                            <?php if ($config['cf_use_email_certify']) {  ?>
-                                <button type="button" class="tooltip_icon"><i class="fa fa-question-circle-o" aria-hidden="true"></i><span class="sound_only">설명보기</span></button>
-                                <span class="tooltip">
-                                    <?php if ($w == '') {
-                                        echo "E-mail 로 발송된 내용을 확인한 후 인증하셔야 회원가입이 완료됩니다.";
-                                    }  ?>
-                                    <?php if ($w == 'u') {
-                                        echo "E-mail 주소를 변경하시면 다시 인증하셔야 합니다.";
-                                    }  ?>
-                                </span>
-                            <?php }  ?>
-                        </label>
-                        <input type="hidden" name="old_email" value="<?php echo $member['mb_email'] ?>">
-                        <input type="text" name="mb_email" value="<?php echo isset($user_email) ? $user_email : ''; ?>" id="reg_mb_email" required <?php echo (isset($user_email) && $user_email != '' && !$is_exists_email)? "readonly":''; ?> class="frm_input email full_input required" size="70" maxlength="100" placeholder="E-mail">
-                        <div class="check"><?php echo $email_msg; ?></div>
-                    </li>
-                </ul>
+            <?php if ($req_nick) {  ?>
+            <li>
+                <span>닉네임</span>
+                <input type="hidden" name="mb_nick_default" value="<?php echo isset($user_nick) ? get_text($user_nick) : ''; ?>">
+                <input type="text" name="mb_nick" value="<?php echo isset($user_nick) ? get_text($user_nick) : ''; ?>" id="reg_mb_nick" required class="input required nospace full_input" maxlength="20" placeholder="닉네임">
+            </li>
+            <?php }  ?>
+
+            <li>
+                <span>이메일</span>
+                <input type="hidden" name="old_email" value="<?php echo $member['mb_email'] ?>">
+	            <input type="text" name="mb_email" value="<?php echo isset($user_email) ? $user_email : ''; ?>" id="reg_mb_email" required <?php echo (isset($user_email) && $user_email != '' && !$is_exists_email)? "readonly":''; ?> class="input email full_input required" maxlength="100" placeholder="이메일">
+                <?php if ($config['cf_use_email_certify']) { ?>
+                    <?php if ($w=='') { echo "<span class='help_text'>이메일 로 발송된 내용을 확인한 후 인증하셔야 회원가입이 완료됩니다.</span>"; }  ?>
+                    <?php if ($w=='u') { echo "<span class='help_text'>이메일을 변경하시면 다시 인증하셔야 합니다.</span>"; }  ?>
+                <?php } ?>
+            </li>
+
+
+
+
+
+
+
+
+
+            <li>
+            <div class="btn_confirm">
+                <button type="submit" class="btn_submit font-B" accesskey="s"><?php echo $w == '' ? '회원가입' : '정보수정'; ?></button>
             </div>
-        </div>
+            </li>
 
-        <div class="btn_confirm">
-            <a href="<?php echo G5_URL ?>" class="btn_close">취소</a>
-            <button type="submit" id="btn_submit" class="btn_submit" accesskey="s"><?php echo $w == '' ? '회원가입' : '정보수정'; ?></button>
-        </div>
 
-    </form>
 
+
+            <li class="join_links">
+                나중에 가입할래요.　<a href="<?php echo G5_URL ?>" class="font-B">회원가입 취소</a>
+            </li>
+
+        </ul>
+        </form>
+
+    </div>
 </div>
 
 
-<!-- 기존 계정 연결 -->
+
+
+
+
+
+
+
+
+
+
+<!--
 
 <div class="member_connect">
     <p class="strong">혹시 기존 회원이신가요?</p>
@@ -196,6 +204,8 @@ $email_msg = $is_exists_email ? '등록할 이메일이 중복되었습니다.�
         </form>
     </div>
 </div>
+
+-->
 
 <script>
     $(function() {

@@ -6,7 +6,7 @@ require_once(G5_SHOP_PATH.'/settle_'.$default['de_pg_service'].'.inc.php');
 // 결제대행사별 코드 include (스크립트 등)
 require_once(G5_SHOP_PATH.'/'.$default['de_pg_service'].'/orderform.1.php');
 ?>
-
+<div class="personal_pay_wrap">
 <form name="forderform" id="forderform" method="post" action="<?php echo $order_action_url; ?>" autocomplete="off">
 <input type="hidden" name="pp_id" value="<?php echo $pp['pp_id']; ?>">
 
@@ -138,7 +138,9 @@ require_once(G5_SHOP_PATH.'/'.$default['de_pg_service'].'/orderform.1.php');
         }
         ?>
     </div>
+    <div class="cb"></div>
 </form>
+</div>
 
 <script>
 function forderform_check(f)

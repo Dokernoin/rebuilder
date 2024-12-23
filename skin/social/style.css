@@ -49,7 +49,7 @@
 
 /* SNS by COLOR */
 .sns-wrap-over .sns-naver {background:url('./img/sns_naver_s.png') no-repeat}
-.sns-wrap-over .sns-google {}
+.sns-wrap-over .sns-google {background:url('./img/sns_gp_s.png') no-repeat}
 .sns-wrap-over .sns-facebook {background:url('./img/sns_fb_s.png') no-repeat}
 .sns-wrap-over .sns-twitter {background:url('./img/sns_twitter_s.png') no-repeat}
 .sns-wrap-over .sns-payco {background:url('./img/sns_payco_s.png') no-repeat}
@@ -72,8 +72,7 @@
 #sns_login .sns-kakao {background-color:#ffeb00;background-position:5px 5px;border-bottom:1px solid #e2c10a}
 #sns_login .sns-kakao {color:#3c1e1e}
 #sns_login .sns-facebook {background-color:#3b579d;background-position:5px 5px;border-bottom:1px solid #28458f}
-#sns_login .sns-google {background-color:#4285F4;background-position:5px 5px;border-bottom:1px solid #3567c6;letter-spacing:-0.5px}
-#sns_login .sns-google .ico {position:absolute;top:3px;left:3px;width:33px;height:33px;background:url('./img/sns_gp_s.png') no-repeat center center;background-color:#fff;background-size:28px 28px!important;border-radius:2px}
+#sns_login .sns-google {background-color:#eee;background-position:5px 5px;border-bottom:1px solid #eee;letter-spacing:-0.5px}
 #sns_login .sns-twitter {background-color:#1ea1f2;background-position:5px 5px;border-bottom:1px solid #1e82c0}
 #sns_login .sns-payco {background-color:#df0b00;background-position:5px 5px;border-bottom:1px solid #9d0800}
 #sns_login .txt {text-align:left;padding-left:10px;border-left:1px solid rgba(0,0,0,0.1);display:block;font-weight:bold}
@@ -89,8 +88,7 @@
 #sns_register .sns-naver {background-color:#1fc800;background-position:0 0}
 #sns_register .sns-kakao {background-color:#ffeb00;background-position:0 0}
 #sns_register .sns-facebook {background-color:#3b579d;background-position:0 0}
-#sns_register .sns-google {background-color:#fff;background-position:0 0;border-radius:2px;border:1px solid #999}
-#sns_register .sns-google .ico {background:url('./img/sns_gp_s.png') no-repeat;height:30px}
+#sns_register .sns-google {background-color:#eee;background-position:0 0;border-radius:2px;border:1px solid #eee}
 #sns_register .sns-twitter {background-color:#1ea1f2;background-position:0 0}
 #sns_register .sns-payco {background-color:#df0b00;background-position:0 0}
 #sns_register .txt {position:absolute;line-height:0;font-size:0;vertical-align:middle;overflow:hidden}

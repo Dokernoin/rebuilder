@@ -14,7 +14,8 @@ $sql = " select *
 $iq = sql_fetch($sql);
 if (! (isset($iq['iq_id']) && $iq['iq_id'])) alert('등록된 자료가 없습니다.');
 
-$name = get_sideview($iq['mb_id'], get_text($iq['iq_name']), $iq['mb_email'], $iq['mb_homepage']);
+//$name = get_sideview($iq['mb_id'], get_text($iq['iq_name']), $iq['mb_email'], $iq['mb_homepage']);
+$name = get_text($iq['iq_name']);
 
 $g5['title'] = '상품문의';
 include_once (G5_ADMIN_PATH.'/admin.head.php');

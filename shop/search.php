@@ -23,7 +23,8 @@ $search_all = true;
 if (isset($_GET['qname']) || isset($_GET['qexplan']) || isset($_GET['qid']) || isset($_GET['qbasic']))
     $search_all = false;
 
-$q       = utf8_strcut(get_search_string(trim($_GET['q'])), 30, "");
+//$q       = utf8_strcut(get_search_string(trim($_GET['q'])), 30, "");
+$q = isset($_GET['q']) ? utf8_strcut(get_search_string(trim($_GET['q'])), 30, "") : '';
 $qname   = isset($_GET['qname']) ? trim(clean_xss_tags($_GET['qname'])) : '';
 $qexplan = isset($_GET['qexplan']) ? trim(clean_xss_tags($_GET['qexplan'])) : '';
 $qid     = isset($_GET['qid']) ? trim(clean_xss_tags($_GET['qid'])) : '';

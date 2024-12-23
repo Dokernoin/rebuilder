@@ -116,7 +116,11 @@ if ($od['od_pg'] === 'nicepay' && $od['od_settle_case'] === '가상계좌' && $o
 // add_javascript('js 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
 ?>
-
+<style>
+    #sodr_qty_log {padding-left: 0px; padding-right: 0px;}
+    .od_test_caution {border-radius: 0px;}
+    strong.sodr_nonpay {border-radius: 0px;}
+</style>
 <section id="anc_sodr_list">
     <h2 class="h2_frm">주문상품 목록</h2>
     <?php echo $pg_anchor; ?>
@@ -165,6 +169,15 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
             <th scope="col">배송비</th>
             <th scope="col">포인트반영</th>
             <th scope="col">재고반영</th>
+
+            <!-- 20241018 리빌더 추가 { -->
+            <?php if(isset($pa['pa_is']) && $pa['pa_is'] == 1) { ?>
+            <th scope="col">운송장번호</th>
+            <th scope="col">배송사</th>
+            <th scope="col">배송일시</th>
+            <?php } ?>
+            <!-- } -->
+
         </tr>
         </thead>
         <tbody>
@@ -175,12 +188,21 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
             $image = get_it_image($row['it_id'], 50, 50);
 
             // 상품의 옵션정보
-            $sql = " select ct_id, it_id, ct_price, ct_point, ct_qty, ct_option, ct_status, cp_price, ct_stock_use, ct_point_use, ct_send_cost, io_type, io_price
+            if(isset($pa['pa_is']) && $pa['pa_is'] == 1) {
+                $sql = " select ct_id, it_id, ct_price, ct_point, ct_qty, ct_option, ct_status, cp_price, ct_stock_use, ct_point_use, ct_send_cost, io_type, io_price, ct_delivery_company, ct_invoice, ct_invoice_time
                         from {$g5['g5_shop_cart_table']}
                         where od_id = '{$od['od_id']}'
                           and it_id = '{$row['it_id']}'
                         order by io_type asc, ct_id asc ";
-            $res = sql_query($sql);
+                $res = sql_query($sql);
+            } else {
+                $sql = " select ct_id, it_id, ct_price, ct_point, ct_qty, ct_option, ct_status, cp_price, ct_stock_use, ct_point_use, ct_send_cost, io_type, io_price
+                        from {$g5['g5_shop_cart_table']}
+                        where od_id = '{$od['od_id']}'
+                          and it_id = '{$row['it_id']}'
+                        order by io_type asc, ct_id asc ";
+                $res = sql_query($sql);
+            }
             $rowspan = sql_num_rows($res);
 
             // 합계금액 계산
@@ -252,6 +274,44 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
                 <td class="td_sendcost_by"><?php echo $ct_send_cost; ?></td>
                 <td class="td_mngsmall"><?php echo get_yn($opt['ct_point_use']); ?></td>
                 <td class="td_mngsmall"><?php echo get_yn($opt['ct_stock_use']); ?></td>
+
+                <!-- 20241018 리빌더 추가 { -->
+                <?php if(isset($pa['pa_is']) && $pa['pa_is'] == 1) { ?>
+                <td class=""><input type="text" name="ct_invoice[<?php echo $chk_cnt; ?>]" value="<?php echo $opt['ct_invoice']; ?>" id="ct_invoice_<?php echo $chk_cnt; ?>" class="frm_input"></td>
+
+                <td class="">
+                    <input type="text" name="ct_delivery_company[<?php echo $chk_cnt; ?>]" id="ct_delivery_company_<?php echo $chk_cnt; ?>" value="<?php echo $opt['ct_delivery_company']; ?>" class="frm_input" style="width:60%;">
+
+                    <input type="checkbox" id="ct_delivery_chk_<?php echo $chk_cnt; ?>" value="<?php echo $default['de_delivery_company']; ?>" onclick="chk_delivery_company_<?php echo $chk_cnt; ?>()">
+                    <label for="ct_delivery_chk_<?php echo $chk_cnt; ?>">기본</label>
+
+                    <script>
+                    function chk_delivery_company_<?php echo $chk_cnt; ?>()
+                    {
+                        var chk_<?php echo $chk_cnt; ?> = document.getElementById("ct_delivery_chk_<?php echo $chk_cnt; ?>");
+                        var company_<?php echo $chk_cnt; ?> = document.getElementById("ct_delivery_company_<?php echo $chk_cnt; ?>");
+                        company_<?php echo $chk_cnt; ?>.value = chk_<?php echo $chk_cnt; ?>.checked ? chk_<?php echo $chk_cnt; ?>.value : company_<?php echo $chk_cnt; ?>.defaultValue;
+                    }
+                    </script>
+                </td>
+
+                <td class="">
+                    <input type="text" name="ct_invoice_time[<?php echo $chk_cnt; ?>]" id="ct_invoice_time_<?php echo $chk_cnt; ?>" value="<?php echo is_null_time($opt['ct_invoice_time']) ? "" : $opt['ct_invoice_time']; ?>" class="frm_input" maxlength="19" style="width:60%;">
+                    <input type="checkbox" id="ct_invoice_chk_<?php echo $chk_cnt; ?>" value="<?php echo date("Y-m-d H:i:s", G5_SERVER_TIME); ?>" onclick="chk_invoice_time_<?php echo $chk_cnt; ?>()">
+                    <label for="ct_invoice_chk_<?php echo $chk_cnt; ?>">현재</label>
+
+                    <script>
+                    function chk_invoice_time_<?php echo $chk_cnt; ?>()
+                    {
+                        var chk_<?php echo $chk_cnt; ?> = document.getElementById("ct_invoice_chk_<?php echo $chk_cnt; ?>");
+                        var time_<?php echo $chk_cnt; ?> = document.getElementById("ct_invoice_time_<?php echo $chk_cnt; ?>");
+                        time_<?php echo $chk_cnt; ?>.value = chk_<?php echo $chk_cnt; ?>.checked ? chk_<?php echo $chk_cnt; ?>.value : time_<?php echo $chk_cnt; ?>.defaultValue;
+                    }
+                    </script>
+                </td>
+                <?php } ?>
+                <!-- } -->
+
             </tr>
             <?php
                 $chk_cnt++;
@@ -510,10 +570,10 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
                         if ($od['od_settle_case'] != '무통장') {
                             switch($od['od_pg']) {
                                 case 'lg':
-                                    $pg_url  = 'http://pgweb.tosspayments.com';
+                                    $pg_url  = 'http://pgweb.uplus.co.kr';
                                     $pg_test = '토스페이먼츠';
                                     if ($default['de_card_test']) {
-                                        $pg_url = 'http://pgweb.tosspayments.com/tmert';
+                                        $pg_url = 'http://pgweb.uplus.co.kr/tmert';
                                         $pg_test .= ' 테스트 ';
                                     }
                                     break;
@@ -575,20 +635,28 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
                     <th scope="row">결제취소/환불액</th>
                     <td><?php echo display_price($od['od_refund_price']); ?></td>
                 </tr>
-                <?php if ($od['od_invoice']) { ?>
-                <tr>
-                    <th scope="row">배송회사</th>
-                    <td><?php echo $od['od_delivery_company']; ?> <?php echo get_delivery_inquiry($od['od_delivery_company'], $od['od_invoice'], 'dvr_link'); ?></td>
-                </tr>
-                <tr>
-                    <th scope="row">운송장번호</th>
-                    <td><?php echo $od['od_invoice']; ?></td>
-                </tr>
-                <tr>
-                    <th scope="row">배송일시</th>
-                    <td><?php echo is_null_time($od['od_invoice_time']) ? "" : $od['od_invoice_time']; ?></td>
-                </tr>
+
+                <!-- 20241018 리빌더 수정 { -->
+                <?php if(isset($pa['pa_is']) && $pa['pa_is'] == 1) { ?>
+                    <?php } else { ?>
+                    <?php if ($od['od_invoice']) { ?>
+                    <tr>
+                        <th scope="row">배송회사</th>
+                        <td><?php echo $od['od_delivery_company']; ?> <?php echo get_delivery_inquiry($od['od_delivery_company'], $od['od_invoice'], 'dvr_link'); ?></td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">운송장번호</th>
+                        <td><?php echo $od['od_invoice']; ?></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">배송일시</th>
+                        <td><?php echo is_null_time($od['od_invoice_time']) ? "" : $od['od_invoice_time']; ?></td>
+                    </tr>
+                    <?php } ?>
                 <?php } ?>
+                <!-- } -->
+
                 <tr>
                     <th scope="row"><label for="od_send_cost">배송비</label></th>
                     <td>
@@ -714,11 +782,11 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
                 <tr>
                     <th scope="row"><label for="od_deposit_name">입금자명</label></th>
                     <td>
-                        <?php if ($config['cf_sms_use'] && $default['de_sms_use4']) { ?>
+
                         <input type="checkbox" name="od_sms_ipgum_check" id="od_sms_ipgum_check">
-                        <label for="od_sms_ipgum_check">SMS 입금 문자전송</label>
+                        <label for="od_sms_ipgum_check">SMS 입금 문자 및 알림전송</label>
                         <br>
-                        <?php } ?>
+
                         <input type="text" name="od_deposit_name" value="<?php echo get_text($od['od_deposit_name']); ?>" id="od_deposit_name" class="frm_input">
                     </td>
                 </tr>
@@ -818,14 +886,20 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
                         <input type="text" name="od_refund_price" value="<?php echo $od['od_refund_price']; ?>" id="od_refund_price" class="frm_input" size="10"> 원
                     </td>
                 </tr>
+
+
+                <!-- 20241018 리빌더 수정 { -->
+                <?php if(isset($pa['pa_is']) && $pa['pa_is'] == 1) { ?>
+
+                <?php } else { ?>
                 <tr>
                     <th scope="row"><label for="od_invoice">운송장번호</label></th>
                     <td>
-                        <?php if ($config['cf_sms_use'] && $default['de_sms_use5']) { ?>
+
                         <input type="checkbox" name="od_sms_baesong_check" id="od_sms_baesong_check">
-                        <label for="od_sms_baesong_check">SMS 배송 문자전송</label>
+                        <label for="od_sms_baesong_check">SMS 배송 문자 및 알림전송</label>
                         <br>
-                        <?php } ?>
+
                         <input type="text" name="od_invoice" value="<?php echo $od['od_invoice']; ?>" id="od_invoice" class="frm_input">
                     </td>
                 </tr>
@@ -847,14 +921,19 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
                 </tr>
 
                 <?php if ($config['cf_email_use']) { ?>
-                <tr>
-                    <th scope="row"><label for="od_send_mail">메일발송</label></th>
-                    <td>
-                        <?php echo help("주문자님께 입금, 배송내역을 메일로 발송합니다.\n메일발송시 상점메모에 기록됩니다."); ?>
-                        <input type="checkbox" name="od_send_mail" value="1" id="od_send_mail"> 메일발송
-                    </td>
-                </tr>
+                    <tr>
+                        <th scope="row"><label for="od_send_mail">메일발송</label></th>
+                        <td>
+                            <?php echo help("주문자님께 입금, 배송내역을 메일로 발송합니다.\n메일발송시 상점메모에 기록됩니다."); ?>
+                            <input type="checkbox" name="od_send_mail" value="1" id="od_send_mail"> 메일발송
+                        </td>
+                    </tr>
                 <?php } ?>
+
+                <?php } ?>
+
+
+                <!-- } -->
 
                 </tbody>
                 </table>

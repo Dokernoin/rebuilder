@@ -95,9 +95,9 @@ ob_start();
 
             $a1 = '<strong>';
             $a2 = '</strong>';
-            $image_width = 80;
-            $image_height = 80;
-            $image = get_it_image($row['it_id'], $image_width, $image_height);
+            $image_width = 60;
+            $image_height = 60;
+            $image = rb_it_image($row['it_id'], $image_width, $image_height);
 
             $it_name = $a1 . stripslashes($row['it_name']) . $a2;
             $it_options = print_item_options($row['it_id'], $s_cart_id);
@@ -235,7 +235,7 @@ ob_start();
             <dd class="sod_bsk_dvr"><strong><?php echo number_format($send_cost); ?> 원</strong></dd>
 
             <dt class="sod_bsk_point">포인트</dt>
-            <dd class="sod_bsk_point"><strong><?php echo number_format($tot_point); ?> 점</strong></dd>
+            <dd class="sod_bsk_point"><strong><?php echo number_format($tot_point); ?> P</strong></dd>
             <dt class="sod_bsk_cnt">총계</dt>
             <dd class="sod_bsk_cnt">
                 <?php $tot_price = $tot_sell_price + $send_cost; // 총계 = 주문상품금액합계 + 배송비 ?>
@@ -303,30 +303,30 @@ if($is_kakaopay_use) {
 
                 <li>
                     <label for="od_tel">전화번호<strong class="sound_only"> 필수</strong></label>
-                    <input type="text" name="od_tel" value="<?php echo get_text($member['mb_tel']); ?>" id="od_tel" required class="frm_input required" maxlength="20">
+                    <input type="text" name="od_tel" value="<?php echo get_text($member['mb_tel']); ?>" id="od_tel" class="frm_input" maxlength="20">
                 </li>
                 <li>
-                    <label for="od_hp">핸드폰</label>
-                    <input type="text" name="od_hp" value="<?php echo get_text($member['mb_hp']); ?>" id="od_hp" class="frm_input" maxlength="20">
+                    <label for="od_hp">휴대전화</label>
+                    <input type="text" name="od_hp" value="<?php echo get_text($member['mb_hp']); ?>" id="od_hp" required class="frm_input required" maxlength="20">
                 </li>
                 <li>
-                    <strong>주소</strong>
+                    <label for="od_b_addr">주소<strong class="sound_only"> 필수</strong></label>
                     
                     <span class="add_num"><label for="od_zip" class="sound_only">우편번호<strong class="sound_only"> 필수</strong></label>
-                    <input type="text" name="od_zip" value="<?php echo $member['mb_zip1'].$member['mb_zip2']; ?>" id="od_zip" required class="frm_input required" size="5" maxlength="6">
+                    <input type="text" name="od_zip" value="<?php echo $member['mb_zip1'].$member['mb_zip2']; ?>" id="od_zip" required class="frm_input required" size="5" maxlength="6" placeholder="우편번호">
                     <button type="button" class="btn_frmline btn_addsch" onclick="win_zip('forderform', 'od_zip', 'od_addr1', 'od_addr2', 'od_addr3', 'od_addr_jibeon');">주소검색</button></span>
                     <label for="od_addr1" class="sound_only">기본주소<strong class="sound_only"> 필수</strong></label>
-                    <input type="text" name="od_addr1" value="<?php echo get_text($member['mb_addr1']) ?>" id="od_addr1" required class="frm_input frm_address required">
+                    <input type="text" name="od_addr1" value="<?php echo get_text($member['mb_addr1']) ?>" id="od_addr1" required class="frm_input frm_address required" placeholder="기본주소">
                     <label for="od_addr2" class="sound_only">상세주소</label>
-                    <input type="text" name="od_addr2" value="<?php echo get_text($member['mb_addr2']) ?>" id="od_addr2" class="frm_input frm_address">
+                    <input type="text" name="od_addr2" value="<?php echo get_text($member['mb_addr2']) ?>" id="od_addr2" class="frm_input frm_address" placeholder="상세주소">
                     <label for="od_addr3" class="sound_only">참고항목</label>
-                    <input type="text" name="od_addr3" value="<?php echo get_text($member['mb_addr3']) ?>" id="od_addr3" class="frm_input frm_address" readonly="readonly">
+                    <input type="text" name="od_addr3" value="<?php echo get_text($member['mb_addr3']) ?>" id="od_addr3" class="frm_input frm_address" readonly="readonly" placeholder="참고항목">
                     <input type="hidden" name="od_addr_jibeon" value="<?php echo get_text($member['mb_addr_jibeon']); ?>"><br>
                     
                 </li>
                 <li>
                     <label for="od_email">E-mail<strong class="sound_only"> 필수</strong></label>
-                    <input type="email" name="od_email" value="<?php echo $member['mb_email']; ?>" id="od_email" required class="frm_input required" maxlength="100">
+                    <input type="text" name="od_email" value="<?php echo $member['mb_email']; ?>" id="od_email" required class="frm_input required" maxlength="100">
                 </li>
 
                 <?php if ($default['de_hope_date_use']) { // 배송희망일 사용 ?>
@@ -421,14 +421,14 @@ if($is_kakaopay_use) {
                 </li>
                 <li>
                     <label for="od_b_tel">전화번호<strong class="sound_only"> 필수</strong></label>
-                    <input type="text" name="od_b_tel" id="od_b_tel" required class="frm_input required" maxlength="20">
+                    <input type="text" name="od_b_tel" id="od_b_tel" class="frm_input" maxlength="20">
                 </li>
                 <li>
-                    <label for="od_b_hp">핸드폰</label>
-                    <input type="text" name="od_b_hp" id="od_b_hp" class="frm_input" maxlength="20">
+                    <label for="od_b_hp">휴대전화</label>
+                    <input type="text" name="od_b_hp" id="od_b_hp" class="frm_input required" required maxlength="20">
                 </li>
                 <li>
-                    <strong>주소</strong>
+                    <label for="od_b_addr">주소<strong class="sound_only"> 필수</strong></label>
                     <label for="od_b_zip" class="sound_only">우편번호<strong class="sound_only"> 필수</strong></label>
                     <span class="add_num"><input type="text" name="od_b_zip" id="od_b_zip" required class="frm_input required" size="5" maxlength="6">
                     <button type="button" class="btn_frmline  btn_addsch" onclick="win_zip('forderform', 'od_b_zip', 'od_b_addr1', 'od_b_addr2', 'od_b_addr3', 'od_b_addr_jibeon');">주소 검색</button></span>
@@ -531,7 +531,7 @@ if($is_kakaopay_use) {
             </tr>
              <tr>
                 <th>추가배송비</th>
-                <td><span id="od_send_cost2">0</span>원 (지역에 따라 추가되는 도선료 등의 배송비입니다.)</td>
+                <td><span id="od_send_cost2">0</span>원</td>
             </tr>
             </tbody>
             </table>
@@ -1606,7 +1606,7 @@ function orderfield_check(f)
         if( (f.od_pwd.value.length<3) || (f.od_pwd.value.search(/([^A-Za-z0-9]+)/)!=-1) )
             error_field(f.od_pwd, "회원이 아니신 경우 주문서 조회시 필요한 비밀번호를 3자리 이상 입력해 주십시오.");
     }
-    check_field(f.od_tel, "주문하시는 분 전화번호를 입력하십시오.");
+    check_field(f.od_hp, "주문하시는 분 휴대전화 번호를 입력하십시오.");
     check_field(f.od_addr1, "주소검색을 이용하여 주문하시는 분 주소를 입력하십시오.");
     //check_field(f.od_addr2, " 주문하시는 분의 상세주소를 입력하십시오.");
     check_field(f.od_zip, "");
@@ -1623,7 +1623,7 @@ function orderfield_check(f)
     }
 
     check_field(f.od_b_name, "받으시는 분 이름을 입력하십시오.");
-    check_field(f.od_b_tel, "받으시는 분 전화번호를 입력하십시오.");
+    check_field(f.od_b_hp, "받으시는 분 휴대전화 번호를 입력하십시오.");
     check_field(f.od_b_addr1, "주소검색을 이용하여 받으시는 분 주소를 입력하십시오.");
     //check_field(f.od_b_addr2, "받으시는 분의 상세주소를 입력하십시오.");
     check_field(f.od_b_zip, "");
