@@ -1,0 +1,56 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" width="150px" height="150px" viewBox="0 0 150 150">
+<defs>
+<g id="Mask____1_0_2_MASK_0_FILL">
+<path fill="#FFFFFF" stroke="none" d="
+M 150 75
+Q 150 43.9 128.05 21.95 106.05 0 75 0 43.95 0 21.95 21.95 0 43.9 0 75 0 106.05 21.95 128 43.95 150 75 150 106.05 150 128.05 128 150 106.05 150 75 Z"/>
+</g>
+
+<g id="___1_0_Layer2_0_FILL">
+<path fill="#F1F1F1" stroke="none" d="
+M 150 75
+Q 150 43.9 128.05 21.95 106.05 0 75 0 43.95 0 21.95 21.95 0 43.9 0 75 0 106.05 21.95 128 43.95 150 75 150 106.05 150 128.05 128 150 106.05 150 75 Z"/>
+</g>
+
+<path id="___2_0_Layer0_0_1_STROKES" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" fill="none" d="
+M 8.95 11.9
+Q 10.2 13.6 12.2 13.9 14.25 14.2 15.9 12.95
+L 19.45 9.45
+Q 20.9 8 20.9 5.9 20.85 3.85 19.35 2.4 17.9 1 15.9 1 13.85 1 12.4 2.4
+L 10.7 4.1"/>
+
+<path id="___2_0_Layer0_1_1_STROKES" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" fill="none" d="
+M 12.95 9.9
+Q 11.7 8.25 9.65 7.95 7.6 7.65 5.95 8.9
+L 2.4 12.4
+Q 0.95 13.85 0.95 15.95 1 18.05 2.5 19.45 3.95 20.9 6 20.9 8 20.9 9.45 19.45
+L 11.15 17.75"/>
+</defs>
+
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<mask id="Mask_Mask_1">
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#Mask____1_0_2_MASK_0_FILL"/>
+</g>
+</mask>
+
+<g mask="url(#Mask_Mask_1)">
+<g transform="matrix( 0.9999847412109375, 0, 0, 1, 0,0) ">
+<use xlink:href="#___1_0_Layer2_0_FILL"/>
+</g>
+</g>
+
+<g mask="url(#Mask_Mask_1)">
+<g transform="matrix( 3.79974365234375, 0, 0, 3.7999267578125, 37.05,37) ">
+<g transform="matrix( 1, 0, 0, 1, -0.95,-1) ">
+<use xlink:href="#___2_0_Layer0_0_1_STROKES"/>
+</g>
+
+<g transform="matrix( 1, 0, 0, 1, -0.95,-1) ">
+<use xlink:href="#___2_0_Layer0_1_1_STROKES"/>
+</g>
+</g>
+</g>
+</g>
+</svg>

@@ -1,0 +1,74 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" width="150px" height="150px" viewBox="0 0 150 150">
+<defs>
+<g id="Mask____1_0_1_MASK_0_FILL">
+<path fill="#FFFFFF" stroke="none" d="
+M 150 75
+Q 150 43.9 128.05 21.95 106.05 0 75 0 43.95 0 21.95 21.95 0 43.9 0 75 0 106.05 21.95 128 43.95 150 75 150 106.05 150 128.05 128 150 106.05 150 75 Z"/>
+</g>
+
+<g id="Mask_kakao_story_svg____Layer_1__Clip_Group__0_2_MASK_0_FILL">
+<path fill="#FFFFFF" stroke="none" d="
+M 191 190
+L 191 0 0 0 0 190 191 190 Z"/>
+</g>
+
+<g id="kakao_story_svg____Layer_1__Clip_Group__0_Layer2_0_MEMBER_0_FILL">
+<path fill="#F3D60A" stroke="none" d="
+M 184.95 4.45
+Q 180.5 0 174.3 0
+L 16.1 0
+Q 9.85 0 5.4 4.45 1 8.9 1 15.15
+L 1 174.2
+Q 1 180.5 5.4 184.95 9.85 189.35 16.1 189.35
+L 174.3 189.35
+Q 180.55 189.35 184.95 184.95 189.35 180.5 189.35 174.2
+L 189.35 15.15
+Q 189.35 8.9 184.95 4.45 Z"/>
+</g>
+
+<g id="kakao_story_svg____Layer_1__Clip_Group__0_Layer2_0_MEMBER_1_FILL">
+<path fill="#FFFFFF" stroke="none" d="
+M 130.5 44.8
+Q 128.7 43 126.2 43
+L 76.05 43
+Q 73.55 43 71.75 44.8 70 46.6 70 49.1
+L 70 98.9
+Q 70 101.4 71.75 103.2 73.55 104.95 76.05 104.95
+L 99.15 104.95
+Q 98.95 113.4 92.95 123 90.4 127.05 85.1 132.25 82.45 134.85 80.25 136.65 79.1 137.7 79.1 139.05 79.1 139.85 79.95 141.1
+L 96.05 159.25 96.55 159.65
+Q 97.1 160.1 97.5 160.2 98.85 160.6 99.6 159.95 130.35 136.3 132.25 96.95
+L 132.25 49.1
+Q 132.3 46.6 130.5 44.8 Z"/>
+</g>
+</defs>
+
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<mask id="Mask_Mask_1">
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#Mask____1_0_1_MASK_0_FILL"/>
+</g>
+</mask>
+
+<g mask="url(#Mask_Mask_1)">
+<g transform="matrix( 0.8494720458984375, 0, 0, 0.845001220703125, -10,-5) ">
+<mask id="Mask_Mask_2">
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#Mask_kakao_story_svg____Layer_1__Clip_Group__0_2_MASK_0_FILL"/>
+</g>
+</mask>
+
+<g mask="url(#Mask_Mask_2)">
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#kakao_story_svg____Layer_1__Clip_Group__0_Layer2_0_MEMBER_0_FILL"/>
+</g>
+
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#kakao_story_svg____Layer_1__Clip_Group__0_Layer2_0_MEMBER_1_FILL"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>

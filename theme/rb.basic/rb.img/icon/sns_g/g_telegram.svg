@@ -1,0 +1,46 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" width="150px" height="150px" viewBox="0 0 150 150">
+<defs>
+<linearGradient id="Gradient_1" gradientUnits="userSpaceOnUse" x1="64" y1="125.95" x2="64" y2="1.1499999999999915" spreadMethod="pad">
+<stop  offset="0%" stop-color="#2AABEE"/>
+
+<stop  offset="100%" stop-color="#229ED9"/>
+</linearGradient>
+
+<g id="Mask_2_MASK_0_FILL">
+<path fill="#FFFFFF" stroke="none" d="
+M 150 75
+Q 150 43.9 128.05 21.95 106.05 0 75 0 43.95 0 21.95 21.95 0 43.9 0 75 0 106.05 21.95 128 43.95 150 75 150 106.05 150 128.05 128 150 106.05 150 75 Z"/>
+</g>
+
+<g id="Layer1_0_MEMBER_0_FILL">
+<path fill="url(#Gradient_1)" stroke="none" d="
+M 128 64
+Q 128 37.55 109.25 18.75 90.5 0 64 0 37.5 0 18.75 18.75 0 37.5 0 64 0 90.5 18.75 109.25 37.5 128 64 128 90.5 128 109.25 109.25 128 90.5 128 64 Z"/>
+</g>
+
+<g id="Layer1_0_MEMBER_1_FILL">
+<path fill="#FFFFFF" stroke="none" d="
+M 93.65 43.55
+Q 93.7 42.6 93.55 41.05 93.3 39.85 92.6 39.3 91.65 38.55 90.15 38.55 88.3 38.6 84 40.15 79.4 41.8 66.25 47.25 54.9 52 28.95 63.35 24.45 65.15 24.2 66.9 24 68.35 26.05 69.35 26.75 69.7 31.1 71.1 38.2 73.4 41.05 73.45 44.15 73.55 48 70.9 74.1 53.2 75 53.05 75.9 52.8 76.3 53.15 76.85 53.6 76.6 54.3 76.3 55.65 58.95 71.5 54.85 75.75 54.55 76.45 53.45 79 57.6 81.7 63.05 85.3 71.9 91.3 73.7 92.5 76.9 94.7 79.65 96.3 82 96.1 85.25 95.8 86.4 89.55 88.4 78.85 90.45 66.1 93 50.35 93.65 43.55 Z"/>
+</g>
+</defs>
+
+<mask id="Mask_Mask_1">
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#Mask_2_MASK_0_FILL"/>
+</g>
+</mask>
+
+<g mask="url(#Mask_Mask_1)"/>
+
+<g mask="url(#Mask_Mask_1)">
+<g transform="matrix( 1.171875, 0, 0, 1.171875, 0,0) ">
+<use xlink:href="#Layer1_0_MEMBER_0_FILL"/>
+</g>
+
+<g transform="matrix( 1.171875, 0, 0, 1.171875, 0,0) ">
+<use xlink:href="#Layer1_0_MEMBER_1_FILL"/>
+</g>
+</g>
+</svg>

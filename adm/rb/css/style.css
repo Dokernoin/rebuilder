@@ -1,0 +1,7 @@
+@charset "utf-8";
+
+.border_box_adm {border:1px solid #ddd; padding: 15px 20px 15px 20px; margin-bottom: 20px; box-sizing: border-box;}
+.td_name.sv_use a img {height: 12px; margin-left: 2px;}
+.td_name.sv_use a .profile_img img {height:22px;}
+.td_name.sv_use div .sv_wrap .sv {width: 100px !important;}
+.sv_wrap .sv a {display: block !important;}
