@@ -247,7 +247,7 @@ if (isset($_POST['install']) && $_POST['install'] == 1) {
     }
 
     $sql = " insert rb_config
-                set co_color = 'AA20FF',
+                set co_color = '#aa20ff',
                     co_dark = '',
                     co_layout = 'basic',
                     co_layout_hd = 'basic',
@@ -255,7 +255,7 @@ if (isset($_POST['install']) && $_POST['install'] == 1) {
                     co_sub_width = '960',
                     co_main_width = '1400',
                     co_tb_width = '1400',
-                    co_header = '0',
+                    co_header = '#ffffff',
                     co_footer = '0',
                     co_font = 'Pretendard',
                     co_datetime = '".G5_TIME_YMDHIS."',
