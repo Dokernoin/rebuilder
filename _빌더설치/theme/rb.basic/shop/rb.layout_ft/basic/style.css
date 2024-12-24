@@ -1,0 +1,5 @@
+/* 레이아웃 CSS */
+@media all and (max-width:1024px) { 
+    .footer_gnb .inner {padding-left: 0px !important; padding-right: 0px !important;}
+    .footer_copy .inner {padding-left: 0px !important; padding-right: 0px !important;}
+}

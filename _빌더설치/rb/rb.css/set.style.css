@@ -1,0 +1,200 @@
+.rb_module_border_ .module_latest_wrap {border:0px;}
+.rb_module_border_solid .module_latest_wrap {border: 1px solid #ddd;}
+.rb_module_border_dashed .module_latest_wrap {border: 1px dashed #ddd;}
+
+.rb_module_border_ .module_widget_wrap {border:0px;}
+.rb_module_border_solid .module_widget_wrap {border: 1px solid #ddd;}
+.rb_module_border_dashed .module_widget_wrap {border: 1px dashed #ddd;}
+
+.rb_module_border_ .module_poll_wrap {border:0px;}
+.rb_module_border_solid .module_poll_wrap {border: 1px solid #ddd;}
+.rb_module_border_dashed .module_poll_wrap {border: 1px dashed #ddd;}
+
+.rb_module_border_ .module_item_wrap {border:0px;}
+.rb_module_border_solid .module_item_wrap {border: 1px solid #ddd;}
+.rb_module_border_dashed .module_item_wrap {border: 1px dashed #ddd;}
+
+.rb_module_radius_ .module_latest_wrap {border-radius: 0px;}
+.rb_module_radius_0 .module_latest_wrap {border-radius: 0px;}
+.rb_module_radius_5 .module_latest_wrap {border-radius: 5px;}
+.rb_module_radius_10 .module_latest_wrap {border-radius: 10px;}
+.rb_module_radius_15 .module_latest_wrap {border-radius: 15px;}
+.rb_module_radius_20 .module_latest_wrap {border-radius: 20px;}
+.rb_module_radius_25 .module_latest_wrap {border-radius: 25px;}
+.rb_module_radius_30 .module_latest_wrap {border-radius: 30px;}
+
+.rb_module_radius_ .module_widget_wrap {border-radius: 0px;}
+.rb_module_radius_0 .module_widget_wrap {border-radius: 0px;}
+.rb_module_radius_5 .module_widget_wrap {border-radius: 5px;}
+.rb_module_radius_10 .module_widget_wrap {border-radius: 10px;}
+.rb_module_radius_15 .module_widget_wrap {border-radius: 15px;}
+.rb_module_radius_20 .module_widget_wrap {border-radius: 20px;}
+.rb_module_radius_25 .module_widget_wrap {border-radius: 25px;}
+.rb_module_radius_30 .module_widget_wrap {border-radius: 30px;}
+
+.rb_module_radius_ .module_poll_wrap {border-radius: 0px;}
+.rb_module_radius_0 .module_poll_wrap {border-radius: 0px;}
+.rb_module_radius_5 .module_poll_wrap {border-radius: 5px;}
+.rb_module_radius_10 .module_poll_wrap {border-radius: 10px;}
+.rb_module_radius_15 .module_poll_wrap {border-radius: 15px;}
+.rb_module_radius_20 .module_poll_wrap {border-radius: 20px;}
+.rb_module_radius_25 .module_poll_wrap {border-radius: 25px;}
+.rb_module_radius_30 .module_poll_wrap {border-radius: 30px;}
+
+.rb_module_radius_ .module_item_wrap {border-radius: 0px;}
+.rb_module_radius_0 .module_item_wrap {border-radius: 0px;}
+.rb_module_radius_5 .module_item_wrap {border-radius: 5px;}
+.rb_module_radius_10 .module_item_wrap {border-radius: 10px;}
+.rb_module_radius_15 .module_item_wrap {border-radius: 15px;}
+.rb_module_radius_20 .module_item_wrap {border-radius: 20px;}
+.rb_module_radius_25 .module_item_wrap {border-radius: 25px;}
+.rb_module_radius_30 .module_item_wrap {border-radius: 30px;}
+
+
+
+.rb_module_padding_ .module_latest_wrap {padding: 0px;}
+.rb_module_padding_0 .module_latest_wrap {padding: 0px;}
+.rb_module_padding_5 .module_latest_wrap {padding: 5px;}
+.rb_module_padding_10 .module_latest_wrap {padding: 10px;}
+.rb_module_padding_15 .module_latest_wrap {padding: 15px;}
+.rb_module_padding_20 .module_latest_wrap {padding: 20px;}
+.rb_module_padding_25 .module_latest_wrap {padding: 25px;}
+.rb_module_padding_30 .module_latest_wrap {padding: 30px;}
+
+.rb_module_padding_ .module_widget_wrap {padding: 0px;}
+.rb_module_padding_0 .module_widget_wrap {padding: 0px;}
+.rb_module_padding_5 .module_widget_wrap {padding: 5px;}
+.rb_module_padding_10 .module_widget_wrap {padding: 10px;}
+.rb_module_padding_15 .module_widget_wrap {padding: 15px;}
+.rb_module_padding_20 .module_widget_wrap {padding: 20px;}
+.rb_module_padding_25 .module_widget_wrap {padding: 25px;}
+.rb_module_padding_30 .module_widget_wrap {padding: 30px;}
+
+.rb_module_padding_ .module_banner_wrap {padding: 0px;}
+.rb_module_padding_0 .module_banner_wrap {padding: 0px;}
+.rb_module_padding_5 .module_banner_wrap {padding: 5px;}
+.rb_module_padding_10 .module_banner_wrap {padding: 10px;}
+.rb_module_padding_15 .module_banner_wrap {padding: 15px;}
+.rb_module_padding_20 .module_banner_wrap {padding: 20px;}
+.rb_module_padding_25 .module_banner_wrap {padding: 25px;}
+.rb_module_padding_30 .module_banner_wrap {padding: 30px;}
+
+.rb_module_padding_ .module_poll_wrap {padding: 0px;}
+.rb_module_padding_0 .module_poll_wrap {padding: 0px;}
+.rb_module_padding_5 .module_poll_wrap {padding: 5px;}
+.rb_module_padding_10 .module_poll_wrap {padding: 10px;}
+.rb_module_padding_15 .module_poll_wrap {padding: 15px;}
+.rb_module_padding_20 .module_poll_wrap {padding: 20px;}
+.rb_module_padding_25 .module_poll_wrap {padding: 25px;}
+.rb_module_padding_30 .module_poll_wrap {padding: 30px;}
+
+.rb_module_padding_ .module_item_wrap {padding: 0px;}
+.rb_module_padding_0 .module_item_wrap {padding: 0px;}
+.rb_module_padding_5 .module_item_wrap {padding: 5px;}
+.rb_module_padding_10 .module_item_wrap {padding: 10px;}
+.rb_module_padding_15 .module_item_wrap {padding: 15px;}
+.rb_module_padding_20 .module_item_wrap {padding: 20px;}
+.rb_module_padding_25 .module_item_wrap {padding: 25px;}
+.rb_module_padding_30 .module_item_wrap {padding: 30px;}
+
+
+
+.co_gap_pc_ .content_box {padding: 0px;}
+.co_gap_pc_ .flex_box {margin-left: -0px; margin-right: -0px;}
+.co_gap_pc_0 .content_box {padding: 0px;}
+.co_gap_pc_0 .flex_box {margin-left: -0px; margin-right: -0px;}
+.co_gap_pc_5 .content_box {padding: 5px;}
+.co_gap_pc_5 .flex_box {margin-left: -5px; margin-right: -5px;}
+.co_gap_pc_10 .content_box {padding: 10px;}
+.co_gap_pc_10 .flex_box {margin-left: -10px; margin-right: -10px;}
+.co_gap_pc_15 .content_box {padding: 15px;}
+.co_gap_pc_15 .flex_box {margin-left: -15px; margin-right: -15px;}
+.co_gap_pc_20 .content_box {padding: 20px;}
+.co_gap_pc_20 .flex_box {margin-left: -20px; margin-right: -20px;}
+.co_gap_pc_25 .content_box {padding: 25px;}
+.co_gap_pc_25 .flex_box {margin-left: -25px; margin-right: -25px;}
+.co_gap_pc_30 .content_box {padding: 30px;}
+.co_gap_pc_30 .flex_box {margin-left: -30px; margin-right: -30px;}
+
+.adm_co_gap_pc_ {padding: 0px;}
+.adm_co_gap_pc_0 {padding: 0px;}
+.adm_co_gap_pc_5 {padding: 5px;}
+.adm_co_gap_pc_10 {padding: 10px;}
+.adm_co_gap_pc_15 {padding: 15px;}
+.adm_co_gap_pc_20 {padding: 20px;}
+.adm_co_gap_pc_25 {padding: 25px;}
+.adm_co_gap_pc_30 {padding: 30px;}
+
+
+@media all and (max-width:1024px) {
+    .content_box {padding:20px !important; padding-top: 0px !important; padding-bottom: 0px !important;}
+    .flex_box {margin-left: -20px !important; margin-right: -20px !important; margin-bottom: 20px;}
+    
+
+    .rb_module_border_solid .module_latest_wrap {margin-left: 20px; margin-right: 20px; margin-top: 20px;}
+    .rb_module_border_dashed .module_latest_wrap {margin-left: 20px; margin-right: 20px; margin-top: 20px;}
+
+    .rb_module_border_solid .module_widget_wrap {margin-left: 20px; margin-right: 20px; margin-top: 20px;}
+    .rb_module_border_dashed .module_widget_wrap {margin-left: 20px; margin-right: 20px; margin-top: 20px;}
+
+    .rb_module_border_solid .module_poll_wrap {margin-left: 20px; margin-right: 20px; margin-top: 20px;}
+    .rb_module_border_dashed .module_poll_wrap {margin-left: 20px; margin-right: 20px; margin-top: 20px;}
+
+    .rb_module_border_solid .module_item_wrap {margin-left: 20px; margin-right: 20px; margin-top: 20px;}
+    .rb_module_border_dashed .module_item_wrap {margin-left: 20px; margin-right: 20px; margin-top: 20px;}
+    
+    .module_latest_wrap {padding: 0px !important;}
+    .module_widget_wrap {padding: 0px !important;}
+    .module_poll_wrap {padding: 0px !important;}
+    .module_item_wrap {padding: 0px !important;}
+    
+}
+
+/* ui { */
+.module_style_set_wrap {display: flex; gap: 0px 20px;flex-direction: row;flex-wrap: wrap; align-items: center;}
+.rb_range_item {
+  width: 70%;
+  height: 4px;
+  border: 0;
+  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  outline: none;
+  border:0px !important;
+}
+
+.rb_range_item .ui-slider-handle {
+  position: absolute;
+  margin: -6px 0 0 -17px;
+  border-radius: 100px;
+  color: #fff;
+  border: 0;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  width: 34px;
+  outline: none;
+  cursor: pointer;
+  font-size: 10px;
+  text-decoration: none;
+  transition: transform 0.1s ease;
+  color:#fff !important;
+}
+
+.rb_range_item .ui-slider-range {
+    border:0px !important; border-radius: 4px !important;
+}
+
+
+.rb_range_item .ui-slider-handle:hover,
+.rb_range_item .ui-slider-handle:focus {
+  transform: scale(1.1);
+}
+
+.rb_range_item .cntr {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/* } */

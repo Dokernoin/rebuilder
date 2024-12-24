@@ -1,0 +1,355 @@
+.alert {
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid transparent;
+	border-radius: 3px;
+}
+
+.alert h4 {
+	margin-top: 0;
+	color: inherit
+}
+
+.alert .alert-link {
+	font-weight: bold
+}
+
+.alert>p,
+.alert>ul {
+	margin-bottom: 0
+}
+
+.alert>p+p {
+	margin-top: 5px
+}
+
+.alert-dismissable,
+.alert-dismissible {
+	padding-right: 35px
+}
+
+.alert-dismissable .close,
+.alert-dismissible .close {
+	position: relative;
+	top: -2px;
+	right: -21px;
+	color: inherit
+}
+
+.alert-success {
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+	color: #3c763d
+}
+
+.alert-success hr {
+	border-top-color: #c9e2b3
+}
+
+.alert-success .alert-link {
+	color: #2b542c
+}
+
+.alert-info {
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+	color: #31708f
+}
+
+.alert-info hr {
+	border-top-color: #a6e1ec
+}
+
+.alert-info .alert-link {
+	color: #245269
+}
+
+.alert-warning {
+	background-color: #fcf8e3;
+	border-color: #faebcc;
+	color: #8a6d3b
+}
+
+.alert-warning hr {
+	border-top-color: #f7e1b5
+}
+
+.alert-warning .alert-link {
+	color: #66512c
+}
+
+.alert-danger {
+	background-color: #f2dede;
+	border-color: #ebccd1;
+	color: #a94442
+}
+
+.alert-danger hr {
+	border-top-color: #e4b9c0
+}
+
+.alert-danger .alert-link {
+	color: #843534
+}
+
+.wrapper-alert,
+.wrapper-notification {
+	position: fixed;
+	padding: 10px;
+	left: 5px;
+	bottom:5px;
+	/*position: absolute;*/
+	z-index: 999;
+	/*left: 5px;
+	right: 5px*/
+}
+
+.wrapper-alert.top,
+.wrapper-notification.top {
+	top: 10px
+}
+
+.wrapper-alert.bottom,
+.wrapper-notification.bottom {
+	bottom: 0
+}
+
+.wrapper-alert.left,
+.wrapper-notification.left {
+	left: 10px;
+	right: auto
+}
+
+.wrapper-alert.right,
+.wrapper-notification.right {
+	left: 50px;
+	right: auto;
+    bottom:40px;
+}
+
+.wrapper-alert-circle {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	margin-top: -60px;
+	margin-left: -60px;
+	z-index: 3001
+}
+
+.alert-circle {
+	width: 120px;
+	height: 120px;
+	font-size: 150%;
+	color: #fff;
+	animation-duration: .2s;
+	border-radius: 50%;
+	text-align: center;
+	padding-top: 65px
+}
+.notification,
+.notification-custom {
+	padding: 20px;
+	margin-bottom: 0px;
+	border: 0px;
+	border-radius: 5px;
+	box-shadow: 5px 5px 15px rgba(0, 0, 0, .1);
+	background: #fff;
+	min-width: 300px;
+	max-height: 600px;
+	overflow-y: auto;
+	position: relative;
+	word-wrap: break-word;
+	font-size: 13px;
+}
+
+.notification-close,
+.notification-custom-close {
+	text-align: right
+}
+
+.notification-close>.dropdown-menu,
+.notification-custom-close>.dropdown-menu {
+	top: 8px;
+	float: right;
+	right: 20px;
+	left: auto;
+	min-width: 50px
+}
+
+.notification-close>.dropdown-menu>li,
+.notification-custom-close>.dropdown-menu>li {
+	text-align: right
+}
+
+.notification-close>a,
+.notification-custom-close>a {
+	color: #999
+}
+
+.notification-close>.close,
+.notification-custom-close>.close {
+	opacity: .6;
+	font-size: 13px
+}
+.wrapper-notification.side {
+	width: 350px
+}
+
+.wrapper-notification.side>.notification,
+.wrapper-notification.side>.notification-custom {
+	cursor: pointer;
+	overflow: visible
+}
+
+.wrapper-notification.main {
+	top: 20%;
+	left: 50%;
+	width: 500px;
+	margin: 0 0 0 -250px
+}
+
+.wrapper-notification.main .notification,
+.wrapper-notification.main .notification-custom {
+	padding-left: 10px
+}
+
+.notification-heading,
+.notification-custom-heading {
+	padding: 0 15px 10px 0px;
+	/*color: #005b9e;*/
+	color: #000;
+	text-align: left
+}
+
+.wrapper-notification.main .notification-heading,
+.wrapper-notification.main .notification-custom-heading {
+	font-size: 116.6666%;
+	font-weight: bold;
+	padding-left: 0
+}
+
+.notification-success,
+.notification-success .notification,
+.notification-success .notification-custom {
+	border-color: #10b045 !important
+}
+
+.notification-success .notification-heading,
+.notification-success .notification-custom-heading {
+	color: #10b045 !important
+}
+
+.notification-info,
+.notification-info .notification,
+.notification-info .notification-custom {
+	border-color: #3a87ad !important
+}
+
+.notification-info .notification-heading,
+.notification-info .notification-custom-heading {
+	color: #3a87ad !important
+}
+
+.notification-warning,
+.notification-warning .notification,
+.notification-warning .notification-custom {
+	border-color: #ff8f32 !important
+}
+
+.notification-warning .notification-heading,
+.notification-warning .notification-custom-heading {
+	color: #db741d !important
+}
+
+.notification-danger,
+.notification-danger .notification,
+.notification-danger .notification-custom {
+	border-color: #d23737 !important
+}
+
+.notification-danger .notification-heading,
+.notification-danger .notification-custom-heading {
+	color: #d23737 !important
+}
+
+.notification-icon {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	z-index: 6;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	color: #fff;
+	background-color: #756FAD;
+	padding-left: 7px; 
+	padding-top: 3px;
+}
+
+.notification-info .notification-icon {
+	background-color: #3a87ad
+}
+
+.notification-success .notification-icon {
+	background-color: #10b045
+}
+
+.notification-warning .notification-icon {
+	background-color: #ff8f32
+}
+
+.notification-danger .notification-icon {
+	background-color: #d23737
+}
+.notification-option {
+	position: absolute;
+	right: 13px;
+	top: 15px;
+}
+
+.notification-content {line-height: 150%;}
+
+.notification-option .notification-check {
+	border: none;
+	color: #000;
+	background-color: transparent;
+}
+
+.al_date {font-size: 11px; color:#888;}
+
+.close {
+	float: right;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 1;
+	color: #000;
+	text-shadow: 0 1px 0 #fff;
+	opacity: .2
+}
+
+.close:hover,
+.close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+	opacity: .5
+}
+
+button.close {
+	padding: 0;
+	cursor: pointer;
+	background: transparent;
+	border: 0;
+	-webkit-appearance: none
+}
+
+
+
+@media all and (max-width:1024px) {
+    .wrapper-alert.right,
+    .wrapper-notification.right {
+        max-width:250px;
+        left: 10px; 
+        bottom:10px;
+    }
+}

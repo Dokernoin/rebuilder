@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+.bbs_main_wrap_thumb_left_con {box-sizing: border-box; width: 100%}
+.bbs_main_wrap_thumb_left_con dd {position: relative;}
+.bbs_main_wrap_thumb_left_con dd:last-child {margin-bottom: 0px;}
+.bbs_main_wrap_thumb_left_con .bbs_main_wrap_con_ul1 {position: absolute; top:0px; left: 0px; padding-right: 30px; box-sizing: border-box;}
+.bbs_main_wrap_thumb_left_con .bbs_main_wrap_con_ul1 img {width: 115px; height:95px; border-radius: 10px; object-fit: cover;}
+.bbs_main_wrap_thumb_left_con .bbs_main_wrap_con_ul2 {width: 100%; padding-left: 144px; min-height: 95px;}
+.bbs_main_wrap_thumb_left_con .bbs_main_wrap_con_subj {font-size: 20px;}
+.bbs_main_wrap_thumb_left_con .bbs_main_wrap_con_cont {font-size: 14px; color:#666; word-break: keep-all; margin-top: 15px; min-height: 32px;}
+.bbs_main_wrap_thumb_left_con .bbs_main_wrap_con_cont a {color:#666; font-size: 15px;}
+.bbs_main_wrap_thumb_left_con .bbs_main_wrap_con_info {font-size: 12px; color:#999; margin-top: 5px;}
+.bbs_main_wrap_thumb_left_con .bbs_main_wrap_con_writer {margin-top: 10px;}
+.bbs_main_wrap_thumb_left_con .bbs_main_wrap_con_writer span {display: inline-block;}
+.bbs_main_wrap_thumb_left_con .prof_tiny_image img {width: 30px; height:auto; border-radius: 50%; margin-right: 5px;}
+.bbs_main_wrap_thumb_left_con .prof_tiny_name {font-size: 12px; color:#999; line-height: 20px; margin-right: 10px;}
+.bbs_main_wrap_thumb_left_con .bbs_list_label {line-height: 17px; font-size: 11px; border-radius: 4px; padding-left: 5px; padding-right: 5px;}
+
+.bbs_main_wrap_thumb_left_con .bbs_list_label.label1 {background-color: #FFC700; color:#fff;}
+.bbs_main_wrap_thumb_left_con .bbs_list_label.label2 {background-color: #00A3FF; color:#fff;}
+.bbs_main_wrap_thumb_left_con .bbs_list_label.label3 {background-color: #8ED100; color:#fff;}
+.bbs_main_wrap_thumb_left_con .bbs_list_label.label4 {background-color: #AA20FF; color:#fff;}
+.bbs_main_wrap_thumb_left_con .bbs_list_label.label5 {background-color: #25282B; color:#fff;}
+.bbs_main_wrap_thumb_left_con .bbs_list_label.label6 {background-color: #D6DCE0; color:#000;}

@@ -1,0 +1,79 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" width="150px" height="150px" viewBox="0 0 150 150">
+<defs>
+<g id="Mask____1_0_2_MASK_0_FILL">
+<path fill="#FFFFFF" stroke="none" d="
+M 150 75
+Q 150 43.9 128.05 21.95 106.05 0 75 0 43.95 0 21.95 21.95 0 43.9 0 75 0 106.05 21.95 128 43.95 150 75 150 106.05 150 128.05 128 150 106.05 150 75 Z"/>
+</g>
+
+<g id="___1_0_Layer2_0_FILL">
+<path fill="#445D97" stroke="none" d="
+M 150 75
+Q 150 43.9 128.05 21.95 106.05 0 75 0 43.95 0 21.95 21.95 0 43.9 0 75 0 106.05 21.95 128 43.95 150 75 150 106.05 150 128.05 128 150 106.05 150 75 Z"/>
+</g>
+
+<g id="Mask_facebook_svg____Layer_1__Clip_Group__0_2_MASK_0_FILL">
+<path fill="#FFFFFF" stroke="none" d="
+M 190 191
+L 190 0 0 0 0 191 190 191 Z"/>
+</g>
+
+<g id="facebook_svg____Layer_1__Clip_Group__0_Layer2_0_MEMBER_0_FILL">
+<path fill="#445D97" stroke="none" d="
+M 190 16.15
+Q 190 9.9 185.55 5.45 181.1 1 174.85 1
+L 16.15 1
+Q 9.9 1 5.45 5.45 1 9.9 1 16.15
+L 1 175.2
+Q 1 181.5 5.45 185.95 9.9 190.35 16.15 190.35
+L 174.85 190.35
+Q 181.15 190.35 185.6 185.95 190 181.5 190 175.2
+L 190 16.15 Z"/>
+</g>
+
+<g id="facebook_svg____Layer_1__Clip_Group__0_Layer2_0_MEMBER_1_FILL">
+<path fill="#FFFFFF" stroke="none" d="
+M 152.15 30.45
+Q 145.05 30 138.2 30 121.55 30 111.75 39.7 101.55 49.75 101.55 67.7
+L 101.55 88.65 77 88.65 77 117.15 101.55 117.15 101.55 190.2 131 190.2 131 117.15 155.55 117.15 159.2 88.65 131 88.65 131 70.5
+Q 131 63.55 133.65 60.45 136.85 56.65 145.1 56.65
+L 160.2 56.65 160.2 31.15
+Q 157.45 30.8 152.15 30.45 Z"/>
+</g>
+</defs>
+
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<mask id="Mask_Mask_1">
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#Mask____1_0_2_MASK_0_FILL"/>
+</g>
+</mask>
+
+<g mask="url(#Mask_Mask_1)">
+<g transform="matrix( 0.9999847412109375, 0, 0, 1, 0,0) ">
+<use xlink:href="#___1_0_Layer2_0_FILL"/>
+</g>
+</g>
+
+<g mask="url(#Mask_Mask_1)">
+<g transform="matrix( 0.634918212890625, 0, 0, 0.6337432861328125, 0.3,8.3) ">
+<mask id="Mask_Mask_2">
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#Mask_facebook_svg____Layer_1__Clip_Group__0_2_MASK_0_FILL"/>
+</g>
+</mask>
+
+<g mask="url(#Mask_Mask_2)">
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#facebook_svg____Layer_1__Clip_Group__0_Layer2_0_MEMBER_0_FILL"/>
+</g>
+
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#facebook_svg____Layer_1__Clip_Group__0_Layer2_0_MEMBER_1_FILL"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>
