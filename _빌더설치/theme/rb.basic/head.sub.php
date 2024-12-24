@@ -164,7 +164,7 @@ const g5_admin_url = "<?php echo G5_ADMIN_URL; ?>";
 if (isset($rb_core) && isset($rb_core['font'])) {
     $font = $rb_core['font'];
 } else {
-    $font = '';
+    $font = 'Pretendard';
 }
     
 add_javascript('<script src="'.G5_JS_URL.'/jquery-1.12.4.min.js"></script>', 0);
