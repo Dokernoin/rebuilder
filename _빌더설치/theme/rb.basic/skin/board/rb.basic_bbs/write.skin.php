@@ -154,6 +154,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
     <!-- } -->
     <?php } ?>
 
+    <?php if(isset($is_link) && $is_link) { ?>
     <!-- 링크 { -->
     <div class="rb_inp_wrap rb_inp_wrap_gap">
         <label class="help_text">링크 주소를 입력할 수 있어요.</label>
@@ -167,6 +168,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
         </ul>
     </div>
     <!-- } -->
+    <?php } ?>
                     
                     <?php if(isset($board['bo_upload_count']) && $board['bo_upload_count'] > 0) { ?>
                     <?php
