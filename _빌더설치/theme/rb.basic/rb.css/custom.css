@@ -250,6 +250,17 @@ html {overflow-x: hidden;}
 .point_list_con img {border:0px !important;}
 /* } */
 
+/* 2.1.7 { */
+.od_coupon .btn_close {border-radius: 0px !important;}
+.sod_frm_flex .cp_cancel1 {padding: 0 10px;border: 1px solid #aaa;color: #666;background: #fff;height: 26px;border-radius: 3px;}
+.sod_frm_flex .cp_cancel {margin: 0px !important;}
+.sod_frm_flex {display: flex; gap:0px 5px; align-items: center; height: 46.5px !important;}
+.sod_frm_flex .btn_frmline {margin-left: auto !important;}
+#mod_option_frm .btn_confirm {background-color: transparent !important;}
+#sod_bsk_list #mod_option_frm {top:50%; transform: translateY(-50%); margin-top: 0px;}
+select#ct_send_cost {width: 150px;}
+/* } */
+
 @media all and (max-width:1024px){
 
     /* 1.1.4 { */
@@ -348,5 +359,4 @@ html {overflow-x: hidden;}
     .rb_icon_menu_wrap {border-top:0px !important; padding-top: 40px !important;}
     /* } */
 
-    
 }
