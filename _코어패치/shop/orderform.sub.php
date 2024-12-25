@@ -522,7 +522,7 @@ if($is_kakaopay_use) {
                 <?php if($oc_cnt > 0) { ?>
                 <tr>
                     <th scope="row">주문할인</th>
-                    <td>
+                    <td class="sod_frm_flex">
                         <strong id="od_cp_price">0</strong>원
                         <input type="hidden" name="od_cp_id" value="">
                         <button type="button" id="od_coupon_btn" class="btn_frmline">쿠폰적용</button>
@@ -532,7 +532,7 @@ if($is_kakaopay_use) {
                 <?php if($sc_cnt > 0) { ?>
                 <tr>
                     <th scope="row">배송비할인</th>
-                    <td>
+                    <td class="sod_frm_flex">
                         <strong id="sc_cp_price">0</strong>원
                         <input type="hidden" name="sc_cp_id" value="">
                         <button type="button" id="sc_coupon_btn" class="btn_frmline">쿠폰적용</button>
@@ -891,6 +891,7 @@ $(function() {
         $(this).remove();
     });
 
+
     $("#od_coupon_btn").click(function() {
         if( $("#od_coupon_frm").parent(".od_coupon_wrap").length ){
             $("#od_coupon_frm").parent(".od_coupon_wrap").remove();
@@ -948,7 +949,7 @@ $(function() {
         $("#od_coupon_frm").remove();
         $("#od_coupon_btn").text("변경").focus();
         if(!$("#od_coupon_cancel").length)
-            $("#od_coupon_btn").after("<button type=\"button\" id=\"od_coupon_cancel\" class=\"cp_cancel\">취소</button>");
+            $("#od_coupon_btn").after("<button type=\"button\" id=\"od_coupon_cancel\" class=\"cp_cancel cp_cancel1\">취소</button>");
     });
 
     $(document).on("click", "#od_coupon_close", function() {
@@ -1013,7 +1014,7 @@ $(function() {
         $("#sc_coupon_frm").remove();
         $("#sc_coupon_btn").text("변경").focus();
         if(!$("#sc_coupon_cancel").length)
-            $("#sc_coupon_btn").after("<button type=\"button\" id=\"sc_coupon_cancel\" class=\"cp_cancel\">취소</button>");
+            $("#sc_coupon_btn").after("<button type=\"button\" id=\"sc_coupon_cancel\" class=\"cp_cancel1\">취소</button>");
     });
 
     $(document).on("click", "#sc_coupon_close", function() {
