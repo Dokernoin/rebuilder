@@ -228,7 +228,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 	                    $sc_method = '수령후 지불';
 	                else if($it['it_sc_method'] == 2) {
 	                    $ct_send_cost_label = '<label for="ct_send_cost">배송비결제</label>';
-	                    $sc_method = '<select name="ct_send_cost" id="ct_send_cost">
+	                    $sc_method = '<select name="ct_send_cost" id="ct_send_cost" class="select input_tiny">
 	                                      <option value="0">주문시 결제</option>
 	                                      <option value="1">수령후 지불</option>
 	                                  </select>';
