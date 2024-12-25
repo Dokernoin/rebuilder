@@ -74,7 +74,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
             if ($view['wr_datetime'] >= date("Y-m-d H:i:s", G5_SERVER_TIME - ($board['bo_new'] * 3600)))
                 $view['icon_new'] = "<span class=\"lb_ico_new\">새글</span>";
             $view['icon_hot'] = "";
-            if ($view['wr_hit'] >= $board['bo_hot'])
+            if ($board['bo_hot'] > 0 && $view['wr_hit'] >= $board['bo_hot'])
                 $view['icon_hot'] = "<span class=\"lb_ico_hot\">인기</span>";
 
             echo $view['icon_new']; //뉴아이콘
