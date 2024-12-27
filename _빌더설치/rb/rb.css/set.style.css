@@ -125,6 +125,13 @@
 .adm_co_gap_pc_25 {padding: 25px;}
 .adm_co_gap_pc_30 {padding: 30px;}
 
+section.co_gap_pc_0 {margin-top: 20px;}
+section.co_gap_pc_5 {margin-top: 15px;}
+section.co_gap_pc_10 {margin-top: 10px;}
+section.co_gap_pc_15 {margin-top: 5px;}
+section.co_gap_pc_20 {margin-top: 0px;}
+section.co_gap_pc_25 {margin-top: -5px;}
+section.co_gap_pc_30 {margin-top: -10px;}
 
 @media all and (max-width:1024px) {
     .content_box {padding:20px !important; padding-top: 0px !important; padding-bottom: 0px !important;}
