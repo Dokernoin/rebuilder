@@ -269,6 +269,13 @@ select#ct_send_cost {width: 150px;}
 .point_info_btns {padding-left: 7px; padding-right: 7px;}
 .point_info_btns.rb_bbs_set_btn {margin-left: 4px;}
 
+.adm_bbs_set_wrap dl {margin-top: 10px;}
+.adm_bbs_set_wrap .po_rel {position: relative;}
+.adm_bbs_set_wrap dd label {position: absolute; right:10px; top:13px; font-size: 12px; color:#999;}
+.adm_bbs_set_wrap dl dd {padding-top: 2px; padding-bottom: 2px;}
+.adm_bbs_set_wrap input {height:35px; border-radius: 6px; padding-left: 10px; padding-right: 10px; width: 100%; border:1px dashed #ccc; padding-right: 70px;}
+.adm_bbs_set_wrap .adm_set_btn {background-color: #25282B; color:#fff; text-align: center; height:35px; border-radius: 6px; border:0px; width: 100%;}
+
 .rb_bbs_set_opens {
     padding: 20px;
     border: 1px solid #eee;;
