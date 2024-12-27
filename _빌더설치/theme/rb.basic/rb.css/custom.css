@@ -266,6 +266,22 @@ select#ct_send_cost {width: 150px;}
 #sod_addr .default_lb::before {z-index: -9999;}
 #sod_addr .td_address .frm_input {width: 100px; margin-bottom: 10px; height:30px; padding: 10px; border-radius: 6px;}
 #captcha #captcha_img {height:35px !important; margin-top: 5px !important;}
+.point_info_btns {padding-left: 7px; padding-right: 7px;}
+.point_info_btns.rb_bbs_set_btn {margin-left: 4px;}
+
+.rb_bbs_set_opens {
+    padding: 20px;
+    border: 1px solid #eee;;
+    border-radius: 6px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, .02);
+    background: #fff;
+    min-width: 280px;
+    position: relative;
+    font-size: 13px;
+    position: absolute; top:35px; right:0px;
+    z-index: 2;
+    display: none;
+}
 /* } */
 
 @media all and (max-width:1024px){
