@@ -32,7 +32,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_THEME_SHOP_URL.'/rb.layout_ft/
                 <div class="cb"></div>
             </div>
         </div>
-        <div class="footer_copy">
+        <div class="footer_copy" style="padding-bottom:120px;">
             <div class="inner" style="width:<?php echo $tb_width_inner ?>; <?php echo $tb_width_padding ?>">
                 <ul class="footer_copy_ul1">
                     <li class="footer_copy_ul1_li1">

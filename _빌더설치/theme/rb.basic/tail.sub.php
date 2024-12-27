@@ -16,8 +16,11 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 </main>
 
 <?php // 앱 토큰을 위한 처리
+    if (!isset($app)) {
+        $app = []; // $app 변수를 배열로 초기화
+    }
 
-    if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == $app['ap_title']) {
+    if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && isset($app['ap_title']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == $app['ap_title']) {
         if(isset($member['mb_id']) && $member['mb_id']) {
     ?>
 
