@@ -275,7 +275,17 @@ select#ct_send_cost {width: 150px;}
 .adm_bbs_set_wrap dl dd {padding-top: 2px; padding-bottom: 2px;}
 .adm_bbs_set_wrap input {height:35px; border-radius: 6px; padding-left: 10px; padding-right: 10px; width: 100%; border:1px dashed #ccc; padding-right: 70px;}
 .adm_bbs_set_wrap .adm_set_btn {background-color: #25282B; color:#fff; text-align: center; height:35px; border-radius: 6px; border:0px; width: 100%;}
+.rb_bbs_set_select_wrap select {background-image: none !important;}
+.rb_bbs_set_select_wrap .tiny_input {padding-right: 50%;}
+.rb_bbs_set_select_wrap {display: flex; align-items: center; gap: 0px 1%; display: flex; flex-direction: row;flex-wrap: wrap;}
+.rb_bbs_set_select_wrap dd.po_rel {width: 49%;}
+.rb_bbs_set_select_wrap dd.adm_set_btn_wrap {width: 100%;}
 
+.rb_bbs_set_select_wrap input[type="checkbox"] + label:before {width: 20px; height:20px;}
+.rb_bbs_set_select_wrap input[type="checkbox"] + label:after {top:5px; left: 8px; width: 4px; height:8px;}
+.rb_bbs_set_select_wrap input[type="checkbox"] + label {padding-left: 25px !important; line-height: 25px; padding-top: 3px;}
+.rb_bbs_set_select_wrap input {border:1px solid #ddd;}
+.rb_bbs_set_opens .w100 {width: 99% !important;}
 .rb_bbs_set_opens {
     padding: 20px;
     border: 1px solid #eee;;
@@ -288,6 +298,8 @@ select#ct_send_cost {width: 150px;}
     position: absolute; top:35px; right:0px;
     z-index: 2;
     display: none;
+    max-height: 50vh;
+    overflow-y: auto;
 }
 /* } */
 
