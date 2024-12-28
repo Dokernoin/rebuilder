@@ -1059,6 +1059,152 @@ function rb_banners($position, $bnid='', $skin='')
 }
 
 
+// 게시글보기 파일 썸네일 리턴
+function rb_get_file_thumbnail($file, $wr_id){
+
+    if( ! is_array($file) ) return '';
+
+    if( preg_match('/(\.jpg|\.jpeg|\.gif|\.png|\.bmp|\.webp)$/i', $file['file']) && $contents = run_replace('get_file_thumbnail_tags', '', $file) ){
+        return $contents;
+    } else if ($file['view']) {
+        return rb_get_view_thumbnail($file['view'], "", $wr_id);
+    }
+
+    return $file['view'];
+}
+
+// 게시글보기 썸네일 생성
+function rb_get_view_thumbnail($contents, $thumb_width=0, $wr_id)
+{
+    global $board, $config;
+
+    if (!$thumb_width)
+        $thumb_width = $board['bo_image_width'];
+
+    // $contents 중 img 태그 추출
+    $matches = get_editor_image($contents, true);
+
+    if(empty($matches))
+        return $contents;
+
+    $extensions = array(1=>'gif', 2=>'jpg', 3=>'png', 18=>'webp');
+
+    for($i=0; $i<count($matches[1]); $i++) {
+
+        $img = $matches[1][$i];
+        $img_tag = isset($matches[0][$i]) ? $matches[0][$i] : '';
+
+        preg_match("/src=[\'\"]?([^>\'\"]+[^>\'\"]+)/i", $img, $m);
+        $src = isset($m[1]) ? $m[1] : '';
+        preg_match("/style=[\"\']?([^\"\'>]+)/i", $img, $m);
+        $style = isset($m[1]) ? $m[1] : '';
+        preg_match("/width:\s*(\d+)px/", $style, $m);
+        $width = isset($m[1]) ? $m[1] : '';
+        preg_match("/height:\s*(\d+)px/", $style, $m);
+        $height = isset($m[1]) ? $m[1] : '';
+        preg_match("/alt=[\"\']?([^\"\']*)[\"\']?/", $img, $m);
+        $alt = isset($m[1]) ? get_text($m[1]) : '';
+
+        // 이미지 path 구함
+        $p = parse_url($src);
+        if(strpos($p['path'], '/'.G5_DATA_DIR.'/') != 0)
+            $data_path = preg_replace('/^\/.*\/'.G5_DATA_DIR.'/', '/'.G5_DATA_DIR, $p['path']);
+        else
+            $data_path = $p['path'];
+
+        $srcfile = G5_PATH.$data_path;
+
+        if(is_file($srcfile)) {
+            $size = @getimagesize($srcfile);
+            if(empty($size))
+                continue;
+
+            $file_ext = $extensions[$size[2]];
+            if (!$file_ext) continue;
+
+            // jpg 이면 exif 체크
+            if( $file_ext === 'jpg' && function_exists('exif_read_data')) {
+                $degree = 0;
+                $exif = @exif_read_data($srcfile);
+                if(!empty($exif['Orientation'])) {
+                    switch($exif['Orientation']) {
+                        case 8:
+                            $degree = 90;
+                            break;
+                        case 3:
+                            $degree = 180;
+                            break;
+                        case 6:
+                            $degree = -90;
+                            break;
+                    }
+
+                    // 세로사진의 경우 가로, 세로 값 바꿈
+                    if($degree == 90 || $degree == -90) {
+                        $tmp = $size;
+                        $size[0] = $tmp[1];
+                        $size[1] = $tmp[0];
+                    }
+                }
+            }
+
+            // Animated GIF 체크
+            $is_animated = false;
+            if($file_ext === 'gif') {
+                $is_animated = is_animated_gif($srcfile);
+
+                if($replace_content = run_replace('thumbnail_is_animated_gif_content', '', $contents, $srcfile, $is_animated, $img_tag, $data_path, $size)){
+
+                    $contents = $replace_content;
+                    continue;
+                }
+            }
+
+            // 원본 width가 thumb_width보다 작다면
+            if($size[0] <= $thumb_width)
+                continue;
+
+            // 썸네일 높이
+            $thumb_height = round(($thumb_width * $size[1]) / $size[0]);
+            $filename = basename($srcfile);
+            $filepath = dirname($srcfile);
+
+            // 썸네일 생성
+            if(!$is_animated)
+                $thumb_file = thumbnail($filename, $filepath, $filepath, $thumb_width, $thumb_height, false);
+            else
+                $thumb_file = $filename;
+
+            if(!$thumb_file)
+                continue;
+
+            if ($width) {
+                $thumb_tag = '<img src="'.G5_URL.str_replace($filename, $thumb_file, $data_path).'" alt="'.$alt.'" width="'.$width.'" height="'.$height.'"/>';
+            } else {
+                $thumb_tag = '<img src="'.G5_URL.str_replace($filename, $thumb_file, $data_path).'" alt="'.$alt.'"/>';
+            }
+
+            // $img_tag에 editor 경로가 있으면 원본보기 링크 추가
+            if(strpos($img_tag, G5_DATA_DIR.'/'.G5_EDITOR_DIR) && preg_match("/\.({$config['cf_image_extension']})$/i", $filename)) {
+                $imgurl = str_replace(G5_URL, "", $src);
+
+                if(isset($board['bo_lightbox']) && $board['bo_lightbox'] == 1) {
+                    $attr_href = G5_URL.str_replace($filename, $thumb_file, $data_path);
+                    $thumb_tag = '<a href="'.$attr_href.'" data-fslightbox="gallery_'.$wr_id.'">'.$thumb_tag.'</a>';
+                } else {
+                    $attr_href = run_replace('thumb_view_image_href', G5_BBS_URL.'/view_image.php?fn='.urlencode($imgurl), $filename, '', $width, $height, $alt);
+                    $thumb_tag = '<a href="'.$attr_href.'" target="_blank" class="view_image">'.$thumb_tag.'</a>';
+                }
+            }
+
+            $contents = str_replace($img_tag, $thumb_tag, $contents);
+        }
+    }
+
+    return run_replace('get_view_thumbnail', $contents);
+}
+
+
 // 사이드뷰 추가 @Leegun 님께서 도움 주셨습니다.
 add_replace('member_sideview_items', function ($sideview, $data = []) {
     global $g5;
