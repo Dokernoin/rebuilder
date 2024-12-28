@@ -187,7 +187,10 @@ $bo_mobile_gallery_height = isset($board['bo_mobile_gallery_height'])  ? $board[
                     $img_content = '<img src="'.$thumb['src'].'" alt="'.$thumb['alt'].'" >';
                 }
                 
+            } else {
+                $img_content = '';
             }
+
             $sec_icon = '';
             if (strstr($list[$i]['wr_option'], 'secret')) {
                 $sec_txt = '<span style="opacity:0.6">작성자 및 관리자 외 열람할 수 없습니다.<br>비밀글 기능으로 보호된 글입니다.</span>';
