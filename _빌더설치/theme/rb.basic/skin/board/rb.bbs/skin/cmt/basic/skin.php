@@ -2,7 +2,6 @@
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 ?>
 
-
 <button type="button" class="cmt_btn"><span class="total"><b>댓글</b> <?php echo $view['wr_comment']; ?></span><span class="cmt_more"></span></button>
 
 <!-- 댓글 시작 { -->
@@ -76,7 +75,22 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
             <button type="button" class="btn_cm_opt btn_b01 btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg></button>
         	<ul class="bo_vc_act">
                 <?php if ($list[$i]['is_reply']) { ?><li><a href="<?php echo $c_reply_href; ?>" onclick="comment_box('<?php echo $comment_id ?>', 'c'); return false;">답변</a></li><?php } ?>
-                <?php if ($list[$i]['is_edit']) { ?><li><a href="<?php echo $c_edit_href; ?>" onclick="comment_box('<?php echo $comment_id ?>', 'cu'); return false;">수정</a></li><?php } ?>
+                <?php if ($list[$i]['is_edit']) { ?>
+                <li>
+                    <a href="<?php echo $c_edit_href; ?>"
+                       onclick="
+                           comment_box('<?php echo $comment_id ?>', 'cu');
+                           var textarea = document.getElementById('wr_content');
+                           if (textarea) {
+                               textarea.style.height = 'auto';
+                               textarea.style.height = textarea.scrollHeight + 'px';
+                               textarea.style.minHeight = '150px';
+                           }
+                           return false;">
+                        수정
+                    </a>
+                </li>
+                <?php } ?>
                 <?php if ($list[$i]['is_del']) { ?><li><a href="<?php echo $list[$i]['del_link']; ?>" onclick="return comment_delete();">삭제</a></li><?php } ?>
             </ul>
         </div>
@@ -138,10 +152,21 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     });
 
     $(document).ready(function() {
+        function adjustTextareaHeight(textarea) {
+            textarea.style.height = 'auto'; // 높이를 초기화
+            textarea.style.height = (textarea.scrollHeight) + 'px'; // 스크롤 높이 적용
+            textarea.style.minHeight = '150px'; // 최소 높이 설정
+        }
+
+        // 페이지 로드시 wr_content의 높이를 자동 설정
+        const textarea = document.getElementById('wr_content');
+        if (textarea) {
+            adjustTextareaHeight(textarea);
+        }
+
+        // input 이벤트에도 높이를 자동 조정
         $('#wr_content').on('input', function() {
-            this.style.height = 'auto'; /* 높이를 자동으로 설정합니다. */
-            this.style.height = (this.scrollHeight) + 'px'; /* 스크롤 높이를 textarea에 적용합니다. */
-            this.style.minHeight = '150px';
+            adjustTextareaHeight(this);
         });
     });
     </script>
