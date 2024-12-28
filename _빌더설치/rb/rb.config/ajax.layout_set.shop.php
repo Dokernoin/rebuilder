@@ -175,7 +175,7 @@ if ($result) { // 결과가 유효한지 확인
                         }
         
                         if(isset($row_mod['md_sca']) && $row_mod['md_sca']) {
-                            $item_where .= " and ca_id LIKE '".$row_mod['md_sca']."%' "; //카테고리
+                            $item_where .= " AND (ca_id = '".$row_mod['md_sca']."' OR ca_id LIKE '".$row_mod['md_sca']."%') "; //카테고리
                         }
  
                         if(isset($row_mod['md_order']) && $row_mod['md_order']) {
