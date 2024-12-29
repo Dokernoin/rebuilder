@@ -1,6 +1,35 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
+// 최초 1회 설치 후 삭제하셔도 됩니다. {
+$columns_to_add = [
+    'bo_rb_skin_top' => 'VARCHAR(255) NOT NULL DEFAULT \'basic\'',
+    'bo_rb_skin_list' => 'VARCHAR(255) NOT NULL DEFAULT \'basic\'',
+    'bo_rb_skin_view' => 'VARCHAR(255) NOT NULL DEFAULT \'basic\'',
+    'bo_rb_skin_write' => 'VARCHAR(255) NOT NULL DEFAULT \'basic\'',
+    'bo_rb_skin_cmt' => 'VARCHAR(255) NOT NULL DEFAULT \'basic\'',
+    'bo_rb_skin_category' => 'VARCHAR(255) NOT NULL DEFAULT \'basic\'',
+    'bo_rb_skin_search' => 'VARCHAR(255) NOT NULL DEFAULT \'basic\'',
+    'bo_rb_skin_update' => 'VARCHAR(255) NOT NULL DEFAULT \'basic\'',
+    'bo_mobile_gallery_cols' => 'INT(4) NOT NULL DEFAULT \'2\'',
+    'bo_gap_pc' => 'INT(4) NOT NULL DEFAULT \'20\'',
+    'bo_gap_mo' => 'INT(4) NOT NULL DEFAULT \'20\'',
+    'bo_border' => 'INT(4) NOT NULL DEFAULT \'0\'',
+    'bo_radius' => 'INT(4) NOT NULL DEFAULT \'10\'',
+    'bo_viewer' => 'VARCHAR(255) NOT NULL DEFAULT \'\'',
+    'bo_lightbox' => 'INT(4) NOT NULL DEFAULT \'1\'',
+];
+
+foreach ($columns_to_add as $column => $attributes) {
+    // 컬럼이 있는지 확인
+    $column_check = sql_query("SHOW COLUMNS FROM {$g5['board_table']} LIKE '{$column}'", false);
+    if (!sql_num_rows($column_check)) {
+        // 컬럼 추가
+        sql_query("ALTER TABLE {$g5['board_table']} ADD {$column} {$attributes}", true);
+    }
+}
+// }
+
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/css/style.css">', 0);
 ?>
