@@ -413,4 +413,8 @@ select#ct_send_cost {width: 150px;}
     #sod_addr .tbl_head03 table {width: 100%;}
     /* } */
 
+    /* 2.1.8 { */
+    .cbp-hrmenu-btm {padding-bottom: 200px !important;}
+    /* } */
+
 }
