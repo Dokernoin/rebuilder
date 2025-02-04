@@ -6,13 +6,6 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 <?php run_event('tail_sub'); ?>
 
-<?php
-    //리빌드세팅
-    add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.color.php?rb_color_set=' . urlencode($rb_core['color']) . '&rb_color_code=' . urlencode($rb_config['co_color']) . '" />', 0);
-    add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.header.php?rb_header_set=' . urlencode($rb_core['header']) . '&rb_header_code=' . urlencode($rb_config['co_header']) . '" />', 0);
-    add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.style.css?ver='.G5_TIME_YMDHIS.'" />', 0);
-?>
-
 </main>
 
 <?php // 앱 토큰을 위한 처리
@@ -90,6 +83,12 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     });
 </script>
 
+<?php
+    //리빌드세팅
+    add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.color.php?rb_color_set=' . urlencode($rb_core['color']) . '&rb_color_code=' . urlencode($rb_config['co_color']) . '" />', 0);
+    add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.header.php?rb_header_set=' . urlencode($rb_core['header']) . '&rb_header_code=' . urlencode($rb_config['co_header']) . '" />', 0);
+    add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.style.css?ver='.G5_TIME_YMDHIS.'" />', 0);
+?>
 </body>
 </html>
 <?php echo html_end(); // HTML 마지막 처리 함수 : 반드시 넣어주시기 바랍니다.
