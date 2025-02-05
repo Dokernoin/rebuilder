@@ -2,14 +2,13 @@
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 //ini_set("display_errors", 1); // 디버깅
-define('RB_VER',  '2.1.7'); // 버전
+define('RB_VER',  '2.1.8'); // 버전
 
 
 /*********************************************/
 
 $rb_config = sql_fetch (" select * from rb_config "); // 환경설정 테이블 조회
 $rb_builder = sql_fetch (" select * from rb_builder "); // 빌더설정 테이블 조회
-
 
 $rb_core['theme'] = isset($config['cf_theme']) ? $config['cf_theme'] : ''; // 테마
 $rb_core['layout'] = isset($rb_config['co_layout']) ? $rb_config['co_layout'] : ''; // 레이아웃(메인)
