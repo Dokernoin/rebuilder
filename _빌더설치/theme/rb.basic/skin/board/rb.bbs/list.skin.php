@@ -1,5 +1,6 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
+@include_once($board_skin_path."/list.core.php"); // 그누보드 코어 list.php 스틸
 
 // 최초 1회 설치 후 삭제하셔도 됩니다. {
 $columns_to_add = [
