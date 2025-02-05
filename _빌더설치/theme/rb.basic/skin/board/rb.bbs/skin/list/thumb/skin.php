@@ -45,12 +45,12 @@ include_once($board_skin_path."/skin/category/{$board['bo_rb_skin_category']}/sk
 
                     if($thumb['src']) {
                         if (strstr($list[$i]['wr_option'], 'secret')) {
-                            $img_content = '<img src="'.G5_THEME_URL.'/rb.img/sec_image.png" alt="'.$thumb['alt'].'" style="'.$set_border.' '.$set_radius.' width:'.$board['bo_gallery_width'].'px;">';
+                            $img_content = '<img src="'.G5_THEME_URL.'/rb.img/sec_image.png" alt="'.$thumb['alt'].'" style="'.$set_border.' '.$set_radius.' width:'.$board['bo_gallery_width'].'px; height:'.$board['bo_gallery_height'].'px;">';
                         } else {
-                            $img_content = '<img src="'.$thumb['src'].'" alt="'.$thumb['alt'].'" style="'.$set_border.' '.$set_radius.' width:'.$board['bo_gallery_width'].'px;">';
+                            $img_content = '<img src="'.$thumb['src'].'" alt="'.$thumb['alt'].'" style="'.$set_border.' '.$set_radius.' width:'.$board['bo_gallery_width'].'px; height:'.$board['bo_gallery_height'].'px">';
                         }
                     } else {
-                        $img_content = '<img src="'.G5_THEME_URL.'/rb.img/no_image.png" alt="이미지가 없습니다." style="'.$set_border.' '.$set_radius.' width:'.$board['bo_gallery_width'].'px;">';
+                        $img_content = '<img src="'.G5_THEME_URL.'/rb.img/no_image.png" alt="이미지가 없습니다." style="'.$set_border.' '.$set_radius.' width:'.$board['bo_gallery_width'].'px; height:'.$board['bo_gallery_height'].'px">';
                     }
 
 
@@ -63,11 +63,12 @@ include_once($board_skin_path."/skin/category/{$board['bo_rb_skin_category']}/sk
 
 
                     $cont_width = $board['bo_gallery_width'] + $board['bo_gap_pc'];
+                    $cont_height = $board['bo_gallery_height'];
 
                 ?>
 
 
-                <div class="rb_swiper_list">
+                <div class="rb_swiper_list" style="min-height:<?php echo $cont_height ?>px;">
 
                     <div class="rb_bbs_for_img">
                         <ul class="rb_thumb_wrap">
