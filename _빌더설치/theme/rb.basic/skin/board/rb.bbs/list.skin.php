@@ -32,6 +32,12 @@ foreach ($columns_to_add as $column => $attributes) {
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/css/style.css">', 0);
+
+if (isset($board['bo_rb_skin_top']) && $board['bo_rb_skin_top']) {
+    $board['bo_rb_skin_top'] = $board['bo_rb_skin_top'];
+} else {
+    $board['bo_rb_skin_top'] = 'basic';
+}
 ?>
 
 <div class="rb_bbs_wrap" id="scroll_container" style="width:<?php echo $width; ?>">

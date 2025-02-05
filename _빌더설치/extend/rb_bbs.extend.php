@@ -18,7 +18,6 @@ function get_folder_list_select($path, $select_name = 'skin_name', $select_id = 
 
     // 결과 HTML 초기화
     $select_html = "<select name=\"$select_name\" id=\"$select_id\" class=\"select input_tiny w100\">\n";
-    $select_html .= "<option value=\"\">스킨선택</option>\n";
 
     // 디렉토리 확인
     if (is_dir($path)) {
