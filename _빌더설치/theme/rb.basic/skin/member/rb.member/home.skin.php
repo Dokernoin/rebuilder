@@ -39,7 +39,6 @@ $ca = isset($_GET['ca']) ? $_GET['ca'] : '';
                     if (file) {
                         const img = new Image();
                         img.onload = function() {
-                            if (img.width === <?php echo $config['cf_member_img_width'] ?> && img.height === <?php echo $config['cf_member_img_height'] ?>) {
                                 const formData = new FormData();
                                 formData.append('profile_image', file);
 
@@ -53,14 +52,13 @@ $ca = isset($_GET['ca']) ? $_GET['ca'] : '';
                                         const data = JSON.parse(response);
                                         if (data.success) {
                                             $('#prof_image_ch').html('<img src="' + data.image_url + '" alt="profile_image">');
+                                            location.reload();
                                         } else {
                                             alert(data.message);
                                         }
                                     }
                                 });
-                            } else {
-                                alert('이미지는 <?php echo $config['cf_member_img_width'] ?>X<?php echo $config['cf_member_img_height'] ?> 크기로 업로드 해주세요.');
-                            }
+
                         }
                         img.src = URL.createObjectURL(file);
                     }

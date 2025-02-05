@@ -309,6 +309,8 @@ select#ct_send_cost {width: 150px;}
 #bo_w .bo_w_flie .frm_file {margin-top: 0px !important; width: 100%; padding-top: 10px;}
 #bo_w .bo_w_flie .file_wr {height:47px !important; padding: 0px !important;}
 #bo_w .bo_w_flie .lb_icon {top:5px !important;}
+
+.rb_prof.rb_prof_new .rb_prof_info_img img {border-radius: 20px; border:0px !important;}
 /* } */
 
 @media all and (max-width:1024px){
