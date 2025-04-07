@@ -5,7 +5,6 @@ include_once(G5_CAPTCHA_PATH.'/captcha.lib.php');
 
 $return = ['res' => 'false', 'msg' => '오류', 'list' => []];
 
-
 if (empty($_POST['act_type']) || empty($_POST['bo_table']) || empty($_POST['write_table'])) {
     echo json_encode($return);
     exit;
@@ -60,9 +59,9 @@ if (isset($_FILES['file']) && count($_FILES['file']['name']) > 0) {
         $orig_name = $_FILES['file']['name'][$i];
         $safe_name = preg_replace("/[^a-zA-Z0-9._-]/", "_", $orig_name);
 
-        // 금지 확장자 검사
-        if (preg_match("/\.(php|pht|phtml|cgi|pl|exe|jsp|asp|inc|sh|js|html|htm|xml)$/i", $safe_name)) {
-            $return['msg'] = '금지된 확장자입니다.';
+        // 이중 확장자 검사 (ex. test.php.jpg)
+        if (preg_match("/\.(php|pht|phtml|cgi|pl|exe|jsp|asp|inc|sh|js|html|htm|xml)(\.[a-z0-9]+)?$/i", $safe_name)) {
+            $return['msg'] = '이중 확장자 또는 금지된 확장자가 포함되어 있습니다.';
             echo json_encode($return);
             exit;
         }
