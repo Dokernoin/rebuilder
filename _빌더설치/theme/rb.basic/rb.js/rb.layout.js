@@ -1,40 +1,144 @@
 $(document).ready(function () {
-    // flex_box 클래스를 가진 모든 요소를 선택
+
     var flexBoxes = $('.flex_box');
+    var layoutNumbers = [];
 
-    // flex_box 요소와 data-layout 매핑
     flexBoxes.each(function (index) {
-        $(this).attr('data-layout', index + 1);
+        var layoutIndex = index + 1;
+        $(this).attr('data-layout', layoutIndex);
+        layoutNumbers.push(layoutIndex);
     });
 
-    // AJAX 요청 배열 생성
-    var ajaxRequests = flexBoxes.map(function (index, element) {
-        var layoutIndex = index + 1; // 1부터 시작하도록 설정
-        var $element = $(element); // jQuery 캐싱
+    $.ajax({
+        url: g5_url + '/rb/rb.config/ajax.layout_set.php',
+        method: 'POST',
+        dataType: 'json',
+        data: {
+            layouts: layoutNumbers
+        },
+        success: function (response) {
+            flexBoxes.each(function (index) {
+                var layoutIndex = index + 1;
+                var html = response[layoutIndex];
+                if (html !== undefined) {
+                    $(this).html(html);
+                }
+            });
 
-        return $.ajax({
-            url: g5_url + '/rb/rb.config/ajax.layout_set.php',
-            method: 'POST',
-            dataType: 'html',
-            data: {
-                layout: layoutIndex,
-            }
-        }).done(function (data) {
-            // 성공적으로 데이터를 가져온 경우
-            $element.html(data);
+            setTimeout(function () {
+                if (typeof initializeAllSliders === "function") {
+                    initializeAllSliders();
+                }
 
-            // 필요한 경우 추가 초기화 실행
-            if (typeof initializeCalendar === "function") {
-                initializeCalendar();
-            }
-        }).fail(function () {
-            // 요청 실패
-            console.error('레이아웃 ' + layoutIndex + ' 로드 중 오류가 발생했습니다.');
-        });
-    }).get();
-
-    // 모든 AJAX 요청 완료 후 실행
-    $.when.apply($, ajaxRequests).then(function () {
-        console.log('모든 레이아웃 데이터 로드 완료');
+                if (typeof initializeCalendar === "function") {
+                    initializeCalendar();
+                }
+            }, 50);
+        },
+        error: function () {
+            console.error('레이아웃 로드 실패');
+        }
     });
+
 });
+
+
+    function initializeAllSliders() {
+        $('.rb_swiper').each(function () {
+            const $slider = $(this);
+            setupResponsiveSlider($slider);
+        });
+    }
+
+    function setupResponsiveSlider($rb_slider) {
+        let swiperInstance = null; // Swiper 인스턴스 저장
+        let currentMode = ''; // 현재 모드 ('pc' 또는 'mo')
+
+        // 초기 설정
+        function initSlider(mode) {
+            const isMobile = mode === 'mo';
+            const rows = parseInt($rb_slider.data(isMobile ? 'mo-h' : 'pc-h'), 10) || 1;
+            const cols = parseInt($rb_slider.data(isMobile ? 'mo-w' : 'pc-w'), 10) || 1;
+            const gap = parseInt($rb_slider.data(isMobile ? 'mo-gap' : 'pc-gap'), 10) || 0;
+            const swap = $rb_slider.data(isMobile ? 'mo-swap' : 'pc-swap') == 1;
+            const slidesPerView = rows * cols;
+
+            // 슬라이드 재구성 및 간격 설정
+            configureSlides($rb_slider, slidesPerView, cols, gap);
+
+            // Swiper 초기화
+            if (swiperInstance) {
+                swiperInstance.destroy(true, true); // 기존 Swiper 삭제
+            }
+
+            swiperInstance = new Swiper($rb_slider.find('.rb_swiper_inner')[0], {
+                slidesPerView: 1,
+                initialSlide: 0,
+                spaceBetween: gap,
+                resistanceRatio: 0,
+                touchRatio: swap ? 1 : 0,
+                autoplay: $rb_slider.data('autoplay') == 1
+                    ? {
+                        delay: parseInt($rb_slider.data('autoplay-time'), 10) || 3000,
+                        disableOnInteraction: false,
+                    }
+                    : false,
+                navigation: {
+                    nextEl: $rb_slider.find('.rb-swiper-next')[0],
+                    prevEl: $rb_slider.find('.rb-swiper-prev')[0],
+                },
+            });
+        }
+
+        // 슬라이드 구성 및 재구성
+        function configureSlides($rb_slider, view, cols, gap) {
+            const widthPercentage = `calc(${100 / cols}% - ${(gap * (cols - 1)) / cols}px)`;
+
+            $rb_slider.find('.rb_swiper_list').css('width', widthPercentage);
+
+            // 기존 슬라이드 그룹화 제거
+            if ($rb_slider.find('.rb_swiper_list').parent().hasClass('rb-swiper-slide')) {
+                $rb_slider.find('.swiper-slide-duplicate').remove();
+                $rb_slider.find('.rb_swiper_list').unwrap('.rb-swiper-slide');
+            }
+
+            // 슬라이드 그룹화
+            let groupIndex = 0;
+            $rb_slider.find('.rb_swiper_list').each(function (index) {
+                $(this).addClass('rb_swiper_group' + Math.floor(index / view));
+                groupIndex = Math.floor(index / view);
+            }).promise().done(function () {
+                for (let i = 0; i <= groupIndex; i++) {
+                    $rb_slider.find('.rb_swiper_group' + i).wrapAll('<div class="rb-swiper-slide swiper-slide"></div>');
+                    $rb_slider.find('.rb_swiper_group' + i).removeClass('rb_swiper_group' + i);
+                }
+            });
+
+            // 간격 설정
+            $rb_slider.find('.rb-swiper-slide').css({
+                'gap': `${gap}px`,
+            });
+
+            // 마지막 요소 오른쪽 간격 제거
+            $rb_slider.find('.rb_swiper_list').each(function (index) {
+                if ((index + 1) % cols === 0) {
+                    $(this).css('margin-right', '0');
+                }
+            });
+        }
+
+        // 반응형 설정
+        function checkModeAndInit() {
+            const winWidth = window.innerWidth;
+            const mode = winWidth <= 1024 ? 'mo' : 'pc';
+
+            if (currentMode !== mode) {
+                currentMode = mode;
+                initSlider(mode); // 모드 변경 시 재초기화
+            }
+        }
+
+        // 초기 실행 및 이벤트 등록
+        $(window).on('load resize', checkModeAndInit);
+        checkModeAndInit(); // 첫 실행
+    }
