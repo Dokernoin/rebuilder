@@ -313,6 +313,53 @@ select#ct_send_cost {width: 150px;}
 .rb_prof.rb_prof_new .rb_prof_info_img img {border-radius: 20px; border:0px !important;}
 /* } */
 
+/* 2.2 { */
+.rb_bo_top {}
+.rb_bo_top .no_data_section {display: none !important; padding-top: 0px; padding-bottom: 0px; margin-bottom: 20px;}
+.rb_bo_top .no_data_section ul:first-child {display: none;}
+.rb_bo_top .no_data_section ul.no_data_section_ul2 {display: none;}
+.rb_bo_top .no_data_section_ul1 {display: none; border:1px dashed #eee; border-radius: 10px; font-size: 14px; color:rgba(0,0,0,0.3);}
+
+.rb_bo_btm {}
+.rb_bo_btm .no_data_section {display: none !important; padding-top: 0px; padding-bottom: 0px; margin-top: 15px;}
+.rb_bo_btm .no_data_section ul:first-child {display: none;}
+.rb_bo_btm .no_data_section ul.no_data_section_ul2 {display: none;}
+.rb_bo_btm .no_data_section_ul1 {display: none; border:1px dashed #eee; border-radius: 10px; font-size: 14px; color:rgba(0,0,0,0.3);}
+
+.rb_ca_top {}
+.rb_ca_top .no_data_section {display: none !important; padding-top: 0px; padding-bottom: 0px; margin-bottom: 20px;}
+.rb_ca_top .no_data_section ul:first-child {display: none;}
+.rb_ca_top .no_data_section ul.no_data_section_ul2 {display: none;}
+.rb_ca_top .no_data_section_ul1 {display: none; border:1px dashed #eee; border-radius: 10px; font-size: 14px; color:rgba(0,0,0,0.3);}
+
+.rb_ca_btm {}
+.rb_ca_btm .no_data_section {display: none !important; padding-top: 0px; padding-bottom: 0px; margin-top: 15px;}
+.rb_ca_btm .no_data_section ul:first-child {display: none;}
+.rb_ca_btm .no_data_section ul.no_data_section_ul2 {display: none;}
+.rb_ca_btm .no_data_section_ul1 {display: none; border:1px dashed #eee; border-radius: 10px; font-size: 14px; color:rgba(0,0,0,0.3);}
+
+
+.rb_config_sec {}
+.rb_config h6 {color:#25282B !important;}
+.rb_config h6.rb_config_sub_txt {color:#888 !important;}
+.rb_config .rows_inp_l {width: 30% !important;}
+.rb_config .rows_inp_r {width: 70% !important;}
+
+.sub {position: relative;}
+
+.rb_sidemenu {margin-top: 0px;}
+.rb_sidemenu .content_box {padding-top: 0px !important;}
+.rb_sidemenu .no_data_section {display: none !important; border:1px dashed #eee; border-radius: 10px; font-size: 14px; color:rgba(0,0,0,0.3);}
+.rb_sidemenu_left {float:left; position: sticky;}
+.rb_sidemenu_right {float:right; position: sticky;}
+
+.rb_sidemenu_shop {margin-top: 0px;}
+.rb_sidemenu_shop .content_box {padding-top: 0px !important;}
+.rb_sidemenu_shop .no_data_section {display: none !important; border:1px dashed #eee; border-radius: 10px; font-size: 14px; color:rgba(0,0,0,0.3);}
+.rb_sidemenu_shop_left {float:left; position: sticky;}
+.rb_sidemenu_shop_right {float:right; position: sticky;}
+/* } */
+
 @media all and (max-width:1024px){
 
     /* 1.1.4 { */
@@ -417,6 +464,12 @@ select#ct_send_cost {width: 150px;}
 
     /* 2.1.8 { */
     .cbp-hrmenu-btm {padding-bottom: 200px !important;}
+    /* } */
+
+    /* 2.2 { */
+    #rb_sidemenu_float {float:none !important; width: 100% !important;}
+    #rb_sidemenu_float_shop {float:none !important; width: 100% !important;}
+    .sub {padding-top: 20px; padding-bottom: 20px;}
     /* } */
 
 }

@@ -459,19 +459,6 @@ if($mod_type == "del") { //모듈삭제
                             </select>
                         </ul>
                     </div>
-                    
-                    <div>
-                        <ul class="mt-5 selected_latest_tab selected_select">
-                            <select class="select w100" name="md_order" id="md_order">
-                                <option value="">출력 옵션을 선택하세요.</option>
-                                <option value="wr_num" <?php if (isset($md_order) && $md_order == "wr_num") { ?>selected<?php } ?>>기본순</option>
-                                <option value="wr_hit desc" <?php if (isset($md_order) && $md_order == "wr_hit desc") { ?>selected<?php } ?>>조회 높은순</option>
-                                <option value="wr_good desc" <?php if (isset($md_order) && $md_order == "wr_good desc") { ?>selected<?php } ?>>추천 많은순</option>
-                                <option value="wr_comment desc" <?php if (isset($md_order) && $md_order == "wr_comment desc") { ?>selected<?php } ?>>댓글 많은순</option>
-                                <option value="rand()" <?php if (isset($md_order) && $md_order == "rand()") { ?>selected<?php } ?>>랜덤</option>
-                            </select>
-                        </ul>
-                    </div>
 
                     <ul class="mt-5 selected_latest selected_select">
                         <select class="select w100" name="md_skin" id="md_skin">
@@ -537,11 +524,27 @@ if($mod_type == "del") { //모듈삭제
                     </ul>
                     
                     
+
                     <ul class="mt-5 selected_item selected_select">
                         <select class="select w100" name="md_skin" id="md_skin_shop">
                             <?php echo rb_list_skin_options("^main.[0-9]+\.skin\.php", G5_SHOP_SKIN_PATH, $md_skin); ?>
                         </select>
                     </ul>
+                    <?php } else { ?>
+
+                    <div>
+                        <ul class="mt-5 selected_latest_tab selected_select">
+                            <select class="select w100" name="md_order" id="md_order">
+                                <option value="">출력 옵션을 선택하세요.</option>
+                                <option value="wr_num" <?php if (isset($md_order) && $md_order == "wr_num") { ?>selected<?php } ?>>기본순</option>
+                                <option value="wr_hit desc" <?php if (isset($md_order) && $md_order == "wr_hit desc") { ?>selected<?php } ?>>조회 높은순</option>
+                                <option value="wr_good desc" <?php if (isset($md_order) && $md_order == "wr_good desc") { ?>selected<?php } ?>>추천 많은순</option>
+                                <option value="wr_comment desc" <?php if (isset($md_order) && $md_order == "wr_comment desc") { ?>selected<?php } ?>>댓글 많은순</option>
+                                <option value="rand()" <?php if (isset($md_order) && $md_order == "rand()") { ?>selected<?php } ?>>랜덤</option>
+                            </select>
+                        </ul>
+                    </div>
+
                     <?php } ?>
 
                     <script>
