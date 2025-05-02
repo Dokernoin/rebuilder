@@ -466,7 +466,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                     <ul class="rb_config_sec" <?php if(defined('_SHOP_')) { // 영카트?>style="display:none !important;"<?php } else { ?>style="display:block !important;"<?php } ?>>
 
-                            <h6 class="font-B">서브 사이드영역 설정</h6>
+                            <h6 class="font-B">서브 사이드 영역 설정</h6>
                             <h6 class="font-R rb_config_sub_txt">
                                 서브 페이지 사이드 영역을 설정할 수 있습니다.<br>
                                 모바일 버전의 경우 숨겨집니다.
