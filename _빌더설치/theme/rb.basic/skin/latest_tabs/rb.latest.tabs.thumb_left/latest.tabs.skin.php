@@ -147,7 +147,7 @@ $rb_skin['md_tab_list'] 탭 설정
                   $wr_content = strip_tags($row['wr_content']);
                   $is_secret = strstr($row['wr_option'], 'secret');
                 ?>
-                <div class="rb_swiper_list" style="height:95px;">
+                <div class="rb_swiper_list">
                   <div>
                     <?php if ($rb_skin['md_thumb_is']): ?>
                       <ul class="bbs_main_wrap_con_ul1">
