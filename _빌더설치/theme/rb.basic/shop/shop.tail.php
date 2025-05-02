@@ -9,6 +9,23 @@ if (G5_IS_MOBILE) {
 $admin = get_admin("super");
 
 ?>
+
+       <?php if (!defined("_INDEX_")) { ?>
+            <?php if(isset($bo_table) && $bo_table) { ?>
+                <div class="rb_bo_btm flex_box" data-layout="rb_bo_btm_shop_<?php echo $bo_table ?>"></div>
+            <?php } ?>
+            <?php if(isset($co_id) && $co_id) { ?>
+                <div class="rb_co_btm flex_box" data-layout="rb_co_btm_shop_<?php echo $co_id ?>"></div>
+            <?php } ?>
+            <?php if(isset($ca_id) && $ca_id) { ?>
+                <div class="rb_ca_btm flex_box" data-layout="rb_ca_btm_shop_<?php echo $ca_id ?>"></div>
+            <?php } ?>
+        <?php } ?>
+
+        <?php if (!defined("_INDEX_")) { ?>
+        </div>
+        <div class="cb"></div>
+        <?php } ?>
         
        </section>
     </div>
