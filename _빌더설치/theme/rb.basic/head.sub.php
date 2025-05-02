@@ -172,11 +172,11 @@ add_javascript('<script src="'.G5_JS_URL.'/jquery-migrate-1.4.1.min.js"></script
     
 if(defined('_SHOP_')) {
     if (isset($rb_core['layout_shop'])) {
-        add_javascript('<script src="' . G5_THEME_URL . '/rb.js/rb.layout.shop.js?v=2.1.8.1"></script>', 0);
+        add_javascript('<script src="' . G5_THEME_URL . '/rb.js/rb.layout.shop.js?v=2.2"></script>', 0);
     }
 } else { 
     if (isset($rb_core['layout'])) {
-        add_javascript('<script src="' . G5_THEME_URL . '/rb.js/rb.layout.js?v=2.1.8.1"></script>', 0);
+        add_javascript('<script src="' . G5_THEME_URL . '/rb.js/rb.layout.js?v=2.2"></script>', 0);
     }
 }
 
