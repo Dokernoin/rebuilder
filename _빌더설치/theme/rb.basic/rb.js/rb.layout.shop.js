@@ -1,12 +1,18 @@
 $(document).ready(function () {
-
     var flexBoxes = $('.flex_box');
     var layoutNumbers = [];
 
     flexBoxes.each(function (index) {
-        var layoutIndex = index + 1;
-        $(this).attr('data-layout', layoutIndex);
-        layoutNumbers.push(layoutIndex);
+        // 기존 data-layout 값 확인
+        var existingLayout = $(this).attr('data-layout');
+
+        if (!existingLayout) {
+            var layoutIndex = layoutNumbers.length + 1;
+            $(this).attr('data-layout', layoutIndex);
+            layoutNumbers.push(layoutIndex);
+        } else {
+            layoutNumbers.push(existingLayout);
+        }
     });
 
     $.ajax({
@@ -18,7 +24,7 @@ $(document).ready(function () {
         },
         success: function (response) {
             flexBoxes.each(function (index) {
-                var layoutIndex = index + 1;
+                var layoutIndex = $(this).attr('data-layout');
                 var html = response[layoutIndex];
                 if (html !== undefined) {
                     $(this).html(html);
@@ -39,7 +45,6 @@ $(document).ready(function () {
             console.error('레이아웃 로드 실패');
         }
     });
-
 });
 
 
