@@ -123,7 +123,7 @@ foreach((array) $list as $row){
 ?>
 
 
-     <ul class="rb_swiper_list sct">
+     <ul class="rb_swiper_list">
      
         <li class="rb_shop_list_item sct_li">
             <div class="v_ch_list">

@@ -123,7 +123,7 @@ foreach((array) $list as $row){
 ?>
 
 
-     <ul class="rb_swiper_list sct" onclick="location.href='<?php echo $item_link_href ?>';">
+     <ul class="rb_swiper_list" onclick="location.href='<?php echo $item_link_href ?>';">
      
         <li class="rb_shop_list_item sct_li">
             <div class="v_ch_list">
