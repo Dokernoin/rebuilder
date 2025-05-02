@@ -2,7 +2,7 @@
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 //ini_set("display_errors", 1); // 디버깅
-define('RB_VER',  '2.1.8'); // 버전
+define('RB_VER',  '2.2'); // 버전
 
 
 /*********************************************/
@@ -25,6 +25,15 @@ $rb_core['padding_top'] = isset($rb_config['co_main_padding_top']) ? $rb_config[
 /* 2.1.4 { */
 $rb_core['gap_pc'] = isset($rb_config['co_gap_pc']) ? $rb_config['co_gap_pc'] : '0'; // 간격
 $rb_core['inner_padding_pc'] = isset($rb_config['co_inner_padding_pc']) ? $rb_config['co_inner_padding_pc'] : '0'; // 내부여백
+/* } */
+
+/* 2.2 { */
+$rb_core['side_skin'] = isset($rb_config['co_side_skin']) ? $rb_config['co_side_skin'] : ''; // 사이드메뉴 스킨
+$rb_core['side_skin_shop'] = isset($rb_config['co_side_skin_shop']) ? $rb_config['co_side_skin_shop'] : ''; // 사이드메뉴 스킨 (마켓)
+$rb_core['sidemenu'] = isset($rb_config['co_sidemenu']) ? $rb_config['co_sidemenu'] : ''; // 사이드메뉴 여부, 위치
+$rb_core['sidemenu_shop'] = isset($rb_config['co_sidemenu_shop']) ? $rb_config['co_sidemenu_shop'] : ''; // 사이드메뉴 여부, 위치 (마켓)
+$rb_core['sidemenu_width'] = isset($rb_config['co_sidemenu_width']) ? $rb_config['co_sidemenu_width'] : '200'; // 사이드메뉴 가로크기
+$rb_core['sidemenu_width_shop'] = isset($rb_config['co_sidemenu_width_shop']) ? $rb_config['co_sidemenu_width_shop'] : '200'; // 사이드메뉴 가로크기 (마켓)
 /* } */
 
 
@@ -892,7 +901,7 @@ function byteFormat($bytes, $unit = "", $decimals = 0) {
 }
 
 // 최신글 함수(메인용)
-function rb_latest($skin_dir='', $bo_table, $rows=10, $subject_len=40, $cache_time=1, $options='', $md_sca='')
+function rb_latest($skin_dir='', $bo_table, $rows=10, $subject_len=40, $cache_time=1, $options='', $md_sca='', $md_order='', $rb_module_table='')
 {
     global $g5;
 
@@ -924,7 +933,7 @@ function rb_latest($skin_dir='', $bo_table, $rows=10, $subject_len=40, $cache_ti
     $caches = false;
 
     if(G5_USE_CACHE) {
-        $cache_file_name = "latest-{$bo_table}-{$skin_dir}-{$md_sca}-{$rows}-{$subject_len}-".g5_cache_secret_key();
+        $cache_file_name = "latest-{$bo_table}-{$skin_dir}-{$md_sca}-{$md_order}-{$rows}-{$subject_len}-".g5_cache_secret_key();
         $caches = g5_get_cache($cache_file_name, (int) $time_unit * (int) $cache_time);
         $cache_list = isset($caches['list']) ? $caches['list'] : array();
         g5_latest_cache_data($bo_table, $cache_list);
@@ -945,13 +954,19 @@ function rb_latest($skin_dir='', $bo_table, $rows=10, $subject_len=40, $cache_ti
         $tmp_write_table = $g5['write_prefix'] . $bo_table; // 게시판 테이블 전체이름
         
         
+        $sql = "SELECT * FROM {$tmp_write_table} WHERE wr_is_comment = 0 ";
         
-        if (!$md_sca) {
-            $sql = "SELECT * FROM {$tmp_write_table} WHERE wr_is_comment = 0 ORDER BY wr_num LIMIT 0, {$rows}";
-        } else {
-            $sql = "SELECT * FROM {$tmp_write_table} WHERE wr_is_comment = 0 AND ca_name = '{$md_sca}' ORDER BY wr_num LIMIT 0, {$rows}";
+        if($md_sca) {
+            $sql .= " AND ca_name = '{$md_sca}' ";
         }
         
+        if($md_order) {
+            $sql .= " ORDER BY {$md_order} ";
+        } else {
+            $sql .= " ORDER BY wr_num ";
+        }
+
+        $sql .= " LIMIT 0, {$rows} ";
         
         $result = sql_query($sql);
         for ($i=0; $row = sql_fetch_array($result); $i++) {
@@ -989,10 +1004,105 @@ function rb_latest($skin_dir='', $bo_table, $rows=10, $subject_len=40, $cache_ti
     }
 
     ob_start();
-    $rb_module_table = "rb_module"; // 메인모듈 테이블 설정
+
     include $latest_skin_path.'/latest.skin.php';
     $content = ob_get_contents();
     ob_end_clean();
+
+    return $content;
+}
+
+
+function rb_latest_tabs($skin_dir = '', $json_list = '', $rows = 10, $subject_len = 40, $cache_time = 1, $options = '', $md_order = '', $rb_module_table = '') {
+    global $g5;
+
+    if (!$skin_dir) $skin_dir = 'basic';
+    if (!$json_list) return '';
+
+    $time_unit = 3600; // 1시간
+
+    if (preg_match('#^theme/(.+)$#', $skin_dir, $match)) {
+        if (G5_IS_MOBILE) {
+            $latest_skin_path = G5_THEME_MOBILE_PATH.'/'.G5_SKIN_DIR.'/latest_tabs/'.$match[1];
+            if (!is_dir($latest_skin_path))
+                $latest_skin_path = G5_THEME_PATH.'/'.G5_SKIN_DIR.'/latest_tabs/'.$match[1];
+            $latest_skin_url = str_replace(G5_PATH, G5_URL, $latest_skin_path);
+        } else {
+            $latest_skin_path = G5_THEME_PATH.'/'.G5_SKIN_DIR.'/latest_tabs/'.$match[1];
+            $latest_skin_url = str_replace(G5_PATH, G5_URL, $latest_skin_path);
+        }
+        $skin_dir = $match[1];
+    } else {
+        if (G5_IS_MOBILE) {
+            $latest_skin_path = G5_MOBILE_PATH.'/'.G5_SKIN_DIR.'/latest_tabs/'.$skin_dir;
+            $latest_skin_url  = G5_MOBILE_URL.'/'.G5_SKIN_DIR.'/latest_tabs/'.$skin_dir;
+        } else {
+            $latest_skin_path = G5_SKIN_PATH.'/latest_tabs/'.$skin_dir;
+            $latest_skin_url  = G5_SKIN_URL.'/latest_tabs/'.$skin_dir;
+        }
+    }
+
+    $tab_items = json_decode($json_list, true);
+    if (!is_array($tab_items) || !count($tab_items)) return '';
+
+    $tabs = [];
+    foreach ($tab_items as $item) {
+        if (strpos($item, '||') !== false) {
+            list($bo_table, $md_sca) = explode('||', $item);
+        } else {
+            $bo_table = $item;
+            $md_sca = '';
+        }
+
+        $board = get_board_db($bo_table, true);
+        if (!$board) continue;
+
+        $bo_subject = get_text($board['bo_subject']);
+
+        $list = [];
+        $tmp_write_table = $g5['write_prefix'] . $bo_table;
+
+        $sql = "SELECT * FROM {$tmp_write_table} WHERE wr_is_comment = 0 ";
+
+        if($md_sca) {
+            $sql .= " AND ca_name = '{$md_sca}' ";
+        }
+
+        if($md_order) {
+            $sql .= " ORDER BY {$md_order} ";
+        } else {
+            $sql .= " ORDER BY wr_num ";
+        }
+
+        $sql .= " LIMIT 0, {$rows} ";
+
+
+        $result = sql_query($sql);
+        for ($i = 0; $row = sql_fetch_array($result); $i++) {
+            unset($row['wr_password']);
+            $row['wr_email'] = '';
+            if (strstr($row['wr_option'], 'secret')) {
+                $row['wr_content'] = $row['wr_link1'] = $row['wr_link2'] = '';
+                $row['file'] = array('count'=>0);
+            }
+            $list[$i] = get_list($row, $board, $latest_skin_url, $subject_len);
+            $list[$i]['first_file_thumb'] = (isset($row['wr_file']) && $row['wr_file']) ? get_board_file_db($bo_table, $row['wr_id'], 'bf_file, bf_content', "and bf_type in (1, 2, 3, 18) ", true) : array('bf_file'=>'', 'bf_content'=>'');
+            $list[$i]['bo_table'] = $bo_table;
+            if (!isset($list[$i]['icon_file'])) $list[$i]['icon_file'] = '';
+        }
+
+        $tabs[] = [
+            'bo_table' => $bo_table,
+            'sca' => $md_sca,
+            'bo_subject' => $bo_subject,
+            'list' => $list
+        ];
+    }
+
+    ob_start();
+
+    include $latest_skin_path.'/latest.tabs.skin.php';
+    $content = ob_get_clean();
 
     return $content;
 }
