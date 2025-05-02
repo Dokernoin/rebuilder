@@ -23,8 +23,15 @@ $admin = get_admin("super");
         <?php } ?>
 
         <?php if (!defined("_INDEX_")) { ?>
-        </div>
-        <div class="cb"></div>
+            <?php if(isset($side_float_shop) && $side_float_shop) { ?>
+            </div>
+            <?php } ?>
+
+            <?php if (isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "left" || isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "right") { ?>
+            <div id="rb_sidemenu_shop" class="rb_sidemenu_shop flex_box rb_sidemenu_shop_<?php echo isset($rb_core['sidemenu_shop']) ? $rb_core['sidemenu_shop'] : ''; ?>" style="width:<?php echo isset($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : '200'; ?>px" data-layout="rb_sidemenu_shop"></div>
+            <?php } ?>
+
+            <div class="cb"></div>
         <?php } ?>
         
        </section>

@@ -72,9 +72,6 @@ if(defined('_INDEX_')) { // index에서만 실행
         <section class="<?php if (defined("_INDEX_")) { ?>index co_inner_padding_pc_<?php echo $rb_core['inner_padding_pc'] ?> co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } else { ?>sub<?php } ?>" <?php if (!defined("_INDEX_")) { ?>style="width:<?php echo $rb_core['sub_width'] ?>px;"<?php } else { ?>style="width:<?php echo $rb_core['main_width'] ?>px;"<?php } ?>>
         
         <?php if (!defined("_INDEX_")) { ?>
-            <?php if (isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "left" || isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "right") { ?>
-            <div id="rb_sidemenu_shop" class="pc rb_sidemenu_shop flex_box rb_sidemenu_shop_<?php echo isset($rb_core['sidemenu_shop']) ? $rb_core['sidemenu_shop'] : ''; ?>" style="width:<?php echo isset($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : '200'; ?>px" data-layout="rb_sidemenu_shop"></div>
-            <?php } ?>
 
             <?php
                 $side_float_shop = "";
@@ -84,8 +81,9 @@ if(defined('_INDEX_')) { // index에서만 실행
                     $side_float_shop = "float:left; width: calc(100% - ".$rb_core['sidemenu_width_shop']."px);";
                 }
             ?>
-
+            <?php if(isset($side_float_shop) && $side_float_shop) { ?>
             <div id="rb_sidemenu_float_shop" style="<?php echo $side_float_shop ?>">
+            <?php } ?>
         <?php } ?>
 
 

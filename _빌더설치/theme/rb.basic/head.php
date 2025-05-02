@@ -65,9 +65,6 @@ include_once(G5_PATH.'/rb/rb.mod/alarm/alarm.php'); // 실시간 알림
         <section class="<?php if (defined("_INDEX_")) { ?>index co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } else { ?>sub co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } ?>" style="<?php if (!defined("_INDEX_")) { ?>width:<?php echo $rb_core['sub_width'] ?>px;<?php } else { ?>width:<?php echo $rb_core['main_width'] ?>px;<?php } ?>">
 
         <?php if (!defined("_INDEX_")) { ?>
-            <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left" || isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") { ?>
-            <div id="rb_sidemenu" class="pc rb_sidemenu flex_box rb_sidemenu_<?php echo isset($rb_core['sidemenu']) ? $rb_core['sidemenu'] : ''; ?>" style="width:<?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>px" data-layout="rb_sidemenu"></div>
-            <?php } ?>
 
             <?php
                 $side_float = "";
@@ -77,8 +74,9 @@ include_once(G5_PATH.'/rb/rb.mod/alarm/alarm.php'); // 실시간 알림
                     $side_float = "float:left; width: calc(100% - ".$rb_core['sidemenu_width']."px);";
                 }
             ?>
-
+            <?php if(isset($side_float) && $side_float) { ?>
             <div id="rb_sidemenu_float" style="<?php echo $side_float ?>">
+            <?php } ?>
         <?php } ?>
 
 

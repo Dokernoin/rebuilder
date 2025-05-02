@@ -21,8 +21,15 @@ if(G5_COMMUNITY_USE === false) {
         <?php } ?>
 
         <?php if (!defined("_INDEX_")) { ?>
-        </div>
-        <div class="cb"></div>
+            <?php if(isset($side_float) && $side_float) { ?>
+            </div>
+            <?php } ?>
+            <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left" || isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") { ?>
+            <div id="rb_sidemenu" class="rb_sidemenu flex_box rb_sidemenu_<?php echo isset($rb_core['sidemenu']) ? $rb_core['sidemenu'] : ''; ?>" style="width:<?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>px" data-layout="rb_sidemenu"></div>
+            <?php } ?>
+
+            <div class="cb"></div>
+
         <?php } ?>
 
         </section>
