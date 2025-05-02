@@ -59,8 +59,19 @@ foreach ($layouts as $layout_no) {
 
             <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'latest') { ?>
                 <div class="module_latest_wrap">
-                    <?php echo '<?php echo rb_latest("' . $row_mod['md_skin'] . '", "' . $row_mod['md_bo_table'] . '", ' . $row_mod['md_cnt'] . ', 999, 1, ' . $row_mod['md_id'] . ', "' . $row_mod['md_sca'] . '"); ?>'; ?>
+                    <?php echo '<?php echo rb_latest("' . $row_mod['md_skin'] . '", "' . $row_mod['md_bo_table'] . '", ' . $row_mod['md_cnt'] . ', 999, 1, ' . $row_mod['md_id'] . ', "' . $row_mod['md_sca'] . '", "' . $row_mod['md_order'] . '", "' . $rb_module_table . '"); ?>'; ?>
                 </div>
+            <?php } ?>
+
+            <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'tab') { ?>
+            <div class="module_latest_wrap">
+            <?php
+                $tab_list_clean = addslashes($row_mod['md_tab_list']);
+
+                $tab_code = '<?php echo rb_latest_tabs("' . $row_mod['md_tab_skin'] . '", "' . $tab_list_clean . '", ' . intval($row_mod['md_cnt']) . ', 999, 1, "' . $row_mod['md_id'] . '", "' . $row_mod['md_order'] . '", "' . $rb_module_table . '"); ?>';
+                echo $tab_code;
+            ?>
+            </div>
             <?php } ?>
 
             <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'widget') { ?>
@@ -139,7 +150,7 @@ foreach ($layouts as $layout_no) {
 
     if ($is_admin) {
         if (!isset($sql_cnts['cnt']) || !$sql_cnts['cnt']) {
-            $output .= '<div class="no_data_section"><ul><img src="'.G5_THEME_URL.'/rb.img/icon/icon_error.svg" style="width:50px;"></ul><ul class="no_data_section_ul1 font-B">추가된 모듈이 없습니다.</ul><ul class="no_data_section_ul2">모듈추가 버튼을 클릭해주세요.<br>모듈은 계속 추가할 수 있습니다.</ul></div>';
+            $output .= '<div class="no_data_section add_module_wrap"><ul><img src="'.G5_THEME_URL.'/rb.img/icon/icon_error.svg" style="width:50px;"></ul><ul class="no_data_section_ul1 font-B">추가된 모듈이 없습니다.</ul><ul class="no_data_section_ul2">모듈추가 버튼을 클릭해주세요.<br>모듈은 계속 추가할 수 있습니다.</ul></div>';
         }
         $output .= '<div class="add_module_wrap adm_co_gap_pc_' . $rb_core['gap_pc'] . '"><button type="button" class="add_module_btns font-B" onclick="set_module_send(this);">모듈추가</button></div>';
     }

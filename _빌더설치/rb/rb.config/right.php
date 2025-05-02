@@ -190,6 +190,10 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                         return (className.match(/co_gap_pc_\d+/g) || []).join(' ');
                                     }).addClass('co_gap_pc_' + ui.value);
                                     
+                                    $('.contents_wrap section.sub').removeClass(function(index, className) {
+                                        return (className.match(/co_gap_pc_\d+/g) || []).join(' ');
+                                    }).addClass('co_gap_pc_' + ui.value);
+
                                     $('.add_module_wrap').removeClass(function(index, className) {
                                         return (className.match(/adm_co_gap_pc_\d+/g) || []).join(' ');
                                     }).addClass('adm_co_gap_pc_' + ui.value);
@@ -321,6 +325,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 <?php } ?>
 
                             </div>
+
                             
                         </div>
                           
@@ -384,13 +389,146 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 <?php } ?>
 
                             </div>
-                        
-                        </div>
-                           
 
-                        
+                        </div>
+
                     </ul>
 
+
+                    <ul class="rb_config_sec" <?php if(defined('_SHOP_')) { // 영카트?>style="display:block !important;"<?php } else { ?>style="display:none !important;"<?php } ?>>
+
+                            <h6 class="font-B">마켓 서브 사이드 영역 설정</h6>
+                            <h6 class="font-R rb_config_sub_txt">
+                                서브 페이지 사이드 영역을 설정할 수 있습니다.<br>
+                                모바일 버전의 경우 숨겨집니다.
+                            </h6>
+
+                            <div class="config_wrap">
+                                <ul class="rows_inp_lr mt-10">
+
+                                    <li class="rows_inp_r mt-5">
+                                        <input type="radio" name="co_sidemenu_shop" id="co_sidemenu_shop_1" class="magic-radio mod_send" value="" <?php if (isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "") { ?>checked<?php } ?>><label for="co_sidemenu_shop_1">없음</label>
+                                        <input type="radio" name="co_sidemenu_shop" id="co_sidemenu_shop_2" class="magic-radio mod_send" value="left" <?php if (isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "left") { ?>checked<?php } ?>><label for="co_sidemenu_shop_2">좌측</label>
+                                        <input type="radio" name="co_sidemenu_shop" id="co_sidemenu_shop_3" class="magic-radio mod_send" value="right" <?php if (isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "right") { ?>checked<?php } ?>><label for="co_sidemenu_shop_3">우측</label>
+                                    </li>
+
+                                    <div class="cb"></div>
+                                </ul>
+
+                                <ul class="rows_inp_lr mt-10">
+                                    <li class="rows_inp_l rows_inp_l_span">
+                                        <span class="font-B">가로 크기</span><br>
+                                        200~500px
+                                    </li>
+
+                                        <li class="rows_inp_r mt-15">
+                                            <div id="co_sidemenu_width_shop_range" class="rb_range_item"></div>
+                                            <input type="hidden" name="co_sidemenu_width_shop" id="co_sidemenu_width_shop" class="co_range_send" value="<?php echo isset($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : '200'; ?>">
+                                        </li>
+
+                                        <script type="text/javascript">
+
+                                        $("#co_sidemenu_width_shop_range").slider({
+                                          range: "min",
+                                          min: 200,
+                                          max: 500,
+                                          value: <?php echo isset($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : '200'; ?>,
+                                          step: 10,
+                                          slide: function(e, ui) {
+                                            $("#co_sidemenu_width_shop_range .ui-slider-handle").html(ui.value);
+                                            $("#co_sidemenu_width_shop").val(ui.value); // hidden input에 값 업데이트
+
+                                            executeAjax();
+
+                                            // 가로사이즈 반영
+                                            $('#rb_sidemenu_shop').css('width', ui.value);
+                                            $('#rb_sidemenu_float_shop').css('width', 'calc(100% - '+ui.value+'px)');
+
+                                          }
+                                        });
+
+                                        $("#co_sidemenu_width_shop_range .ui-slider-handle").html("<?php echo isset($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : '200'; ?>");
+                                        $("#co_sidemenu_width_shop").val("<?php echo isset($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : '200'; ?>"); // 초기값 설정
+
+                                        </script>
+
+
+                                    </li>
+                                    <div class="cb"></div>
+                                </ul>
+
+
+                            </div>
+
+                    </ul>
+
+
+
+                    <ul class="rb_config_sec" <?php if(defined('_SHOP_')) { // 영카트?>style="display:none !important;"<?php } else { ?>style="display:block !important;"<?php } ?>>
+
+                            <h6 class="font-B">서브 사이드영역 설정</h6>
+                            <h6 class="font-R rb_config_sub_txt">
+                                서브 페이지 사이드 영역을 설정할 수 있습니다.<br>
+                                모바일 버전의 경우 숨겨집니다.
+                            </h6>
+
+                            <div class="config_wrap">
+                                <ul class="rows_inp_lr mt-10">
+
+                                    <li class="rows_inp_r mt-5">
+                                        <input type="radio" name="co_sidemenu" id="co_sidemenu_1" class="magic-radio mod_send" value="" <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "") { ?>checked<?php } ?>><label for="co_sidemenu_1">없음</label>
+                                        <input type="radio" name="co_sidemenu" id="co_sidemenu_2" class="magic-radio mod_send" value="left" <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left") { ?>checked<?php } ?>><label for="co_sidemenu_2">좌측</label>
+                                        <input type="radio" name="co_sidemenu" id="co_sidemenu_3" class="magic-radio mod_send" value="right" <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") { ?>checked<?php } ?>><label for="co_sidemenu_3">우측</label>
+                                    </li>
+
+                                    <div class="cb"></div>
+                                </ul>
+
+                                <ul class="rows_inp_lr mt-10">
+                                    <li class="rows_inp_l rows_inp_l_span">
+                                        <span class="font-B">가로 크기</span><br>
+                                        200~500px
+                                    </li>
+
+
+                                           <li class="rows_inp_r mt-15">
+                                                <div id="co_sidemenu_width_range" class="rb_range_item"></div>
+                                                <input type="hidden" name="co_sidemenu_width" id="co_sidemenu_width" class="co_range_send" value="<?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>">
+                                            </li>
+
+                                            <script type="text/javascript">
+
+                                            $("#co_sidemenu_width_range").slider({
+                                              range: "min",
+                                              min: 200,
+                                              max: 500,
+                                              value: <?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>,
+                                              step: 10,
+                                              slide: function(e, ui) {
+                                                $("#co_sidemenu_width_range .ui-slider-handle").html(ui.value);
+                                                $("#co_sidemenu_width").val(ui.value); // hidden input에 값 업데이트
+
+                                                executeAjax();
+
+                                                // 가로사이즈 반영
+                                                $('#rb_sidemenu').css('width', ui.value);
+                                                $('#rb_sidemenu_float').css('width', 'calc(100% - '+ui.value+'px)');
+                                              }
+                                            });
+
+                                            $("#co_sidemenu_width_range .ui-slider-handle").html("<?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>");
+                                            $("#co_sidemenu_width").val("<?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>"); // 초기값 설정
+
+                                            </script>
+
+
+                                    </li>
+                                    <div class="cb"></div>
+                                </ul>
+
+                            </div>
+
+                    </ul>
 
                     
                     
@@ -437,7 +575,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     </ul>
                     
                     <ul class="rb_config_sec">
-                        <h6 class="font-B"><?php if(defined('_SHOP_')) { // 영카트?>마켓 <?php } ?>상단여백 설정 (PC)</h6>
+                        <h6 class="font-B"><?php if(defined('_SHOP_')) { // 영카트?>마켓 <?php } ?>메인 상단여백 설정 (PC)</h6>
                         <h6 class="font-R rb_config_sub_txt">
                             PC버전 상단의 여백을 제거할 수 있습니다.
                         </h6>
@@ -949,6 +1087,15 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 
                 var co_main_padding_top = $('input[name="co_main_padding_top"]:checked').val();
                 var co_main_padding_top_shop = $('input[name="co_main_padding_top_shop"]:checked').val();
+
+                var co_side_skin = $('select[name="co_side_skin"]').val();
+                var co_side_skin_shop = $('select[name="co_side_skin_shop"]').val();
+                var co_sidemenu = $('input[name="co_sidemenu"]:checked').val();
+                var co_sidemenu_shop = $('input[name="co_sidemenu_shop"]:checked').val();
+                var co_sidemenu_width = $('input[name="co_sidemenu_width"]').val();
+                var co_sidemenu_width_shop = $('input[name="co_sidemenu_width_shop"]').val();
+
+
                 var mod_type = '1';
                 
                 <?php if($is_admin) { ?>
@@ -983,6 +1130,14 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         "co_tb_width":co_tb_width,
                         "co_main_padding_top":co_main_padding_top,
                         "co_main_padding_top_shop":co_main_padding_top_shop,
+
+                        "co_side_skin":co_side_skin,
+                        "co_side_skin_shop":co_side_skin_shop,
+                        "co_sidemenu":co_sidemenu,
+                        "co_sidemenu_shop":co_sidemenu_shop,
+                        "co_sidemenu_width":co_sidemenu_width,
+                        "co_sidemenu_width_shop":co_sidemenu_width_shop,
+
                         "mod_type":mod_type,
                     },
                     success: function(data) {
@@ -1107,6 +1262,10 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 var md_type = $('select[name="md_type"]').val();
                 
                 var md_title = $('input[name="md_title"]').val();
+                var md_title_color = $('input[name="md_title_color"]').val();
+                var md_title_size = $('input[name="md_title_size"]').val();
+                var md_title_font = $('select[name="md_title_font"]').val();
+                var md_title_hide = $('input[name="md_title_hide"]:checked').val();
                 var md_layout = $('input[name="md_layout"]').val();
                 var md_theme = $('input[name="md_theme"]').val();
                 
@@ -1191,6 +1350,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 var md_module = $('select[name="md_module"]').val();
                 var md_order = $('select[name="md_order"]').val();
                 
+                var md_tab_list = $('input[name="md_tab_list"]').val();
+                var md_tab_skin = $('select[name="md_tab_skin"]').val();
 
                 if(md_title == "") {
                     alert('모듈 타이틀을 입력해주세요.');
@@ -1223,6 +1384,14 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     return false;
                 } else if(md_type == "latest" && md_col < 1 || md_type == "latest" && md_row < 1 || md_type == "latest" && md_col_mo < 1 || md_type == "latest" && md_row_mo < 1) {
                     alert('게시물 출력(열X행) 옵션을 설정해주세요.');
+                    return false;
+                } else if(md_type == "tab" && md_tab_list == "" || md_type == "tab" && md_tab_list == "[]") {
+                    alert('탭으로 출력할 게시판 또는 카테고리를 선택해주세요.');
+                    $('select[name="md_bo_table_tab"]').focus();
+                    return false;
+               } else if(md_type == "tab" && md_tab_skin == "") {
+                    alert('최신글 탭 스킨을 선택해주세요.');
+                    $('#md_tab_skin').focus();
                     return false;
                 } else if(md_type == "widget" && md_widget == "") {
                     alert('출력 위젯을 선택해주세요.');
@@ -1282,8 +1451,14 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                             <?php } ?>
                             "md_id":md_id,
                             "md_title":md_title,
+                            "md_title_color":md_title_color,
+                            "md_title_size":md_title_size,
+                            "md_title_font":md_title_font,
+                            "md_title_hide":md_title_hide,
                             "md_layout":md_layout,
                             "md_skin":md_skin,
+                            "md_tab_list":md_tab_list,
+                            "md_tab_skin":md_tab_skin,
                             "md_type":md_type,
                             "md_bo_table":md_bo_table,
                             "md_sca":md_sca,

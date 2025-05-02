@@ -3,8 +3,14 @@ include_once('../../common.php');
 
 $md_id = isset($_POST['md_id']) ? $_POST['md_id'] : '';
 $md_title = isset($_POST['md_title']) ? $_POST['md_title'] : '';
+$md_title_color = isset($_POST['md_title_color']) ? $_POST['md_title_color'] : '#25282b';
+$md_title_size = isset($_POST['md_title_size']) ? $_POST['md_title_size'] : '20';
+$md_title_font = isset($_POST['md_title_font']) ? $_POST['md_title_font'] : 'font-B';
+$md_title_hide = isset($_POST['md_title_hide']) ? $_POST['md_title_hide'] : '0';
 $md_layout = isset($_POST['md_layout']) ? $_POST['md_layout'] : '';
 $md_skin = isset($_POST['md_skin']) ? $_POST['md_skin'] : '';
+$md_tab_list = isset($_POST['md_tab_list']) ? $_POST['md_tab_list'] : '';
+$md_tab_skin = isset($_POST['md_tab_skin']) ? $_POST['md_tab_skin'] : '';
 $md_type = isset($_POST['md_type']) ? $_POST['md_type'] : '';
 $md_bo_table = isset($_POST['md_bo_table']) ? $_POST['md_bo_table'] : '';
 $md_sca = isset($_POST['md_sca']) ? $_POST['md_sca'] : '';
@@ -99,8 +105,14 @@ if(isset($is_shop) && $is_shop == 1) {
                     
                 $sql = " insert {$rb_module_tables} set 
                 md_title = '{$md_title}', 
+                md_title_color = '{$md_title_color}',
+                md_title_size = '{$md_title_size}',
+                md_title_font = '{$md_title_font}',
+                md_title_hide = '{$md_title_hide}',
                 md_layout = '{$md_layout}',
                 md_skin = '{$md_skin}', 
+                md_tab_skin = '{$md_tab_skin}',
+                md_tab_list = '{$md_tab_list}',
                 md_type = '{$md_type}', 
                 md_bo_table = '{$md_bo_table}', 
                 md_sca = '{$md_sca}',
@@ -155,8 +167,14 @@ if(isset($is_shop) && $is_shop == 1) {
                 if($is_admin) {
                 $sql = " update {$rb_module_tables} 
                 set md_title = '{$md_title}', 
+                md_title_color = '{$md_title_color}',
+                md_title_size = '{$md_title_size}',
+                md_title_font = '{$md_title_font}',
+                md_title_hide = '{$md_title_hide}',
                 md_layout = '{$md_layout}', 
                 md_skin = '{$md_skin}', 
+                md_tab_skin = '{$md_tab_skin}',
+                md_tab_list = '{$md_tab_list}',
                 md_type = '{$md_type}', 
                 md_bo_table = '{$md_bo_table}', 
                 md_sca = '{$md_sca}', 

@@ -32,6 +32,13 @@ if($mod_type == 1) { //환경설정
     $co_gap_pc = isset($_POST['co_gap_pc']) ? $_POST['co_gap_pc'] : '0';
     $co_inner_padding_pc = isset($_POST['co_inner_padding_pc']) ? $_POST['co_inner_padding_pc'] : '0';
 
+    $co_side_skin = isset($_POST['co_side_skin']) ? $_POST['co_side_skin'] : '';
+    $co_side_skin_shop = isset($_POST['co_side_skin_shop']) ? $_POST['co_side_skin_shop'] : '';
+    $co_sidemenu = isset($_POST['co_sidemenu']) ? $_POST['co_sidemenu'] : '';
+    $co_sidemenu_shop = isset($_POST['co_sidemenu_shop']) ? $_POST['co_sidemenu_shop'] : '';
+    $co_sidemenu_width = isset($_POST['co_sidemenu_width']) ? $_POST['co_sidemenu_width'] : '200';
+    $co_sidemenu_width_shop = isset($_POST['co_sidemenu_width_shop']) ? $_POST['co_sidemenu_width_shop'] : '200';
+
 }
 
 if($mod_type == 2) { //모듈설정
@@ -56,7 +63,7 @@ if($mod_type == "del") { //모듈삭제
         <?php
     
             if($is_admin) {
-            $sql = " update rb_config set co_layout = '{$co_layout}', co_layout_hd = '{$co_layout_hd}', co_layout_ft = '{$co_layout_ft}', co_layout_shop = '{$co_layout_shop}', co_layout_hd_shop = '{$co_layout_hd_shop}', co_layout_ft_shop = '{$co_layout_ft_shop}', co_color = '{$co_color}', co_header = '{$co_header}', co_font = '{$co_font}', co_gap_pc = '{$co_gap_pc}', co_inner_padding_pc = '{$co_inner_padding_pc}', co_sub_width = '{$co_sub_width}', co_main_width = '{$co_main_width}', co_tb_width = '{$co_tb_width}', co_main_padding_top = '{$co_main_padding_top}', co_main_padding_top_shop = '{$co_main_padding_top_shop}', co_datetime = '".G5_TIME_YMDHIS."', co_ip = '{$_SERVER['REMOTE_ADDR']}' ";
+            $sql = " update rb_config set co_layout = '{$co_layout}', co_layout_hd = '{$co_layout_hd}', co_layout_ft = '{$co_layout_ft}', co_layout_shop = '{$co_layout_shop}', co_layout_hd_shop = '{$co_layout_hd_shop}', co_layout_ft_shop = '{$co_layout_ft_shop}', co_color = '{$co_color}', co_header = '{$co_header}', co_font = '{$co_font}', co_gap_pc = '{$co_gap_pc}', co_inner_padding_pc = '{$co_inner_padding_pc}', co_sub_width = '{$co_sub_width}', co_main_width = '{$co_main_width}', co_tb_width = '{$co_tb_width}', co_main_padding_top = '{$co_main_padding_top}', co_main_padding_top_shop = '{$co_main_padding_top_shop}', co_side_skin = '{$co_side_skin}', co_side_skin_shop = '{$co_side_skin_shop}', co_sidemenu = '{$co_sidemenu}', co_sidemenu_shop = '{$co_sidemenu_shop}', co_sidemenu_width = '{$co_sidemenu_width}', co_sidemenu_width_shop = '{$co_sidemenu_width_shop}', co_datetime = '".G5_TIME_YMDHIS."', co_ip = '{$_SERVER['REMOTE_ADDR']}' ";
             sql_query($sql);
             }
 
@@ -77,6 +84,12 @@ if($mod_type == "del") { //모듈삭제
                 'co_tb_width' => $co_tb_width,
                 'co_main_padding_top' => $co_main_padding_top,
                 'co_main_padding_top_shop' => $co_main_padding_top_shop,
+                'co_side_skin' => $co_side_skin,
+                'co_side_skin_shop' => $co_side_skin_shop,
+                'co_sidemenu' => $co_sidemenu,
+                'co_sidemenu_shop' => $co_sidemenu_shop,
+                'co_sidemenu_width' => $co_sidemenu_width,
+                'co_sidemenu_width_shop ' => $co_sidemenu_width_shop,
                 'status' => 'ok',
             );
             echo json_encode($data);
@@ -112,7 +125,13 @@ if($mod_type == "del") { //모듈삭제
                 $md_theme = isset($rb_module['md_theme']) ? $rb_module['md_theme'] : '';
                 $md_type = isset($rb_module['md_type']) ? $rb_module['md_type'] : '';
                 $md_title = isset($rb_module['md_title']) ? $rb_module['md_title'] : '';
+                $md_title_color = isset($rb_module['md_title_color']) ? $rb_module['md_title_color'] : '#25282b';
+                $md_title_size = isset($rb_module['md_title_size']) ? $rb_module['md_title_size'] : '20';
+                $md_title_font = isset($rb_module['md_title_font']) ? $rb_module['md_title_font'] : 'font-B';
+                $md_title_hide = isset($rb_module['md_title_hide']) ? $rb_module['md_title_hide'] : '0';
                 $md_skin = isset($rb_module['md_skin']) ? $rb_module['md_skin'] : '';
+                $md_tab_skin = isset($rb_module['md_tab_skin']) ? $rb_module['md_tab_skin'] : '';
+                $md_tab_list = isset($rb_module['md_tab_list']) ? $rb_module['md_tab_list'] : '';
                 $md_bo_table = isset($rb_module['md_bo_table']) ? $rb_module['md_bo_table'] : '';
                 $md_sca = isset($rb_module['md_sca']) ? $rb_module['md_sca'] : '';
                 $md_widget = isset($rb_module['md_widget']) ? $rb_module['md_widget'] : '';
@@ -159,7 +178,7 @@ if($mod_type == "del") { //모듈삭제
 
             <ul class="rb_config_sec">
                 <h6 class="font-B">모듈 타이틀 설정</h6>
-                <h6 class="font-R rb_config_sub_txt">모듈 타이틀의 워딩 및 컬러를 설정할 수 있습니다.</h6>
+                <h6 class="font-R rb_config_sub_txt">모듈 타이틀의 워딩 및 스타일을 설정할 수 있습니다.<br>배너의 경우는 타이틀이 출력되지 않습니다.</h6>
                 <div class="config_wrap">
                     <ul>
                         <input type="text" name="md_title" class="input w100" value="<?php echo isset($md_title) ? $md_title : ''; ?>" placeholder="타이틀을 입력하세요." autocomplete="off">
@@ -167,6 +186,61 @@ if($mod_type == "del") { //모듈삭제
                         <input type="hidden" name="md_theme" value="<?php echo isset($theme_name) ? $theme_name : ''; ?>">
                         <input type="hidden" name="md_id" value="<?php echo isset($md_id) ? $md_id : ''; ?>">
                     </ul>
+
+                    <ul class="config_wrap_flex">
+
+                                <div class="color_set_wrap square none_inp_cl" style="position: relative;">
+                                    <input type="text" class="coloris mod_md_title_color" name="md_title_color" value="<?php echo isset($md_title_color) ? $md_title_color : '#25282B'; ?>" style="width:25px !important;">
+                                </div>컬러
+
+                                <script type="text/javascript">
+                                Coloris({el:'.coloris'});
+                                Coloris.setInstance('.coloris', {
+                                    parent: '.sh-side-demos-container',			// 상위 container
+                                    formatToggle: false,	// Hex, RGB, HSL 토글버튼 활성
+                                    format: 'hex',			// 색상 포맷지정
+                                    margin: 0,				// margin
+                                    swatchesOnly: false,	// 색상 견본만 표시여부
+                                    alpha: true,			// 알파(투명) 활성여부
+                                    theme: 'polaroid',		// default, large, polaroid, pill
+                                    themeMode: 'Light',		// dark, Light
+                                    focusInput: true,		// 색상코드 Input에 포커스 여부
+                                    selectInput: true,		// 선택기가 열릴때 색상값을 select 여부
+                                    autoClose: true,		// 자동닫기 - 확인 안됨
+                                    inline: false,			// color picker를 인라인 위젯으로 사용시 true
+                                    defaultColor: '#25282B',	// 기본 색상인 인라인 mode
+                                    // Clear Button 설정
+                                    clearButton: true,
+                                    //clearLabel: '초기화',
+                                    // Close Button 설정
+                                    closeButton: true,	// true, false
+                                    closeLabel: '닫기',	// 닫기버튼 텍스트
+                                    swatches: [
+                                        '#AA20FF',
+                                        '#FFC700',
+                                        '#00A3FF',
+                                        '#8ED100',
+                                        '#FF5A5A',
+                                        '#25282B'
+                                    ]
+                                });
+                                </script>
+
+                                <input type="number" class="tiny_input" name="md_title_size" value="<?php echo isset($md_title_size) ? $md_title_size : '20'; ?>"> px
+
+                                <select class="select select_tiny" name="md_title_font" id="md_title_font">
+                                    <option value="">스타일</option>
+                                    <option value="font-R" <?php if (isset($md_title_font) && $md_title_font == "font-R") { ?>selected<?php } ?>>Regular</option>
+                                    <option value="font-B" <?php if (isset($md_title_font) && $md_title_font == "font-B") { ?>selected<?php } ?>>Bold</option>
+                                    <option value="font-H" <?php if (isset($md_title_font) && $md_title_font == "font-H") { ?>selected<?php } ?>>Heavy</option>
+                                </select>
+
+                                <div style="margin-left:auto;">
+                                <input type="checkbox" name="md_title_hide" id="md_title_hide" class="magic-checkbox" value="1" <?php if (isset($md_title_hide) && $md_title_hide == "1") { ?>checked<?php } ?>><label for="md_title_hide">숨김</label>
+                                </div>
+
+                    </ul>
+
                 </div>
                 
             </ul>
@@ -178,8 +252,9 @@ if($mod_type == "del") { //모듈삭제
                 <div class="config_wrap">
                     <ul>
                         <select class="select w100" name="md_type" id="md_type">
-                            <option value="">출력타입을 선택하세요.</option>
+                            <option value="">출력 타입을 선택하세요.</option>
                             <option value="latest" <?php if (isset($md_type) && $md_type == "latest") { ?>selected<?php } ?>>최신글</option>
+                            <option value="tab" <?php if (isset($md_type) && $md_type == "tab") { ?>selected<?php } ?>>최신글 탭</option>
                             <option value="widget" <?php if (isset($md_type) && $md_type == "widget") { ?>selected<?php } ?>>위젯</option>
                             <option value="banner" <?php if (isset($md_type) && $md_type == "banner") { ?>selected<?php } ?>>배너</option>
                             <option value="poll" <?php if (isset($md_type) && $md_type == "poll") { ?>selected<?php } ?>>투표</option>
@@ -245,13 +320,128 @@ if($mod_type == "del") { //모듈삭제
                         </select>
                         
                         <h6 class="font-R rb_config_sub_txt">
-                            배너를 먼저 등록해주셔야 하며<br>
+                            배너를 먼저 등록해 주세요.
                             개별출력의 경우 출력할 배너를 선택해주세요.
                         </h6>
                     </ul>
                     
                     
+                    <!-- 탭 { -->
 
+                    <ul class="mt-5 selected_tab selected_select" id="tab_send">
+                        <select class="select w100" name="md_bo_table_tab">
+                            <option value="">연결할 게시판을 선택하세요.</option>
+                            <?php echo rb_board_list($md_bo_table); ?>
+                        </select>
+                    </ul>
+
+                    <div id="tab_cates">
+                        <ul class="mt-5 selected_tab selected_select">
+                            <select class="select w100" name="md_sca_tab" id="tab_sca">
+                                <option value="">카테고리를 선택하세요.</option>
+                                <?php echo rb_sca_list($md_bo_table, $md_sca); ?>
+                                <option value="">전체</option>
+                            </select>
+                        </ul>
+                    </div>
+
+                    <div id="tab_selects" class="selected_tags mt-3"></div>
+                    <input type="hidden" name="md_tab_list" id="md_tab_list" value='<?php echo htmlspecialchars($md_tab_list, ENT_QUOTES); ?>'>
+
+                    <script>
+                    $(document).ready(function () {
+                        let selectedData = [];
+
+                        // 복원: 저장된 md_tab_list 값을 읽어서 태그로 출력
+                        const savedList = $('#md_tab_list').val();
+                        if (savedList && savedList.startsWith('[')) {
+                            try {
+                                const parsed = JSON.parse(savedList);
+                                if (Array.isArray(parsed)) {
+                                    parsed.forEach(item => {
+                                        if (!selectedData.includes(item)) {
+                                            selectedData.push(item);
+
+                                            const parts = item.split('||');
+                                            const bo_table = parts[0];
+                                            const ca_name = parts.length > 1 ? parts[1] : '';
+
+                                            // fallback 처리
+                                            let bo_text = bo_table;
+                                            const $boOption = $(`select[name="md_bo_table_tab"] option[value="${bo_table}"]`);
+                                            if ($boOption.length > 0) {
+                                                bo_text = $boOption.text().trim();
+                                            }
+
+                                            const ca_text = ca_name ? ca_name : '전체';
+                                            const tagText = `${bo_text} / ${ca_text}`;
+
+                                            const tagHtml = `
+                                                <span class="tag" data-key="${item}">
+                                                    ${tagText}
+                                                    <button type="button" class="tag-remove" title="삭제">×</button>
+                                                </span>
+                                            `;
+                                            $('#tab_selects').append(tagHtml);
+                                        }
+                                    });
+                                    updateHiddenField();
+                                }
+                            } catch (e) {
+                                console.error('태그 복원 실패:', e, savedList);
+                            }
+                        }
+
+                        // 선택 시 태그 추가
+                        $(document).off('change', 'select[name="md_sca_tab"]').on('change', 'select[name="md_sca_tab"]', function () {
+                            const bo_table = $('select[name="md_bo_table_tab"]').val();
+                            const bo_text = $('select[name="md_bo_table_tab"] option:selected').text().trim();
+                            const ca_name = $(this).val();
+                            const ca_text = $(this).find('option:selected').text().trim();
+
+                            if (!bo_table) return;
+
+                            const isAll = ca_name === '';
+                            const uniqueKey = isAll ? bo_table : `${bo_table}||${ca_name}`;
+                            const tagText = isAll ? `${bo_text} / 전체` : `${bo_text} / ${ca_text}`;
+
+                            if (selectedData.includes(uniqueKey)) return;
+
+                            selectedData.push(uniqueKey);
+
+                            const tagHtml = `
+                                <span class="tag" data-key="${uniqueKey}">
+                                    ${tagText}
+                                    <button type="button" class="tag-remove" title="삭제">×</button>
+                                </span>
+                            `;
+                            $('#tab_selects').append(tagHtml);
+                            updateHiddenField();
+                        });
+
+                        // 태그 삭제
+                        $('#tab_selects').on('click', '.tag-remove', function () {
+                            const $tag = $(this).closest('.tag');
+                            const key = $tag.data('key');
+                            selectedData = selectedData.filter(k => k !== key);
+                            $tag.remove();
+                            updateHiddenField();
+                        });
+
+                        function updateHiddenField() {
+                            $('#md_tab_list').val(JSON.stringify(selectedData));
+                        }
+                    });
+                    </script>
+
+                    <!-- } -->
+
+                    <ul class="mt-5 selected_tab selected_select">
+                        <select class="select w100" name="md_tab_skin" id="md_tab_skin">
+                            <option value="">출력 스킨을 선택하세요.</option>
+                            <?php echo rb_skin_select('latest_tabs', $md_tab_skin); ?>
+                        </select>
+                    </ul>
 
 
                     <ul class="mt-5 selected_latest selected_select" id="board_send">
@@ -270,6 +460,19 @@ if($mod_type == "del") { //모듈삭제
                         </ul>
                     </div>
                     
+                    <div>
+                        <ul class="mt-5 selected_latest_tab selected_select">
+                            <select class="select w100" name="md_order" id="md_order">
+                                <option value="">출력 옵션을 선택하세요.</option>
+                                <option value="wr_num" <?php if (isset($md_order) && $md_order == "wr_num") { ?>selected<?php } ?>>기본순</option>
+                                <option value="wr_hit desc" <?php if (isset($md_order) && $md_order == "wr_hit desc") { ?>selected<?php } ?>>조회 높은순</option>
+                                <option value="wr_good desc" <?php if (isset($md_order) && $md_order == "wr_good desc") { ?>selected<?php } ?>>추천 많은순</option>
+                                <option value="wr_comment desc" <?php if (isset($md_order) && $md_order == "wr_comment desc") { ?>selected<?php } ?>>댓글 많은순</option>
+                                <option value="rand()" <?php if (isset($md_order) && $md_order == "rand()") { ?>selected<?php } ?>>랜덤</option>
+                            </select>
+                        </ul>
+                    </div>
+
                     <ul class="mt-5 selected_latest selected_select">
                         <select class="select w100" name="md_skin" id="md_skin">
                             <option value="">출력 스킨을 선택하세요.</option>
@@ -371,6 +574,39 @@ if($mod_type == "del") { //모듈삭제
                             });
                         }
                         
+
+
+                        $('#tab_send').change(function() {
+                            tabscaAjax();
+                        });
+
+                        // 해당게시판의 카테고리를 얻는다
+                        function tabscaAjax() {
+
+                            var md_bo_table = $('select[name="md_bo_table_tab"]').val();
+                            var mod_type = 'ca_name_tab';
+
+                            $.ajax({
+                                url: '<?php echo G5_URL ?>/rb/rb.lib/ajax.res.php',
+                                method: 'POST', // POST 방식으로 전송
+                                dataType: 'html',
+                                data: {
+                                    "md_bo_table":md_bo_table,
+                                    "mod_type":mod_type,
+                                },
+                                success: function(response) {
+                                    $("#tab_cates").html(response); //성공
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error('처리에 문제가 있습니다. 잠시 후 이용해주세요.');
+                                }
+
+                            });
+                        }
+
+
+
+
                         $(document).ready(function() {
                             
                             var md_type = $('select[name="md_type"]').val();
@@ -381,6 +617,12 @@ if($mod_type == "del") { //모듈삭제
                             if(md_type == "latest") {
                                 $('.selected_latest').show();
                                 $('.selected_all').show();
+                                $('.selected_latest_tab').show();
+                                $('.selected_style').show();
+                            } else if(md_type == "tab") {
+                                $('.selected_tab').show();
+                                $('.selected_all').show();
+                                 $('.selected_latest_tab').show();
                                 $('.selected_style').show();
                             } else if(md_type == "widget") {
                                 $('.selected_widget').show();
@@ -401,6 +643,8 @@ if($mod_type == "del") { //모듈삭제
                                 $('.selected_select').hide();
                                 $('.selected_all').hide();
                                 $('.selected_style').hide();
+                                $('.selected_latest_tab').hide();
+                                $('.selected_tab').hide();
                             }
 
                             $('#md_type').change(function() {
@@ -425,10 +669,20 @@ if($mod_type == "del") { //모듈삭제
                                 $("#md_padding_range .ui-slider-handle").css("left", "0");
                                 $("#md_padding_range .ui-slider-range").css("width", "0");
                                 
+                                $("#md_tab_list").val('');
+                                $('#tab_selects .tag').remove();
+
+
                                 $('.selected_select').hide();
                                 $('.selected_all').hide();
                                 $('.selected_style').hide();
                                 
+                                if (selectedValue == "latest" || selectedValue == "tab") {
+                                    $('.selected_latest_tab').show();
+                                } else {
+                                    $('.selected_latest_tab').hide();
+                                }
+
                                 if (selectedValue !== "banner") {
                                     $('.selected_style').show();
                                 }
@@ -476,6 +730,18 @@ if($mod_type == "del") { //모듈삭제
 
                     <?php } ?>
                     
+                    <?php if(isset($md_tab_skin) && $md_tab_skin) { ?>
+
+                        <ul class="skin_path_url mt-5">
+                            <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
+                            <li class="skin_path_url_txt">
+                            <?php echo str_replace('theme','/theme/'.$theme_name.'/skin/latest_tab',$md_tab_skin); ?>/
+                            </li>
+                            <div class="cb"></div>
+                        </ul>
+
+                    <?php } ?>
+
                     <?php if(isset($md_widget) && $md_widget) { ?>
                     <ul class="skin_path_url mt-5">
                         <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
@@ -762,7 +1028,7 @@ if($mod_type == "del") { //모듈삭제
             </ul>
             
             
-            <ul class="rb_config_sec selected_latest selected_select">
+            <ul class="rb_config_sec selected_latest_tab selected_select">
                 <h6 class="font-B">출력갯수 설정</h6>
                 <h6 class="font-R rb_config_sub_txt">
                     열(가로)X행(세로) 출력갯수를 설정할 수 있습니다.
@@ -792,7 +1058,7 @@ if($mod_type == "del") { //모듈삭제
                 </div>
             </ul>
             
-            <ul class="rb_config_sec selected_latest selected_select">
+            <ul class="rb_config_sec selected_latest_tab selected_select">
                 <h6 class="font-B">간격 설정</h6>
                 <h6 class="font-R rb_config_sub_txt">
                     게시물간의 간격(여백)을 설정할 수 있습니다.
@@ -822,7 +1088,7 @@ if($mod_type == "del") { //모듈삭제
                 </div>
             </ul>
             
-            <ul class="rb_config_sec selected_latest selected_select">
+            <ul class="rb_config_sec selected_latest_tab selected_select">
                 <h6 class="font-B">스와이프 설정</h6>
                 <h6 class="font-R rb_config_sub_txt">
                     행X열 보다 출력갯수가 많을 경우<br>
@@ -835,7 +1101,7 @@ if($mod_type == "del") { //모듈삭제
                 </div>
             </ul>
             
-            <ul class="rb_config_sec selected_latest selected_select">
+            <ul class="rb_config_sec selected_latest_tab selected_select">
                 <h6 class="font-B">자동롤링 설정</h6>
                 <h6 class="font-R rb_config_sub_txt">
                     행X열 보다 출력갯수가 많을 경우<br>
@@ -863,7 +1129,7 @@ if($mod_type == "del") { //모듈삭제
                 </div>
             </ul>
             
-            <ul class="rb_config_sec selected_latest selected_select">
+            <ul class="rb_config_sec selected_latest_tab selected_select">
                 <h6 class="font-B">출력항목 설정</h6>
                 <h6 class="font-R rb_config_sub_txt">
                     선택하신 항목이 출력됩니다.
