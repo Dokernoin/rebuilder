@@ -162,6 +162,7 @@ if($mod_type == "del") { //모듈삭제
                 $md_auto_is = isset($rb_module['md_auto_is']) ? $rb_module['md_auto_is'] : '';
                 $md_auto_time = isset($rb_module['md_auto_time']) ? $rb_module['md_auto_time'] : '';
                 $md_order = isset($rb_module['md_order']) ? $rb_module['md_order'] : '';
+                $md_order_latest = isset($rb_module['md_order_latest']) ? $rb_module['md_order_latest'] : '';
                 $md_border = isset($rb_module['md_border']) ? $rb_module['md_border'] : '';
                 $md_module = isset($rb_module['md_module']) ? $rb_module['md_module'] : '';
                 $md_radius = empty($rb_module['md_radius']) ? '0' : $rb_module['md_radius'];
@@ -178,7 +179,7 @@ if($mod_type == "del") { //모듈삭제
 
             <ul class="rb_config_sec">
                 <h6 class="font-B">모듈 타이틀 설정</h6>
-                <h6 class="font-R rb_config_sub_txt">모듈 타이틀의 워딩 및 스타일을 설정할 수 있습니다.<br>배너의 경우는 타이틀이 출력되지 않습니다.</h6>
+                <h6 class="font-R rb_config_sub_txt">모듈 타이틀의 워딩 및 스타일을 설정할 수 있습니다.<br>배너, 투표의 경우는 적용되지 않습니다.</h6>
                 <div class="config_wrap">
                     <ul>
                         <input type="text" name="md_title" class="input w100" value="<?php echo isset($md_title) ? $md_title : ''; ?>" placeholder="타이틀을 입력하세요." autocomplete="off">
@@ -530,22 +531,21 @@ if($mod_type == "del") { //모듈삭제
                             <?php echo rb_list_skin_options("^main.[0-9]+\.skin\.php", G5_SHOP_SKIN_PATH, $md_skin); ?>
                         </select>
                     </ul>
-                    <?php } else { ?>
+
+                    <?php } ?>
 
                     <div>
                         <ul class="mt-5 selected_latest_tab selected_select">
-                            <select class="select w100" name="md_order" id="md_order">
+                            <select class="select w100" name="md_order_latest" id="md_order_latest">
                                 <option value="">출력 옵션을 선택하세요.</option>
-                                <option value="wr_num" <?php if (isset($md_order) && $md_order == "wr_num") { ?>selected<?php } ?>>기본순</option>
-                                <option value="wr_hit desc" <?php if (isset($md_order) && $md_order == "wr_hit desc") { ?>selected<?php } ?>>조회 높은순</option>
-                                <option value="wr_good desc" <?php if (isset($md_order) && $md_order == "wr_good desc") { ?>selected<?php } ?>>추천 많은순</option>
-                                <option value="wr_comment desc" <?php if (isset($md_order) && $md_order == "wr_comment desc") { ?>selected<?php } ?>>댓글 많은순</option>
-                                <option value="rand()" <?php if (isset($md_order) && $md_order == "rand()") { ?>selected<?php } ?>>랜덤</option>
+                                <option value="wr_num" <?php if (isset($md_order_latest) && $md_order_latest == "wr_num") { ?>selected<?php } ?>>기본순</option>
+                                <option value="wr_hit desc" <?php if (isset($md_order_latest) && $md_order_latest == "wr_hit desc") { ?>selected<?php } ?>>조회 높은순</option>
+                                <option value="wr_good desc" <?php if (isset($md_order_latest) && $md_order_latest == "wr_good desc") { ?>selected<?php } ?>>추천 많은순</option>
+                                <option value="wr_comment desc" <?php if (isset($md_order_latest) && $md_order_latest == "wr_comment desc") { ?>selected<?php } ?>>댓글 많은순</option>
+                                <option value="rand()" <?php if (isset($md_order_latest) && $md_order_latest == "rand()") { ?>selected<?php } ?>>랜덤</option>
                             </select>
                         </ul>
                     </div>
-
-                    <?php } ?>
 
                     <script>
                         

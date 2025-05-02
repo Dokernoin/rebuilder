@@ -55,11 +55,11 @@ foreach ($layouts as $layout_no) {
         ob_start();
         echo "<?php\n\$row_mod = " . var_export($row_mod, true) . ";\n?>\n";
         ?>
-        <ul class="content_box rb_module_<?php echo $row_mod['md_id']; ?> rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_radius_<?php echo $row_mod['md_radius']; ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?>" style="width:<?php echo $row_mod['md_width']; ?>%; height:<?php echo $row_mod['md_height']; ?>%;" data-layout="<?php echo $row_mod['md_layout']; ?>" data-title="<?php echo $row_mod['md_title']; ?>" data-id="<?php echo $row_mod['md_id']; ?>" data-order-id="<?php echo $row_mod['md_id']; ?>">
+        <ul class="content_box rb_module_<?php echo $row_mod['md_id']; ?> rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_radius_<?php echo $row_mod['md_radius']; ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?>" style="width:<?php echo $row_mod['md_width']; ?>%; height:<?php echo $row_mod['md_height']; ?>;" data-layout="<?php echo $row_mod['md_layout']; ?>" data-title="<?php echo $row_mod['md_title']; ?>" data-id="<?php echo $row_mod['md_id']; ?>" data-order-id="<?php echo $row_mod['md_id']; ?>">
 
             <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'latest') { ?>
                 <div class="module_latest_wrap">
-                    <?php echo '<?php echo rb_latest("' . $row_mod['md_skin'] . '", "' . $row_mod['md_bo_table'] . '", ' . $row_mod['md_cnt'] . ', 999, 1, ' . $row_mod['md_id'] . ', "' . $row_mod['md_sca'] . '", "' . $row_mod['md_order'] . '", "' . $rb_module_table . '"); ?>'; ?>
+                    <?php echo '<?php echo rb_latest("' . $row_mod['md_skin'] . '", "' . $row_mod['md_bo_table'] . '", ' . $row_mod['md_cnt'] . ', 999, 1, ' . $row_mod['md_id'] . ', "' . $row_mod['md_sca'] . '", "' . $row_mod['md_order_latest'] . '", "' . $rb_module_table . '"); ?>'; ?>
                 </div>
             <?php } ?>
 
@@ -68,7 +68,7 @@ foreach ($layouts as $layout_no) {
             <?php
                 $tab_list_clean = addslashes($row_mod['md_tab_list']);
 
-                $tab_code = '<?php echo rb_latest_tabs("' . $row_mod['md_tab_skin'] . '", "' . $tab_list_clean . '", ' . intval($row_mod['md_cnt']) . ', 999, 1, "' . $row_mod['md_id'] . '", "' . $row_mod['md_order'] . '", "' . $rb_module_table . '"); ?>';
+                $tab_code = '<?php echo rb_latest_tabs("' . $row_mod['md_tab_skin'] . '", "' . $tab_list_clean . '", ' . intval($row_mod['md_cnt']) . ', 999, 1, "' . $row_mod['md_id'] . '", "' . $row_mod['md_order_latest'] . '", "' . $rb_module_table . '"); ?>';
                 echo $tab_code;
             ?>
             </div>
