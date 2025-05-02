@@ -45,8 +45,10 @@ include_once(G5_PATH.'/rb/rb.mod/alarm/alarm.php'); // 실시간 알림
         $(document).ready(function() {
             // header의 높이 구하기
             var height_header = $('#header').outerHeight();
+            var sticky_header = $('#header').outerHeight() + 30;
             // contents_wrap 에 구해진 높이값 적용
             $('#contents_wrap').css('padding-top', height_header + 'px');
+            $('#rb_sidemenu').css('top', sticky_header + 'px');
         });
     </script>
     
@@ -60,7 +62,34 @@ include_once(G5_PATH.'/rb/rb.mod/alarm/alarm.php'); // 실시간 알림
         co_inner_padding_ : (0~30)
         co_gap_ : (0~30)
         -->
-        <section class="<?php if (defined("_INDEX_")) { ?>index co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } else { ?>sub<?php } ?>" <?php if (!defined("_INDEX_")) { ?>style="width:<?php echo $rb_core['sub_width'] ?>px;"<?php } else { ?>style="width:<?php echo $rb_core['main_width'] ?>px;"<?php } ?>>
+        <section class="<?php if (defined("_INDEX_")) { ?>index co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } else { ?>sub co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } ?>" style="<?php if (!defined("_INDEX_")) { ?>width:<?php echo $rb_core['sub_width'] ?>px;<?php } else { ?>width:<?php echo $rb_core['main_width'] ?>px;<?php } ?>">
+
+        <?php if (!defined("_INDEX_")) { ?>
+            <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left" || isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") { ?>
+            <div id="rb_sidemenu" class="pc rb_sidemenu flex_box rb_sidemenu_<?php echo isset($rb_core['sidemenu']) ? $rb_core['sidemenu'] : ''; ?>" style="width:<?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>px" data-layout="rb_sidemenu"></div>
+            <?php } ?>
+
+            <?php
+                $side_float = "";
+                if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left") {
+                    $side_float = "float:right; width: calc(100% - ".$rb_core['sidemenu_width']."px);";
+                } else if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") {
+                    $side_float = "float:left; width: calc(100% - ".$rb_core['sidemenu_width']."px);";
+                }
+            ?>
+
+            <div id="rb_sidemenu_float" style="<?php echo $side_float ?>">
+        <?php } ?>
+
+
+        <?php if (!defined("_INDEX_")) { ?>
+            <?php if(isset($bo_table) && $bo_table) { ?>
+                <div class="rb_bo_top flex_box" data-layout="rb_bo_top_<?php echo $bo_table ?>"></div>
+            <?php } ?>
+            <?php if(isset($co_id) && $co_id) { ?>
+                <div class="rb_co_top flex_box" data-layout="rb_co_top_<?php echo $co_id ?>"></div>
+            <?php } ?>
+        <?php } ?>
         
         <?php if (isset($rb_core['padding_top']) && $rb_core['padding_top'] == 1) { ?>
         <?php if (defined("_INDEX_")) { ?><span style="margin-top:-70px;" class="pc"></span><?php } ?>

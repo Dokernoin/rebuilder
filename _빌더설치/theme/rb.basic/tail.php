@@ -11,6 +11,20 @@ if(G5_COMMUNITY_USE === false) {
     return;
 }
 ?>
+        <?php if (!defined("_INDEX_")) { ?>
+            <?php if(isset($bo_table) && $bo_table) { ?>
+                <div class="rb_bo_btm flex_box" data-layout="rb_bo_btm_<?php echo $bo_table ?>"></div>
+            <?php } ?>
+            <?php if(isset($co_id) && $co_id) { ?>
+                <div class="rb_co_btm flex_box" data-layout="rb_co_btm_<?php echo $co_id ?>"></div>
+            <?php } ?>
+        <?php } ?>
+
+        <?php if (!defined("_INDEX_")) { ?>
+        </div>
+        <div class="cb"></div>
+        <?php } ?>
+
         </section>
     </div>
     
