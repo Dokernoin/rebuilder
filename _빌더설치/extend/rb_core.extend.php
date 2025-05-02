@@ -1004,7 +1004,7 @@ function rb_latest($skin_dir='', $bo_table, $rows=10, $subject_len=40, $cache_ti
     }
 
     ob_start();
-
+    $rb_module_table = isset($rb_module_table) ? $rb_module_table : '';
     include $latest_skin_path.'/latest.skin.php';
     $content = ob_get_contents();
     ob_end_clean();
@@ -1100,7 +1100,7 @@ function rb_latest_tabs($skin_dir = '', $json_list = '', $rows = 10, $subject_le
     }
 
     ob_start();
-
+    $rb_module_table = isset($rb_module_table) ? $rb_module_table : '';
     include $latest_skin_path.'/latest.tabs.skin.php';
     $content = ob_get_clean();
 
