@@ -227,6 +227,7 @@
 .sh-side-options-item-container {padding-left: 10px; padding-right: 10px; min-width: 42px; min-height: 38px; position:relative; text-align: center; border-radius: 6px;}
 .sh-side-options-item-container img {position: absolute; top:50%; left: 50%; transform: translate(-50%, -50%);}
 .sh-side-options-item {border-bottom: 0px !important; padding: 2px;}
+
 .add_module_btns {background-color: #fff; border:1px dashed #ccc; color:#888;}
 .add_module_btns:hover {border-color:#25282B; color:#25282B;}
 #clr-clear {display: none !important;}
@@ -238,6 +239,15 @@
 .config_wrap_flex {display: flex; gap: 0px 5px;flex-direction: row;flex-wrap: wrap; align-items: center; font-size: 12px;}
 input#md_title_hide + label:before {top:-2px !important;}
 input#md_title_hide + label:after {top:3px !important;}
+.rb_config_sec {border-top:1px dashed #ddd; padding-top: 30px;}
+.rb_config h6 {font-size: 16px;}
+.config_wrap_bg {border:1px dashed #ddd; border-radius: 10px; padding: 15px 15px; margin-top: 20px; display: none;}
+.config_wrap_bg_shop {border:1px dashed #ddd; border-radius: 10px; padding: 15px 15px; margin-top: 20px; display: none;}
+.config_wrap_sub_tit {background-color: #F0F3F9; padding: 5px 10px; border-radius: 30px; font-size: 12px;}
+#topvisual_btn_wrap {text-align: center; margin-top: -18px; z-index: 2; position: absolute; width: 100%; display: none;}
+#topvisual_btn_wrap button {border:0px; padding: 10px 20px; border-radius: 30px; background-color: #F0F3F9;}
+#topvisual_btn_wrap_shop {text-align: center; margin-top: -18px; z-index: 2; position: absolute; width: 100%; display: none;}
+#topvisual_btn_wrap_shop button {border:0px; padding: 10px 20px; border-radius: 30px; background-color: #F0F3F9;}
 
 .selected_tags .tag {
     display: block;
@@ -277,6 +287,9 @@ input#md_title_hide + label:after {top:3px !important;}
     }
     
     .sh-side-options-item {padding-bottom: 5px; padding-top: 5px;}
+
+    #rb_topvisual {width: 100%}
+    #rb_topvisual_shop {width: 100%;}
 
 }
 

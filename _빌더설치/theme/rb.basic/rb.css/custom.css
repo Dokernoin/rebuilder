@@ -377,6 +377,25 @@ select#ct_send_cost {width: 150px;}
 
 .bbs_main_wrap_tit {margin-bottom: 20px;}
 #ssch_sort {width: 100% !important;}
+
+#rb_topvisual {margin: 0 auto; background-color: #f9f9f9; position: relative; background-size:cover; background-position:center center; background-repeat: no-repeat;}
+#rb_topvisual_shop {margin: 0 auto; background-color: #f9f9f9; position: relative; background-size:cover; background-position:center center; background-repeat: no-repeat;}
+#rb_topvisual_bl {position: absolute; top:0px; left: 0px; width: 100%; height: 100%;}
+#rb_topvisual_bl_shop {position: absolute; top:0px; left: 0px; width: 100%; height: 100%;}
+
+#rb_topvisual_txt {position: absolute; z-index: 1; width: 100%; top:50%; transform: translateY(-50%);}
+#rb_topvisual_txt_inner {margin: 0 auto;}
+#rb_topvisual_txt .main_wording {padding: 0px 0px; line-height: 140%;}
+#rb_topvisual_txt .main_wording:focus {outline: none; border:1px solid rgba(255,255,255,0.5);}
+#rb_topvisual_txt .sub_wording {padding: 0px 0px; line-height: 140%; margin-top: 15px;}
+#rb_topvisual_txt .sub_wording:focus {outline: none; border:1px solid rgba(255,255,255,0.5);}
+
+#rb_topvisual_txt_shop {position: absolute; z-index: 1; width: 100%; top:50%; transform: translateY(-50%);}
+#rb_topvisual_txt_inner_shop {margin: 0 auto;}
+#rb_topvisual_txt_shop .main_wording_shop {padding: 0px 0px; line-height: 140%;}
+#rb_topvisual_txt_shop .main_wording_shop:focus {outline: none; border:1px solid rgba(255,255,255,0.5);}
+#rb_topvisual_txt_shop .sub_wording_shop {padding: 0px 0px; line-height: 140%; margin-top: 15px;}
+#rb_topvisual_txt_shop .sub_wording_shop:focus {outline: none; border:1px solid rgba(255,255,255,0.5);}
 /* } */
 
 @media all and (max-width:1024px){
@@ -491,6 +510,14 @@ select#ct_send_cost {width: 150px;}
     #rb_sidemenu_float {float:none !important; width: 100% !important;}
     #rb_sidemenu_float_shop {float:none !important; width: 100% !important;}
     .sub {padding-top: 20px; padding-bottom: 20px;}
+    #rb_topvisual_txt_inner {width: 100% !important;}
+    #rb_topvisual {width: 100% !important; margin-top: 0px !important; border-radius: 0px !important;}
+    #rb_topvisual_txt_inner_shop {width: 100% !important;}
+    #rb_topvisual_shop {width: 100% !important; margin-top: 0px !important; border-radius: 0px !important;}
+    .main_wording {padding-left: 20px !important; padding-right: 20px !important;}
+    .sub_wording {padding-left: 20px !important; padding-right: 20px !important;}
+    .main_wording_shop {padding-left: 20px !important; padding-right: 20px !important;}
+    .sub_wording_shop {padding-left: 20px !important; padding-right: 20px !important;}
     /* } */
 
 }

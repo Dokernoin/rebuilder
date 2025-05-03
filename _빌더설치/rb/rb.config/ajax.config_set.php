@@ -39,6 +39,36 @@ if($mod_type == 1) { //환경설정
     $co_sidemenu_width = isset($_POST['co_sidemenu_width']) ? $_POST['co_sidemenu_width'] : '200';
     $co_sidemenu_width_shop = isset($_POST['co_sidemenu_width_shop']) ? $_POST['co_sidemenu_width_shop'] : '200';
 
+    $co_topvisual = isset($_POST['co_topvisual']) ? $_POST['co_topvisual'] : '';
+    $co_topvisual_shop = isset($_POST['co_topvisual_shop']) ? $_POST['co_topvisual_shop'] : '';
+    $co_topvisual_height = isset($_POST['co_topvisual_height']) ? $_POST['co_topvisual_height'] : '200';
+    $co_topvisual_height_shop = isset($_POST['co_topvisual_height_shop']) ? $_POST['co_topvisual_height_shop'] : '200';
+    $co_topvisual_width = isset($_POST['co_topvisual_width']) ? $_POST['co_topvisual_width'] : '';
+    $co_topvisual_bl = isset($_POST['co_topvisual_bl']) ? $_POST['co_topvisual_bl'] : '10';
+    $co_topvisual_width_shop = isset($_POST['co_topvisual_width_shop']) ? $_POST['co_topvisual_width_shop'] : '';
+    $co_topvisual_bl_shop = isset($_POST['co_topvisual_bl_shop']) ? $_POST['co_topvisual_bl_shop'] : '10';
+
+    $co_topvisual_m_color = isset($_POST['co_topvisual_m_color']) ? $_POST['co_topvisual_m_color'] : '#ffffff';
+    $co_topvisual_m_size = isset($_POST['co_topvisual_m_size']) ? $_POST['co_topvisual_m_size'] : '20';
+    $co_topvisual_m_font = isset($_POST['co_topvisual_m_font']) ? $_POST['co_topvisual_m_font'] : 'font-B';
+    $co_topvisual_m_align = isset($_POST['co_topvisual_m_align']) ? $_POST['co_topvisual_m_align'] : 'left';
+
+    $co_topvisual_s_color = isset($_POST['co_topvisual_s_color']) ? $_POST['co_topvisual_s_color'] : '#ffffff';
+    $co_topvisual_s_size = isset($_POST['co_topvisual_s_size']) ? $_POST['co_topvisual_s_size'] : '16';
+    $co_topvisual_s_font = isset($_POST['co_topvisual_s_font']) ? $_POST['co_topvisual_s_font'] : 'font-R';
+    $co_topvisual_s_align = isset($_POST['co_topvisual_s_align']) ? $_POST['co_topvisual_s_align'] : 'left';
+
+    $co_topvisual_m_color_shop = isset($_POST['co_topvisual_m_color_shop']) ? $_POST['co_topvisual_m_color_shop'] : '#ffffff';
+    $co_topvisual_m_size_shop = isset($_POST['co_topvisual_m_size_shop']) ? $_POST['co_topvisual_m_size_shop'] : '20';
+    $co_topvisual_m_font_shop = isset($_POST['co_topvisual_m_font_shop']) ? $_POST['co_topvisual_m_font_shop'] : 'font-B';
+    $co_topvisual_m_align_shop = isset($_POST['co_topvisual_m_align_shop']) ? $_POST['co_topvisual_m_align_shop'] : 'left';
+
+    $co_topvisual_s_color_shop = isset($_POST['co_topvisual_s_color_shop']) ? $_POST['co_topvisual_s_color_shop'] : '#ffffff';
+    $co_topvisual_s_size_shop = isset($_POST['co_topvisual_s_size_shop']) ? $_POST['co_topvisual_s_size_shop'] : '16';
+    $co_topvisual_s_font_shop = isset($_POST['co_topvisual_s_font_shop']) ? $_POST['co_topvisual_s_font_shop'] : 'font-R';
+    $co_topvisual_s_align_shop = isset($_POST['co_topvisual_s_align_shop']) ? $_POST['co_topvisual_s_align_shop'] : 'left';
+
+
 }
 
 if($mod_type == 2) { //모듈설정
@@ -57,13 +87,12 @@ if($mod_type == "del") { //모듈삭제
 
 ?>
 
-
    
     <?php if(isset($mod_type) && $mod_type == 1) { ?>
         <?php
     
             if($is_admin) {
-            $sql = " update rb_config set co_layout = '{$co_layout}', co_layout_hd = '{$co_layout_hd}', co_layout_ft = '{$co_layout_ft}', co_layout_shop = '{$co_layout_shop}', co_layout_hd_shop = '{$co_layout_hd_shop}', co_layout_ft_shop = '{$co_layout_ft_shop}', co_color = '{$co_color}', co_header = '{$co_header}', co_font = '{$co_font}', co_gap_pc = '{$co_gap_pc}', co_inner_padding_pc = '{$co_inner_padding_pc}', co_sub_width = '{$co_sub_width}', co_main_width = '{$co_main_width}', co_tb_width = '{$co_tb_width}', co_main_padding_top = '{$co_main_padding_top}', co_main_padding_top_shop = '{$co_main_padding_top_shop}', co_side_skin = '{$co_side_skin}', co_side_skin_shop = '{$co_side_skin_shop}', co_sidemenu = '{$co_sidemenu}', co_sidemenu_shop = '{$co_sidemenu_shop}', co_sidemenu_width = '{$co_sidemenu_width}', co_sidemenu_width_shop = '{$co_sidemenu_width_shop}', co_datetime = '".G5_TIME_YMDHIS."', co_ip = '{$_SERVER['REMOTE_ADDR']}' ";
+            $sql = " update rb_config set co_layout = '{$co_layout}', co_layout_hd = '{$co_layout_hd}', co_layout_ft = '{$co_layout_ft}', co_layout_shop = '{$co_layout_shop}', co_layout_hd_shop = '{$co_layout_hd_shop}', co_layout_ft_shop = '{$co_layout_ft_shop}', co_color = '{$co_color}', co_header = '{$co_header}', co_font = '{$co_font}', co_gap_pc = '{$co_gap_pc}', co_inner_padding_pc = '{$co_inner_padding_pc}', co_sub_width = '{$co_sub_width}', co_main_width = '{$co_main_width}', co_tb_width = '{$co_tb_width}', co_main_padding_top = '{$co_main_padding_top}', co_main_padding_top_shop = '{$co_main_padding_top_shop}', co_side_skin = '{$co_side_skin}', co_side_skin_shop = '{$co_side_skin_shop}', co_sidemenu = '{$co_sidemenu}', co_sidemenu_shop = '{$co_sidemenu_shop}', co_sidemenu_width = '{$co_sidemenu_width}', co_sidemenu_width_shop = '{$co_sidemenu_width_shop}', co_topvisual = '{$co_topvisual}', co_topvisual_shop = '{$co_topvisual_shop}', co_topvisual_height = '{$co_topvisual_height}', co_topvisual_height_shop = '{$co_topvisual_height_shop}', co_topvisual_width = '{$co_topvisual_width}', co_topvisual_width_shop = '{$co_topvisual_width_shop}', co_topvisual_bl = '{$co_topvisual_bl}', co_topvisual_bl_shop = '{$co_topvisual_bl_shop}', co_topvisual_m_color = '{$co_topvisual_m_color}', co_topvisual_m_size = '{$co_topvisual_m_size}', co_topvisual_m_font = '{$co_topvisual_m_font}', co_topvisual_m_align = '{$co_topvisual_m_align}', co_topvisual_s_color = '{$co_topvisual_s_color}', co_topvisual_s_size = '{$co_topvisual_s_size}', co_topvisual_s_font = '{$co_topvisual_s_font}', co_topvisual_s_align = '{$co_topvisual_s_align}', co_topvisual_m_color_shop = '{$co_topvisual_m_color_shop}', co_topvisual_m_size_shop = '{$co_topvisual_m_size_shop}', co_topvisual_m_font_shop = '{$co_topvisual_m_font_shop}', co_topvisual_m_align_shop = '{$co_topvisual_m_align_shop}', co_topvisual_s_color_shop = '{$co_topvisual_s_color_shop}', co_topvisual_s_size_shop = '{$co_topvisual_s_size_shop}', co_topvisual_s_font_shop = '{$co_topvisual_s_font_shop}', co_topvisual_s_align_shop = '{$co_topvisual_s_align_shop}', co_datetime = '".G5_TIME_YMDHIS."', co_ip = '{$_SERVER['REMOTE_ADDR']}' ";
             sql_query($sql);
             }
 
@@ -90,6 +119,30 @@ if($mod_type == "del") { //모듈삭제
                 'co_sidemenu_shop' => $co_sidemenu_shop,
                 'co_sidemenu_width' => $co_sidemenu_width,
                 'co_sidemenu_width_shop ' => $co_sidemenu_width_shop,
+                'co_topvisual' => $co_topvisual,
+                'co_topvisual_shop' => $co_topvisual_shop,
+                'co_topvisual_height' => $co_topvisual_height,
+                'co_topvisual_height_shop ' => $co_topvisual_height_shop,
+                'co_topvisual_width' => $co_topvisual_width,
+                'co_topvisual_width_shop' => $co_topvisual_width_shop,
+                'co_topvisual_bl' => $co_topvisual_bl,
+                'co_topvisual_bl_shop' => $co_topvisual_bl_shop,
+                'co_topvisual_m_color' => $co_topvisual_m_color,
+                'co_topvisual_m_size' => $co_topvisual_m_size,
+                'co_topvisual_m_font' => $co_topvisual_m_font,
+                'co_topvisual_m_align' => $co_topvisual_m_align,
+                'co_topvisual_s_color' => $co_topvisual_s_color,
+                'co_topvisual_s_size' => $co_topvisual_s_size,
+                'co_topvisual_s_font' => $co_topvisual_s_font,
+                'co_topvisual_s_align' => $co_topvisual_s_align,
+                'co_topvisual_m_color_shop' => $co_topvisual_m_color_shop,
+                'co_topvisual_m_size_shop' => $co_topvisual_m_size_shop,
+                'co_topvisual_m_font_shop' => $co_topvisual_m_font_shop,
+                'co_topvisual_m_align_shop' => $co_topvisual_m_align_shop,
+                'co_topvisual_s_color_shop' => $co_topvisual_s_color_shop,
+                'co_topvisual_s_size_shop' => $co_topvisual_s_size_shop,
+                'co_topvisual_s_font_shop' => $co_topvisual_s_font_shop,
+                'co_topvisual_s_align_shop' => $co_topvisual_s_align_shop,
                 'status' => 'ok',
             );
             echo json_encode($data);

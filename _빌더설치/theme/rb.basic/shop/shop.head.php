@@ -67,6 +67,10 @@ if(defined('_INDEX_')) { // index에서만 실행
     </script>
     
     <div class="contents_wrap" id="contents_wrap">
+
+        <?php if (!defined("_INDEX_")) { ?>
+            <?php include_once(G5_PATH.'/rb/rb.config/topvisual.shop.php'); ?>
+        <?php } ?>
        
         <!-- $rb_core['sub_width'] 는 반드시 포함해주세요 (환경설정 > 서브가로폭) -->
         <section class="<?php if (defined("_INDEX_")) { ?>index co_inner_padding_pc_<?php echo $rb_core['inner_padding_pc'] ?> co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } else { ?>sub<?php } ?>" <?php if (!defined("_INDEX_")) { ?>style="width:<?php echo $rb_core['sub_width'] ?>px;"<?php } else { ?>style="width:<?php echo $rb_core['main_width'] ?>px;"<?php } ?>>

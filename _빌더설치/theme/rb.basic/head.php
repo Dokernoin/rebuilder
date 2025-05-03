@@ -54,6 +54,10 @@ include_once(G5_PATH.'/rb/rb.mod/alarm/alarm.php'); // 실시간 알림
     
     <div class="contents_wrap" id="contents_wrap">
        
+        <?php if (!defined("_INDEX_")) { ?>
+            <?php include_once(G5_PATH.'/rb/rb.config/topvisual.php'); ?>
+        <?php } ?>
+
         <!-- 
         $rb_core['sub_width'] 는 반드시 포함해주세요 (환경설정 > 서브가로폭) 
         모듈박스 스타일 설정
