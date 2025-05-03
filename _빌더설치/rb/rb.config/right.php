@@ -1349,6 +1349,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 
                 var md_module = $('select[name="md_module"]').val();
                 var md_order = $('select[name="md_order"]').val();
+                var md_order_latest = $('select[name="md_order_latest"]').val();
                 
                 var md_tab_list = $('input[name="md_tab_list"]').val();
                 var md_tab_skin = $('select[name="md_tab_skin"]').val();
@@ -1416,6 +1417,10 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 } else if(md_type == "item" && md_order == "") {
                     alert('상품 출력옵션을 선택해주세요.');
                     $('#md_order_shop').focus();
+                    return false;
+                } else if(md_type == "latest" && md_order_latest == "" || md_type == "tab" && md_order_latest == "") {
+                    alert('게시물 출력옵션을 선택해주세요.');
+                    $('#md_order_latest').focus();
                     return false;
                 } else if(md_type == "item" && md_cnt < 1) {
                     alert('상품 출력갯수를 입력해주세요.');
@@ -1496,6 +1501,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                             "md_module":md_module,
                             "md_padding":md_padding,
                             "md_order":md_order,
+                            "md_order_latest":md_order_latest,
                             
                         },
                         success: function(data) {
