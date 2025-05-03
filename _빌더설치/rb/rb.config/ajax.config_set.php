@@ -321,7 +321,7 @@ if($mod_type == "del") { //모듈삭제
                         </select>
                         
                         <h6 class="font-R rb_config_sub_txt">
-                            배너를 먼저 등록해 주세요.
+                            배너를 먼저 등록해 주세요.<br>
                             개별출력의 경우 출력할 배너를 선택해주세요.
                         </h6>
                     </ul>
@@ -721,7 +721,7 @@ if($mod_type == "del") { //모듈삭제
                         });
                     </script>
                    
-                    <?php if(isset($md_skin) && $md_skin) { ?>
+                    <?php if(isset($md_skin) && $md_skin && isset($md_type) && $md_type == "latest") { ?>
 
                         <ul class="skin_path_url mt-5">
                             <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
@@ -733,7 +733,7 @@ if($mod_type == "del") { //모듈삭제
 
                     <?php } ?>
                     
-                    <?php if(isset($md_tab_skin) && $md_tab_skin) { ?>
+                    <?php if(isset($md_tab_skin) && $md_tab_skin && isset($md_type) && $md_type == "tab") { ?>
 
                         <ul class="skin_path_url mt-5">
                             <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
@@ -745,7 +745,7 @@ if($mod_type == "del") { //모듈삭제
 
                     <?php } ?>
 
-                    <?php if(isset($md_widget) && $md_widget) { ?>
+                    <?php if(isset($md_widget) && $md_widget && isset($md_type) && $md_type == "widget") { ?>
                     <ul class="skin_path_url mt-5">
                         <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
                         <li class="skin_path_url_txt">
@@ -755,7 +755,7 @@ if($mod_type == "del") { //모듈삭제
                     </ul>
                     <?php } ?>
                     
-                    <?php if(isset($md_poll) && $md_poll) { ?>
+                    <?php if(isset($md_poll) && $md_poll && isset($md_type) && $md_type == "poll") { ?>
                     <ul class="skin_path_url mt-5">
                         <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
                         <li class="skin_path_url_txt">
@@ -765,7 +765,7 @@ if($mod_type == "del") { //모듈삭제
                     </ul>
                     <?php } ?>
                     
-                    <?php if(isset($md_banner) && $md_banner) { ?>
+                    <?php if(isset($md_banner) && $md_banner && isset($md_type) && $md_type == "banner") { ?>
                     <ul class="skin_path_url mt-5">
                         <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
                         <li class="skin_path_url_txt">
