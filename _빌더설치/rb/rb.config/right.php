@@ -49,7 +49,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 <div class="rb_config rb_config_mod1">
 
                     <h2 class="font-B">환경설정</h2>
-                    <h6 class="font-R rb_config_sub_txt">레이아웃 및 웹폰트는 새로고침 후 확인해주세요.<br>모든 설정은 변경즉시 적용 됩니다.</h6>
+                    <h6 class="font-R rb_config_sub_txt">레이아웃 및 웹폰트는 새로고침 후 확인해주세요.<br>이외 모든 설정은 변경즉시 적용 됩니다.<br>서브영역 설정의 경우 서브페이지로 이동해주세요.</h6>
                     <ul class="rb_config_sec">
                         <h6 class="font-B">강조컬러 설정 (공용)</h6>
                         <div class="config_wrap">
@@ -111,23 +111,6 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 <div class="color_set_wrap square" style="position: relative;">
                                     <input type="text" class="coloris coloris2 mod_co_header" name="co_header" value="<?php echo isset($rb_config['co_header']) ? $rb_config['co_header'] : ''; ?>">
                                 </div>
-
-                                <script type="text/javascript">
-                                    Coloris({
-                                        el: '.coloris2',
-                                        swatches: [
-                                            '#AA20FF',
-                                            '#FFC700',
-                                            '#00A3FF',
-                                            '#8ED100',
-                                            '#FF5A5A',
-                                            '#25282B'
-                                        ]
-                                    });
-                                </script>
-
-
-
 
                                 <li class="co_header_ex">
                                     <dd class="co_header_ex_dd">
@@ -384,7 +367,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                     </ul>
 
-
+                    <?php if (!defined("_INDEX_")) { ?>
                     <ul class="rb_config_sec" <?php if(defined('_SHOP_')) { // 영카트?>style="display:block !important;" <?php } else { ?>style="display:none !important;" <?php } ?>>
 
                         <h6 class="font-B">마켓 서브 사이드 영역 설정</h6>
@@ -975,41 +958,6 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                         <input type="text" class="coloris mod_co_color" name="co_topvisual_s_color" value="<?php echo isset($rb_core['topvisual_s_color']) ? $rb_core['topvisual_s_color'] : '#ffffff'; ?>" style="width:25px !important;">
                                     </div>컬러
 
-                                    <script type="text/javascript">
-                                        Coloris({
-                                            el: '.coloris'
-                                        });
-                                        Coloris.setInstance('.coloris', {
-                                            parent: '.sh-side-demos-container', // 상위 container
-                                            formatToggle: false, // Hex, RGB, HSL 토글버튼 활성
-                                            format: 'hex', // 색상 포맷지정
-                                            margin: 0, // margin
-                                            swatchesOnly: false, // 색상 견본만 표시여부
-                                            alpha: true, // 알파(투명) 활성여부
-                                            theme: 'polaroid', // default, large, polaroid, pill
-                                            themeMode: 'Light', // dark, Light
-                                            focusInput: true, // 색상코드 Input에 포커스 여부
-                                            selectInput: true, // 선택기가 열릴때 색상값을 select 여부
-                                            autoClose: true, // 자동닫기 - 확인 안됨
-                                            inline: false, // color picker를 인라인 위젯으로 사용시 true
-                                            defaultColor: '#ffffff', // 기본 색상인 인라인 mode
-                                            // Clear Button 설정
-                                            clearButton: true,
-                                            //clearLabel: '초기화',
-                                            // Close Button 설정
-                                            closeButton: true, // true, false
-                                            closeLabel: '닫기', // 닫기버튼 텍스트
-                                            swatches: [
-                                                '#AA20FF',
-                                                '#FFC700',
-                                                '#00A3FF',
-                                                '#8ED100',
-                                                '#FF5A5A',
-                                                '#25282B'
-                                            ]
-                                        });
-                                    </script>
-
                                     <select class="select select_tiny mod_send" name="co_topvisual_s_size" id="co_topvisual_s_size">
                                         <option value="">사이즈</option>
                                         <option value="12" <?php if (isset($rb_core['topvisual_s_size']) && $rb_core['topvisual_s_size'] == "12") { ?>selected<?php } ?>>12px</option>
@@ -1050,7 +998,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         </div>
 
                     </ul>
-
+                    <?php } ?>
 
 
 
@@ -1165,6 +1113,54 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
 </div>
 
+<script type="text/javascript">
+    Coloris({
+        el: '.coloris'
+    });
+    Coloris.setInstance('.coloris', {
+        parent: '.sh-side-demos-container', // 상위 container
+        formatToggle: false, // Hex, RGB, HSL 토글버튼 활성
+        format: 'hex', // 색상 포맷지정
+        margin: 0, // margin
+        swatchesOnly: false, // 색상 견본만 표시여부
+        alpha: true, // 알파(투명) 활성여부
+        theme: 'polaroid', // default, large, polaroid, pill
+        themeMode: 'Light', // dark, Light
+        focusInput: true, // 색상코드 Input에 포커스 여부
+        selectInput: true, // 선택기가 열릴때 색상값을 select 여부
+        autoClose: true, // 자동닫기 - 확인 안됨
+        inline: false, // color picker를 인라인 위젯으로 사용시 true
+        defaultColor: '#ffffff', // 기본 색상인 인라인 mode
+        // Clear Button 설정
+        clearButton: true,
+        //clearLabel: '초기화',
+        // Close Button 설정
+        closeButton: true, // true, false
+        closeLabel: '닫기', // 닫기버튼 텍스트
+        swatches: [
+            '#AA20FF',
+            '#FFC700',
+            '#00A3FF',
+            '#8ED100',
+            '#FF5A5A',
+            '#25282B'
+        ]
+    });
+</script>
+
+<script type="text/javascript">
+    Coloris({
+        el: '.coloris2',
+        swatches: [
+            '#AA20FF',
+            '#FFC700',
+            '#00A3FF',
+            '#8ED100',
+            '#FF5A5A',
+            '#25282B'
+        ]
+    });
+</script>
 
 <script type="text/javascript">
     $(document).ready(function() {
