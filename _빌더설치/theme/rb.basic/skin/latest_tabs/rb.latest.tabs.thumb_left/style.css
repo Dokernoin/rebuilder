@@ -40,6 +40,8 @@
 .latest-tabs-wrap .bo_tab #bo_cate_ul:before {content: "";bottom: 0;position: absolute;width: 100%;margin: 0;height: 1px;background-color: rgba(0, 0, 0, .1);}
 .latest-tabs-wrap .bo_tab #bo_cate_on::after {content: "";position: absolute;bottom: 0;right: 20px;left: 0px;height: 2px;background-color: currentColor;}
 
+.latest-tabs-wrap .no_data {padding-top: 40px !important; padding-bottom: 45px !important; border-bottom: 0px !important; margin-top:0px !important;}
+
 .latest-tab-content dd {position: relative;}
 .latest-tab-content .more_btn {position: absolute; top:0px; right:0px;}
 .latest-tab-content dd:last-child {margin-bottom: 0px;}
@@ -54,8 +56,9 @@
 .latest-tab-content .bbs_main_wrap_con_writer span {display: inline-block;}
 .latest-tab-content .prof_tiny_image img {width: 30px; height:auto; border-radius: 50%; margin-right: 5px;}
 .latest-tab-content .prof_tiny_name {font-size: 12px; color:#999; line-height: 20px; margin-right: 10px;}
-.latest-tab-content .bbs_list_label {line-height: 17px; font-size: 11px; border-radius: 4px; padding-left: 5px; padding-right: 5px;}
+.latest-tab-content  .bbs_list_label {font-size: 11px;border-radius: 4px;padding-left: 5px;padding-right: 5px;padding-top: 3px;padding-bottom: 2px;}
 
+.latest-tab-content .icon_abs {position: absolute; right:40px; top:10px;}
 .latest-tab-content .bbs_list_label.label1 {background-color: #FFC700; color:#fff;}
 .latest-tab-content .bbs_list_label.label2 {background-color: #00A3FF; color:#fff;}
 .latest-tab-content .bbs_list_label.label3 {background-color: #8ED100; color:#fff;}
