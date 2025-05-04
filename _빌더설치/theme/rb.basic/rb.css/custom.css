@@ -396,6 +396,8 @@ select#ct_send_cost {width: 150px;}
 #rb_topvisual_txt_shop .main_wording_shop:focus {outline: none; border:1px solid rgba(255,255,255,0.5);}
 #rb_topvisual_txt_shop .sub_wording_shop {padding: 0px 0px; line-height: 140%; margin-top: 15px;}
 #rb_topvisual_txt_shop .sub_wording_shop:focus {outline: none; border:1px solid rgba(255,255,255,0.5);}
+
+.rb_bbs_wrap .btns_gr_wrap {z-index: 3 !important;}
 /* } */
 
 @media all and (max-width:1024px){
