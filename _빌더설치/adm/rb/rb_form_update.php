@@ -60,9 +60,13 @@ if (isset($_POST['install']) && $_POST['install'] == 1) {
     //컬럼이 있는지 검사한다.
     $cnt = sql_fetch (" select COUNT(*) as cnt from rb_builder ");
 
+    //@닥본사 님 코드적용 (PHP8.4.4 관련 오류)
+    $bu_load = isset($_POST['bu_load']) && is_numeric($_POST['bu_load']) ? (int)$_POST['bu_load'] : 0;
+    $bu_systemmsg_use = isset($_POST['bu_systemmsg_use']) && is_numeric($_POST['bu_systemmsg_use']) ? (int)$_POST['bu_systemmsg_use'] : 0;
+
     if($cnt['cnt'] > 0) {
             $sql = " update rb_builder
-                set bu_load = '{$_POST['bu_load']}',
+                set bu_load = '{$bu_load}',
                     bu_1 = '{$_POST['bu_1']}',
                     bu_2 = '{$_POST['bu_2']}',
                     bu_3 = '{$_POST['bu_3']}',
@@ -94,13 +98,13 @@ if (isset($_POST['install']) && $_POST['install'] == 1) {
                     bu_sns9 = '{$_POST['bu_sns9']}',
                     bu_sns10 = '{$_POST['bu_sns10']}',
                     bu_viewport = '{$_POST['bu_viewport']}',
-                    bu_systemmsg_use = '{$_POST['bu_systemmsg_use']}', 
+                    bu_systemmsg_use = '{$bu_systemmsg_use}',
                     bu_datetime = '".G5_TIME_YMDHIS."' ";
             sql_query($sql);
     } else { 
 
             $sql = " insert rb_builder
-                set bu_load = '{$_POST['bu_load']}',
+                set bu_load = '{$bu_load}',
                     bu_1 = '{$_POST['bu_1']}',
                     bu_2 = '{$_POST['bu_2']}',
                     bu_3 = '{$_POST['bu_3']}',
@@ -132,7 +136,7 @@ if (isset($_POST['install']) && $_POST['install'] == 1) {
                     bu_sns9 = '{$_POST['bu_sns9']}',
                     bu_sns10 = '{$_POST['bu_sns10']}',
                     bu_viewport = '{$_POST['bu_viewport']}',
-                    bu_systemmsg_use = '{$_POST['bu_systemmsg_use']}', 
+                    bu_systemmsg_use = '{$bu_systemmsg_use}',
                     bu_datetime = '".G5_TIME_YMDHIS."' ";
             sql_query($sql);
     }
