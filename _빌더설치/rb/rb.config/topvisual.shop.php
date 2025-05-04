@@ -5,6 +5,7 @@
             $topvisual_class = isset($rb_core['topvisual_shop']) ? 'rb_topvisual_' . $rb_core['topvisual_shop'] : '';
             $topvisual_width = (!empty($rb_core['topvisual_width_shop']) && $rb_core['topvisual_width_shop'] > 0) ? $rb_core['topvisual_width_shop'] . '%' : $rb_core['sub_width'] . 'px';
             $topvisual_height = !empty($rb_core['topvisual_height_shop']) ? $rb_core['topvisual_height_shop'] : '200';
+            $topvisual_bg_color = !empty($rb_core['topvisual_bg_color_shop']) ? $rb_core['topvisual_bg_color_shop'] : '#f9f9f9';
             $topvisual_bl = isset($rb_core['topvisual_bl_shop']) ? $rb_core['topvisual_bl_shop'] : '0';
 
             if(isset($topvisual_width) && $topvisual_width == "100%") {
@@ -43,7 +44,7 @@
 
 
 
-            <div id="rb_topvisual_shop" class="rb_topvisual_shop <?php echo $topvisual_class; ?>" style="width:<?php echo $topvisual_width; ?>; height:<?php echo $topvisual_height; ?>px; <?php if(isset($topvisual_width) && $topvisual_width == "100%") { ?>margin-top:0px; border-radius:0px; overflow:inherit<?php } else { ?>margin-top:50px; border-radius:10px; overflow:hidden<?php } ?>" data-layout="rb_topvisual_shop">
+            <div id="rb_topvisual_shop" class="rb_topvisual_shop <?php echo $topvisual_class; ?>" style="background-color:<?php echo $topvisual_bg_color ?>; width:<?php echo $topvisual_width; ?>; height:<?php echo $topvisual_height; ?>px; <?php if(isset($topvisual_width) && $topvisual_width == "100%") { ?>margin-top:0px; border-radius:0px; overflow:inherit<?php } else { ?>margin-top:50px; border-radius:10px; overflow:hidden<?php } ?>" data-layout="rb_topvisual_shop">
 
                 <?php if ($is_admin) { ?>
                     <input type="file" id="topvisual_file_input" accept="image/*" style="display:none;">
@@ -67,7 +68,7 @@
 
             <?php if ($is_admin) { ?>
             <div id="topvisual_btn_wrap_shop">
-                <button type="button" id="save_topvisual_btn">저장</button>
+                <button type="button" id="save_topvisual_btn">워딩 저장</button>
                 <button type="button" id="delete_topvisual_btn">이미지 삭제</button>
             </div>
             <script>
@@ -155,7 +156,7 @@
                 const sub  = document.querySelector('.sub_wording_shop');
 
                 <?php if (file_exists(G5_DATA_PATH.'/topvisual/'.$key.'.jpg')) { ?>
-                visual.style.backgroundImage = "url('<?php echo $img; ?>')";
+                    visual.style.backgroundImage = "url('<?php echo $img . '?v=' . time(); ?>')";
                 <?php } ?>
 
                 <?php if (!$is_admin) { ?>

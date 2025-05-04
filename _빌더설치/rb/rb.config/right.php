@@ -559,10 +559,25 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                             <div class="config_wrap_bg_shop">
                                 <label class="config_wrap_sub_tit">영역 스타일</label><br>
 
-                                <ul class="rows_inp_lr mt-10">
+                                <ul class="rows_inp_lr mt-15">
+                                    <li class="rows_inp_l rows_inp_l_span">
+                                        <span class="font-B">배경 컬러</span><br>
+                                        컬러선택
+                                    </li>
+
+                                    <li class="rows_inp_r mt-3">
+                                        <div class="color_set_wrap square none_inp_cl tiny_inp_cl" style="position: relative;">
+                                        <input type="text" class="coloris mod_co_color" name="co_topvisual_bg_color_shop" value="<?php echo isset($rb_core['topvisual_bg_color_shop']) ? $rb_core['topvisual_bg_color_shop'] : '#f9f9f9'; ?>">
+                                        </div>
+                                    </li>
+                                    <div class="cb"></div>
+                                </ul>
+
+
+                                <ul class="rows_inp_lr mt-5">
                                     <li class="rows_inp_l rows_inp_l_span">
                                         <span class="font-B">가로 크기</span><br>
-                                        자동, 채우기
+                                        자동/채우기
                                     </li>
 
                                     <li class="rows_inp_r mt-3">
@@ -616,7 +631,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 <ul class="rows_inp_lr mt-5">
                                     <li class="rows_inp_l rows_inp_l_span">
                                         <span class="font-B">밝기</span><br>
-                                        0 ~ 100%
+                                        0~100%
                                     </li>
 
                                     <li class="rows_inp_r mt-15">
@@ -797,10 +812,24 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                             <div class="config_wrap_bg">
                                 <label class="config_wrap_sub_tit">영역 스타일</label><br>
 
-                                <ul class="rows_inp_lr mt-10">
+                                <ul class="rows_inp_lr mt-15">
+                                    <li class="rows_inp_l rows_inp_l_span">
+                                        <span class="font-B">배경 컬러</span><br>
+                                        컬러선택
+                                    </li>
+
+                                    <li class="rows_inp_r mt-3">
+                                        <div class="color_set_wrap square none_inp_cl tiny_inp_cl" style="position: relative;">
+                                        <input type="text" class="coloris mod_co_color" name="co_topvisual_bg_color" value="<?php echo isset($rb_core['topvisual_bg_color']) ? $rb_core['topvisual_bg_color'] : '#f9f9f9'; ?>">
+                                        </div>
+                                    </li>
+                                    <div class="cb"></div>
+                                </ul>
+
+                                <ul class="rows_inp_lr mt-5">
                                     <li class="rows_inp_l rows_inp_l_span">
                                         <span class="font-B">가로 크기</span><br>
-                                        자동, 채우기
+                                        자동/채우기
                                     </li>
 
                                     <li class="rows_inp_r mt-3">
@@ -854,7 +883,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 <ul class="rows_inp_lr mt-5">
                                     <li class="rows_inp_l rows_inp_l_span">
                                         <span class="font-B">밝기</span><br>
-                                        0 ~ 100%
+                                        0~100%
                                     </li>
 
                                     <li class="rows_inp_r mt-15">
@@ -1620,6 +1649,9 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var co_topvisual_s_font_shop = $('select[name="co_topvisual_s_font_shop"]').val();
         var co_topvisual_s_align_shop = $('input[name="co_topvisual_s_align_shop"]:checked').val();
 
+        var co_topvisual_bg_color = $('input[name="co_topvisual_bg_color"]').val();
+        var co_topvisual_bg_color_shop = $('input[name="co_topvisual_bg_color_shop"]').val();
+
         var mod_type = '1';
 
         <?php if($is_admin) { ?>
@@ -1692,6 +1724,9 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 "co_topvisual_s_font_shop": co_topvisual_s_font_shop,
                 "co_topvisual_s_align_shop": co_topvisual_s_align_shop,
 
+                "co_topvisual_bg_color": co_topvisual_bg_color,
+                "co_topvisual_bg_color_shop": co_topvisual_bg_color_shop,
+
 
                 "mod_type": mod_type,
             },
@@ -1760,6 +1795,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     }
                     
 
+                    $('.rb_topvisual').css('background-color', data.co_topvisual_bg_color);
+                    $('.rb_topvisual_shop').css('background-color', data.co_topvisual_bg_color_shop);
 
                     $('.main_wording').css('color', data.co_topvisual_m_color);
                     $('.main_wording').css('font-size', data.co_topvisual_m_size+'px');

@@ -249,6 +249,9 @@ input#md_title_hide + label:after {top:3px !important;}
 #topvisual_btn_wrap_shop {text-align: center; margin-top: -18px; z-index: 2; position: absolute; width: 100%; display: none;}
 #topvisual_btn_wrap_shop button {border:0px; padding: 10px 20px; border-radius: 30px; background-color: #F0F3F9;}
 
+.tiny_inp_cl input {width:120px !important; padding-left:30px !important; color:#000; font-size: 12px;}
+.config_wrap_bg input[type="radio"] + label {padding-top: 7px;}
+
 .selected_tags .tag {
     display: block;
     background: #f9f9f9;

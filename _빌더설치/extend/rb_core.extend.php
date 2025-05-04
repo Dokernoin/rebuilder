@@ -63,6 +63,10 @@ $rb_core['topvisual_s_color_shop'] = isset($rb_config['co_topvisual_s_color_shop
 $rb_core['topvisual_s_size_shop'] = isset($rb_config['co_topvisual_s_size_shop']) ? $rb_config['co_topvisual_s_size_shop'] : '16';
 $rb_core['topvisual_s_font_shop'] = isset($rb_config['co_topvisual_s_font_shop']) ? $rb_config['co_topvisual_s_font_shop'] : 'font-R';
 $rb_core['topvisual_s_align_shop'] = isset($rb_config['co_topvisual_s_align_shop']) ? $rb_config['co_topvisual_s_align_shop'] : 'left';
+
+$rb_core['topvisual_bg_color'] = isset($rb_config['co_topvisual_bg_color']) ? $rb_config['co_topvisual_bg_color'] : '#f9f9f9';
+$rb_core['topvisual_bg_color_shop'] = isset($rb_config['co_topvisual_bg_color_shop']) ? $rb_config['co_topvisual_bg_color_shop'] : '#f9f9f9';
+
 /* } */
 
 
