@@ -17,6 +17,7 @@ if($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipin
     #header {display: none;}
     .contents_wrap {padding: 0px !important;}
     .sub {padding-top: 0px;}
+    #rb_topvisual {display: none;}
 </style>
 
 <div class="rb_member new_win<?php if($config['cf_cert_use'] != 0 && $config['cf_cert_find'] != 0) { ?> cert<?php } ?>" id="find_info">

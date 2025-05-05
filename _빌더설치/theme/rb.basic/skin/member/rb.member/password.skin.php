@@ -18,6 +18,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
     #header {display: none;}
     .contents_wrap {padding: 0px !important;}
     .sub {padding-top: 0px;}
+    #rb_topvisual {display: none;}
 </style>
 
 
