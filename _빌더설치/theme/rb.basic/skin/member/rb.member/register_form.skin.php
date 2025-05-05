@@ -33,6 +33,7 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
     #header {display: none;}
     .contents_wrap {padding: 0px !important;}
     .sub {padding-top: 0px;}
+    #rb_topvisual {display: none;}
 </style>
 
 <div class="rb_member">
@@ -94,12 +95,17 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
             
             <li>
                 <span>아이디</span>
-                <input type="text" name="mb_id" value="<?php echo $member['mb_id'] ?>" id="reg_mb_id" <?php echo $required ?> <?php echo $readonly ?> class="input full_input <?php echo $required ?> <?php echo $readonly ?>" minlength="3" maxlength="20" placeholder="3글자 이상 (영문, 숫자, _ 입력가능)">
+                <div class="input_wrap">
+                    <input type="text" name="mb_id" value="<?php echo $member['mb_id'] ?>" id="reg_mb_id" <?php echo $required ?> <?php echo $readonly ?> class="input full_input <?php echo $required ?> <?php echo $readonly ?>" minlength="3" maxlength="20" placeholder="3글자 이상 (영문, 숫자, _ 입력가능)">
+                    <button type="button" class="btn_frmline" onclick="checkDuplicate('id')">중복확인</button>
+                </div>
+                <span class="result_message main_color font-R" id="msg_mb_id"></span>
             </li>
             <li>
                 <span>비밀번호</span>
                 <input type="password" name="mb_password" id="reg_mb_password" <?php echo $required ?> class="input full_input <?php echo $required ?>" minlength="3" maxlength="20" placeholder="비밀번호">
                 <input type="password" name="mb_password_re" id="reg_mb_password_re" <?php echo $required ?> class="input full_input mt-10 <?php echo $required ?>" minlength="3" maxlength="20" placeholder="비밀번호 확인">
+                <span class="result_message main_color font-R" id="msg_mb_password_re"></span>
             </li>
             
             
@@ -158,7 +164,11 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
             <li>
                 <span>닉네임</span>
                 <input type="hidden" name="mb_nick_default" value="<?php echo isset($member['mb_nick'])?get_text($member['mb_nick']):''; ?>">
-                <input type="text" name="mb_nick" value="<?php echo isset($member['mb_nick'])?get_text($member['mb_nick']):''; ?>" id="reg_mb_nick" required class="input required nospace full_input" size="10" maxlength="20" placeholder="닉네임">
+                <div class="input_wrap">
+                    <input type="text" name="mb_nick" value="<?php echo isset($member['mb_nick'])?get_text($member['mb_nick']):''; ?>" id="reg_mb_nick" required class="input required nospace full_input" size="10" maxlength="20" placeholder="닉네임">
+                    <button type="button" class="btn_frmline" onclick="checkDuplicate('nick')">중복확인</button>
+                </div>
+                <span class="result_message main_color font-R" id="msg_mb_nick"></span>
                 <span class="help_text">공백없이 한글, 영문, 숫자만 입력 가능 (한글 2글자, 영문 4글자 이상)<br> 닉네임을 바꾸시면 <?php echo (int)$config['cf_nick_modify'] ?>일 이내에는 변경 할 수 없습니다.</span>
             </li>
             <?php }  ?>
@@ -167,7 +177,11 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
             <li>
                 <span>이메일</span>
                 <input type="hidden" name="old_email" value="<?php echo $member['mb_email'] ?>">
-	            <input type="text" name="mb_email" value="<?php echo isset($member['mb_email'])?$member['mb_email']:''; ?>" id="reg_mb_email" required class="input email full_input required" maxlength="100" placeholder="이메일">
+                <div class="input_wrap">
+                    <input type="text" name="mb_email" value="<?php echo isset($member['mb_email'])?$member['mb_email']:''; ?>" id="reg_mb_email" required class="input email full_input required" maxlength="100" placeholder="이메일">
+                    <button type="button" class="btn_frmline" onclick="checkDuplicate('email')">중복확인</button>
+                </div>
+                <span class="result_message main_color font-R" id="msg_mb_email"></span>
                 <?php if ($config['cf_use_email_certify']) { ?>
                     <?php if ($w=='') { echo "<span class='help_text'>이메일 로 발송된 내용을 확인한 후 인증하셔야 회원가입이 완료됩니다.</span>"; }  ?>
                     <?php if ($w=='u') { echo "<span class='help_text'>이메일을 변경하시면 다시 인증하셔야 합니다.</span>"; }  ?>
@@ -665,6 +679,75 @@ jQuery(function($){
     });
 });
 
+// 미니님a님 코드적용
+function checkDuplicate(type) {
+        let url;
+        let fieldId;
+        let msgId;
+        let typeName;
+
+        switch (type) {
+            case 'id':
+                url = "ajax.mb_id.php";
+                fieldId = "#reg_mb_id";
+                msgId = "#msg_mb_id";
+                typeName = "아이디";
+                break;
+            case 'nick':
+                url = "ajax.mb_nick.php";
+                fieldId = "#reg_mb_nick";
+                msgId = "#msg_mb_nick";
+                typeName = "닉네임";
+                break;
+            case 'email':
+                url = "ajax.mb_email.php";
+                fieldId = "#reg_mb_email";
+                msgId = "#msg_mb_email";
+                typeName = "이메일";
+                break;
+            default:
+                return;
+        }
+
+        var fieldValue = $(fieldId).val();
+        var data = {};
+        data['reg_mb_' + type] = fieldValue;
+        if (type !== 'id') {
+            data['checkDuplicate' + type.charAt(0).toUpperCase() + type.slice(1)] = 1;
+        }
+
+        $.post(url, data, function(response) {
+            $(msgId).html('').removeClass('error success');
+            if(response) {
+                $(msgId).html(response).addClass('error');
+            } else {
+                $(msgId).html('사용할 수 있는 ' + typeName + '입니다.').addClass('success');
+            }
+        });
+    }
+
+    $('#reg_mb_password_re').on('input', function() {
+        var password = $('#reg_mb_password').val();
+        var passwordRe = $(this).val();
+        var $msg = $('#msg_mb_password_re');
+
+        $msg.removeClass('error success');
+
+        if (password === '' || passwordRe === '') {
+            $msg.html('').removeClass('error success');
+            return;
+        }
+
+        if (password === passwordRe) {
+            $msg.html('비밀번호가 일치합니다.').addClass('success');
+        } else {
+            $msg.html('비밀번호가 일치하지 않습니다.').addClass('error');
+        }
+    });
+
+    $('#reg_mb_password').on('input', function() {
+        $('#reg_mb_password_re').trigger('input');
+    });
 </script>
 
 <!-- } 회원정보 입력/수정 끝 -->

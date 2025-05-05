@@ -400,6 +400,15 @@ select#ct_send_cost {width: 150px;}
 .rb_bbs_wrap .btns_gr_wrap {z-index: 3 !important;}
 /* } */
 
+/* 2.2.0.1 { */
+.input_wrap {display: flex; align-items: center; justify-content: space-between; gap: 12px;}
+.input_wrap > input { flex: 1; }
+.rb_member .rb_reg .btn_frmline{height: 47px; background-color: #fff; color: <?php echo $rb_color?>; border-color: <?php echo $rb_color?>;}
+.result_message{display: none !important; margin-top: 8px; }
+.result_message.error{color: #f00 !important; display: block !important;}
+.result_message.success{color: #000 !important; display: block !important;}
+/* } */
+
 @media all and (max-width:1024px){
 
     /* 1.1.4 { */
