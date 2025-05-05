@@ -16,10 +16,15 @@
 
             function get_topvisual_key() {
                 global $bo_table, $co_id, $ca_id;
+
                 if (!empty($bo_table)) return preg_replace('/[^a-z0-9_]/', '', $bo_table);
                 if (!empty($co_id))    return preg_replace('/[^a-zA-Z0-9_]/', '', $co_id);
                 if (!empty($ca_id))    return preg_replace('/[^a-zA-Z0-9_]/', '', $ca_id);
-                return '';
+
+                // ✅ 실제 접속 URL 기준 파일명 추출 (예: /bbs/faq.php → faq)
+                $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);  // /bbs/faq.php
+                $filename = pathinfo($uri, PATHINFO_FILENAME);             // faq
+                return preg_replace('/[^a-z0-9_]/', '', strtolower($filename));
             }
 
             $key = get_topvisual_key();
@@ -103,6 +108,12 @@
                 formData.append('bo_table', '<?php echo $bo_table; ?>');
                 formData.append('co_id', '<?php echo $co_id; ?>');
                 formData.append('ca_id', '<?php echo $ca_id; ?>');
+
+                // 현재 페이지 파일명 추출 (예: faq.php → faq)
+                const pagePath = window.location.pathname;
+                const pageName = pagePath.substring(pagePath.lastIndexOf('/') + 1).split('.')[0];
+                formData.append('page_id', pageName); // 추가로 보냄
+
                 fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_upload.php', {
                     method: 'POST', body: formData
                 }).then(res => res.json()).then(data => {
@@ -124,6 +135,11 @@
                 formData.append('co_id', '<?php echo $co_id; ?>');
                 formData.append('ca_id', '<?php echo $ca_id; ?>');
 
+                // 현재 페이지 파일명 추출 (예: faq.php → faq)
+                const pagePath = window.location.pathname;
+                const pageName = pagePath.substring(pagePath.lastIndexOf('/') + 1).split('.')[0];
+                formData.append('page_id', pageName); // 추가로 보냄
+
                 fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_save.php', {
                     method: 'POST',
                     body: formData
@@ -136,6 +152,12 @@
                 formData.append('bo_table', '<?php echo $bo_table; ?>');
                 formData.append('co_id', '<?php echo $co_id; ?>');
                 formData.append('ca_id', '<?php echo $ca_id; ?>');
+
+                // 현재 페이지 파일명 추출 (예: faq.php → faq)
+                const pagePath = window.location.pathname;
+                const pageName = pagePath.substring(pagePath.lastIndexOf('/') + 1).split('.')[0];
+                formData.append('page_id', pageName); // 추가로 보냄
+
                 fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_delete.php', {
                     method: 'POST', body: formData
                 }).then(res => res.json()).then(data => {

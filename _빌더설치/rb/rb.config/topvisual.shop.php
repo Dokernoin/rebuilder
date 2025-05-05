@@ -16,10 +16,15 @@
 
             function get_topvisual_key() {
                 global $bo_table, $co_id, $ca_id;
+
                 if (!empty($bo_table)) return preg_replace('/[^a-z0-9_]/', '', $bo_table);
                 if (!empty($co_id))    return preg_replace('/[^a-zA-Z0-9_]/', '', $co_id);
                 if (!empty($ca_id))    return preg_replace('/[^a-zA-Z0-9_]/', '', $ca_id);
-                return '';
+
+                // ✅ 실제 접속 URL 기준 파일명 추출 (예: /bbs/faq.php → faq)
+                $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);  // /bbs/faq.php
+                $filename = pathinfo($uri, PATHINFO_FILENAME);             // faq
+                return preg_replace('/[^a-z0-9_]/', '', strtolower($filename));
             }
 
             $key = get_topvisual_key();

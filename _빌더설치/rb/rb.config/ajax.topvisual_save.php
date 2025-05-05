@@ -12,13 +12,20 @@ $bo_table = isset($_POST['bo_table']) ? preg_replace('/[^a-z0-9_]/', '', $_POST[
 $co_id    = isset($_POST['co_id']) ? preg_replace('/[^a-zA-Z0-9_]/', '', $_POST['co_id']) : '';
 $ca_id    = isset($_POST['ca_id']) ? preg_replace('/[^a-zA-Z0-9_]/', '', $_POST['ca_id']) : '';
 
-// 구분 키 함수
 function get_topvisual_key() {
     global $bo_table, $co_id, $ca_id;
+
     if (!empty($bo_table)) return preg_replace('/[^a-z0-9_]/', '', $bo_table);
     if (!empty($co_id))    return preg_replace('/[^a-zA-Z0-9_]/', '', $co_id);
     if (!empty($ca_id))    return preg_replace('/[^a-zA-Z0-9_]/', '', $ca_id);
-    return '';
+
+    // 클라이언트에서 보낸 프론트 페이지 파일명 사용
+    if (!empty($_POST['page_id'])) {
+        return preg_replace('/[^a-z0-9_]/', '', $_POST['page_id']);
+    }
+
+    // fallback (예외 상황)
+    return 'unknown';
 }
 
 $key = get_topvisual_key();
