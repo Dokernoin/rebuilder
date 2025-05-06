@@ -1609,6 +1609,49 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var co_main_padding_top = $('input[name="co_main_padding_top"]:checked').val();
         var co_main_padding_top_shop = $('input[name="co_main_padding_top_shop"]:checked').val();
 
+        <?php if (defined("_INDEX_")) { ?>
+
+        var co_side_skin = "<?php echo isset($rb_core['side_skin']) ? $rb_core['side_skin'] : ''; ?>";
+        var co_side_skin_shop = "<?php echo isset($rb_core['side_skin_shop']) ? $rb_core['side_skin_shop'] : ''; ?>";
+        var co_sidemenu = "<?php echo isset($rb_core['sidemenu']) ? $rb_core['sidemenu'] : ''; ?>";
+        var co_sidemenu_shop = "<?php echo isset($rb_core['sidemenu_shop']) ? $rb_core['sidemenu_shop'] : ''; ?>";
+        var co_sidemenu_width = "<?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : ''; ?>";
+        var co_sidemenu_width_shop = "<?php echo isset($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : ''; ?>";
+
+        var co_topvisual = "<?php echo isset($rb_core['topvisual']) ? $rb_core['topvisual'] : ''; ?>";
+        var co_topvisual_shop = "<?php echo isset($rb_core['topvisual_shop']) ? $rb_core['topvisual_shop'] : ''; ?>";
+        var co_topvisual_height = "<?php echo isset($rb_core['topvisual_height']) ? $rb_core['topvisual_height'] : ''; ?>";
+        var co_topvisual_height_shop = "<?php echo isset($rb_core['topvisual_height_shop']) ? $rb_core['topvisual_height_shop'] : ''; ?>";
+        var co_topvisual_width = "<?php echo isset($rb_core['topvisual_width']) ? $rb_core['topvisual_width'] : ''; ?>";
+        var co_topvisual_bl = "<?php echo isset($rb_core['topvisual_bl']) ? $rb_core['topvisual_bl'] : ''; ?>";
+        var co_topvisual_width_shop = "<?php echo isset($rb_core['topvisual_width_shop']) ? $rb_core['topvisual_width_shop'] : ''; ?>";
+        var co_topvisual_bl_shop = "<?php echo isset($rb_core['topvisual_bl_shop']) ? $rb_core['topvisual_bl_shop'] : ''; ?>";
+
+        var co_topvisual_m_color = "<?php echo isset($rb_core['topvisual_m_color']) ? $rb_core['topvisual_m_color'] : ''; ?>";
+        var co_topvisual_m_size = "<?php echo isset($rb_core['topvisual_m_size']) ? $rb_core['topvisual_m_size'] : ''; ?>";
+        var co_topvisual_m_font = "<?php echo isset($rb_core['topvisual_m_font']) ? $rb_core['topvisual_m_font'] : ''; ?>";
+        var co_topvisual_m_align = "<?php echo isset($rb_core['topvisual_m_align']) ? $rb_core['topvisual_m_align'] : ''; ?>";
+
+        var co_topvisual_s_color = "<?php echo isset($rb_core['topvisual_s_color']) ? $rb_core['topvisual_s_color'] : ''; ?>";
+        var co_topvisual_s_size = "<?php echo isset($rb_core['topvisual_s_size']) ? $rb_core['topvisual_s_size'] : ''; ?>";
+        var co_topvisual_s_font = "<?php echo isset($rb_core['topvisual_s_font']) ? $rb_core['topvisual_s_font'] : ''; ?>";
+        var co_topvisual_s_align = "<?php echo isset($rb_core['topvisual_s_align']) ? $rb_core['topvisual_s_align'] : ''; ?>";
+
+        var co_topvisual_m_color_shop = "<?php echo isset($rb_core['topvisual_m_color_shop']) ? $rb_core['topvisual_m_color_shop'] : ''; ?>";
+        var co_topvisual_m_size_shop = "<?php echo isset($rb_core['topvisual_m_size_shop']) ? $rb_core['topvisual_m_size_shop'] : ''; ?>";
+        var co_topvisual_m_font_shop = "<?php echo isset($rb_core['topvisual_m_font_shop']) ? $rb_core['topvisual_m_font_shop'] : ''; ?>";
+        var co_topvisual_m_align_shop = "<?php echo isset($rb_core['topvisual_m_align_shop']) ? $rb_core['topvisual_m_align_shop'] : ''; ?>";
+
+        var co_topvisual_s_color_shop = "<?php echo isset($rb_core['topvisual_s_color_shop']) ? $rb_core['topvisual_s_color_shop'] : ''; ?>";
+        var co_topvisual_s_size_shop = "<?php echo isset($rb_core['topvisual_s_size_shop']) ? $rb_core['topvisual_s_size_shop'] : ''; ?>";
+        var co_topvisual_s_font_shop = "<?php echo isset($rb_core['topvisual_s_font_shop']) ? $rb_core['topvisual_s_font_shop'] : ''; ?>";
+        var co_topvisual_s_align_shop = "<?php echo isset($rb_core['topvisual_s_align_shop']) ? $rb_core['topvisual_s_align_shop'] : ''; ?>";
+
+        var co_topvisual_bg_color = "<?php echo isset($rb_core['side_skin']) ? $rb_core['side_skin'] : ''; ?>";
+        var co_topvisual_bg_color_shop = "<?php echo isset($rb_core['side_skin']) ? $rb_core['side_skin'] : ''; ?>";
+
+        <?php } else { ?>
+
         var co_side_skin = $('select[name="co_side_skin"]').val();
         var co_side_skin_shop = $('select[name="co_side_skin_shop"]').val();
         var co_sidemenu = $('input[name="co_sidemenu"]:checked').val();
@@ -1647,6 +1690,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
         var co_topvisual_bg_color = $('input[name="co_topvisual_bg_color"]').val();
         var co_topvisual_bg_color_shop = $('input[name="co_topvisual_bg_color_shop"]').val();
+
+        <?php } ?>
 
         var mod_type = '1';
 
