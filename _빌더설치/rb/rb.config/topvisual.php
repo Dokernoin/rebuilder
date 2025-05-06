@@ -1,7 +1,6 @@
 <?php
         $rb_menus = get_current_menu_info();
 
-        if (isset($rb_core['topvisual']) && in_array($rb_core['topvisual'], ['img', 'txt', 'imgtxt'])) {
 
             if(isset($rb_menus['me_code']) && $rb_menus['me_code'] && isset($rb_menus['me_mobile_use']) && $rb_menus['me_mobile_use'] == 1) {
 
@@ -159,5 +158,4 @@
                 <?php } ?>
             });
             </script>
-            <?php } ?>
             <?php } ?>
