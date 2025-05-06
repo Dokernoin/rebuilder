@@ -487,6 +487,20 @@ if($mod_type == "del") { //모듈삭제
                             updateHiddenField();
                         });
 
+                        // 드래그
+                        $('#tab_selects').sortable({
+                            items: '.tag',
+                            update: function () {
+                                // 순서 변경 시 selectedData도 재구성
+                                selectedData = [];
+                                $('#tab_selects .tag').each(function () {
+                                    const key = $(this).data('key');
+                                    selectedData.push(key);
+                                });
+                                updateHiddenField();
+                            }
+                        });
+
                         function updateHiddenField() {
                             $('#md_tab_list').val(JSON.stringify(selectedData));
                         }
