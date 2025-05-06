@@ -47,20 +47,22 @@ $is_shop = isset($_POST['is_shop']) ? $_POST['is_shop'] : '';
     }
 ?>
     <?php if(isset($md_bo_table) && $md_bo_table) { ?>
-    <?php if(isset($cat) && $cat) { ?>
+
     <ul class="mt-5 selected_tab selected_select">
         <select class="select w100" name="md_sca_tab" id="tab_sca">
 
                 <option value="">카테고리를 선택하세요.</option>
                 <?php foreach($cat_opt as $option): ?>
+                <?php if(isset($option) && $option) { ?>
                 <option value="<?php echo $option; ?>"><?php echo $option; ?></option>
+                <?php } ?>
                 <?php endforeach; ?>
 
                 <option value="">전체</option>
 
         </select>
     </ul>
-    <?php } ?>
+
     <?php } ?>
 
 <?php } ?>
