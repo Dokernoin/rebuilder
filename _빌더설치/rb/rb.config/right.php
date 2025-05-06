@@ -499,45 +499,26 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
 
                     <ul class="rb_config_sec" <?php if(defined('_SHOP_')) { // 영카트?>style="display:block !important;" <?php } else { ?>style="display:none !important;" <?php } ?>>
+                        <?php $rb_menus = get_current_menu_info(); ?>
 
-                        <h6 class="font-B">마켓 서브 상단 비주얼 영역 설정</h6>
+                        <h6 class="font-B">마켓 상단 비주얼 영역 설정</h6>
                         <h6 class="font-R rb_config_sub_txt">
                             서브 페이지 비주얼 영역을 설정할 수 있습니다.<br>
-                            사용함 설정시 공통 적용되며,<br>
+                            설정시 <span class="font-B"><?php echo isset($rb_menus['me_name']) ? $rb_menus['me_name'] : ''; ?></span> 페이지에 적용되며,<br>
                             워딩 및 이미지 등은 각 페이지 에서 직접 추가 할 수 있습니다.
                         </h6>
 
+                        <?php if(isset($rb_menus['me_code']) && $rb_menus['me_code']) { ?>
+                        <div class="font-12 rb_sub_page_cr">
+                        <span>Menu : <?php echo $rb_menus['me_name'] ?></span> <span>Code : <?php echo $rb_menus['me_code'] ?></span>
+                        </div>
+                        <?php } ?>
+
+                        <?php if(isset($rb_menus['me_code']) && $rb_menus['me_code']) { ?>
+                        <?php if(isset($rb_menus['me_mobile_use']) && $rb_menus['me_mobile_use'] == 1) { ?>
+
                         <div class="config_wrap">
-                            <ul class="rows_inp_lr mt-10">
-                                <li class="rows_inp_r mt-5">
-                                    <input type="radio" name="co_topvisual_shop" id="co_topvisual_shop_1" class="magic-radio mod_send" value="" <?php if (isset($rb_core['topvisual_shop']) && $rb_core['topvisual_shop'] == "") { ?>checked<?php } ?>><label for="co_topvisual_shop_1">사용안함</label>
-                                    <input type="radio" name="co_topvisual_shop" id="co_topvisual_shop_4" class="magic-radio mod_send" value="imgtxt" <?php if (isset($rb_core['topvisual_shop']) && $rb_core['topvisual_shop'] == "imgtxt") { ?>checked<?php } ?>><label for="co_topvisual_shop_4">사용함</label>
-                                </li>
-
-
-                                <div class="cb"></div>
-                            </ul>
-                            
-                            <script>
-                            $(document).ready(function() {
-                                function toggleConfigWrap_shop() {
-                                    const selected = $('input[name="co_topvisual_shop"]:checked').val();
-                                    if (selected === 'imgtxt') {
-                                        $('.config_wrap_bg_shop').show();
-                                        $('#topvisual_btn_wrap_shop').show();
-                                    } else {
-                                        $('.config_wrap_bg_shop').hide();
-                                        $('#topvisual_btn_wrap_shop').hide();
-                                    }
-                                }
-
-                                // 페이지 로드시 체크 상태 반영
-                                toggleConfigWrap_shop();
-
-                                // 라디오 변경 시 적용
-                                $('input[name="co_topvisual_shop"]').on('change', toggleConfigWrap_shop);
-                            });
-                            </script>
+                            <input type="hidden" name="co_topvisual_shop" id="co_topvisual_shop_4" value="imgtxt">
 
                             <div class="config_wrap_bg_shop">
                                 <label class="config_wrap_sub_tit">영역 스타일</label><br>
@@ -742,10 +723,33 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                             </div>
 
-
-
-
                         </div>
+
+                        <div class="rb_right_err_box">
+                            <div class="main_color mt-10 font-12">
+                                상단 비주얼 영역의 노출여부는<br>
+                                관리자모드 > 메뉴설정 에서 변경 가능합니다.
+                            </div>
+                            <button type="button" class="mt-10 rb_right_adm_btn main_rb_bg" onclick="javascript:window.open('<?php echo G5_ADMIN_URL ?>/menu_list.php');">메뉴 설정 바로가기</button>
+                        </div>
+                        <?php } else { ?>
+                            <div class="rb_right_err_box">
+                                <div class="main_color mt-10 font-12">
+                                    상단 비주얼 영역을 사용하지 않는 페이지 입니다.<br>
+                                    관리자모드 > 메뉴설정 에서 변경 가능합니다.
+                                </div>
+                                <button type="button" class="mt-10 rb_right_adm_btn main_rb_bg" onclick="javascript:window.open('<?php echo G5_ADMIN_URL ?>/menu_list.php');">메뉴 설정 바로가기</button>
+                            </div>
+                            <?php } ?>
+                        <?php } else { ?>
+                            <div class="rb_right_err_box">
+                            <div class="main_color mt-10 font-12">
+                                메뉴 설정에 없는 페이지 입니다.<br>
+                                관리자모드 > 메뉴설정 에서 메뉴를 추가해주세요.
+                            </div>
+                            <button type="button" class="mt-10 rb_right_adm_btn main_rb_bg" onclick="javascript:window.open('<?php echo G5_ADMIN_URL ?>/menu_list.php');">메뉴 설정 바로가기</button>
+                            </div>
+                        <?php } ?>
 
                     </ul>
 
@@ -753,44 +757,23 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                     <ul class="rb_config_sec" <?php if(defined('_SHOP_')) { // 영카트?>style="display:none !important;" <?php } else { ?>style="display:block !important;" <?php } ?>>
 
-                        <h6 class="font-B">서브 상단 비주얼 영역 설정</h6>
+                        <h6 class="font-B">상단 비주얼 영역 설정</h6>
                         <h6 class="font-R rb_config_sub_txt">
                             서브 페이지 비주얼 영역을 설정할 수 있습니다.<br>
-                            사용함 설정시 공통 적용되며,<br>
+                            설정시 <span class="font-B"><?php echo isset($rb_menus['me_name']) ? $rb_menus['me_name'] : ''; ?></span> 페이지에 적용되며,<br>
                             워딩 및 이미지 등은 각 페이지 에서 직접 추가 할 수 있습니다.
                         </h6>
 
+                        <?php if(isset($rb_menus['me_code']) && $rb_menus['me_code']) { ?>
+                        <div class="font-12 rb_sub_page_cr">
+                        <span>Menu : <?php echo $rb_menus['me_name'] ?></span> <span>Code : <?php echo $rb_menus['me_code'] ?></span>
+                        </div>
+                        <?php } ?>
+
+                        <?php if(isset($rb_menus['me_code']) && $rb_menus['me_code']) { ?>
+                        <?php if(isset($rb_menus['me_mobile_use']) && $rb_menus['me_mobile_use'] == 1) { ?>
                         <div class="config_wrap">
-                            <ul class="rows_inp_lr mt-10">
-                                <li class="rows_inp_r mt-5">
-                                    <input type="radio" name="co_topvisual" id="co_topvisual_1" class="magic-radio mod_send" value="" <?php if (isset($rb_core['topvisual']) && $rb_core['topvisual'] == "") { ?>checked<?php } ?>><label for="co_topvisual_1">사용안함</label>
-                                    <input type="radio" name="co_topvisual" id="co_topvisual_4" class="magic-radio mod_send" value="imgtxt" <?php if (isset($rb_core['topvisual']) && $rb_core['topvisual'] == "imgtxt") { ?>checked<?php } ?>><label for="co_topvisual_4">사용함</label>
-                                </li>
-
-                                <div class="cb"></div>
-                            </ul>
-
-                            <script>
-                            $(document).ready(function() {
-                                function toggleConfigWrap() {
-                                    const selected = $('input[name="co_topvisual"]:checked').val();
-                                    if (selected === 'imgtxt') {
-                                        $('.config_wrap_bg').show();
-                                        $('#topvisual_btn_wrap').show();
-                                    } else {
-                                        $('.config_wrap_bg').hide();
-                                        $('#topvisual_btn_wrap').hide();
-                                    }
-                                }
-
-                                // 페이지 로드시 체크 상태 반영
-                                toggleConfigWrap();
-
-                                // 라디오 변경 시 적용
-                                $('input[name="co_topvisual"]').on('change', toggleConfigWrap);
-                            });
-                            </script>
-
+                            <input type="hidden" name="co_topvisual" id="co_topvisual_4" value="imgtxt">
 
                             <div class="config_wrap_bg">
                                 <label class="config_wrap_sub_tit">영역 스타일</label><br>
@@ -903,6 +886,14 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 </ul>
                             </div>
 
+                            <div class="skin_path_url mt-5">
+                                <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
+                                <li class="skin_path_url_txt">
+                                    /data/topvisual/<?php echo $rb_menus['me_code'] ?>.jpg
+                                </li>
+                                <div class="cb"></div>
+                            </div>
+
 
                             <div class="config_wrap_bg">
                                 <label class="config_wrap_sub_tit">메인워딩 스타일</label><br>
@@ -945,6 +936,14 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                     </li>
                                 </ul>
 
+                            </div>
+
+                            <div class="skin_path_url mt-5">
+                                <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
+                                <li class="skin_path_url_txt">
+                                    /data/topvisual/<?php echo $rb_menus['me_code'] ?>.txt
+                                </li>
+                                <div class="cb"></div>
                             </div>
 
 
@@ -992,10 +991,44 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                             </div>
 
-
+                            <div class="skin_path_url mt-5">
+                                <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
+                                <li class="skin_path_url_txt">
+                                    /data/topvisual/<?php echo $rb_menus['me_code'] ?>.txt
+                                </li>
+                                <div class="cb"></div>
+                            </div>
 
 
                         </div>
+
+                        <div class="rb_right_err_box">
+                            <div class="main_color mt-10 font-12">
+                                상단 비주얼 영역의 노출여부는<br>
+                                관리자모드 > 메뉴설정 에서 변경 가능합니다.
+                            </div>
+                            <button type="button" class="mt-10 rb_right_adm_btn main_rb_bg" onclick="javascript:window.open('<?php echo G5_ADMIN_URL ?>/menu_list.php');">메뉴 설정 바로가기</button>
+                        </div>
+                        <?php } else { ?>
+                            <div class="rb_right_err_box">
+                                <div class="main_color mt-10 font-12">
+                                    상단 비주얼 영역을 사용하지 않는 페이지 입니다.<br>
+                                    관리자모드 > 메뉴설정 에서 변경 가능합니다.
+                                </div>
+                                <button type="button" class="mt-10 rb_right_adm_btn main_rb_bg" onclick="javascript:window.open('<?php echo G5_ADMIN_URL ?>/menu_list.php');">메뉴 설정 바로가기</button>
+                            </div>
+                            <?php } ?>
+                        <?php } else { ?>
+                            <div class="rb_right_err_box">
+                            <div class="main_color mt-10 font-12">
+                                메뉴 설정에 없는 페이지 입니다.<br>
+                                관리자모드 > 메뉴설정 에서 메뉴를 추가해주세요.
+                            </div>
+                            <button type="button" class="mt-10 rb_right_adm_btn main_rb_bg" onclick="javascript:window.open('<?php echo G5_ADMIN_URL ?>/menu_list.php');">메뉴 설정 바로가기</button>
+                            </div>
+                        <?php } ?>
+
+
 
                     </ul>
                     <?php } ?>
@@ -1659,8 +1692,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var co_sidemenu_width = $('input[name="co_sidemenu_width"]').val();
         var co_sidemenu_width_shop = $('input[name="co_sidemenu_width_shop"]').val();
 
-        var co_topvisual = $('input[name="co_topvisual"]:checked').val();
-        var co_topvisual_shop = $('input[name="co_topvisual_shop"]:checked').val();
+        var co_topvisual = $('input[name="co_topvisual"]').val();
+        var co_topvisual_shop = $('input[name="co_topvisual_shop"]').val();
         var co_topvisual_height = $('input[name="co_topvisual_height"]').val();
         var co_topvisual_height_shop = $('input[name="co_topvisual_height_shop"]').val();
         var co_topvisual_width = $('input[name="co_topvisual_width"]:checked').val();

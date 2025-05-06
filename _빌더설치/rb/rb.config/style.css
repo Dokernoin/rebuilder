@@ -241,16 +241,19 @@ input#md_title_hide + label:before {top:-2px !important;}
 input#md_title_hide + label:after {top:3px !important;}
 .rb_config_sec {border-top:1px dashed #ddd; padding-top: 30px;}
 .rb_config h6 {font-size: 16px;}
-.config_wrap_bg {border:1px dashed #ddd; border-radius: 10px; padding: 15px 15px; margin-top: 20px; display: none;}
-.config_wrap_bg_shop {border:1px dashed #ddd; border-radius: 10px; padding: 15px 15px; margin-top: 20px; display: none;}
+.config_wrap_bg {border:1px dashed #ddd; border-radius: 10px; padding: 15px 15px; margin-top: 20px;}
+.config_wrap_bg_shop {border:1px dashed #ddd; border-radius: 10px; padding: 15px 15px; margin-top: 20px;}
 .config_wrap_sub_tit {background-color: #F0F3F9; padding: 5px 10px; border-radius: 30px; font-size: 12px;}
-#topvisual_btn_wrap {text-align: center; margin-top: -18px; z-index: 2; position: absolute; width: 100%; display: none;}
+#topvisual_btn_wrap {text-align: center; margin-top: -18px; z-index: 2; position: absolute; width: 100%;}
 #topvisual_btn_wrap button {border:0px; padding: 10px 20px; border-radius: 30px; background-color: #F0F3F9;}
-#topvisual_btn_wrap_shop {text-align: center; margin-top: -18px; z-index: 2; position: absolute; width: 100%; display: none;}
+#topvisual_btn_wrap_shop {text-align: center; margin-top: -18px; z-index: 2; position: absolute; width: 100%;}
 #topvisual_btn_wrap_shop button {border:0px; padding: 10px 20px; border-radius: 30px; background-color: #F0F3F9;}
 
 .tiny_inp_cl input {width:120px !important; padding-left:30px !important; color:#000; font-size: 12px;}
 .config_wrap_bg input[type="radio"] + label {padding-top: 7px;}
+
+.rb_right_adm_btn {color:#fff; font-size: 13px; padding: 5px 10px; border-radius: 6px;}
+.rb_right_err_box {border:1px dashed #ddd; padding: 10px 20px; padding-bottom: 20px; border-radius: 10px; margin-top: 20px;}
 
 .selected_tags .tag {
     display: block;
@@ -269,6 +272,10 @@ input#md_title_hide + label:after {top:3px !important;}
     cursor: pointer;
     position: absolute; top:7px; right:15px;
 }
+
+.rb_sub_page_cr {margin-bottom: 15px; margin-top: 20px;}
+.rb_sub_page_cr span:first-child {background-color: #aaa; color:#fff; font-size: 11px; padding: 5px 10px; border-radius: 30px;}
+.rb_sub_page_cr span:last-child {background-color: #ccc; color:#fff; font-size: 11px; padding: 5px 10px; border-radius: 30px;}
 
 @media (max-width: 1024px) {
 

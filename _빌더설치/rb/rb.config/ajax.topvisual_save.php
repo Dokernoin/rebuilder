@@ -7,30 +7,11 @@ if (!$is_admin) {
     exit;
 }
 
-// 파라미터 정리
-$bo_table = isset($_POST['bo_table']) ? preg_replace('/[^a-z0-9_]/', '', $_POST['bo_table']) : '';
-$co_id    = isset($_POST['co_id']) ? preg_replace('/[^a-zA-Z0-9_]/', '', $_POST['co_id']) : '';
-$ca_id    = isset($_POST['ca_id']) ? preg_replace('/[^a-zA-Z0-9_]/', '', $_POST['ca_id']) : '';
+$me_code = isset($_POST['me_code']) ? preg_replace('/[^a-z0-9_]/', '', $_POST['me_code']) : '';
+$key = $me_code;
 
-function get_topvisual_key() {
-    global $bo_table, $co_id, $ca_id;
-
-    if (!empty($bo_table)) return preg_replace('/[^a-z0-9_]/', '', $bo_table);
-    if (!empty($co_id))    return preg_replace('/[^a-zA-Z0-9_]/', '', $co_id);
-    if (!empty($ca_id))    return preg_replace('/[^a-zA-Z0-9_]/', '', $ca_id);
-
-    // 클라이언트에서 보낸 프론트 페이지 파일명 사용
-    if (!empty($_POST['page_id'])) {
-        return preg_replace('/[^a-z0-9_]/', '', $_POST['page_id']);
-    }
-
-    // fallback (예외 상황)
-    return 'unknown';
-}
-
-$key = get_topvisual_key();
 if (!$key) {
-    echo '잘못된 요청입니다.';
+    echo '메뉴 정보가 없습니다. 관리자모드에서 메뉴를 추가해주세요.';
     exit;
 }
 

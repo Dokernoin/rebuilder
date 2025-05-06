@@ -1,52 +1,47 @@
 <?php
-        if (
-            (isset($rb_core['topvisual_shop']) && in_array($rb_core['topvisual_shop'], ['img', 'txt', 'imgtxt']))
-        ) {
-            $topvisual_class = isset($rb_core['topvisual_shop']) ? 'rb_topvisual_' . $rb_core['topvisual_shop'] : '';
-            $topvisual_width = (!empty($rb_core['topvisual_width_shop']) && $rb_core['topvisual_width_shop'] > 0) ? $rb_core['topvisual_width_shop'] . '%' : $rb_core['sub_width'] . 'px';
-            $topvisual_height = !empty($rb_core['topvisual_height_shop']) ? $rb_core['topvisual_height_shop'] : '200';
-            $topvisual_bg_color = !empty($rb_core['topvisual_bg_color_shop']) ? $rb_core['topvisual_bg_color_shop'] : '#f9f9f9';
-            $topvisual_bl = isset($rb_core['topvisual_bl_shop']) ? $rb_core['topvisual_bl_shop'] : '0';
+        $rb_menus = get_current_menu_info();
 
-            if(isset($topvisual_width) && $topvisual_width == "100%") {
-                $topvisual_padding = "padding-left:0px; padding-right:0px;";
-            } else {
-                $topvisual_padding = "padding-left:50px; padding-right:50px;";
-            }
+        if (isset($rb_core['topvisual_shop']) && in_array($rb_core['topvisual_shop'], ['img', 'txt', 'imgtxt'])) {
 
-            function get_topvisual_key() {
-                global $bo_table, $co_id, $ca_id;
+            if(isset($rb_menus['me_code']) && $rb_menus['me_code'] && isset($rb_menus['me_mobile_use']) && $rb_menus['me_mobile_use'] == 1) {
 
-                if (!empty($bo_table)) return preg_replace('/[^a-z0-9_]/', '', $bo_table);
-                if (!empty($co_id))    return preg_replace('/[^a-zA-Z0-9_]/', '', $co_id);
-                if (!empty($ca_id))    return preg_replace('/[^a-zA-Z0-9_]/', '', $ca_id);
+                $topvisual_class = isset($rb_core['topvisual_shop']) ? 'rb_topvisual_' . $rb_core['topvisual_shop'] : '';
+                $topvisual_width = (!empty($rb_core['topvisual_width_shop']) && $rb_core['topvisual_width_shop'] > 0) ? $rb_core['topvisual_width_shop'] . '%' : $rb_core['sub_width'] . 'px';
+                $topvisual_height = !empty($rb_core['topvisual_height_shop']) ? $rb_core['topvisual_height_shop'] : '200';
+                $topvisual_bg_color = !empty($rb_core['topvisual_bg_color_shop']) ? $rb_core['topvisual_bg_color_shop'] : '#f9f9f9';
+                $topvisual_bl = isset($rb_core['topvisual_bl_shop']) ? $rb_core['topvisual_bl_shop'] : '0';
 
-                // ✅ 실제 접속 URL 기준 파일명 추출 (예: /bbs/faq.php → faq)
-                $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);  // /bbs/faq.php
-                $filename = pathinfo($uri, PATHINFO_FILENAME);             // faq
-                return preg_replace('/[^a-z0-9_]/', '', strtolower($filename));
-            }
-
-            $key = get_topvisual_key();
-            $img = G5_DATA_URL.'/topvisual/'.$key.'.jpg';
-            $txt = G5_DATA_PATH.'/topvisual/'.$key.'.txt';
-
-            $main = '';
-            $sub = '';
-            if (file_exists($txt)) {
-                $lines = file($txt, FILE_IGNORE_NEW_LINES);
-                $split = array_search('[SUB]', $lines);
-                if ($split !== false) {
-                    $main = implode("\n", array_slice($lines, 0, $split));
-                    $sub  = implode("\n", array_slice($lines, $split + 1));
+                if(isset($topvisual_width) && $topvisual_width == "100%") {
+                    $topvisual_padding = "padding-left:0px; padding-right:0px;";
                 } else {
-                    $main = implode("\n", $lines);
+                    $topvisual_padding = "padding-left:50px; padding-right:50px;";
                 }
-            }
-            $has_main = trim($main) !== '';
-            $has_sub = trim($sub) !== '';
-        ?>
 
+                function get_topvisual_key() {
+                    global $rb_menus;
+                    if (!empty($rb_menus['me_code'])) return preg_replace('/[^a-z0-9_]/', '', $rb_menus['me_code']);
+                }
+
+
+                $key = get_topvisual_key();
+                $img = G5_DATA_URL.'/topvisual/'.$key.'.jpg';
+                $txt = G5_DATA_PATH.'/topvisual/'.$key.'.txt';
+
+                $main = '';
+                $sub = '';
+                if (file_exists($txt)) {
+                    $lines = file($txt, FILE_IGNORE_NEW_LINES);
+                    $split = array_search('[SUB]', $lines);
+                    if ($split !== false) {
+                        $main = implode("\n", array_slice($lines, 0, $split));
+                        $sub  = implode("\n", array_slice($lines, $split + 1));
+                    } else {
+                        $main = implode("\n", $lines);
+                    }
+                }
+                $has_main = trim($main) !== '';
+                $has_sub = trim($sub) !== '';
+        ?>
 
 
             <div id="rb_topvisual_shop" class="rb_topvisual_shop <?php echo $topvisual_class; ?>" style="background-color:<?php echo $topvisual_bg_color ?>; width:<?php echo $topvisual_width; ?>; height:<?php echo $topvisual_height; ?>px; <?php if(isset($topvisual_width) && $topvisual_width == "100%") { ?>margin-top:0px; border-radius:0px; overflow:inherit<?php } else { ?>margin-top:50px; border-radius:10px; overflow:hidden<?php } ?>" data-layout="rb_topvisual_shop">
@@ -105,9 +100,7 @@
                 if (!file.type.match('image.*')) return alert('이미지 파일만 업로드 할 수 있습니다.');
                 const formData = new FormData();
                 formData.append('image', file);
-                formData.append('bo_table', '<?php echo $bo_table; ?>');
-                formData.append('co_id', '<?php echo $co_id; ?>');
-                formData.append('ca_id', '<?php echo $ca_id; ?>');
+                formData.append('me_code', '<?php echo $rb_menus['me_code']; ?>');
                 fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_upload.php', {
                     method: 'POST', body: formData
                 }).then(res => res.json()).then(data => {
@@ -125,9 +118,7 @@
                 const formData = new FormData();
                 formData.append('main', main);
                 formData.append('sub', sub);
-                formData.append('bo_table', '<?php echo $bo_table; ?>');
-                formData.append('co_id', '<?php echo $co_id; ?>');
-                formData.append('ca_id', '<?php echo $ca_id; ?>');
+                formData.append('me_code', '<?php echo $rb_menus['me_code']; ?>');
 
                 fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_save.php', {
                     method: 'POST',
@@ -138,9 +129,7 @@
             document.getElementById('delete_topvisual_btn').addEventListener('click', () => {
                 if (!confirm('상단 백그라운드 이미지를 삭제 하시겠습니까?')) return;
                 const formData = new FormData();
-                formData.append('bo_table', '<?php echo $bo_table; ?>');
-                formData.append('co_id', '<?php echo $co_id; ?>');
-                formData.append('ca_id', '<?php echo $ca_id; ?>');
+                formData.append('me_code', '<?php echo $rb_menus['me_code']; ?>');
                 fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_delete.php', {
                     method: 'POST', body: formData
                 }).then(res => res.json()).then(data => {
@@ -170,4 +159,5 @@
                 <?php } ?>
             });
             </script>
+            <?php } ?>
             <?php } ?>

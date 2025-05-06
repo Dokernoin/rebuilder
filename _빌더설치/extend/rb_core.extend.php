@@ -2,7 +2,7 @@
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 //ini_set("display_errors", 1); // 디버깅
-define('RB_VER',  '2.2.0.1'); // 버전
+define('RB_VER',  '2.2.0.2'); // 버전
 
 
 /*********************************************/
@@ -28,6 +28,41 @@ $rb_core['inner_padding_pc'] = isset($rb_config['co_inner_padding_pc']) ? $rb_co
 /* } */
 
 /* 2.2 { */
+
+// 현재 메뉴 반환 함수
+function get_current_menu_info() {
+    $request_uri = $_SERVER['REQUEST_URI'];
+    $current_path = rtrim(parse_url($request_uri, PHP_URL_PATH), '/');
+
+    $sql = "SELECT * FROM g5_menu WHERE me_link != '' ORDER BY LENGTH(me_link) DESC";
+    $result = sql_query($sql);
+
+    while ($row = sql_fetch_array($result)) {
+        $menu_path = rtrim(parse_url($row['me_link'], PHP_URL_PATH), '/');
+
+        // index.php 생략 또는 포함 모두 대응
+        $menu_path_variants = [
+            $menu_path,
+            $menu_path . '/index.php',
+            $menu_path . '/index.html',
+        ];
+
+        if (in_array($current_path, $menu_path_variants, true)) {
+            return [
+                'me_code' => $row['me_code'],
+                'me_id' => $row['me_id'],
+                'me_name' => $row['me_name'],
+                'me_use' => $row['me_use'],
+                'me_mobile_use' => $row['me_mobile_use'],
+            ];
+        }
+    }
+
+    return null;
+}
+
+$rb_menus = get_current_menu_info();
+
 $rb_core['side_skin'] = isset($rb_config['co_side_skin']) ? $rb_config['co_side_skin'] : ''; // 사이드메뉴 스킨
 $rb_core['side_skin_shop'] = isset($rb_config['co_side_skin_shop']) ? $rb_config['co_side_skin_shop'] : ''; // 사이드메뉴 스킨 (마켓)
 $rb_core['sidemenu'] = isset($rb_config['co_sidemenu']) ? $rb_config['co_sidemenu'] : ''; // 사이드메뉴 여부, 위치
@@ -37,6 +72,7 @@ $rb_core['sidemenu_width_shop'] = isset($rb_config['co_sidemenu_width_shop']) ? 
 
 $rb_core['topvisual'] = isset($rb_config['co_topvisual']) ? $rb_config['co_topvisual'] : ''; // 상단영역 여부, 종류
 $rb_core['topvisual_shop'] = isset($rb_config['co_topvisual_shop']) ? $rb_config['co_topvisual_shop'] : ''; // 상단영역 여부, 종류 (마켓)
+
 $rb_core['topvisual_height'] = isset($rb_config['co_topvisual_height']) ? $rb_config['co_topvisual_height'] : '200'; // 상단영역 세로크기
 $rb_core['topvisual_height_shop'] = isset($rb_config['co_topvisual_height_shop']) ? $rb_config['co_topvisual_height_shop'] : '200'; // 상단영역 세로크기 (마켓)
 $rb_core['topvisual_width'] = isset($rb_config['co_topvisual_width']) ? $rb_config['co_topvisual_width'] : ''; // 상단영역 가로크기

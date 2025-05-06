@@ -1,7 +1,10 @@
 <?php
-        if (
-            (isset($rb_core['topvisual']) && in_array($rb_core['topvisual'], ['img', 'txt', 'imgtxt']))
-        ) {
+        $rb_menus = get_current_menu_info();
+
+        if (isset($rb_core['topvisual']) && in_array($rb_core['topvisual'], ['img', 'txt', 'imgtxt'])) {
+
+            if(isset($rb_menus['me_code']) && $rb_menus['me_code'] && isset($rb_menus['me_mobile_use']) && $rb_menus['me_mobile_use'] == 1) {
+
             $topvisual_class = isset($rb_core['topvisual']) ? 'rb_topvisual_' . $rb_core['topvisual'] : '';
             $topvisual_width = (!empty($rb_core['topvisual_width']) && $rb_core['topvisual_width'] > 0) ? $rb_core['topvisual_width'] . '%' : $rb_core['sub_width'] . 'px';
             $topvisual_height = !empty($rb_core['topvisual_height']) ? $rb_core['topvisual_height'] : '200';
@@ -15,16 +18,8 @@
             }
 
             function get_topvisual_key() {
-                global $bo_table, $co_id, $ca_id;
-
-                if (!empty($bo_table)) return preg_replace('/[^a-z0-9_]/', '', $bo_table);
-                if (!empty($co_id))    return preg_replace('/[^a-zA-Z0-9_]/', '', $co_id);
-                if (!empty($ca_id))    return preg_replace('/[^a-zA-Z0-9_]/', '', $ca_id);
-
-                // ✅ 실제 접속 URL 기준 파일명 추출 (예: /bbs/faq.php → faq)
-                $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);  // /bbs/faq.php
-                $filename = pathinfo($uri, PATHINFO_FILENAME);             // faq
-                return preg_replace('/[^a-z0-9_]/', '', strtolower($filename));
+                global $rb_menus;
+                if (!empty($rb_menus['me_code'])) return preg_replace('/[^a-z0-9_]/', '', $rb_menus['me_code']);
             }
 
             $key = get_topvisual_key();
@@ -46,8 +41,6 @@
             $has_main = trim($main) !== '';
             $has_sub = trim($sub) !== '';
         ?>
-
-
 
             <div id="rb_topvisual" class="rb_topvisual <?php echo $topvisual_class; ?>" style="background-color:<?php echo $topvisual_bg_color ?>; width:<?php echo $topvisual_width; ?>; height:<?php echo $topvisual_height; ?>px; <?php if(isset($topvisual_width) && $topvisual_width == "100%") { ?>margin-top:0px; border-radius:0px; overflow:inherit<?php } else { ?>margin-top:50px; border-radius:10px; overflow:hidden<?php } ?>" data-layout="rb_topvisual">
 
@@ -105,14 +98,7 @@
                 if (!file.type.match('image.*')) return alert('이미지 파일만 업로드 할 수 있습니다.');
                 const formData = new FormData();
                 formData.append('image', file);
-                formData.append('bo_table', '<?php echo $bo_table; ?>');
-                formData.append('co_id', '<?php echo $co_id; ?>');
-                formData.append('ca_id', '<?php echo $ca_id; ?>');
-
-                // 현재 페이지 파일명 추출 (예: faq.php → faq)
-                const pagePath = window.location.pathname;
-                const pageName = pagePath.substring(pagePath.lastIndexOf('/') + 1).split('.')[0];
-                formData.append('page_id', pageName); // 추가로 보냄
+                formData.append('me_code', '<?php echo $rb_menus['me_code']; ?>');
 
                 fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_upload.php', {
                     method: 'POST', body: formData
@@ -131,14 +117,7 @@
                 const formData = new FormData();
                 formData.append('main', main);
                 formData.append('sub', sub);
-                formData.append('bo_table', '<?php echo $bo_table; ?>');
-                formData.append('co_id', '<?php echo $co_id; ?>');
-                formData.append('ca_id', '<?php echo $ca_id; ?>');
-
-                // 현재 페이지 파일명 추출 (예: faq.php → faq)
-                const pagePath = window.location.pathname;
-                const pageName = pagePath.substring(pagePath.lastIndexOf('/') + 1).split('.')[0];
-                formData.append('page_id', pageName); // 추가로 보냄
+                formData.append('me_code', '<?php echo $rb_menus['me_code']; ?>');
 
                 fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_save.php', {
                     method: 'POST',
@@ -149,14 +128,7 @@
             document.getElementById('delete_topvisual_btn').addEventListener('click', () => {
                 if (!confirm('상단 백그라운드 이미지를 삭제 하시겠습니까?')) return;
                 const formData = new FormData();
-                formData.append('bo_table', '<?php echo $bo_table; ?>');
-                formData.append('co_id', '<?php echo $co_id; ?>');
-                formData.append('ca_id', '<?php echo $ca_id; ?>');
-
-                // 현재 페이지 파일명 추출 (예: faq.php → faq)
-                const pagePath = window.location.pathname;
-                const pageName = pagePath.substring(pagePath.lastIndexOf('/') + 1).split('.')[0];
-                formData.append('page_id', pageName); // 추가로 보냄
+                formData.append('me_code', '<?php echo $rb_menus['me_code']; ?>');
 
                 fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_delete.php', {
                     method: 'POST', body: formData
@@ -187,4 +159,5 @@
                 <?php } ?>
             });
             </script>
+            <?php } ?>
             <?php } ?>
