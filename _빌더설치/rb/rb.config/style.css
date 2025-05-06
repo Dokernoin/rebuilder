@@ -264,6 +264,7 @@ input#md_title_hide + label:after {top:3px !important;}
     border-radius: 6px;
     font-size: 12px;
     position: relative;
+    cursor: pointer;
 }
 .tag-remove {
     background: none;

@@ -501,11 +501,12 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     <ul class="rb_config_sec" <?php if(defined('_SHOP_')) { // 영카트?>style="display:block !important;" <?php } else { ?>style="display:none !important;" <?php } ?>>
                         <?php $rb_menus = get_current_menu_info(); ?>
 
-                        <h6 class="font-B">마켓 상단 비주얼 영역 설정</h6>
+                        <h6 class="font-B">마켓 서브 상단 비주얼 영역 설정</h6>
                         <h6 class="font-R rb_config_sub_txt">
-                            서브 페이지 비주얼 영역을 설정할 수 있습니다.<br>
-                            설정시 <span class="font-B"><?php echo isset($rb_menus['me_name']) ? $rb_menus['me_name'] : ''; ?></span> 페이지에 적용되며,<br>
-                            워딩 및 이미지 등은 각 페이지 에서 직접 추가 할 수 있습니다.
+                            서브 상단 비주얼 영역을 설정할 수 있습니다.<br>
+                            관리자모드 > 메뉴설정에서 추가된 페이지만 설정 가능하며<br>
+                            마켓의 서브페이지에 공통적용 됩니다.<br>
+                            워딩 및 이미지는 각 페이지 에서 개별설정이 가능합니다.
                         </h6>
 
                         <?php if(isset($rb_menus['me_code']) && $rb_menus['me_code']) { ?>
@@ -531,7 +532,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                     <li class="rows_inp_r mt-3">
                                         <div class="color_set_wrap square none_inp_cl tiny_inp_cl" style="position: relative;">
-                                        <input type="text" class="coloris mod_co_color" name="co_topvisual_bg_color_shop" value="<?php echo isset($rb_core['topvisual_bg_color_shop']) ? $rb_core['topvisual_bg_color_shop'] : '#f9f9f9'; ?>">
+                                        <input type="text" class="coloris mod_co_color" name="co_topvisual_bg_color_shop" value="<?php echo isset($rb_core['topvisual_bg_color_shop']) ? $rb_core['topvisual_bg_color_shop'] : '#f9f9f9'; ?>" style="width:200px !important;">
                                         </div>
                                     </li>
                                     <div class="cb"></div>
@@ -727,7 +728,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                         <div class="rb_right_err_box">
                             <div class="main_color mt-10 font-12">
-                                상단 비주얼 영역의 노출여부는<br>
+                                서브 상단 비주얼 영역의 노출여부는<br>
                                 관리자모드 > 메뉴설정 에서 변경 가능합니다.
                             </div>
                             <button type="button" class="mt-10 rb_right_adm_btn main_rb_bg" onclick="javascript:window.open('<?php echo G5_ADMIN_URL ?>/menu_list.php');">메뉴 설정 바로가기</button>
@@ -735,7 +736,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         <?php } else { ?>
                             <div class="rb_right_err_box">
                                 <div class="main_color mt-10 font-12">
-                                    상단 비주얼 영역을 사용하지 않는 페이지 입니다.<br>
+                                    서브 상단 비주얼 영역을 사용하지 않는 페이지 입니다.<br>
                                     관리자모드 > 메뉴설정 에서 변경 가능합니다.
                                 </div>
                                 <button type="button" class="mt-10 rb_right_adm_btn main_rb_bg" onclick="javascript:window.open('<?php echo G5_ADMIN_URL ?>/menu_list.php');">메뉴 설정 바로가기</button>
@@ -757,11 +758,12 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                     <ul class="rb_config_sec" <?php if(defined('_SHOP_')) { // 영카트?>style="display:none !important;" <?php } else { ?>style="display:block !important;" <?php } ?>>
 
-                        <h6 class="font-B">상단 비주얼 영역 설정</h6>
+                        <h6 class="font-B">서브 상단 비주얼 영역 설정</h6>
                         <h6 class="font-R rb_config_sub_txt">
-                            서브 페이지 비주얼 영역을 설정할 수 있습니다.<br>
-                            설정시 <span class="font-B"><?php echo isset($rb_menus['me_name']) ? $rb_menus['me_name'] : ''; ?></span> 페이지에 적용되며,<br>
-                            워딩 및 이미지 등은 각 페이지 에서 직접 추가 할 수 있습니다.
+                            서브 상단 비주얼 영역을 설정할 수 있습니다.<br>
+                            관리자모드 > 메뉴설정에서 추가된 페이지만 설정 가능하며<br>
+                            서브페이지에 공통적용 됩니다.<br>
+                            워딩 및 이미지는 각 페이지 에서 개별설정이 가능합니다.
                         </h6>
 
                         <?php if(isset($rb_menus['me_code']) && $rb_menus['me_code']) { ?>
@@ -786,7 +788,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                     <li class="rows_inp_r mt-3">
                                         <div class="color_set_wrap square none_inp_cl tiny_inp_cl" style="position: relative;">
-                                        <input type="text" class="coloris mod_co_color" name="co_topvisual_bg_color" value="<?php echo isset($rb_core['topvisual_bg_color']) ? $rb_core['topvisual_bg_color'] : '#f9f9f9'; ?>">
+                                        <input type="text" class="coloris mod_co_color" name="co_topvisual_bg_color" value="<?php echo isset($rb_core['topvisual_bg_color']) ? $rb_core['topvisual_bg_color'] : '#f9f9f9'; ?>" style="width:200px !important;">
                                         </div>
                                     </li>
                                     <div class="cb"></div>
@@ -1004,7 +1006,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                         <div class="rb_right_err_box">
                             <div class="main_color mt-10 font-12">
-                                상단 비주얼 영역의 노출여부는<br>
+                                서브 상단 비주얼 영역의 노출여부는<br>
                                 관리자모드 > 메뉴설정 에서 변경 가능합니다.
                             </div>
                             <button type="button" class="mt-10 rb_right_adm_btn main_rb_bg" onclick="javascript:window.open('<?php echo G5_ADMIN_URL ?>/menu_list.php');">메뉴 설정 바로가기</button>
@@ -1012,7 +1014,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         <?php } else { ?>
                             <div class="rb_right_err_box">
                                 <div class="main_color mt-10 font-12">
-                                    상단 비주얼 영역을 사용하지 않는 페이지 입니다.<br>
+                                    서브 상단 비주얼 영역을 사용하지 않는 페이지 입니다.<br>
                                     관리자모드 > 메뉴설정 에서 변경 가능합니다.
                                 </div>
                                 <button type="button" class="mt-10 rb_right_adm_btn main_rb_bg" onclick="javascript:window.open('<?php echo G5_ADMIN_URL ?>/menu_list.php');">메뉴 설정 바로가기</button>
