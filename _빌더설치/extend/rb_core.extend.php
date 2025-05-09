@@ -2,7 +2,7 @@
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 //ini_set("display_errors", 1); // 디버깅
-define('RB_VER',  '2.2.0.2'); // 버전
+define('RB_VER',  '2.2.0.3'); // 버전
 
 
 /*********************************************/
@@ -32,22 +32,23 @@ $rb_core['inner_padding_pc'] = isset($rb_config['co_inner_padding_pc']) ? $rb_co
 // 현재 메뉴 반환 함수
 function get_current_menu_info() {
     $request_uri = $_SERVER['REQUEST_URI'];
-    $current_path = rtrim(parse_url($request_uri, PHP_URL_PATH), '/');
+    $parsed_uri = parse_url($request_uri);
+    $current_path = rtrim($parsed_uri['path'], '/');
+    parse_str(isset($parsed_uri['query']) ? $parsed_uri['query'] : '', $current_query_array);
 
     $sql = "SELECT * FROM g5_menu WHERE me_link != '' ORDER BY LENGTH(me_link) DESC";
     $result = sql_query($sql);
 
     while ($row = sql_fetch_array($result)) {
-        $menu_path = rtrim(parse_url($row['me_link'], PHP_URL_PATH), '/');
+        $menu_url = $row['me_link'];
+        $parsed_menu = parse_url($menu_url);
 
-        // index.php 생략 또는 포함 모두 대응
-        $menu_path_variants = [
-            $menu_path,
-            $menu_path . '/index.php',
-            $menu_path . '/index.html',
-        ];
+        if (!isset($parsed_menu['path'])) continue;
 
-        if (in_array($current_path, $menu_path_variants, true)) {
+        $menu_path = rtrim($parsed_menu['path'], '/');
+        parse_str(isset($parsed_menu['query']) ? $parsed_menu['query'] : '', $menu_query_array);
+
+        if ($current_path === $menu_path && $current_query_array == $menu_query_array) {
             return [
                 'me_code' => $row['me_code'],
                 'me_id' => $row['me_id'],
