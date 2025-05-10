@@ -130,6 +130,8 @@ $result = sql_query($sql);
 
         if($row['md_type'] == "latest") {
             $md_type = "최신글";
+        } else if($row['md_type'] == "tab") {
+            $md_type = "최신글탭";
         } else if($row['md_type'] == "widget") {
             $md_type = "위젯";
         } else if($row['md_type'] == "poll") {
