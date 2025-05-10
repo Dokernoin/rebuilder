@@ -1,4 +1,5 @@
 <?php
+if (!defined('_GNUBOARD_')) exit;
 
             if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 1) {
 
@@ -96,7 +97,7 @@
                 </script>
 
                 <!-- 블러 배경 -->
-                <div id="rb_topvisual_bl" style="background-color:rgba(0,0,0,<?php echo $topvisual_bl / 100; ?>);"></div>
+                <div id="rb_topvisual_bl" style="border-radius:<?php echo $topvisual_radius ?>px; background-color:rgba(0,0,0,<?php echo $topvisual_bl / 100; ?>);"></div>
             </div>
 
             <?php if ($is_admin) { ?>

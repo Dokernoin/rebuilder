@@ -506,7 +506,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         </h6>
 
                         <div class="font-12 rb_sub_page_cr">
-                        <span>Code : <?php echo $rb_page_urls ?></span>
+                        <span>현재페이지 : <?php echo $rb_page_urls ?></span>
                         </div>
 
                         <div>
@@ -743,7 +743,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                                 executeAjax();
 
                                                 // 반영
-                                                $('#rb_topvisual').css('border-radius', ui.value)
+                                                $('#rb_topvisual').css('border-radius', ui.value);
+                                                $('#rb_topvisual_bl').css('border-radius', ui.value);
 
                                             }
                                         });
@@ -982,9 +983,35 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         </div>
                     </ul>
 
+
                     <ul class="rb_config_sec">
-                        <button type="button" class="rb_config_reload font-B" onclick="javascript:location.reload();">새로고침</button>
-                        <button type="button" class="rb_config_close font-B" onclick="toggleSideOptions_close()">닫기</button>
+                        <button type="button" class="main_rb_bg" id="clear_cache_btn" class="btn">캐시 삭제</button>
+                        <script>
+                        document.getElementById('clear_cache_btn').addEventListener('click', function () {
+                            if (confirm('/data/cache/ 폴더의 모든 캐시파일이 제거되며,\n비로그인 접속시 메인 레이아웃 캐시가 재생성 됩니다.\n\n계속하시겠습니까?')) {
+                                fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.clear_cache.php', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                    body: 'act=clear'
+                                })
+                                .then(res => res.text())
+                                .then(res => {
+                                    if (res.trim() === 'ok') {
+                                        alert('캐시 파일이 모두 삭제되었습니다.');
+                                        location.reload();
+                                    } else {
+                                        alert('삭제 실패: ' + res);
+                                    }
+                                })
+                                .catch(err => {
+                                    alert('에러 발생: ' + err);
+                                });
+                            }
+                        });
+                        </script>
+                        <div class="cb"></div>
+                        <button type="button" class="rb_config_reload mt-5 font-B" onclick="javascript:location.reload();">새로고침</button>
+                        <button type="button" class="rb_config_close mt-5 font-B" onclick="toggleSideOptions_close()">닫기</button>
                         <div class="cb"></div>
                     </ul>
 
@@ -1715,7 +1742,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         });
 
 
-
+        <?php if (!defined("_INDEX_")) { ?>
         $.ajax({
             url: '<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_add.php', // Ajax 요청을 보낼 엔드포인트 URL
             method: 'POST', // 또는 'GET' 등의 HTTP 메서드
@@ -1790,6 +1817,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 alert('문제가 발생 했습니다. 다시 시도해주세요.');
             }
         });
+        <?php } ?>
 
 
     }

@@ -1,6 +1,8 @@
 <?php
 include_once('../../common.php');
 
+if (!defined('_GNUBOARD_')) exit;
+
 $md_id = isset($_POST['md_id']) ? $_POST['md_id'] : '';
 $md_title = isset($_POST['md_title']) ? $_POST['md_title'] : '';
 $md_title_color = isset($_POST['md_title_color']) ? $_POST['md_title_color'] : '#25282b';

@@ -1,6 +1,8 @@
 <?php
 include_once('../../common.php');
 
+if (!defined('_GNUBOARD_')) exit;
+
 if (!$is_admin) {
     echo json_encode(['success' => false, 'error' => '권한이 없습니다.']);
     exit;

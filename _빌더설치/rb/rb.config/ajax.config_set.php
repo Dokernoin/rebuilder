@@ -1,6 +1,8 @@
 <?php
 include_once('../../common.php');
 
+if (!defined('_GNUBOARD_')) exit;
+
 $mod_type = !empty($_POST['mod_type']) ? $_POST['mod_type'] : '';
 $is_shop = !empty($_POST['is_shop']) ? $_POST['is_shop'] : '';
 

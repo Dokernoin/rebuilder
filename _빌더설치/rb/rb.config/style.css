@@ -281,6 +281,8 @@ input#md_title_hide + label:after {top:3px !important;}
 .rb_sub_page_cr span:first-child {background-color: #aaa; color:#fff; font-size: 11px; padding: 5px 10px; border-radius: 30px;}
 .rb_sub_page_cr span:last-child {background-color: #ccc; color:#fff; font-size: 11px; padding: 5px 10px; border-radius: 30px;}
 
+#clear_cache_btn {width: 100%;color: #fff;height: 47px;border-radius: 10px;border: 0px;}
+
 @media (max-width: 1024px) {
 
     .sh-side-options {

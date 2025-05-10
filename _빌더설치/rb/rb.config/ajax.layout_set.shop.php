@@ -3,6 +3,8 @@ include_once('../../common.php');
 include_once(G5_LIB_PATH.'/latest.lib.php');
 include_once(G5_LIB_PATH.'/poll.lib.php');
 
+if (!defined('_GNUBOARD_')) exit;
+
 $layouts = array();
 if (isset($_POST['layouts']) && is_array($_POST['layouts'])) {
     $layouts = $_POST['layouts'];

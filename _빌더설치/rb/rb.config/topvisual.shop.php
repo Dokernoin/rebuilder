@@ -1,4 +1,5 @@
 <?php
+if (!defined('_GNUBOARD_')) exit;
 
             if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 1) {
 
@@ -42,16 +43,17 @@
             $has_sub = trim($sub) !== '';
 
             if($topvisual_border == 0) {
-                $topvisual_border == "border:0px;";
+                $topvisual_border_in = "border:0px;";
             } else if($topvisual_border == 1) {
-                $topvisual_border == "border:1px dashed rgba(0,0,0,0.1);";
+                $topvisual_border_in = "border:1px dashed rgba(0,0,0,0.1);";
             } else if($topvisual_border == 2) {
-                $topvisual_border == "border:1px solid rgba(0,0,0,0.1);";
+                $topvisual_border_in = "border:1px solid rgba(0,0,0,0.1);";
             } else {
+                $topvisual_border_in = "";
             }
         ?>
 
-            <div id="rb_topvisual" class="rb_topvisual <?php echo $topvisual_class; ?>" style="background-color:<?php echo $topvisual_bg_color ?>; width:<?php echo $topvisual_width; ?>; height:<?php echo $topvisual_height; ?>px; <?php if(isset($topvisual_width) && $topvisual_width == "100%") { ?>margin-top:0px; border-radius:0px; overflow:inherit<?php } else { ?>margin-top:50px; border-radius:<?php echo $topvisual_radius ?>px; overflow:hidden;<?php } ?> <?php echo $topvisual_border ?>" data-layout="rb_topvisual">
+            <div id="rb_topvisual" class="rb_topvisual <?php echo $topvisual_class; ?>" style="background-color:<?php echo $topvisual_bg_color ?>; width:<?php echo $topvisual_width; ?>; height:<?php echo $topvisual_height; ?>px; <?php if(isset($topvisual_width) && $topvisual_width == "100%") { ?>margin-top:0px; border-radius:0px; overflow:inherit;<?php } else { ?>margin-top:50px; border-radius:<?php echo $topvisual_radius ?>px; overflow:hidden;<?php } ?> <?php echo $topvisual_border_in ?>" data-layout="rb_topvisual">
 
                 <?php if ($is_admin) { ?>
                     <input type="file" id="topvisual_file_input" accept="image/*" style="display:none;">
@@ -95,7 +97,7 @@
                 </script>
 
                 <!-- 블러 배경 -->
-                <div id="rb_topvisual_bl" style="background-color:rgba(0,0,0,<?php echo $topvisual_bl / 100; ?>);"></div>
+                <div id="rb_topvisual_bl" style="border-radius:<?php echo $topvisual_radius ?>px; background-color:rgba(0,0,0,<?php echo $topvisual_bl / 100; ?>);"></div>
             </div>
 
             <?php if ($is_admin) { ?>

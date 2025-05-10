@@ -1,6 +1,8 @@
 <?php
 include_once('../../common.php');
 
+if (!defined('_GNUBOARD_')) exit;
+
 $mod_type = !empty($_POST['mod_type']) ? $_POST['mod_type'] : '';
 $v_code = isset($_POST['v_code']) ? trim($_POST['v_code']) : '';
 if (!$v_code) exit('페이지 코드가 없습니다.');
