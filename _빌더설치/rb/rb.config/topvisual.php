@@ -1,14 +1,12 @@
 <?php
-        $rb_menus = get_current_menu_info();
 
+            if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 1) {
 
-            if(isset($rb_menus['me_code']) && $rb_menus['me_code'] && isset($rb_menus['me_mobile_use']) && $rb_menus['me_mobile_use'] == 1) {
-
-            $topvisual_class = isset($rb_core['topvisual']) ? 'rb_topvisual_' . $rb_core['topvisual'] : '';
-            $topvisual_width = (!empty($rb_core['topvisual_width']) && $rb_core['topvisual_width'] > 0) ? $rb_core['topvisual_width'] . '%' : $rb_core['sub_width'] . 'px';
-            $topvisual_height = !empty($rb_core['topvisual_height']) ? $rb_core['topvisual_height'] : '200';
-            $topvisual_bg_color = !empty($rb_core['topvisual_bg_color']) ? $rb_core['topvisual_bg_color'] : '#f9f9f9';
-            $topvisual_bl = isset($rb_core['topvisual_bl']) ? $rb_core['topvisual_bl'] : '0';
+            $topvisual_class = !empty($rb_v_info['v_code']) ? $rb_v_info['v_code'] : '';
+            $topvisual_width = (!empty($rb_v_info['topvisual_width']) && $rb_v_info['topvisual_width'] > 0) ? $rb_v_info['topvisual_width'] . '%' : $rb_v_info['sub_width'] . 'px';
+            $topvisual_height = !empty($rb_v_info['topvisual_height']) ? $rb_v_info['topvisual_height'] : '200';
+            $topvisual_bg_color = !empty($rb_v_info['topvisual_bg_color']) ? $rb_v_info['topvisual_bg_color'] : '#f9f9f9';
+            $topvisual_bl = isset($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '0';
 
             if(isset($topvisual_width) && $topvisual_width == "100%") {
                 $topvisual_padding = "padding-left:0px; padding-right:0px;";
@@ -17,8 +15,8 @@
             }
 
             function get_topvisual_key() {
-                global $rb_menus;
-                if (!empty($rb_menus['me_code'])) return preg_replace('/[^a-z0-9_]/', '', $rb_menus['me_code']);
+                global $rb_v_info;
+                if (!empty($rb_v_info['v_code'])) return preg_replace('/[^a-z0-9_]/', '', $rb_v_info['v_code']);
             }
 
             $key = get_topvisual_key();
@@ -27,6 +25,7 @@
 
             $main = '';
             $sub = '';
+
             if (file_exists($txt)) {
                 $lines = file($txt, FILE_IGNORE_NEW_LINES);
                 $split = array_search('[SUB]', $lines);
@@ -50,14 +49,39 @@
                 <!-- 텍스트 영역 -->
                 <div id="rb_topvisual_txt">
                     <div id="rb_topvisual_txt_inner" style="width:<?php echo $rb_core['sub_width']; ?>px;">
-                        <div class="main_wording" style="<?php echo $topvisual_padding ?> text-align:<?php echo isset($rb_core['topvisual_m_align']) ? $rb_core['topvisual_m_align'] : 'left'; ?>; font-size:<?php echo isset($rb_core['topvisual_m_size']) ? $rb_core['topvisual_m_size'] : '20'; ?>px; color:<?php echo isset($rb_core['topvisual_m_color']) ? $rb_core['topvisual_m_color'] : '#ffffff'; ?>; font-family:<?php echo isset($rb_core['topvisual_m_font']) ? $rb_core['topvisual_m_font'] : 'font-R'; ?>;" <?php if ($is_admin) echo 'contenteditable="true"'; ?>>
+                        <div class="main_wording" style="<?php echo $topvisual_padding ?> text-align:<?php echo !empty($rb_v_info['topvisual_m_align']) ? $rb_v_info['topvisual_m_align'] : 'left'; ?>; font-size:<?php echo !empty($rb_v_info['topvisual_m_size']) ? $rb_v_info['topvisual_m_size'] : '20'; ?>px; color:<?php echo !empty($rb_v_info['topvisual_m_color']) ? $rb_v_info['topvisual_m_color'] : '#ffffff'; ?>; font-family:<?php echo !empty($rb_v_info['topvisual_m_font']) ? $rb_v_info['topvisual_m_font'] : 'font-R'; ?>;" <?php if ($is_admin) echo 'contenteditable="true"'; ?>>
                             <?php echo $has_main ? nl2br(htmlspecialchars($main)) : ($is_admin ? nl2br("메인 워딩을 입력할 수 있어요.") : ''); ?>
                         </div>
-                        <div class="sub_wording" style="<?php echo $topvisual_padding ?> text-align:<?php echo isset($rb_core['topvisual_s_align']) ? $rb_core['topvisual_s_align'] : 'left'; ?>; font-size:<?php echo isset($rb_core['topvisual_s_size']) ? $rb_core['topvisual_s_size'] : '16'; ?>px; color:<?php echo isset($rb_core['topvisual_s_color']) ? $rb_core['topvisual_s_color'] : '#ffffff'; ?>; font-family:<?php echo isset($rb_core['topvisual_s_font']) ? $rb_core['topvisual_s_font'] : 'font-R'; ?>;" <?php if ($is_admin) echo 'contenteditable="true"'; ?>>
+                        <div class="sub_wording" style="<?php echo $topvisual_padding ?> text-align:<?php echo !empty($rb_v_info['topvisual_s_align']) ? $rb_v_info['topvisual_s_align'] : 'left'; ?>; font-size:<?php echo !empty($rb_v_info['topvisual_s_size']) ? $rb_v_info['topvisual_s_size'] : '16'; ?>px; color:<?php echo !empty($rb_v_info['topvisual_s_color']) ? $rb_v_info['topvisual_s_color'] : '#ffffff'; ?>; font-family:<?php echo !empty($rb_v_info['topvisual_s_font']) ? $rb_v_info['topvisual_s_font'] : 'font-R'; ?>;" <?php if ($is_admin) echo 'contenteditable="true"'; ?>>
                             <?php echo $has_sub ? nl2br(htmlspecialchars($sub)) : ($is_admin ? nl2br("서브 워딩을 입력할 수 있어요. 입력 하셨다면 저장해 주세요.\n이미지 드랍 및 스타일을 설정할 수 있어요.\n워딩 설정이 안되었다면 이 글은 관리자만 볼 수 있어요.") : ''); ?>
                         </div>
                     </div>
                 </div>
+
+                <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const container = document.querySelector('#rb_topvisual_txt');
+                    if (!container) return;
+
+                    const editableElements = container.querySelectorAll('[contenteditable="true"]');
+
+                    editableElements.forEach(el => {
+                        el.addEventListener('paste', function (e) {
+                            e.preventDefault();
+
+                            // 클립보드에서 순수 텍스트만 추출
+                            const text = (e.clipboardData || window.clipboardData).getData('text');
+
+                            // 현재 커서 위치에 삽입
+                            if (document.queryCommandSupported('insertText')) {
+                                document.execCommand('insertText', false, text);
+                            } else {
+                                this.innerText += text;
+                            }
+                        });
+                    });
+                });
+                </script>
 
                 <!-- 블러 배경 -->
                 <div id="rb_topvisual_bl" style="background-color:rgba(0,0,0,<?php echo $topvisual_bl / 100; ?>);"></div>
@@ -97,7 +121,7 @@
                 if (!file.type.match('image.*')) return alert('이미지 파일만 업로드 할 수 있습니다.');
                 const formData = new FormData();
                 formData.append('image', file);
-                formData.append('me_code', '<?php echo $rb_menus['me_code']; ?>');
+                formData.append('me_code', '<?php echo $rb_v_info['v_code']; ?>');
 
                 fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_upload.php', {
                     method: 'POST', body: formData
@@ -116,7 +140,7 @@
                 const formData = new FormData();
                 formData.append('main', main);
                 formData.append('sub', sub);
-                formData.append('me_code', '<?php echo $rb_menus['me_code']; ?>');
+                formData.append('me_code', '<?php echo $rb_v_info['v_code']; ?>');
 
                 fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_save.php', {
                     method: 'POST',
@@ -127,7 +151,7 @@
             document.getElementById('delete_topvisual_btn').addEventListener('click', () => {
                 if (!confirm('상단 백그라운드 이미지를 삭제 하시겠습니까?')) return;
                 const formData = new FormData();
-                formData.append('me_code', '<?php echo $rb_menus['me_code']; ?>');
+                formData.append('me_code', '<?php echo $rb_v_info['v_code']; ?>');
 
                 fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_delete.php', {
                     method: 'POST', body: formData

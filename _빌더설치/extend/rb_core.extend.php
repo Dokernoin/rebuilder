@@ -10,24 +10,32 @@ define('RB_VER',  '2.2.0.3'); // 버전
 $rb_config = sql_fetch (" select * from rb_config "); // 환경설정 테이블 조회
 $rb_builder = sql_fetch (" select * from rb_builder "); // 빌더설정 테이블 조회
 
-$rb_core['theme'] = isset($config['cf_theme']) ? $config['cf_theme'] : ''; // 테마
-$rb_core['layout'] = isset($rb_config['co_layout']) ? $rb_config['co_layout'] : ''; // 레이아웃(메인)
-$rb_core['layout_hd'] = isset($rb_config['co_layout_hd']) ? $rb_config['co_layout_hd'] : ''; // 레이아웃(헤더)
-$rb_core['layout_ft'] = isset($rb_config['co_layout_ft']) ? $rb_config['co_layout_ft'] : ''; // 레이아웃(푸터)
-$rb_core['color'] = isset($rb_config['co_color']) ? 'co_'.$rb_config['co_color'] : ''; // 강조컬러
-$rb_core['header'] = isset($rb_config['co_header']) ? 'co_header_'.$rb_config['co_header'] : ''; // 헤더스타일
-$rb_core['font'] = isset($rb_config['co_font']) ? $rb_config['co_font'] : ''; // 폰트스타일
-$rb_core['sub_width'] = isset($rb_config['co_sub_width']) ? $rb_config['co_sub_width'] : "1400"; // 서브가로사이즈
-$rb_core['main_width'] = isset($rb_config['co_main_width']) ? $rb_config['co_main_width'] : "1400"; // 메인가로사이즈
-$rb_core['tb_width'] = isset($rb_config['co_tb_width']) ? $rb_config['co_tb_width'] : "1400"; // 상단, 하단 가로사이즈
-$rb_core['padding_top'] = isset($rb_config['co_main_padding_top']) ? $rb_config['co_main_padding_top'] : "0"; // 상단, 하단 가로사이즈
+$rb_core['theme'] = !empty($config['cf_theme']) ? $config['cf_theme'] : ''; // 테마
+$rb_core['layout'] = !empty($rb_config['co_layout']) ? $rb_config['co_layout'] : ''; // 레이아웃(메인)
+$rb_core['layout_hd'] = !empty($rb_config['co_layout_hd']) ? $rb_config['co_layout_hd'] : ''; // 레이아웃(헤더)
+$rb_core['layout_ft'] = !empty($rb_config['co_layout_ft']) ? $rb_config['co_layout_ft'] : ''; // 레이아웃(푸터)
+$rb_core['color'] = !empty($rb_config['co_color']) ? 'co_'.$rb_config['co_color'] : ''; // 강조컬러
+$rb_core['header'] = !empty($rb_config['co_header']) ? 'co_header_'.$rb_config['co_header'] : ''; // 헤더스타일
+$rb_core['font'] = !empty($rb_config['co_font']) ? $rb_config['co_font'] : ''; // 폰트스타일
+$rb_core['sub_width'] = !empty($rb_config['co_sub_width']) ? $rb_config['co_sub_width'] : "1400"; // 서브가로사이즈
+$rb_core['main_width'] = !empty($rb_config['co_main_width']) ? $rb_config['co_main_width'] : "1400"; // 메인가로사이즈
+$rb_core['tb_width'] = !empty($rb_config['co_tb_width']) ? $rb_config['co_tb_width'] : "1400"; // 상단, 하단 가로사이즈
+$rb_core['padding_top'] = !empty($rb_config['co_main_padding_top']) ? $rb_config['co_main_padding_top'] : "0"; // 상단, 하단 가로사이즈
 
 /* 2.1.4 { */
-$rb_core['gap_pc'] = isset($rb_config['co_gap_pc']) ? $rb_config['co_gap_pc'] : '0'; // 간격
-$rb_core['inner_padding_pc'] = isset($rb_config['co_inner_padding_pc']) ? $rb_config['co_inner_padding_pc'] : '0'; // 내부여백
+$rb_core['gap_pc'] = !empty($rb_config['co_gap_pc']) ? $rb_config['co_gap_pc'] : '0'; // 간격
+$rb_core['inner_padding_pc'] = !empty($rb_config['co_inner_padding_pc']) ? $rb_config['co_inner_padding_pc'] : '0'; // 내부여백
 /* } */
 
+
 /* 2.2 { */
+
+$rb_core['side_skin'] = !empty($rb_config['co_side_skin']) ? $rb_config['co_side_skin'] : ''; // 사이드메뉴 스킨
+$rb_core['side_skin_shop'] = !empty($rb_config['co_side_skin_shop']) ? $rb_config['co_side_skin_shop'] : ''; // 사이드메뉴 스킨 (마켓)
+$rb_core['sidemenu'] = !empty($rb_config['co_sidemenu']) ? $rb_config['co_sidemenu'] : ''; // 사이드메뉴 여부, 위치
+$rb_core['sidemenu_shop'] = !empty($rb_config['co_sidemenu_shop']) ? $rb_config['co_sidemenu_shop'] : ''; // 사이드메뉴 여부, 위치 (마켓)
+$rb_core['sidemenu_width'] = !empty($rb_config['co_sidemenu_width']) ? $rb_config['co_sidemenu_width'] : '200'; // 사이드메뉴 가로크기
+$rb_core['sidemenu_width_shop'] = !empty($rb_config['co_sidemenu_width_shop']) ? $rb_config['co_sidemenu_width_shop'] : '200'; // 사이드메뉴 가로크기 (마켓)
 
 // 현재 메뉴 반환 함수
 function get_current_menu_info() {
@@ -66,54 +74,55 @@ function get_current_menu_info() {
 
 $rb_menus = get_current_menu_info();
 
-$rb_core['side_skin'] = isset($rb_config['co_side_skin']) ? $rb_config['co_side_skin'] : ''; // 사이드메뉴 스킨
-$rb_core['side_skin_shop'] = isset($rb_config['co_side_skin_shop']) ? $rb_config['co_side_skin_shop'] : ''; // 사이드메뉴 스킨 (마켓)
-$rb_core['sidemenu'] = isset($rb_config['co_sidemenu']) ? $rb_config['co_sidemenu'] : ''; // 사이드메뉴 여부, 위치
-$rb_core['sidemenu_shop'] = isset($rb_config['co_sidemenu_shop']) ? $rb_config['co_sidemenu_shop'] : ''; // 사이드메뉴 여부, 위치 (마켓)
-$rb_core['sidemenu_width'] = isset($rb_config['co_sidemenu_width']) ? $rb_config['co_sidemenu_width'] : '200'; // 사이드메뉴 가로크기
-$rb_core['sidemenu_width_shop'] = isset($rb_config['co_sidemenu_width_shop']) ? $rb_config['co_sidemenu_width_shop'] : '200'; // 사이드메뉴 가로크기 (마켓)
+// 상단 비주얼관리 테이블 추가
+if(!sql_query(" DESCRIBE rb_topvisual ", false)) {
+    $query_cp = sql_query(" CREATE TABLE IF NOT EXISTS `rb_topvisual` (
+    `v_id` int(11) NOT NULL AUTO_INCREMENT,
+    `v_code` varchar(255) NOT NULL DEFAULT '',
+    `v_name` varchar(255) NOT NULL DEFAULT '',
+    `v_url` varchar(255) NOT NULL DEFAULT '',
+    `v_device` varchar(10) NOT NULL DEFAULT 'both',
+    `v_level` tinyint(4) NOT NULL DEFAULT '1',
+    `v_use` tinyint(4) NOT NULL DEFAULT '0',
+    `v_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+    PRIMARY KEY (`v_id`)
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ", true);
+    sql_query(" ALTER TABLE `rb_topvisual` ADD PRIMARY KEY (`v_id`) ", false);
+}
 
-$rb_core['topvisual'] = isset($rb_config['co_topvisual']) ? $rb_config['co_topvisual'] : ''; // 상단영역 여부, 종류
-$rb_core['topvisual_shop'] = isset($rb_config['co_topvisual_shop']) ? $rb_config['co_topvisual_shop'] : ''; // 상단영역 여부, 종류 (마켓)
+// 현재 페이지 URL로 v_code 변환
+$rb_page_urls = $_SERVER['REQUEST_URI'];
+$rb_page_urls = preg_replace('/\.php/', '', $rb_page_urls);
+$rb_page_urls = str_replace(['/', '?', '&', '='], '-', $rb_page_urls);
+$rb_page_urls = ltrim($rb_page_urls, '-');
 
-$rb_core['topvisual_height'] = isset($rb_config['co_topvisual_height']) ? $rb_config['co_topvisual_height'] : '200'; // 상단영역 세로크기
-$rb_core['topvisual_height_shop'] = isset($rb_config['co_topvisual_height_shop']) ? $rb_config['co_topvisual_height_shop'] : '200'; // 상단영역 세로크기 (마켓)
-$rb_core['topvisual_width'] = isset($rb_config['co_topvisual_width']) ? $rb_config['co_topvisual_width'] : ''; // 상단영역 가로크기
-$rb_core['topvisual_bl'] = isset($rb_config['co_topvisual_bl']) ? $rb_config['co_topvisual_bl'] : '10'; // 상단영역 블라인드
-$rb_core['topvisual_width_shop'] = isset($rb_config['co_topvisual_width_shop']) ? $rb_config['co_topvisual_width_shop'] : ''; // 상단영역 가로크기
-$rb_core['topvisual_bl_shop'] = isset($rb_config['co_topvisual_bl_shop']) ? $rb_config['co_topvisual_bl_shop'] : '10'; // 상단영역 블라인드
+$rb_page_sql = "SELECT * FROM rb_topvisual WHERE v_code = '{$rb_page_urls}'";
+$rb_v_info = sql_fetch($rb_page_sql);
 
-$rb_core['topvisual_m_color'] = isset($rb_config['co_topvisual_m_color']) ? $rb_config['co_topvisual_m_color'] : '#ffffff'; // 상단영역 메인워딩 컬러
-$rb_core['topvisual_m_size'] = isset($rb_config['co_topvisual_m_size']) ? $rb_config['co_topvisual_m_size'] : '20'; // 상단영역 메인워딩 사이즈
-$rb_core['topvisual_m_font'] = isset($rb_config['co_topvisual_m_font']) ? $rb_config['co_topvisual_m_font'] : 'font-B'; // 상단영역 메인워딩 두께
-$rb_core['topvisual_m_align'] = isset($rb_config['co_topvisual_m_align']) ? $rb_config['co_topvisual_m_align'] : 'left'; // 상단영역 메인워딩 정렬
+$rb_v_info['topvisual_height'] = !empty($rb_v_info['co_topvisual_height']) ? $rb_v_info['co_topvisual_height'] : '200'; // 상단영역 세로크기
+$rb_v_info['topvisual_width'] = !empty($rb_v_info['co_topvisual_width']) ? $rb_v_info['co_topvisual_width'] : ''; // 상단영역 가로크기
+$rb_v_info['topvisual_bl'] = !empty($rb_v_info['co_topvisual_bl']) ? $rb_v_info['co_topvisual_bl'] : '10'; // 상단영역 블라인드
 
-$rb_core['topvisual_s_color'] = isset($rb_config['co_topvisual_s_color']) ? $rb_config['co_topvisual_s_color'] : '#ffffff'; // 상단영역 서브워딩 컬러
-$rb_core['topvisual_s_size'] = isset($rb_config['co_topvisual_s_size']) ? $rb_config['co_topvisual_s_size'] : '16'; // 상단영역 서브워딩 사이즈
-$rb_core['topvisual_s_font'] = isset($rb_config['co_topvisual_s_font']) ? $rb_config['co_topvisual_s_font'] : 'font-R'; // 상단영역 서브워딩 두께
-$rb_core['topvisual_s_align'] = isset($rb_config['co_topvisual_s_align']) ? $rb_config['co_topvisual_s_align'] : 'left'; // 상단영역 서브워딩 정렬
+$rb_v_info['topvisual_m_color'] = !empty($rb_v_info['co_topvisual_m_color']) ? $rb_v_info['co_topvisual_m_color'] : '#ffffff'; // 상단영역 메인워딩 컬러
+$rb_v_info['topvisual_m_size'] = !empty($rb_v_info['co_topvisual_m_size']) ? $rb_v_info['co_topvisual_m_size'] : '20'; // 상단영역 메인워딩 사이즈
+$rb_v_info['topvisual_m_font'] = !empty($rb_v_info['co_topvisual_m_font']) ? $rb_v_info['co_topvisual_m_font'] : 'font-B'; // 상단영역 메인워딩 두께
+$rb_v_info['topvisual_m_align'] = !empty($rb_v_info['co_topvisual_m_align']) ? $rb_v_info['co_topvisual_m_align'] : 'left'; // 상단영역 메인워딩 정렬
 
-$rb_core['topvisual_m_color_shop'] = isset($rb_config['co_topvisual_m_color_shop']) ? $rb_config['co_topvisual_m_color_shop'] : '#ffffff';
-$rb_core['topvisual_m_size_shop'] = isset($rb_config['co_topvisual_m_size_shop']) ? $rb_config['co_topvisual_m_size_shop'] : '20';
-$rb_core['topvisual_m_font_shop'] = isset($rb_config['co_topvisual_m_font_shop']) ? $rb_config['co_topvisual_m_font_shop'] : 'font-B';
-$rb_core['topvisual_m_align_shop'] = isset($rb_config['co_topvisual_m_align_shop']) ? $rb_config['co_topvisual_m_align_shop'] : 'left';
+$rb_v_info['topvisual_s_color'] = !empty($rb_v_info['co_topvisual_s_color']) ? $rb_v_info['co_topvisual_s_color'] : '#ffffff'; // 상단영역 서브워딩 컬러
+$rb_v_info['topvisual_s_size'] = !empty($rb_v_info['co_topvisual_s_size']) ? $rb_v_info['co_topvisual_s_size'] : '16'; // 상단영역 서브워딩 사이즈
+$rb_v_info['topvisual_s_font'] = !empty($rb_v_info['co_topvisual_s_font']) ? $rb_v_info['co_topvisual_s_font'] : 'font-R'; // 상단영역 서브워딩 두께
+$rb_v_info['topvisual_s_align'] = !empty($rb_v_info['co_topvisual_s_align']) ? $rb_v_info['co_topvisual_s_align'] : 'left'; // 상단영역 서브워딩 정렬
 
-$rb_core['topvisual_s_color_shop'] = isset($rb_config['co_topvisual_s_color_shop']) ? $rb_config['co_topvisual_s_color_shop'] : '#ffffff';
-$rb_core['topvisual_s_size_shop'] = isset($rb_config['co_topvisual_s_size_shop']) ? $rb_config['co_topvisual_s_size_shop'] : '16';
-$rb_core['topvisual_s_font_shop'] = isset($rb_config['co_topvisual_s_font_shop']) ? $rb_config['co_topvisual_s_font_shop'] : 'font-R';
-$rb_core['topvisual_s_align_shop'] = isset($rb_config['co_topvisual_s_align_shop']) ? $rb_config['co_topvisual_s_align_shop'] : 'left';
-
-$rb_core['topvisual_bg_color'] = isset($rb_config['co_topvisual_bg_color']) ? $rb_config['co_topvisual_bg_color'] : '#f9f9f9';
-$rb_core['topvisual_bg_color_shop'] = isset($rb_config['co_topvisual_bg_color_shop']) ? $rb_config['co_topvisual_bg_color_shop'] : '#f9f9f9';
+$rb_v_info['topvisual_bg_color'] = !empty($rb_v_info['co_topvisual_bg_color']) ? $rb_v_info['co_topvisual_bg_color'] : '#f9f9f9';
 
 /* } */
 
 
 //영카트 사용여부
-$rb_core['layout_shop'] = isset($rb_config['co_layout_shop']) ? $rb_config['co_layout_shop'] : ''; // 레이아웃(메인)
-$rb_core['layout_hd_shop'] = isset($rb_config['co_layout_hd_shop']) ? $rb_config['co_layout_hd_shop'] : ''; // 레이아웃(헤더)
-$rb_core['layout_ft_shop'] = isset($rb_config['co_layout_ft_shop']) ? $rb_config['co_layout_ft_shop'] : ''; // 레이아웃(푸터)
-$rb_core['padding_top_shop'] = isset($rb_config['co_main_padding_top_shop']) ? $rb_config['co_main_padding_top_shop'] : "0"; // 상단, 하단 가로사이즈
+$rb_core['layout_shop'] = !empty($rb_config['co_layout_shop']) ? $rb_config['co_layout_shop'] : ''; // 레이아웃(메인)
+$rb_core['layout_hd_shop'] = !empty($rb_config['co_layout_hd_shop']) ? $rb_config['co_layout_hd_shop'] : ''; // 레이아웃(헤더)
+$rb_core['layout_ft_shop'] = !empty($rb_config['co_layout_ft_shop']) ? $rb_config['co_layout_ft_shop'] : ''; // 레이아웃(푸터)
+$rb_core['padding_top_shop'] = !empty($rb_config['co_main_padding_top_shop']) ? $rb_config['co_main_padding_top_shop'] : "0"; // 상단, 하단 가로사이즈
 
 $rb_core['color'] = str_replace('#', '', $rb_core['color']); // # 제거 2.1.4
 $rb_core['header'] = str_replace('#', '', $rb_core['header']); // # 제거 2.1.4

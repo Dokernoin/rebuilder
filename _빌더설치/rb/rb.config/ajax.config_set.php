@@ -1,8 +1,8 @@
 <?php
 include_once('../../common.php');
 
-$mod_type = isset($_POST['mod_type']) ? $_POST['mod_type'] : '';
-$is_shop = isset($_POST['is_shop']) ? $_POST['is_shop'] : '';
+$mod_type = !empty($_POST['mod_type']) ? $_POST['mod_type'] : '';
+$is_shop = !empty($_POST['is_shop']) ? $_POST['is_shop'] : '';
 
 if(isset($is_shop) && $is_shop == 1) {
     $rb_module_tables = "rb_module_shop";
@@ -11,81 +11,47 @@ if(isset($is_shop) && $is_shop == 1) {
 }
 
 if($mod_type == 1) { //환경설정
-    $co_color = isset($_POST['co_color']) ? $_POST['co_color'] : 'AA20FF';
-    $co_header = isset($_POST['co_header']) ? $_POST['co_header'] : '0';
+    $co_color = !empty($_POST['co_color']) ? $_POST['co_color'] : 'AA20FF';
+    $co_header = !empty($_POST['co_header']) ? $_POST['co_header'] : '0';
    
-    $co_layout = isset($_POST['co_layout']) ? $_POST['co_layout'] : 'basic';
-    $co_layout_hd = isset($_POST['co_layout_hd']) ? $_POST['co_layout_hd'] : 'basic';
-    $co_layout_ft = isset($_POST['co_layout_ft']) ? $_POST['co_layout_ft'] : 'basic';
+    $co_layout = !empty($_POST['co_layout']) ? $_POST['co_layout'] : 'basic';
+    $co_layout_hd = !empty($_POST['co_layout_hd']) ? $_POST['co_layout_hd'] : 'basic';
+    $co_layout_ft = !empty($_POST['co_layout_ft']) ? $_POST['co_layout_ft'] : 'basic';
     
-    $co_layout_shopp = isset($_POST['co_layout_shop']) ? $_POST['co_layout_shop'] : 'basic';
-    $co_layout_hd_shop = isset($_POST['co_layout_hd_shop']) ? $_POST['co_layout_hd_shop'] : 'basic';
-    $co_layout_ft_shop = isset($_POST['co_layout_ft_shop']) ? $_POST['co_layout_ft_shop'] : 'basic';
+    $co_layout_shopp = !empty($_POST['co_layout_shop']) ? $_POST['co_layout_shop'] : 'basic';
+    $co_layout_hd_shop = !empty($_POST['co_layout_hd_shop']) ? $_POST['co_layout_hd_shop'] : 'basic';
+    $co_layout_ft_shop = !empty($_POST['co_layout_ft_shop']) ? $_POST['co_layout_ft_shop'] : 'basic';
     
-    $co_font = isset($_POST['co_font']) ? $_POST['co_font'] : 'Pretendard';
-    $co_sub_width = isset($_POST['co_sub_width']) ? $_POST['co_sub_width'] : '1024';
-    $co_main_width = isset($_POST['co_main_width']) ? $_POST['co_main_width'] : '1400';
-    $co_tb_width = isset($_POST['co_tb_width']) ? $_POST['co_tb_width'] : '1400';
-    $co_main_padding_top = isset($_POST['co_main_padding_top']) ? $_POST['co_main_padding_top'] : '0';
-    $co_main_padding_top_shop = isset($_POST['co_main_padding_top_shop']) ? $_POST['co_main_padding_top_shop'] : '0';
+    $co_font = !empty($_POST['co_font']) ? $_POST['co_font'] : 'Pretendard';
+    $co_sub_width = !empty($_POST['co_sub_width']) ? $_POST['co_sub_width'] : '1024';
+    $co_main_width = !empty($_POST['co_main_width']) ? $_POST['co_main_width'] : '1400';
+    $co_tb_width = !empty($_POST['co_tb_width']) ? $_POST['co_tb_width'] : '1400';
+    $co_main_padding_top = !empty($_POST['co_main_padding_top']) ? $_POST['co_main_padding_top'] : '0';
+    $co_main_padding_top_shop = !empty($_POST['co_main_padding_top_shop']) ? $_POST['co_main_padding_top_shop'] : '0';
     
-    $co_gap_pc = isset($_POST['co_gap_pc']) ? $_POST['co_gap_pc'] : '0';
-    $co_inner_padding_pc = isset($_POST['co_inner_padding_pc']) ? $_POST['co_inner_padding_pc'] : '0';
+    $co_gap_pc = !empty($_POST['co_gap_pc']) ? $_POST['co_gap_pc'] : '0';
+    $co_inner_padding_pc = !empty($_POST['co_inner_padding_pc']) ? $_POST['co_inner_padding_pc'] : '0';
 
-    $co_side_skin = isset($_POST['co_side_skin']) ? $_POST['co_side_skin'] : '';
-    $co_side_skin_shop = isset($_POST['co_side_skin_shop']) ? $_POST['co_side_skin_shop'] : '';
-    $co_sidemenu = isset($_POST['co_sidemenu']) ? $_POST['co_sidemenu'] : '';
-    $co_sidemenu_shop = isset($_POST['co_sidemenu_shop']) ? $_POST['co_sidemenu_shop'] : '';
-    $co_sidemenu_width = isset($_POST['co_sidemenu_width']) ? $_POST['co_sidemenu_width'] : '200';
-    $co_sidemenu_width_shop = isset($_POST['co_sidemenu_width_shop']) ? $_POST['co_sidemenu_width_shop'] : '200';
-
-    $co_topvisual = isset($_POST['co_topvisual']) ? $_POST['co_topvisual'] : '';
-    $co_topvisual_shop = isset($_POST['co_topvisual_shop']) ? $_POST['co_topvisual_shop'] : '';
-    $co_topvisual_height = isset($_POST['co_topvisual_height']) ? $_POST['co_topvisual_height'] : '200';
-    $co_topvisual_height_shop = isset($_POST['co_topvisual_height_shop']) ? $_POST['co_topvisual_height_shop'] : '200';
-    $co_topvisual_width = isset($_POST['co_topvisual_width']) ? $_POST['co_topvisual_width'] : '';
-    $co_topvisual_bl = isset($_POST['co_topvisual_bl']) ? $_POST['co_topvisual_bl'] : '10';
-    $co_topvisual_width_shop = isset($_POST['co_topvisual_width_shop']) ? $_POST['co_topvisual_width_shop'] : '';
-    $co_topvisual_bl_shop = isset($_POST['co_topvisual_bl_shop']) ? $_POST['co_topvisual_bl_shop'] : '10';
-
-    $co_topvisual_m_color = isset($_POST['co_topvisual_m_color']) ? $_POST['co_topvisual_m_color'] : '#ffffff';
-    $co_topvisual_m_size = isset($_POST['co_topvisual_m_size']) ? $_POST['co_topvisual_m_size'] : '20';
-    $co_topvisual_m_font = isset($_POST['co_topvisual_m_font']) ? $_POST['co_topvisual_m_font'] : 'font-B';
-    $co_topvisual_m_align = isset($_POST['co_topvisual_m_align']) ? $_POST['co_topvisual_m_align'] : 'left';
-
-    $co_topvisual_s_color = isset($_POST['co_topvisual_s_color']) ? $_POST['co_topvisual_s_color'] : '#ffffff';
-    $co_topvisual_s_size = isset($_POST['co_topvisual_s_size']) ? $_POST['co_topvisual_s_size'] : '16';
-    $co_topvisual_s_font = isset($_POST['co_topvisual_s_font']) ? $_POST['co_topvisual_s_font'] : 'font-R';
-    $co_topvisual_s_align = isset($_POST['co_topvisual_s_align']) ? $_POST['co_topvisual_s_align'] : 'left';
-
-    $co_topvisual_m_color_shop = isset($_POST['co_topvisual_m_color_shop']) ? $_POST['co_topvisual_m_color_shop'] : '#ffffff';
-    $co_topvisual_m_size_shop = isset($_POST['co_topvisual_m_size_shop']) ? $_POST['co_topvisual_m_size_shop'] : '20';
-    $co_topvisual_m_font_shop = isset($_POST['co_topvisual_m_font_shop']) ? $_POST['co_topvisual_m_font_shop'] : 'font-B';
-    $co_topvisual_m_align_shop = isset($_POST['co_topvisual_m_align_shop']) ? $_POST['co_topvisual_m_align_shop'] : 'left';
-
-    $co_topvisual_s_color_shop = isset($_POST['co_topvisual_s_color_shop']) ? $_POST['co_topvisual_s_color_shop'] : '#ffffff';
-    $co_topvisual_s_size_shop = isset($_POST['co_topvisual_s_size_shop']) ? $_POST['co_topvisual_s_size_shop'] : '16';
-    $co_topvisual_s_font_shop = isset($_POST['co_topvisual_s_font_shop']) ? $_POST['co_topvisual_s_font_shop'] : 'font-R';
-    $co_topvisual_s_align_shop = isset($_POST['co_topvisual_s_align_shop']) ? $_POST['co_topvisual_s_align_shop'] : 'left';
-
-    $co_topvisual_bg_color = isset($_POST['co_topvisual_bg_color']) ? $_POST['co_topvisual_bg_color'] : '#f9f9f9';
-    $co_topvisual_bg_color_shop = isset($_POST['co_topvisual_bg_color_shop']) ? $_POST['co_topvisual_bg_color_shop'] : '#f9f9f9';
-
-
+    $co_side_skin = !empty($_POST['co_side_skin']) ? $_POST['co_side_skin'] : '';
+    $co_side_skin_shop = !empty($_POST['co_side_skin_shop']) ? $_POST['co_side_skin_shop'] : '';
+    $co_sidemenu = !empty($_POST['co_sidemenu']) ? $_POST['co_sidemenu'] : '';
+    $co_sidemenu_shop = !empty($_POST['co_sidemenu_shop']) ? $_POST['co_sidemenu_shop'] : '';
+    $co_sidemenu_width = !empty($_POST['co_sidemenu_width']) ? $_POST['co_sidemenu_width'] : '200';
+    $co_sidemenu_width_shop = !empty($_POST['co_sidemenu_width_shop']) ? $_POST['co_sidemenu_width_shop'] : '200';
 }
 
 if($mod_type == 2) { //모듈설정
-    $set_title = isset($_POST['set_title']) ? $_POST['set_title'] : '';
-    $set_layout = isset($_POST['set_layout']) ? $_POST['set_layout'] : '';
-    $set_id = isset($_POST['set_id']) ? $_POST['set_id'] : '';
-    $set_type = isset($_POST['set_type']) ? $_POST['set_type'] : '';
-    $theme_name = isset($_POST['theme_name']) ? $_POST['theme_name'] : '';
+    $set_title = !empty($_POST['set_title']) ? $_POST['set_title'] : '';
+    $set_layout = !empty($_POST['set_layout']) ? $_POST['set_layout'] : '';
+    $set_id = !empty($_POST['set_id']) ? $_POST['set_id'] : '';
+    $set_type = !empty($_POST['set_type']) ? $_POST['set_type'] : '';
+    $theme_name = !empty($_POST['theme_name']) ? $_POST['theme_name'] : '';
 }
 
 if($mod_type == "del") { //모듈삭제
-    $set_layout = isset($_POST['set_layout']) ? $_POST['set_layout'] : '';
-    $set_id = isset($_POST['set_id']) ? $_POST['set_id'] : '';
-    $theme_name = isset($_POST['theme_name']) ? $_POST['theme_name'] : '';
+    $set_layout = !empty($_POST['set_layout']) ? $_POST['set_layout'] : '';
+    $set_id = !empty($_POST['set_id']) ? $_POST['set_id'] : '';
+    $theme_name = !empty($_POST['theme_name']) ? $_POST['theme_name'] : '';
 }
 
 ?>
@@ -95,7 +61,7 @@ if($mod_type == "del") { //모듈삭제
         <?php
     
             if($is_admin) {
-            $sql = " update rb_config set co_layout = '{$co_layout}', co_layout_hd = '{$co_layout_hd}', co_layout_ft = '{$co_layout_ft}', co_layout_shop = '{$co_layout_shop}', co_layout_hd_shop = '{$co_layout_hd_shop}', co_layout_ft_shop = '{$co_layout_ft_shop}', co_color = '{$co_color}', co_header = '{$co_header}', co_font = '{$co_font}', co_gap_pc = '{$co_gap_pc}', co_inner_padding_pc = '{$co_inner_padding_pc}', co_sub_width = '{$co_sub_width}', co_main_width = '{$co_main_width}', co_tb_width = '{$co_tb_width}', co_main_padding_top = '{$co_main_padding_top}', co_main_padding_top_shop = '{$co_main_padding_top_shop}', co_side_skin = '{$co_side_skin}', co_side_skin_shop = '{$co_side_skin_shop}', co_sidemenu = '{$co_sidemenu}', co_sidemenu_shop = '{$co_sidemenu_shop}', co_sidemenu_width = '{$co_sidemenu_width}', co_sidemenu_width_shop = '{$co_sidemenu_width_shop}', co_topvisual = '{$co_topvisual}', co_topvisual_shop = '{$co_topvisual_shop}', co_topvisual_height = '{$co_topvisual_height}', co_topvisual_height_shop = '{$co_topvisual_height_shop}', co_topvisual_width = '{$co_topvisual_width}', co_topvisual_width_shop = '{$co_topvisual_width_shop}', co_topvisual_bl = '{$co_topvisual_bl}', co_topvisual_bl_shop = '{$co_topvisual_bl_shop}', co_topvisual_m_color = '{$co_topvisual_m_color}', co_topvisual_m_size = '{$co_topvisual_m_size}', co_topvisual_m_font = '{$co_topvisual_m_font}', co_topvisual_m_align = '{$co_topvisual_m_align}', co_topvisual_s_color = '{$co_topvisual_s_color}', co_topvisual_s_size = '{$co_topvisual_s_size}', co_topvisual_s_font = '{$co_topvisual_s_font}', co_topvisual_s_align = '{$co_topvisual_s_align}', co_topvisual_m_color_shop = '{$co_topvisual_m_color_shop}', co_topvisual_m_size_shop = '{$co_topvisual_m_size_shop}', co_topvisual_m_font_shop = '{$co_topvisual_m_font_shop}', co_topvisual_m_align_shop = '{$co_topvisual_m_align_shop}', co_topvisual_s_color_shop = '{$co_topvisual_s_color_shop}', co_topvisual_s_size_shop = '{$co_topvisual_s_size_shop}', co_topvisual_s_font_shop = '{$co_topvisual_s_font_shop}', co_topvisual_s_align_shop = '{$co_topvisual_s_align_shop}', co_topvisual_bg_color = '{$co_topvisual_bg_color}', co_topvisual_bg_color_shop = '{$co_topvisual_bg_color_shop}', co_datetime = '".G5_TIME_YMDHIS."', co_ip = '{$_SERVER['REMOTE_ADDR']}' ";
+            $sql = " update rb_config set co_layout = '{$co_layout}', co_layout_hd = '{$co_layout_hd}', co_layout_ft = '{$co_layout_ft}', co_layout_shop = '{$co_layout_shop}', co_layout_hd_shop = '{$co_layout_hd_shop}', co_layout_ft_shop = '{$co_layout_ft_shop}', co_color = '{$co_color}', co_header = '{$co_header}', co_font = '{$co_font}', co_gap_pc = '{$co_gap_pc}', co_inner_padding_pc = '{$co_inner_padding_pc}', co_sub_width = '{$co_sub_width}', co_main_width = '{$co_main_width}', co_tb_width = '{$co_tb_width}', co_main_padding_top = '{$co_main_padding_top}', co_main_padding_top_shop = '{$co_main_padding_top_shop}', co_side_skin = '{$co_side_skin}', co_side_skin_shop = '{$co_side_skin_shop}', co_sidemenu = '{$co_sidemenu}', co_sidemenu_shop = '{$co_sidemenu_shop}', co_sidemenu_width = '{$co_sidemenu_width}', co_sidemenu_width_shop = '{$co_sidemenu_width_shop}', co_datetime = '".G5_TIME_YMDHIS."', co_ip = '{$_SERVER['REMOTE_ADDR']}' ";
             sql_query($sql);
             }
 
@@ -122,32 +88,6 @@ if($mod_type == "del") { //모듈삭제
                 'co_sidemenu_shop' => $co_sidemenu_shop,
                 'co_sidemenu_width' => $co_sidemenu_width,
                 'co_sidemenu_width_shop ' => $co_sidemenu_width_shop,
-                'co_topvisual' => $co_topvisual,
-                'co_topvisual_shop' => $co_topvisual_shop,
-                'co_topvisual_height' => $co_topvisual_height,
-                'co_topvisual_height_shop ' => $co_topvisual_height_shop,
-                'co_topvisual_width' => $co_topvisual_width,
-                'co_topvisual_width_shop' => $co_topvisual_width_shop,
-                'co_topvisual_bl' => $co_topvisual_bl,
-                'co_topvisual_bl_shop' => $co_topvisual_bl_shop,
-                'co_topvisual_m_color' => $co_topvisual_m_color,
-                'co_topvisual_m_size' => $co_topvisual_m_size,
-                'co_topvisual_m_font' => $co_topvisual_m_font,
-                'co_topvisual_m_align' => $co_topvisual_m_align,
-                'co_topvisual_s_color' => $co_topvisual_s_color,
-                'co_topvisual_s_size' => $co_topvisual_s_size,
-                'co_topvisual_s_font' => $co_topvisual_s_font,
-                'co_topvisual_s_align' => $co_topvisual_s_align,
-                'co_topvisual_m_color_shop' => $co_topvisual_m_color_shop,
-                'co_topvisual_m_size_shop' => $co_topvisual_m_size_shop,
-                'co_topvisual_m_font_shop' => $co_topvisual_m_font_shop,
-                'co_topvisual_m_align_shop' => $co_topvisual_m_align_shop,
-                'co_topvisual_s_color_shop' => $co_topvisual_s_color_shop,
-                'co_topvisual_s_size_shop' => $co_topvisual_s_size_shop,
-                'co_topvisual_s_font_shop' => $co_topvisual_s_font_shop,
-                'co_topvisual_s_align_shop' => $co_topvisual_s_align_shop,
-                'co_topvisual_bg_color' => $co_topvisual_bg_color,
-                'co_topvisual_bg_color_shop' => $co_topvisual_bg_color_shop,
                 'status' => 'ok',
             );
             echo json_encode($data);
@@ -179,50 +119,50 @@ if($mod_type == "del") { //모듈삭제
                 $rb_module = sql_fetch(" select * from {$rb_module_tables} where md_theme = '{$theme_name}' and md_id = '{$set_id}' and md_layout = '{$set_layout}' ");
                 $rb_module_is = sql_fetch(" select COUNT(*) as cnt from {$rb_module_tables} where md_theme = '{$theme_name}' and md_id = '{$set_id}' and md_layout = '{$set_layout}' ");
     
-                $md_id = isset($rb_module['md_id']) ? $rb_module['md_id'] : '';
-                $md_theme = isset($rb_module['md_theme']) ? $rb_module['md_theme'] : '';
-                $md_type = isset($rb_module['md_type']) ? $rb_module['md_type'] : '';
-                $md_title = isset($rb_module['md_title']) ? $rb_module['md_title'] : '';
-                $md_title_color = isset($rb_module['md_title_color']) ? $rb_module['md_title_color'] : '#25282b';
-                $md_title_size = isset($rb_module['md_title_size']) ? $rb_module['md_title_size'] : '20';
-                $md_title_font = isset($rb_module['md_title_font']) ? $rb_module['md_title_font'] : 'font-B';
-                $md_title_hide = isset($rb_module['md_title_hide']) ? $rb_module['md_title_hide'] : '0';
-                $md_skin = isset($rb_module['md_skin']) ? $rb_module['md_skin'] : '';
-                $md_tab_skin = isset($rb_module['md_tab_skin']) ? $rb_module['md_tab_skin'] : '';
-                $md_tab_list = isset($rb_module['md_tab_list']) ? $rb_module['md_tab_list'] : '';
-                $md_bo_table = isset($rb_module['md_bo_table']) ? $rb_module['md_bo_table'] : '';
-                $md_sca = isset($rb_module['md_sca']) ? $rb_module['md_sca'] : '';
-                $md_widget = isset($rb_module['md_widget']) ? $rb_module['md_widget'] : '';
-                $md_banner = isset($rb_module['md_banner']) ? $rb_module['md_banner'] : '';
-                $md_banner_id = isset($rb_module['md_banner_id']) ? $rb_module['md_banner_id'] : '';
-                $md_banner_bg = isset($rb_module['md_banner_bg']) ? $rb_module['md_banner_bg'] : '';
-                $md_banner_skin = isset($rb_module['md_banner_skin']) ? $rb_module['md_banner_skin'] : '';
-                $md_poll = isset($rb_module['md_poll']) ? $rb_module['md_poll'] : '';
-                $md_poll_id = isset($rb_module['md_poll_id']) ? $rb_module['md_poll_id'] : '';
-                $md_cnt = isset($rb_module['md_cnt']) ? $rb_module['md_cnt'] : '';
-                $md_col = isset($rb_module['md_col']) ? $rb_module['md_col'] : '';
-                $md_row = isset($rb_module['md_row']) ? $rb_module['md_row'] : '';
-                $md_col_mo = isset($rb_module['md_col_mo']) ? $rb_module['md_col_mo'] : '';
-                $md_row_mo = isset($rb_module['md_row_mo']) ? $rb_module['md_row_mo'] : '';
-                $md_width = isset($rb_module['md_width']) ? $rb_module['md_width'] : '';
-                $md_height = isset($rb_module['md_height']) ? $rb_module['md_height'] : '';
-                $md_subject_is = isset($rb_module['md_subject_is']) ? $rb_module['md_subject_is'] : '';
-                $md_thumb_is = isset($rb_module['md_thumb_is']) ? $rb_module['md_thumb_is'] : '';
-                $md_nick_is = isset($rb_module['md_nick_is']) ? $rb_module['md_nick_is'] : '';
-                $md_date_is = isset($rb_module['md_date_is']) ? $rb_module['md_date_is'] : '';
-                $md_content_is = isset($rb_module['md_content_is']) ? $rb_module['md_content_is'] : '';
-                $md_icon_is = isset($rb_module['md_icon_is']) ? $rb_module['md_icon_is'] : '';
-                $md_comment_is = isset($rb_module['md_comment_is']) ? $rb_module['md_comment_is'] : '';
-                $md_ca_is = isset($rb_module['md_ca_is']) ? $rb_module['md_ca_is'] : '';
-                $md_gap = isset($rb_module['md_gap']) ? $rb_module['md_gap'] : '';
-                $md_gap_mo = isset($rb_module['md_gap_mo']) ? $rb_module['md_gap_mo'] : '';
-                $md_swiper_is = isset($rb_module['md_swiper_is']) ? $rb_module['md_swiper_is'] : '';
-                $md_auto_is = isset($rb_module['md_auto_is']) ? $rb_module['md_auto_is'] : '';
-                $md_auto_time = isset($rb_module['md_auto_time']) ? $rb_module['md_auto_time'] : '';
-                $md_order = isset($rb_module['md_order']) ? $rb_module['md_order'] : '';
-                $md_order_latest = isset($rb_module['md_order_latest']) ? $rb_module['md_order_latest'] : '';
-                $md_border = isset($rb_module['md_border']) ? $rb_module['md_border'] : '';
-                $md_module = isset($rb_module['md_module']) ? $rb_module['md_module'] : '';
+                $md_id = !empty($rb_module['md_id']) ? $rb_module['md_id'] : '';
+                $md_theme = !empty($rb_module['md_theme']) ? $rb_module['md_theme'] : '';
+                $md_type = !empty($rb_module['md_type']) ? $rb_module['md_type'] : '';
+                $md_title = !empty($rb_module['md_title']) ? $rb_module['md_title'] : '';
+                $md_title_color = !empty($rb_module['md_title_color']) ? $rb_module['md_title_color'] : '#25282b';
+                $md_title_size = !empty($rb_module['md_title_size']) ? $rb_module['md_title_size'] : '20';
+                $md_title_font = !empty($rb_module['md_title_font']) ? $rb_module['md_title_font'] : 'font-B';
+                $md_title_hide = !empty($rb_module['md_title_hide']) ? $rb_module['md_title_hide'] : '0';
+                $md_skin = !empty($rb_module['md_skin']) ? $rb_module['md_skin'] : '';
+                $md_tab_skin = !empty($rb_module['md_tab_skin']) ? $rb_module['md_tab_skin'] : '';
+                $md_tab_list = !empty($rb_module['md_tab_list']) ? $rb_module['md_tab_list'] : '';
+                $md_bo_table = !empty($rb_module['md_bo_table']) ? $rb_module['md_bo_table'] : '';
+                $md_sca = !empty($rb_module['md_sca']) ? $rb_module['md_sca'] : '';
+                $md_widget = !empty($rb_module['md_widget']) ? $rb_module['md_widget'] : '';
+                $md_banner = !empty($rb_module['md_banner']) ? $rb_module['md_banner'] : '';
+                $md_banner_id = !empty($rb_module['md_banner_id']) ? $rb_module['md_banner_id'] : '';
+                $md_banner_bg = !empty($rb_module['md_banner_bg']) ? $rb_module['md_banner_bg'] : '';
+                $md_banner_skin = !empty($rb_module['md_banner_skin']) ? $rb_module['md_banner_skin'] : '';
+                $md_poll = !empty($rb_module['md_poll']) ? $rb_module['md_poll'] : '';
+                $md_poll_id = !empty($rb_module['md_poll_id']) ? $rb_module['md_poll_id'] : '';
+                $md_cnt = !empty($rb_module['md_cnt']) ? $rb_module['md_cnt'] : '';
+                $md_col = !empty($rb_module['md_col']) ? $rb_module['md_col'] : '';
+                $md_row = !empty($rb_module['md_row']) ? $rb_module['md_row'] : '';
+                $md_col_mo = !empty($rb_module['md_col_mo']) ? $rb_module['md_col_mo'] : '';
+                $md_row_mo = !empty($rb_module['md_row_mo']) ? $rb_module['md_row_mo'] : '';
+                $md_width = !empty($rb_module['md_width']) ? $rb_module['md_width'] : '';
+                $md_height = !empty($rb_module['md_height']) ? $rb_module['md_height'] : '';
+                $md_subject_is = !empty($rb_module['md_subject_is']) ? $rb_module['md_subject_is'] : '';
+                $md_thumb_is = !empty($rb_module['md_thumb_is']) ? $rb_module['md_thumb_is'] : '';
+                $md_nick_is = !empty($rb_module['md_nick_is']) ? $rb_module['md_nick_is'] : '';
+                $md_date_is = !empty($rb_module['md_date_is']) ? $rb_module['md_date_is'] : '';
+                $md_content_is = !empty($rb_module['md_content_is']) ? $rb_module['md_content_is'] : '';
+                $md_icon_is = !empty($rb_module['md_icon_is']) ? $rb_module['md_icon_is'] : '';
+                $md_comment_is = !empty($rb_module['md_comment_is']) ? $rb_module['md_comment_is'] : '';
+                $md_ca_is = !empty($rb_module['md_ca_is']) ? $rb_module['md_ca_is'] : '';
+                $md_gap = !empty($rb_module['md_gap']) ? $rb_module['md_gap'] : '';
+                $md_gap_mo = !empty($rb_module['md_gap_mo']) ? $rb_module['md_gap_mo'] : '';
+                $md_swiper_is = !empty($rb_module['md_swiper_is']) ? $rb_module['md_swiper_is'] : '';
+                $md_auto_is = !empty($rb_module['md_auto_is']) ? $rb_module['md_auto_is'] : '';
+                $md_auto_time = !empty($rb_module['md_auto_time']) ? $rb_module['md_auto_time'] : '';
+                $md_order = !empty($rb_module['md_order']) ? $rb_module['md_order'] : '';
+                $md_order_latest = !empty($rb_module['md_order_latest']) ? $rb_module['md_order_latest'] : '';
+                $md_border = !empty($rb_module['md_border']) ? $rb_module['md_border'] : '';
+                $md_module = !empty($rb_module['md_module']) ? $rb_module['md_module'] : '';
                 $md_radius = empty($rb_module['md_radius']) ? '0' : $rb_module['md_radius'];
                 $md_padding = empty($rb_module['md_padding']) ? '0' : $rb_module['md_padding'];
     
@@ -240,16 +180,16 @@ if($mod_type == "del") { //모듈삭제
                 <h6 class="font-R rb_config_sub_txt">모듈 타이틀의 워딩 및 스타일을 설정할 수 있습니다.<br>배너, 투표의 경우는 적용되지 않습니다.</h6>
                 <div class="config_wrap">
                     <ul>
-                        <input type="text" name="md_title" class="input w100" value="<?php echo isset($md_title) ? $md_title : ''; ?>" placeholder="타이틀을 입력하세요." autocomplete="off">
-                        <input type="hidden" name="md_layout" value="<?php echo isset($set_layout) ? $set_layout : ''; ?>">
-                        <input type="hidden" name="md_theme" value="<?php echo isset($theme_name) ? $theme_name : ''; ?>">
-                        <input type="hidden" name="md_id" value="<?php echo isset($md_id) ? $md_id : ''; ?>">
+                        <input type="text" name="md_title" class="input w100" value="<?php echo !empty($md_title) ? $md_title : ''; ?>" placeholder="타이틀을 입력하세요." autocomplete="off">
+                        <input type="hidden" name="md_layout" value="<?php echo !empty($set_layout) ? $set_layout : ''; ?>">
+                        <input type="hidden" name="md_theme" value="<?php echo !empty($theme_name) ? $theme_name : ''; ?>">
+                        <input type="hidden" name="md_id" value="<?php echo !empty($md_id) ? $md_id : ''; ?>">
                     </ul>
 
                     <ul class="config_wrap_flex">
 
                                 <div class="color_set_wrap square none_inp_cl" style="position: relative;">
-                                    <input type="text" class="coloris mod_md_title_color" name="md_title_color" value="<?php echo isset($md_title_color) ? $md_title_color : '#25282B'; ?>" style="width:25px !important;">
+                                    <input type="text" class="coloris mod_md_title_color" name="md_title_color" value="<?php echo !empty($md_title_color) ? $md_title_color : '#25282B'; ?>" style="width:25px !important;">
                                 </div>컬러
 
                                 <script type="text/javascript">
@@ -285,7 +225,7 @@ if($mod_type == "del") { //모듈삭제
                                 });
                                 </script>
 
-                                <input type="number" class="tiny_input" name="md_title_size" value="<?php echo isset($md_title_size) ? $md_title_size : '20'; ?>"> px
+                                <input type="number" class="tiny_input" name="md_title_size" value="<?php echo !empty($md_title_size) ? $md_title_size : '20'; ?>"> px
 
                                 <select class="select select_tiny" name="md_title_font" id="md_title_font">
                                     <option value="">스타일</option>
@@ -295,7 +235,7 @@ if($mod_type == "del") { //모듈삭제
                                 </select>
 
                                 <div style="margin-left:auto;">
-                                <input type="checkbox" name="md_title_hide" id="md_title_hide" class="magic-checkbox" value="1" <?php if (isset($md_title_hide) && $md_title_hide == "1") { ?>checked<?php } ?>><label for="md_title_hide">숨김</label>
+                                <input type="checkbox" name="md_title_hide" id="md_title_hide" class="magic-checkbox" value="1" <?php if (!empty($md_title_hide) && $md_title_hide == "1") { ?>checked<?php } ?>><label for="md_title_hide">숨김</label>
                                 </div>
 
                     </ul>
@@ -854,7 +794,7 @@ if($mod_type == "del") { //모듈삭제
                         </h6>
                         <div class="config_wrap">
                             <ul class="flex_left">
-                                <input type="text" name="md_banner_bg" class="input w50 h40 text-center" value="<?php echo isset($md_banner_bg) ? $md_banner_bg : ''; ?>" placeholder="컬러코드(16진수)" autocomplete="off">
+                                <input type="text" name="md_banner_bg" class="input w50 h40 text-center" value="<?php echo !empty($md_banner_bg) ? $md_banner_bg : ''; ?>" placeholder="컬러코드(16진수)" autocomplete="off">
                                 <span class="bn_bg_color_label" style="background-color:<?php echo $md_banner_bg?>"></span>
                                 <span>예) #FFFFFF</span>
                             </ul>
@@ -894,9 +834,9 @@ if($mod_type == "del") { //모듈삭제
                                 <li class="rows_inp_r mt-15">
                                     <div id="md_radius_range" class="rb_range_item"></div>
                                     <?php if($is_shop == 1) { // 영카트?>
-                                    <input type="hidden" id="md_radius_shop" class="co_range_send" name="md_radius_shop" value="<?php echo isset($md_radius) ? $md_radius : '0'; ?>">
+                                    <input type="hidden" id="md_radius_shop" class="co_range_send" name="md_radius_shop" value="<?php echo !empty($md_radius) ? $md_radius : '0'; ?>">
                                     <?php } else { ?>
-                                    <input type="hidden" id="md_radius" class="co_range_send" name="md_radius" value="<?php echo isset($md_radius) ? $md_radius : '0'; ?>">
+                                    <input type="hidden" id="md_radius" class="co_range_send" name="md_radius" value="<?php echo !empty($md_radius) ? $md_radius : '0'; ?>">
                                     <?php } ?>
                                 </li>
                                 
@@ -906,7 +846,7 @@ if($mod_type == "del") { //모듈삭제
                                   range: "min",
                                   min: 0,
                                   max: 30,
-                                  value: <?php echo isset($md_radius) ? $md_radius : '0'; ?>,
+                                  value: <?php echo !empty($md_radius) ? $md_radius : '0'; ?>,
                                   step: 5,
                                   slide: function(e, ui) {
                                     $("#md_radius_range .ui-slider-handle").html(ui.value);
@@ -920,11 +860,11 @@ if($mod_type == "del") { //모듈삭제
                                   }
                                 });
 
-                                $("#md_radius_range .ui-slider-handle").html("<?php echo isset($md_radius) ? $md_radius : '0'; ?>");
+                                $("#md_radius_range .ui-slider-handle").html("<?php echo !empty($md_radius) ? $md_radius : '0'; ?>");
                                 <?php if($is_shop == 1) { // 영카트?>
-                                $("#md_radius_shop").val("<?php echo isset($md_radius) ? $md_radius : '0'; ?>"); // 초기값 설정
+                                $("#md_radius_shop").val("<?php echo !empty($md_radius) ? $md_radius : '0'; ?>"); // 초기값 설정
                                 <?php } else { ?>
-                                $("#md_radius").val("<?php echo isset($md_radius) ? $md_radius : '0'; ?>"); // 초기값 설정
+                                $("#md_radius").val("<?php echo !empty($md_radius) ? $md_radius : '0'; ?>"); // 초기값 설정
                                 <?php } ?>
                                 </script>
 
@@ -940,9 +880,9 @@ if($mod_type == "del") { //모듈삭제
                                 <li class="rows_inp_r mt-15">
                                     <div id="md_padding_range" class="rb_range_item"></div>
                                     <?php if($is_shop == 1) { // 영카트?>
-                                    <input type="hidden" id="md_padding_shop" class="co_range_send" name="md_padding_shop" value="<?php echo isset($md_padding) ? $md_padding : '0'; ?>">
+                                    <input type="hidden" id="md_padding_shop" class="co_range_send" name="md_padding_shop" value="<?php echo !empty($md_padding) ? $md_padding : '0'; ?>">
                                     <?php } else { ?>
-                                    <input type="hidden" id="md_padding" class="co_range_send" name="md_padding" value="<?php echo isset($md_padding) ? $md_padding : '0'; ?>">
+                                    <input type="hidden" id="md_padding" class="co_range_send" name="md_padding" value="<?php echo !empty($md_padding) ? $md_padding : '0'; ?>">
                                     <?php } ?>
                                 </li>
                                 
@@ -952,7 +892,7 @@ if($mod_type == "del") { //모듈삭제
                                   range: "min",
                                   min: 0,
                                   max: 30,
-                                  value: <?php echo isset($md_padding) ? $md_padding : '0'; ?>,
+                                  value: <?php echo !empty($md_padding) ? $md_padding : '0'; ?>,
                                   step: 5,
                                   slide: function(e, ui) {
                                     $("#md_padding_range .ui-slider-handle").html(ui.value);
@@ -965,11 +905,11 @@ if($mod_type == "del") { //모듈삭제
                                   }
                                 });
 
-                                $("#md_padding_range .ui-slider-handle").html("<?php echo isset($md_padding) ? $md_padding : '0'; ?>");
+                                $("#md_padding_range .ui-slider-handle").html("<?php echo !empty($md_padding) ? $md_padding : '0'; ?>");
                                 <?php if($is_shop == 1) { // 영카트?>
-                                $("#md_padding_shop").val("<?php echo isset($md_padding) ? $md_padding : '0'; ?>"); // 초기값 설정
+                                $("#md_padding_shop").val("<?php echo !empty($md_padding) ? $md_padding : '0'; ?>"); // 초기값 설정
                                 <?php } else { ?>
-                                $("#md_padding").val("<?php echo isset($md_padding) ? $md_padding : '0'; ?>"); // 초기값 설정
+                                $("#md_padding").val("<?php echo !empty($md_padding) ? $md_padding : '0'; ?>"); // 초기값 설정
                                 <?php } ?>
 
                                 </script>
@@ -994,11 +934,11 @@ if($mod_type == "del") { //모듈삭제
                         <div class="config_wrap">
                             <ul class="rows_inp_lr">
                                 <li class="rows_inp_l">
-                                    <input type="number" name="md_cnt" id="md_cnt_shop" class="input w60 h40 text-center" value="<?php echo isset($md_cnt) ? $md_cnt : ''; ?>" placeholder="갯수" autocomplete="off" autocomplete="off">　<span>개</span>
+                                    <input type="number" name="md_cnt" id="md_cnt_shop" class="input w60 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="갯수" autocomplete="off" autocomplete="off">　<span>개</span>
                                 </li>
                                 <li class="rows_inp_r">
-                                    <input type="number" name="md_col" id="md_col_shop" class="input w30 h40 text-center" value="<?php echo isset($md_col) ? $md_col : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>　
-                                    <input type="number" name="md_row" id="md_row_shop" class="input w30 h40 text-center" value="<?php echo isset($md_row) ? $md_row : ''; ?>" placeholder="행" autocomplete="off">
+                                    <input type="number" name="md_col" id="md_col_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_col) ? $md_col : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
+                                    <input type="number" name="md_row" id="md_row_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_row) ? $md_row : ''; ?>" placeholder="행" autocomplete="off">
                                 </li>
                                 <div class="cb"></div>
                             </ul>
@@ -1008,8 +948,8 @@ if($mod_type == "del") { //모듈삭제
                                     1024px 이하
                                 </li>
                                 <li class="rows_inp_r">
-                                    <input type="number" name="md_col_mo" id="md_col_mo_shop" class="input w30 h40 text-center" value="<?php echo isset($md_col_mo) ? $md_col_mo : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>　
-                                    <input type="number" name="md_row_mo" id="md_row_mo_shop" class="input w30 h40 text-center" value="<?php echo isset($md_row_mo) ? $md_row_mo : ''; ?>" placeholder="행" autocomplete="off">
+                                    <input type="number" name="md_col_mo" id="md_col_mo_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_col_mo) ? $md_col_mo : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
+                                    <input type="number" name="md_row_mo" id="md_row_mo_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_row_mo) ? $md_row_mo : ''; ?>" placeholder="행" autocomplete="off">
                                 </li>
                                 <div class="cb"></div>
                             </ul>
@@ -1030,7 +970,7 @@ if($mod_type == "del") { //모듈삭제
                                     1024px 이상
                                 </li>
                                 <li class="rows_inp_r">
-                                    <input type="number" name="md_gap" id="md_gap_shop" class="input w40 h40 text-center" value="<?php echo isset($md_gap) ? $md_gap : ''; ?>" placeholder="간격(px)" autocomplete="off">　<span>px (PC)</span>
+                                    <input type="number" name="md_gap" id="md_gap_shop" class="input w40 h40 text-center" value="<?php echo !empty($md_gap) ? $md_gap : ''; ?>" placeholder="간격(px)" autocomplete="off">　<span>px (PC)</span>
                                 </li>
                                 <div class="cb"></div>
                             </ul>
@@ -1040,7 +980,7 @@ if($mod_type == "del") { //모듈삭제
                                     1024px 이하
                                 </li>
                                 <li class="rows_inp_r">
-                                    <input type="number" name="md_gap_mo" id="md_gap_mo_shop" class="input w40 h40 text-center" value="<?php echo isset($md_gap_mo) ? $md_gap_mo : ''; ?>" placeholder="간격(px)" autocomplete="off">　<span>px (Mobile)</span>
+                                    <input type="number" name="md_gap_mo" id="md_gap_mo_shop" class="input w40 h40 text-center" value="<?php echo !empty($md_gap_mo) ? $md_gap_mo : ''; ?>" placeholder="간격(px)" autocomplete="off">　<span>px (Mobile)</span>
                                 </li>
                                 <div class="cb"></div>
                             </ul>
@@ -1067,7 +1007,7 @@ if($mod_type == "del") { //모듈삭제
                         </h6>
                         <div class="config_wrap">
                             <input type="checkbox" name="md_auto_is" id="md_auto_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_auto_is) && $md_auto_is == 1) { ?>checked<?php } ?>><label for="md_auto_is_shop">자동롤링 사용</label>　
-                            <input type="number" name="md_auto_time" id="md_auto_time_shop" class="input w30 h40 text-center" value="<?php echo isset($md_auto_time) ? $md_auto_time : ''; ?>" placeholder="밀리초" autocomplete="off">　<span>3000=3초</span>
+                            <input type="number" name="md_auto_time" id="md_auto_time_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_auto_time) ? $md_auto_time : ''; ?>" placeholder="밀리초" autocomplete="off">　<span>3000=3초</span>
                         </div>
                     </ul>
                     
@@ -1111,11 +1051,11 @@ if($mod_type == "del") { //모듈삭제
                 <div class="config_wrap">
                     <ul class="rows_inp_lr">
                         <li class="rows_inp_l">
-                            <input type="number" name="md_cnt" id="md_cnt" class="input w60 h40 text-center" value="<?php echo isset($md_cnt) ? $md_cnt : ''; ?>" placeholder="갯수" autocomplete="off" autocomplete="off">　<span>개</span>
+                            <input type="number" name="md_cnt" id="md_cnt" class="input w60 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="갯수" autocomplete="off" autocomplete="off">　<span>개</span>
                         </li>
                         <li class="rows_inp_r">
-                            <input type="number" name="md_col" id="md_col" class="input w30 h40 text-center" value="<?php echo isset($md_col) ? $md_col : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>　
-                            <input type="number" name="md_row" id="md_row" class="input w30 h40 text-center" value="<?php echo isset($md_row) ? $md_row : ''; ?>" placeholder="행" autocomplete="off">
+                            <input type="number" name="md_col" id="md_col" class="input w30 h40 text-center" value="<?php echo !empty($md_col) ? $md_col : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
+                            <input type="number" name="md_row" id="md_row" class="input w30 h40 text-center" value="<?php echo !empty($md_row) ? $md_row : ''; ?>" placeholder="행" autocomplete="off">
                         </li>
                         <div class="cb"></div>
                     </ul>
@@ -1125,8 +1065,8 @@ if($mod_type == "del") { //모듈삭제
                             1024px 이하
                         </li>
                         <li class="rows_inp_r">
-                            <input type="number" name="md_col_mo" id="md_col_mo" class="input w30 h40 text-center" value="<?php echo isset($md_col_mo) ? $md_col_mo : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>　
-                            <input type="number" name="md_row_mo" id="md_row_mo" class="input w30 h40 text-center" value="<?php echo isset($md_row_mo) ? $md_row_mo : ''; ?>" placeholder="행" autocomplete="off">
+                            <input type="number" name="md_col_mo" id="md_col_mo" class="input w30 h40 text-center" value="<?php echo !empty($md_col_mo) ? $md_col_mo : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
+                            <input type="number" name="md_row_mo" id="md_row_mo" class="input w30 h40 text-center" value="<?php echo !empty($md_row_mo) ? $md_row_mo : ''; ?>" placeholder="행" autocomplete="off">
                         </li>
                         <div class="cb"></div>
                     </ul>
@@ -1184,7 +1124,7 @@ if($mod_type == "del") { //모듈삭제
                 </h6>
                 <div class="config_wrap">
                     <input type="checkbox" name="md_auto_is" id="md_auto_is" class="magic-checkbox" value="1" <?php if(isset($md_auto_is) && $md_auto_is == 1) { ?>checked<?php } ?>><label for="md_auto_is">자동롤링 사용</label>　
-                    <input type="number" name="md_auto_time" id="md_auto_time" class="input w30 h40 text-center" value="<?php echo isset($md_auto_time) ? $md_auto_time : ''; ?>" placeholder="밀리초" autocomplete="off">　<span>3000=3초</span>
+                    <input type="number" name="md_auto_time" id="md_auto_time" class="input w30 h40 text-center" value="<?php echo !empty($md_auto_time) ? $md_auto_time : ''; ?>" placeholder="밀리초" autocomplete="off">　<span>3000=3초</span>
                 </div>
             </ul>
             
@@ -1196,7 +1136,7 @@ if($mod_type == "del") { //모듈삭제
                 </h6>
                 <div class="config_wrap">
                     <ul>
-                        <input type="number" name="md_width" class="input w50 h40 text-center" value="<?php echo isset($md_width) ? $md_width : ''; ?>" placeholder="숫자만 입력 (%)" autocomplete="off">　<span>% (가로사이즈)</span>
+                        <input type="number" name="md_width" class="input w50 h40 text-center" value="<?php echo !empty($md_width) ? $md_width : ''; ?>" placeholder="숫자만 입력 (%)" autocomplete="off">　<span>% (가로사이즈)</span>
                     </ul>
                     <ul class="mt-5">
                         <input type="text" name="md_height" class="input w50 h40 text-center" value="auto" placeholder="auto" readonly autocomplete="off">　<span>% (세로사이즈)</span>
@@ -1236,10 +1176,10 @@ if($mod_type == "del") { //모듈삭제
     
     
     <?php if(isset($mod_type) && $mod_type == "del") { ?>
-    <h2 class="font-B"><span><?php echo isset($set_title) ? $set_title : ''; ?></span> 모듈삭제</h2>
-    <input type="hidden" name="md_layout" value="<?php echo isset($set_layout) ? $set_layout : ''; ?>">
-    <input type="hidden" name="md_theme" value="<?php echo isset($theme_name) ? $theme_name : ''; ?>">
-    <input type="hidden" name="md_id" value="<?php echo isset($set_id) ? $set_id : ''; ?>">
+    <h2 class="font-B"><span><?php echo !empty($set_title) ? $set_title : ''; ?></span> 모듈삭제</h2>
+    <input type="hidden" name="md_layout" value="<?php echo !empty($set_layout) ? $set_layout : ''; ?>">
+    <input type="hidden" name="md_theme" value="<?php echo !empty($theme_name) ? $theme_name : ''; ?>">
+    <input type="hidden" name="md_id" value="<?php echo !empty($set_id) ? $set_id : ''; ?>">
                         
         <ul class="rb_config_sec">
            <div class="no_data">

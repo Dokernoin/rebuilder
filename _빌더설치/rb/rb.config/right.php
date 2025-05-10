@@ -56,7 +56,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                             <ul>
 
                                 <div class="color_set_wrap square" style="position: relative;">
-                                    <input type="text" class="coloris mod_co_color" name="co_color" value="<?php echo isset($rb_config['co_color']) ? $rb_config['co_color'] : ''; ?>">
+                                    <input type="text" class="coloris mod_co_color" name="co_color" value="<?php echo !empty($rb_config['co_color']) ? $rb_config['co_color'] : ''; ?>">
                                 </div>
 
 
@@ -109,7 +109,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                             <ul>
 
                                 <div class="color_set_wrap square" style="position: relative;">
-                                    <input type="text" class="coloris coloris2 mod_co_header" name="co_header" value="<?php echo isset($rb_config['co_header']) ? $rb_config['co_header'] : ''; ?>">
+                                    <input type="text" class="coloris coloris2 mod_co_header" name="co_header" value="<?php echo !empty($rb_config['co_header']) ? $rb_config['co_header'] : ''; ?>">
                                 </div>
 
                                 <li class="co_header_ex">
@@ -143,7 +143,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 </li>
                                 <li class="rows_inp_r mt-15">
                                     <div id="co_gap_pc_range" class="rb_range_item"></div>
-                                    <input type="hidden" id="co_gap_pc" class="co_range_send" name="co_gap_pc" value="<?php echo isset($rb_core['gap_pc']) ? $rb_core['gap_pc'] : '0'; ?>">
+                                    <input type="hidden" id="co_gap_pc" class="co_range_send" name="co_gap_pc" value="<?php echo !empty($rb_core['gap_pc']) ? $rb_core['gap_pc'] : '0'; ?>">
                                 </li>
 
                                 <script type="text/javascript">
@@ -151,7 +151,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                         range: "min",
                                         min: 0,
                                         max: 30,
-                                        value: <?php echo isset($rb_core['gap_pc']) ? $rb_core['gap_pc'] : '0'; ?>,
+                                        value: <?php echo !empty($rb_core['gap_pc']) ? $rb_core['gap_pc'] : '0'; ?>,
                                         step: 5,
                                         slide: function(e, ui) {
                                             $("#co_gap_pc_range .ui-slider-handle").html(ui.value);
@@ -175,8 +175,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                         }
                                     });
 
-                                    $("#co_gap_pc_range .ui-slider-handle").html("<?php echo isset($rb_core['gap_pc']) ? $rb_core['gap_pc'] : '0'; ?>");
-                                    $("#co_gap_pc").val("<?php echo isset($rb_core['gap_pc']) ? $rb_core['gap_pc'] : '0'; ?>"); // 초기값 설정
+                                    $("#co_gap_pc_range .ui-slider-handle").html("<?php echo !empty($rb_core['gap_pc']) ? $rb_core['gap_pc'] : '0'; ?>");
+                                    $("#co_gap_pc").val("<?php echo !empty($rb_core['gap_pc']) ? $rb_core['gap_pc'] : '0'; ?>"); // 초기값 설정
                                 </script>
                                 <div class="cb"></div>
                             </ul>
@@ -191,7 +191,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 </li>
                                 <li class="rows_inp_r mt-15">
                                     <div id="co_inner_padding_pc_range" class="rb_range_item"></div>
-                                    <input type="hidden" id="co_inner_padding_pc" class="co_range_send" name="co_inner_padding_pc" value="<?php echo isset($rb_core['inner_padding_pc']) ? $rb_core['inner_padding_pc'] : '0'; ?>">
+                                    <input type="hidden" id="co_inner_padding_pc" class="co_range_send" name="co_inner_padding_pc" value="<?php echo !empty($rb_core['inner_padding_pc']) ? $rb_core['inner_padding_pc'] : '0'; ?>">
                                 </li>
                                 
                                 <script type="text/javascript">
@@ -200,7 +200,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                   range: "min",
                                   min: 0,
                                   max: 30,
-                                  value: <?php echo isset($rb_core['inner_padding_pc']) ? $rb_core['inner_padding_pc'] : '0'; ?>,
+                                  value: <?php echo !empty($rb_core['inner_padding_pc']) ? $rb_core['inner_padding_pc'] : '0'; ?>,
                                   step: 5,
                                   slide: function(e, ui) {
                                     $("#co_inner_padding_pc_range .ui-slider-handle").html(ui.value);
@@ -215,8 +215,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                   }
                                 });
 
-                                $("#co_inner_padding_pc_range .ui-slider-handle").html("<?php echo isset($rb_core['inner_padding_pc']) ? $rb_core['inner_padding_pc'] : '0'; ?>");
-                                $("#co_inner_padding_pc").val("<?php echo isset($rb_core['inner_padding_pc']) ? $rb_core['inner_padding_pc'] : '0'; ?>"); // 초기값 설정
+                                $("#co_inner_padding_pc_range .ui-slider-handle").html("<?php echo !empty($rb_core['inner_padding_pc']) ? $rb_core['inner_padding_pc'] : '0'; ?>");
+                                $("#co_inner_padding_pc").val("<?php echo !empty($rb_core['inner_padding_pc']) ? $rb_core['inner_padding_pc'] : '0'; ?>"); // 초기값 설정
 
                                 </script>
                                 <div class="cb"></div>
@@ -395,7 +395,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                 <li class="rows_inp_r mt-15">
                                     <div id="co_sidemenu_width_shop_range" class="rb_range_item"></div>
-                                    <input type="hidden" name="co_sidemenu_width_shop" id="co_sidemenu_width_shop" class="co_range_send" value="<?php echo isset($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : '200'; ?>">
+                                    <input type="hidden" name="co_sidemenu_width_shop" id="co_sidemenu_width_shop" class="co_range_send" value="<?php echo !empty($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : '200'; ?>">
                                 </li>
 
                                 <script type="text/javascript">
@@ -403,7 +403,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                         range: "min",
                                         min: 200,
                                         max: 500,
-                                        value: <?php echo isset($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : '200'; ?>,
+                                        value: <?php echo !empty($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : '200'; ?>,
                                         step: 10,
                                         slide: function(e, ui) {
                                             $("#co_sidemenu_width_shop_range .ui-slider-handle").html(ui.value);
@@ -418,8 +418,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                         }
                                     });
 
-                                    $("#co_sidemenu_width_shop_range .ui-slider-handle").html("<?php echo isset($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : '200'; ?>");
-                                    $("#co_sidemenu_width_shop").val("<?php echo isset($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : '200'; ?>"); // 초기값 설정
+                                    $("#co_sidemenu_width_shop_range .ui-slider-handle").html("<?php echo !empty($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : '200'; ?>");
+                                    $("#co_sidemenu_width_shop").val("<?php echo !empty($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : '200'; ?>"); // 초기값 설정
                                 </script>
 
 
@@ -431,8 +431,6 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         </div>
 
                     </ul>
-
-
 
                     <ul class="rb_config_sec" <?php if(defined('_SHOP_')) { // 영카트?>style="display:none !important;" <?php } else { ?>style="display:block !important;" <?php } ?>>
 
@@ -462,7 +460,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                 <li class="rows_inp_r mt-15">
                                     <div id="co_sidemenu_width_range" class="rb_range_item"></div>
-                                    <input type="hidden" name="co_sidemenu_width" id="co_sidemenu_width" class="co_range_send" value="<?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>">
+                                    <input type="hidden" name="co_sidemenu_width" id="co_sidemenu_width" class="co_range_send" value="<?php echo !empty($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>">
                                 </li>
 
                                 <script type="text/javascript">
@@ -470,7 +468,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                         range: "min",
                                         min: 200,
                                         max: 500,
-                                        value: <?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>,
+                                        value: <?php echo !empty($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>,
                                         step: 10,
                                         slide: function(e, ui) {
                                             $("#co_sidemenu_width_range .ui-slider-handle").html(ui.value);
@@ -484,8 +482,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                         }
                                     });
 
-                                    $("#co_sidemenu_width_range .ui-slider-handle").html("<?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>");
-                                    $("#co_sidemenu_width").val("<?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>"); // 초기값 설정
+                                    $("#co_sidemenu_width_range .ui-slider-handle").html("<?php echo !empty($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>");
+                                    $("#co_sidemenu_width").val("<?php echo !empty($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>"); // 초기값 설정
                                 </script>
 
 
@@ -498,283 +496,98 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     </ul>
 
 
-                    <ul class="rb_config_sec" <?php if(defined('_SHOP_')) { // 영카트?>style="display:block !important;" <?php } else { ?>style="display:none !important;" <?php } ?>>
-                        <?php $rb_menus = get_current_menu_info(); ?>
-
-                        <h6 class="font-B">마켓 서브 상단 비주얼 영역 설정</h6>
-                        <h6 class="font-R rb_config_sub_txt">
-                            서브 상단 비주얼 영역을 설정할 수 있습니다.<br>
-                            관리자모드 > 메뉴설정에서 추가된 페이지만 설정 가능하며<br>
-                            마켓의 서브페이지에 공통적용 됩니다.<br>
-                            워딩 및 이미지는 각 페이지 에서 개별설정이 가능합니다.
-                        </h6>
-
-                        <?php if(isset($rb_menus['me_code']) && $rb_menus['me_code']) { ?>
-                        <div class="font-12 rb_sub_page_cr">
-                        <span>Menu : <?php echo $rb_menus['me_name'] ?></span> <span>Code : <?php echo $rb_menus['me_code'] ?></span>
-                        </div>
-                        <?php } ?>
-
-                        <?php if(isset($rb_menus['me_code']) && $rb_menus['me_code']) { ?>
-                        <?php if(isset($rb_menus['me_mobile_use']) && $rb_menus['me_mobile_use'] == 1) { ?>
-
-                        <div class="config_wrap">
-                            <input type="hidden" name="co_topvisual_shop" id="co_topvisual_shop_4" value="imgtxt">
-
-                            <div class="config_wrap_bg_shop">
-                                <label class="config_wrap_sub_tit">영역 스타일</label><br>
-
-                                <ul class="rows_inp_lr mt-15">
-                                    <li class="rows_inp_l rows_inp_l_span">
-                                        <span class="font-B">배경 컬러</span><br>
-                                        컬러선택
-                                    </li>
-
-                                    <li class="rows_inp_r mt-3">
-                                        <div class="color_set_wrap square none_inp_cl tiny_inp_cl" style="position: relative;">
-                                        <input type="text" class="coloris mod_co_color" name="co_topvisual_bg_color_shop" value="<?php echo isset($rb_core['topvisual_bg_color_shop']) ? $rb_core['topvisual_bg_color_shop'] : '#f9f9f9'; ?>" style="width:200px !important;">
-                                        </div>
-                                    </li>
-                                    <div class="cb"></div>
-                                </ul>
-
-
-                                <ul class="rows_inp_lr mt-5">
-                                    <li class="rows_inp_l rows_inp_l_span">
-                                        <span class="font-B">가로 크기</span><br>
-                                        자동/채우기
-                                    </li>
-
-                                    <li class="rows_inp_r mt-3">
-                                        <input type="checkbox" name="co_topvisual_width_shop" id="co_topvisual_width_shop" class="magic-checkbox mod_send" value="100" <?php if(isset($rb_core['topvisual_width_shop']) && $rb_core['topvisual_width_shop'] == 100) { ?>checked<?php } ?>>
-                                        <label for="co_topvisual_width_shop">100% 채우기</label>
-                                    </li>
-                                    <div class="cb"></div>
-                                </ul>
-
-
-                                <ul class="rows_inp_lr mt-5">
-                                    <li class="rows_inp_l rows_inp_l_span">
-                                        <span class="font-B">세로 크기</span><br>
-                                        50~500px
-                                    </li>
-
-                                    <li class="rows_inp_r mt-15">
-                                        <div id="co_topvisual_height_shop_range" class="rb_range_item"></div>
-                                        <input type="hidden" name="co_topvisual_height_shop" id="co_topvisual_height_shop" class="co_range_send" value="<?php echo isset($rb_core['topvisual_height_shop']) ? $rb_core['topvisual_height_shop'] : '200'; ?>">
-                                    </li>
-
-                                    <script type="text/javascript">
-                                        $("#co_topvisual_height_shop_range").slider({
-                                            range: "min",
-                                            min: 50,
-                                            max: 500,
-                                            value: <?php echo isset($rb_core['topvisual_height_shop']) ? $rb_core['topvisual_height_shop'] : '200'; ?>,
-                                            step: 10,
-                                            slide: function(e, ui) {
-                                                $("#co_topvisual_height_shop_range .ui-slider-handle").html(ui.value);
-                                                $("#co_topvisual_height_shop").val(ui.value); // hidden input에 값 업데이트
-
-                                                executeAjax();
-
-                                                // 세로사이즈 반영
-                                                $('#rb_topvisual_shop').css('height', ui.value);
-
-                                            }
-                                        });
-
-                                        $("#co_topvisual_height_shop_range .ui-slider-handle").html("<?php echo isset($rb_core['topvisual_height_shop']) ? $rb_core['topvisual_height_shop'] : '200'; ?>");
-                                        $("#co_topvisual_height_shop").val("<?php echo isset($rb_core['topvisual_height_shop']) ? $rb_core['topvisual_height_shop'] : '200'; ?>"); // 초기값 설정
-                                    </script>
-
-
-                                    </li>
-                                    <div class="cb"></div>
-                                </ul>
-
-
-                                <ul class="rows_inp_lr mt-5">
-                                    <li class="rows_inp_l rows_inp_l_span">
-                                        <span class="font-B">밝기</span><br>
-                                        0~100%
-                                    </li>
-
-                                    <li class="rows_inp_r mt-15">
-                                        <div id="co_topvisual_bl_shop_range" class="rb_range_item"></div>
-                                        <input type="hidden" name="co_topvisual_bl_shop" id="co_topvisual_bl_shop" class="co_range_send" value="<?php echo isset($rb_core['topvisual_bl_shop']) ? $rb_core['topvisual_bl_shop'] : '10'; ?>">
-                                    </li>
-
-                                    <script type="text/javascript">
-                                        $("#co_topvisual_bl_shop_range").slider({
-                                            range: "min",
-                                            min: 0,
-                                            max: 100,
-                                            value: <?php echo isset($rb_core['topvisual_bl_shop']) ? $rb_core['topvisual_bl_shop'] : '10'; ?>,
-                                            step: 1,
-                                            slide: function(e, ui) {
-                                                $("#co_topvisual_bl_shop_range .ui-slider-handle").html(ui.value);
-                                                $("#co_topvisual_bl_shop").val(ui.value); // hidden input에 값 업데이트
-
-                                                executeAjax();
-
-                                                // 블라인드 반영
-                                                $('#rb_topvisual_bl_shop').css('background-color', 'rgba(0,0,0,' + (ui.value / 100) + ')')
-
-                                            }
-                                        });
-
-                                        $("#co_topvisual_bl_shop_range .ui-slider-handle").html("<?php echo isset($rb_core['topvisual_bl_shop']) ? $rb_core['topvisual_bl_shop'] : '10'; ?>");
-                                        $("#co_topvisual_bl_shop").val("<?php echo isset($rb_core['topvisual_bl_shop']) ? $rb_core['topvisual_bl_shop'] : '0'; ?>"); // 초기값 설정
-                                    </script>
-
-
-                                    </li>
-                                    <div class="cb"></div>
-                                </ul>
-                            </div>
-
-
-                            <div class="config_wrap_bg_shop">
-                                <label class="config_wrap_sub_tit">메인워딩 스타일</label><br>
-                                <ul class="config_wrap_flex mt-15">
-
-                                    <div class="color_set_wrap square none_inp_cl" style="position: relative;">
-                                        <input type="text" class="coloris mod_co_color" name="co_topvisual_m_color_shop" value="<?php echo isset($rb_core['topvisual_m_color_shop']) ? $rb_core['topvisual_m_color_shop'] : '#ffffff'; ?>" style="width:25px !important;">
-                                    </div>컬러
-
-
-
-                                    <select class="select select_tiny mod_send" name="co_topvisual_m_size_shop" id="co_topvisual_m_size_shop">
-                                        <option value="">사이즈</option>
-                                        <option value="12" <?php if (isset($rb_core['topvisual_m_size_shop']) && $rb_core['topvisual_m_size_shop'] == "12") { ?>selected<?php } ?>>12px</option>
-                                        <option value="14" <?php if (isset($rb_core['topvisual_m_size_shop']) && $rb_core['topvisual_m_size_shop'] == "14") { ?>selected<?php } ?>>14px</option>
-                                        <option value="16" <?php if (isset($rb_core['topvisual_m_size_shop']) && $rb_core['topvisual_m_size_shop'] == "16") { ?>selected<?php } ?>>16px</option>
-                                        <option value="18" <?php if (isset($rb_core['topvisual_m_size_shop']) && $rb_core['topvisual_m_size_shop'] == "18") { ?>selected<?php } ?>>18px</option>
-                                        <option value="20" <?php if (isset($rb_core['topvisual_m_size_shop']) && $rb_core['topvisual_m_size_shop'] == "20") { ?>selected<?php } ?>>20px</option>
-                                        <option value="22" <?php if (isset($rb_core['topvisual_m_size_shop']) && $rb_core['topvisual_m_size_shop'] == "22") { ?>selected<?php } ?>>22px</option>
-                                        <option value="24" <?php if (isset($rb_core['topvisual_m_size_shop']) && $rb_core['topvisual_m_size_shop'] == "24") { ?>selected<?php } ?>>24px</option>
-                                        <option value="26" <?php if (isset($rb_core['topvisual_m_size_shop']) && $rb_core['topvisual_m_size_shop'] == "26") { ?>selected<?php } ?>>26px</option>
-                                        <option value="28" <?php if (isset($rb_core['topvisual_m_size_shop']) && $rb_core['topvisual_m_size_shop'] == "28") { ?>selected<?php } ?>>28px</option>
-                                        <option value="30" <?php if (isset($rb_core['topvisual_m_size_shop']) && $rb_core['topvisual_m_size_shop'] == "30") { ?>selected<?php } ?>>30px</option>
-                                    </select>
-
-                                    <select class="select select_tiny mod_send" name="co_topvisual_m_font_shop" id="co_topvisual_m_font_shop">
-                                        <option value="">스타일</option>
-                                        <option value="font-R" <?php if (isset($rb_core['topvisual_m_font_shop']) && $rb_core['topvisual_m_font_shop'] == "font-R") { ?>selected<?php } ?>>Regular</option>
-                                        <option value="font-B" <?php if (isset($rb_core['topvisual_m_font_shop']) && $rb_core['topvisual_m_font_shop'] == "font-B") { ?>selected<?php } ?>>Bold</option>
-                                        <option value="font-H" <?php if (isset($rb_core['topvisual_m_font_shop']) && $rb_core['topvisual_m_font_shop'] == "font-H") { ?>selected<?php } ?>>Heavy</option>
-                                    </select>
-
-                                </ul>
-
-
-                                <ul class="config_wrap_flex">
-                                    <li class="rows_inp_r mt-5">
-                                        <input type="radio" name="co_topvisual_m_align_shop" id="co_topvisual_m_align_shop1" class="magic-radio mod_send" value="left" <?php if (isset($rb_core['topvisual_m_align_shop']) && $rb_core['topvisual_m_align_shop'] == "left") { ?>checked<?php } ?>><label for="co_topvisual_m_align_shop1">좌측</label>
-                                        <input type="radio" name="co_topvisual_m_align_shop" id="co_topvisual_m_align_shop2" class="magic-radio mod_send" value="center" <?php if (isset($rb_core['topvisual_m_align_shop']) && $rb_core['topvisual_m_align_shop'] == "center") { ?>checked<?php } ?>><label for="co_topvisual_m_align_shop2">중앙</label>
-                                        <input type="radio" name="co_topvisual_m_align_shop" id="co_topvisual_m_align_shop3" class="magic-radio mod_send" value="right" <?php if (isset($rb_core['topvisual_m_align_shop']) && $rb_core['topvisual_m_align_shop'] == "right") { ?>checked<?php } ?>><label for="co_topvisual_m_align_shop3">우측</label>
-                                    </li>
-                                </ul>
-
-                            </div>
-
-
-
-
-                            <div class="config_wrap_bg_shop">
-                                <label class="config_wrap_sub_tit">서브워딩 스타일</label><br>
-                                <ul class="config_wrap_flex mt-15">
-
-                                    <div class="color_set_wrap square none_inp_cl" style="position: relative;">
-                                        <input type="text" class="coloris mod_co_color" name="co_topvisual_s_color_shop" value="<?php echo isset($rb_core['topvisual_s_color_shop']) ? $rb_core['topvisual_s_color_shop'] : '#ffffff'; ?>" style="width:25px !important;">
-                                    </div>컬러
-
-
-                                    <select class="select select_tiny mod_send" name="co_topvisual_s_size_shop" id="co_topvisual_s_size_shop">
-                                        <option value="">사이즈</option>
-                                        <option value="12" <?php if (isset($rb_core['topvisual_s_size_shop']) && $rb_core['topvisual_s_size_shop'] == "12") { ?>selected<?php } ?>>12px</option>
-                                        <option value="14" <?php if (isset($rb_core['topvisual_s_size_shop']) && $rb_core['topvisual_s_size_shop'] == "14") { ?>selected<?php } ?>>14px</option>
-                                        <option value="16" <?php if (isset($rb_core['topvisual_s_size_shop']) && $rb_core['topvisual_s_size_shop'] == "16") { ?>selected<?php } ?>>16px</option>
-                                        <option value="18" <?php if (isset($rb_core['topvisual_s_size_shop']) && $rb_core['topvisual_s_size_shop'] == "18") { ?>selected<?php } ?>>18px</option>
-                                        <option value="20" <?php if (isset($rb_core['topvisual_s_size_shop']) && $rb_core['topvisual_s_size_shop'] == "20") { ?>selected<?php } ?>>20px</option>
-                                        <option value="22" <?php if (isset($rb_core['topvisual_s_size_shop']) && $rb_core['topvisual_s_size_shop'] == "22") { ?>selected<?php } ?>>22px</option>
-                                        <option value="24" <?php if (isset($rb_core['topvisual_s_size_shop']) && $rb_core['topvisual_s_size_shop'] == "24") { ?>selected<?php } ?>>24px</option>
-                                        <option value="26" <?php if (isset($rb_core['topvisual_s_size_shop']) && $rb_core['topvisual_s_size_shop'] == "26") { ?>selected<?php } ?>>26px</option>
-                                        <option value="28" <?php if (isset($rb_core['topvisual_s_size_shop']) && $rb_core['topvisual_s_size_shop'] == "28") { ?>selected<?php } ?>>28px</option>
-                                        <option value="30" <?php if (isset($rb_core['topvisual_s_size_shop']) && $rb_core['topvisual_s_size_shop'] == "30") { ?>selected<?php } ?>>30px</option>
-                                    </select>
-
-                                    <select class="select select_tiny mod_send" name="co_topvisual_s_font_shop" id="co_topvisual_s_font_shop">
-                                        <option value="">스타일</option>
-                                        <option value="font-R" <?php if (isset($rb_core['topvisual_s_font_shop']) && $rb_core['topvisual_s_font_shop'] == "font-R") { ?>selected<?php } ?>>Regular</option>
-                                        <option value="font-B" <?php if (isset($rb_core['topvisual_s_font_shop']) && $rb_core['topvisual_s_font_shop'] == "font-B") { ?>selected<?php } ?>>Bold</option>
-                                        <option value="font-H" <?php if (isset($rb_core['topvisual_s_font_shop']) && $rb_core['topvisual_s_font_shop'] == "font-H") { ?>selected<?php } ?>>Heavy</option>
-                                    </select>
-
-                                </ul>
-
-
-                                <ul class="config_wrap_flex">
-                                    <li class="rows_inp_r mt-5">
-                                        <input type="radio" name="co_topvisual_s_align_shop" id="co_topvisual_s_align_shop1" class="magic-radio mod_send" value="left" <?php if (isset($rb_core['topvisual_s_align_shop']) && $rb_core['topvisual_s_align_shop'] == "left") { ?>checked<?php } ?>><label for="co_topvisual_s_align_shop1">좌측</label>
-                                        <input type="radio" name="co_topvisual_s_align_shop" id="co_topvisual_s_align_shop2" class="magic-radio mod_send" value="center" <?php if (isset($rb_core['topvisual_s_align_shop']) && $rb_core['topvisual_s_align_shop'] == "center") { ?>checked<?php } ?>><label for="co_topvisual_s_align_shop2">중앙</label>
-                                        <input type="radio" name="co_topvisual_s_align_shop" id="co_topvisual_s_align_shop3" class="magic-radio mod_send" value="right" <?php if (isset($rb_core['topvisual_s_align_shop']) && $rb_core['topvisual_s_align_shop'] == "right") { ?>checked<?php } ?>><label for="co_topvisual_s_align_shop3">우측</label>
-                                    </li>
-                                </ul>
-
-                            </div>
-
-                        </div>
-
-                        <div class="rb_right_err_box">
-                            <div class="main_color mt-10 font-12">
-                                서브 상단 비주얼 영역의 노출여부는<br>
-                                관리자모드 > 메뉴설정 에서 변경 가능합니다.
-                            </div>
-                            <button type="button" class="mt-10 rb_right_adm_btn main_rb_bg" onclick="javascript:window.open('<?php echo G5_ADMIN_URL ?>/menu_list.php');">메뉴 설정 바로가기</button>
-                        </div>
-                        <?php } else { ?>
-                            <div class="rb_right_err_box">
-                                <div class="main_color mt-10 font-12">
-                                    서브 상단 비주얼 영역을 사용하지 않는 페이지 입니다.<br>
-                                    관리자모드 > 메뉴설정 에서 변경 가능합니다.
-                                </div>
-                                <button type="button" class="mt-10 rb_right_adm_btn main_rb_bg" onclick="javascript:window.open('<?php echo G5_ADMIN_URL ?>/menu_list.php');">메뉴 설정 바로가기</button>
-                            </div>
-                            <?php } ?>
-                        <?php } else { ?>
-                            <div class="rb_right_err_box">
-                            <div class="main_color mt-10 font-12">
-                                메뉴 설정에 없는 페이지 입니다.<br>
-                                관리자모드 > 메뉴설정 에서 메뉴를 추가해주세요.
-                            </div>
-                            <button type="button" class="mt-10 rb_right_adm_btn main_rb_bg" onclick="javascript:window.open('<?php echo G5_ADMIN_URL ?>/menu_list.php');">메뉴 설정 바로가기</button>
-                            </div>
-                        <?php } ?>
-
-                    </ul>
-
-
-
-                    <ul class="rb_config_sec" <?php if(defined('_SHOP_')) { // 영카트?>style="display:none !important;" <?php } else { ?>style="display:block !important;" <?php } ?>>
+                    <ul class="rb_config_sec">
 
                         <h6 class="font-B">서브 상단 비주얼 영역 설정</h6>
                         <h6 class="font-R rb_config_sub_txt">
                             서브 상단 비주얼 영역을 설정할 수 있습니다.<br>
-                            관리자모드 > 메뉴설정에서 추가된 페이지만 설정 가능하며<br>
-                            서브페이지에 공통적용 됩니다.<br>
-                            워딩 및 이미지는 각 페이지 에서 개별설정이 가능합니다.
+                            각 페이지에서 설정할 수 있으며,<br>
+                            현재 접속된 URL 을 기준으로 저장 됩니다.
                         </h6>
 
-                        <?php if(isset($rb_menus['me_code']) && $rb_menus['me_code']) { ?>
                         <div class="font-12 rb_sub_page_cr">
-                        <span>Menu : <?php echo $rb_menus['me_name'] ?></span> <span>Code : <?php echo $rb_menus['me_code'] ?></span>
+                        <span>Code : <?php echo $rb_page_urls ?></span>
                         </div>
-                        <?php } ?>
 
-                        <?php if(isset($rb_menus['me_code']) && $rb_menus['me_code']) { ?>
-                        <?php if(isset($rb_menus['me_mobile_use']) && $rb_menus['me_mobile_use'] == 1) { ?>
-                        <div class="config_wrap">
+                        <div>
+                            <ul class="rows_inp_lr mt-10">
+
+                                <li class="rows_inp_r mt-5">
+                                    <input type="hidden" name="v_code" id="v_code" value="<?php echo $rb_page_urls ?>">
+
+                                    <input type="radio" name="v_use" id="v_use_0" class="magic-radio" value="0"
+                                    <?php if (!isset($rb_v_info['v_use']) || intval($rb_v_info['v_use']) === 0) { ?>checked<?php } ?>>
+                                    <label for="v_use_0">사용안함</label>
+
+                                    <input type="radio" name="v_use" id="v_use_1" class="magic-radio" value="1"
+                                    <?php if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 1) { ?>checked<?php } ?>>
+                                    <label for="v_use_1">사용</label>
+                                </li>
+
+                                <div class="cb"></div>
+                            </ul>
+                        </div>
+
+                        <script>
+
+                        function toggleTopVisualBox() {
+                            const useVal = $('input[name="v_use"]:checked').val();
+                            if (useVal === '1') {
+                                $('#rb_top_vis_wrap').show();
+                            } else {
+                                $('#rb_top_vis_wrap').hide();
+                            }
+                        }
+
+
+                        $(document).ready(function () {
+                            // 페이지 로드시 적용
+                            toggleTopVisualBox();
+
+                            // v_use 라디오 변경 시 AJAX + 표시제어
+                            $(document).on('change', 'input[name="v_use"]', function () {
+                                const v_use = $(this).val();
+                                const v_code = $('#v_code').val();
+                                const fullUrl = window.location.pathname + window.location.search;
+
+                                $.ajax({
+                                    url: '<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_add.php',
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: {
+                                        v_code: v_code,
+                                        v_use: v_use,
+                                        v_url: fullUrl
+                                    },
+                                    success: function (data) {
+                                        if (data.status === 'ok') {
+                                            toggleTopVisualBox(); // AJAX 성공 후 표시 여부 적용
+
+                                            if (data.v_use == "1") {
+                                                $('#rb_topvisual').css('display', 'block');
+                                                $('#topvisual_btn_wrap').css('display', 'block');
+                                            } else {
+                                                $('#rb_topvisual').css('display', 'none');
+                                                $('#topvisual_btn_wrap').css('display', 'none');
+                                            }
+
+                                        } else {
+                                            alert('오류 발생: ' + (data.message || '알 수 없는 오류'));
+                                        }
+                                    },
+                                    error: function (xhr, status, error) {
+                                        alert('서버 오류 발생: ' + error);
+                                        console.error(xhr.responseText);
+                                    }
+                                });
+                            });
+                        });
+
+
+                        </script>
+
+
+                        <div class="config_wrap" id="rb_top_vis_wrap" style="display:none;">
                             <input type="hidden" name="co_topvisual" id="co_topvisual_4" value="imgtxt">
 
                             <div class="config_wrap_bg">
@@ -788,7 +601,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                     <li class="rows_inp_r mt-3">
                                         <div class="color_set_wrap square none_inp_cl tiny_inp_cl" style="position: relative;">
-                                        <input type="text" class="coloris mod_co_color" name="co_topvisual_bg_color" value="<?php echo isset($rb_core['topvisual_bg_color']) ? $rb_core['topvisual_bg_color'] : '#f9f9f9'; ?>" style="width:200px !important;">
+                                        <input type="text" class="coloris mod_co_color" name="co_topvisual_bg_color" value="<?php echo !empty($rb_v_info['topvisual_bg_color']) ? $rb_v_info['topvisual_bg_color'] : '#f9f9f9'; ?>" style="width:200px !important;">
                                         </div>
                                     </li>
                                     <div class="cb"></div>
@@ -801,7 +614,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                     </li>
 
                                     <li class="rows_inp_r mt-3">
-                                        <input type="checkbox" name="co_topvisual_width" id="co_topvisual_width" class="magic-checkbox mod_send" value="100" <?php if(isset($rb_core['topvisual_width']) && $rb_core['topvisual_width'] == 100) { ?>checked<?php } ?>>
+                                        <input type="checkbox" name="co_topvisual_width" id="co_topvisual_width" class="magic-checkbox mod_send" value="100" <?php if(!empty($rb_v_info['topvisual_width']) && $rb_v_info['topvisual_width'] == 100) { ?>checked<?php } ?>>
                                         <label for="co_topvisual_width">100% 채우기</label>
                                     </li>
                                     <div class="cb"></div>
@@ -816,7 +629,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                     <li class="rows_inp_r mt-15">
                                         <div id="co_topvisual_height_range" class="rb_range_item"></div>
-                                        <input type="hidden" name="co_topvisual_height" id="co_topvisual_height" class="co_range_send" value="<?php echo isset($rb_core['topvisual_height']) ? $rb_core['topvisual_height'] : '200'; ?>">
+                                        <input type="hidden" name="co_topvisual_height" id="co_topvisual_height" class="co_range_send" value="<?php echo !empty($rb_v_info['topvisual_height']) ? $rb_v_info['topvisual_height'] : '200'; ?>">
                                     </li>
 
                                     <script type="text/javascript">
@@ -824,7 +637,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                             range: "min",
                                             min: 50,
                                             max: 500,
-                                            value: <?php echo isset($rb_core['topvisual_height']) ? $rb_core['topvisual_height'] : '200'; ?>,
+                                            value: <?php echo !empty($rb_v_info['topvisual_height']) ? $rb_v_info['topvisual_height'] : '200'; ?>,
                                             step: 10,
                                             slide: function(e, ui) {
                                                 $("#co_topvisual_height_range .ui-slider-handle").html(ui.value);
@@ -838,8 +651,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                             }
                                         });
 
-                                        $("#co_topvisual_height_range .ui-slider-handle").html("<?php echo isset($rb_core['topvisual_height']) ? $rb_core['topvisual_height'] : '200'; ?>");
-                                        $("#co_topvisual_height").val("<?php echo isset($rb_core['topvisual_height']) ? $rb_core['topvisual_height'] : '200'; ?>"); // 초기값 설정
+                                        $("#co_topvisual_height_range .ui-slider-handle").html("<?php echo !empty($rb_v_info['topvisual_height']) ? $rb_v_info['topvisual_height'] : '200'; ?>");
+                                        $("#co_topvisual_height").val("<?php echo !empty($rb_v_info['topvisual_height']) ? $rb_v_info['topvisual_height'] : '200'; ?>"); // 초기값 설정
                                     </script>
 
 
@@ -856,7 +669,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                     <li class="rows_inp_r mt-15">
                                         <div id="co_topvisual_bl_range" class="rb_range_item"></div>
-                                        <input type="hidden" name="co_topvisual_bl" id="co_topvisual_bl" class="co_range_send" value="<?php echo isset($rb_core['topvisual_bl']) ? $rb_core['topvisual_bl'] : '10'; ?>">
+                                        <input type="hidden" name="co_topvisual_bl" id="co_topvisual_bl" class="co_range_send" value="<?php echo !empty($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '10'; ?>">
                                     </li>
 
                                     <script type="text/javascript">
@@ -864,7 +677,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                             range: "min",
                                             min: 0,
                                             max: 100,
-                                            value: <?php echo isset($rb_core['topvisual_bl']) ? $rb_core['topvisual_bl'] : '10'; ?>,
+                                            value: <?php echo !empty($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '10'; ?>,
                                             step: 1,
                                             slide: function(e, ui) {
                                                 $("#co_topvisual_bl_range .ui-slider-handle").html(ui.value);
@@ -878,8 +691,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                             }
                                         });
 
-                                        $("#co_topvisual_bl_range .ui-slider-handle").html("<?php echo isset($rb_core['topvisual_bl']) ? $rb_core['topvisual_bl'] : '10'; ?>");
-                                        $("#co_topvisual_bl").val("<?php echo isset($rb_core['topvisual_bl']) ? $rb_core['topvisual_bl'] : '0'; ?>"); // 초기값 설정
+                                        $("#co_topvisual_bl_range .ui-slider-handle").html("<?php echo !empty($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '10'; ?>");
+                                        $("#co_topvisual_bl").val("<?php echo !empty($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '0'; ?>"); // 초기값 설정
                                     </script>
 
 
@@ -891,7 +704,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                             <div class="skin_path_url mt-5">
                                 <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
                                 <li class="skin_path_url_txt">
-                                    /data/topvisual/<?php echo $rb_menus['me_code'] ?>.jpg
+                                    /data/topvisual/<?php echo $rb_page_urls ?>.jpg
                                 </li>
                                 <div class="cb"></div>
                             </div>
@@ -902,29 +715,29 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 <ul class="config_wrap_flex mt-15">
 
                                     <div class="color_set_wrap square none_inp_cl" style="position: relative;">
-                                        <input type="text" class="coloris mod_co_color" name="co_topvisual_m_color" value="<?php echo isset($rb_core['topvisual_m_color']) ? $rb_core['topvisual_m_color'] : '#ffffff'; ?>" style="width:25px !important;">
+                                        <input type="text" class="coloris mod_co_color" name="co_topvisual_m_color" value="<?php echo !empty($rb_v_info['topvisual_m_color']) ? $rb_v_info['topvisual_m_color'] : '#ffffff'; ?>" style="width:25px !important;">
                                     </div>컬러
 
 
                                     <select class="select select_tiny mod_send" name="co_topvisual_m_size" id="co_topvisual_m_size">
                                         <option value="">사이즈</option>
-                                        <option value="12" <?php if (isset($rb_core['topvisual_m_size']) && $rb_core['topvisual_m_size'] == "12") { ?>selected<?php } ?>>12px</option>
-                                        <option value="14" <?php if (isset($rb_core['topvisual_m_size']) && $rb_core['topvisual_m_size'] == "14") { ?>selected<?php } ?>>14px</option>
-                                        <option value="16" <?php if (isset($rb_core['topvisual_m_size']) && $rb_core['topvisual_m_size'] == "16") { ?>selected<?php } ?>>16px</option>
-                                        <option value="18" <?php if (isset($rb_core['topvisual_m_size']) && $rb_core['topvisual_m_size'] == "18") { ?>selected<?php } ?>>18px</option>
-                                        <option value="20" <?php if (isset($rb_core['topvisual_m_size']) && $rb_core['topvisual_m_size'] == "20") { ?>selected<?php } ?>>20px</option>
-                                        <option value="22" <?php if (isset($rb_core['topvisual_m_size']) && $rb_core['topvisual_m_size'] == "22") { ?>selected<?php } ?>>22px</option>
-                                        <option value="24" <?php if (isset($rb_core['topvisual_m_size']) && $rb_core['topvisual_m_size'] == "24") { ?>selected<?php } ?>>24px</option>
-                                        <option value="26" <?php if (isset($rb_core['topvisual_m_size']) && $rb_core['topvisual_m_size'] == "26") { ?>selected<?php } ?>>26px</option>
-                                        <option value="28" <?php if (isset($rb_core['topvisual_m_size']) && $rb_core['topvisual_m_size'] == "28") { ?>selected<?php } ?>>28px</option>
-                                        <option value="30" <?php if (isset($rb_core['topvisual_m_size']) && $rb_core['topvisual_m_size'] == "30") { ?>selected<?php } ?>>30px</option>
+                                        <option value="12" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "12") { ?>selected<?php } ?>>12px</option>
+                                        <option value="14" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "14") { ?>selected<?php } ?>>14px</option>
+                                        <option value="16" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "16") { ?>selected<?php } ?>>16px</option>
+                                        <option value="18" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "18") { ?>selected<?php } ?>>18px</option>
+                                        <option value="20" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "20") { ?>selected<?php } ?>>20px</option>
+                                        <option value="22" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "22") { ?>selected<?php } ?>>22px</option>
+                                        <option value="24" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "24") { ?>selected<?php } ?>>24px</option>
+                                        <option value="26" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "26") { ?>selected<?php } ?>>26px</option>
+                                        <option value="28" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "28") { ?>selected<?php } ?>>28px</option>
+                                        <option value="30" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "30") { ?>selected<?php } ?>>30px</option>
                                     </select>
 
                                     <select class="select select_tiny mod_send" name="co_topvisual_m_font" id="co_topvisual_m_font">
                                         <option value="">스타일</option>
-                                        <option value="font-R" <?php if (isset($rb_core['topvisual_m_font']) && $rb_core['topvisual_m_font'] == "font-R") { ?>selected<?php } ?>>Regular</option>
-                                        <option value="font-B" <?php if (isset($rb_core['topvisual_m_font']) && $rb_core['topvisual_m_font'] == "font-B") { ?>selected<?php } ?>>Bold</option>
-                                        <option value="font-H" <?php if (isset($rb_core['topvisual_m_font']) && $rb_core['topvisual_m_font'] == "font-H") { ?>selected<?php } ?>>Heavy</option>
+                                        <option value="font-R" <?php if (!empty($rb_v_info['topvisual_m_font']) && $rb_v_info['topvisual_m_font'] == "font-R") { ?>selected<?php } ?>>Regular</option>
+                                        <option value="font-B" <?php if (!empty($rb_v_info['topvisual_m_font']) && $rb_v_info['topvisual_m_font'] == "font-B") { ?>selected<?php } ?>>Bold</option>
+                                        <option value="font-H" <?php if (!empty($rb_v_info['topvisual_m_font']) && $rb_v_info['topvisual_m_font'] == "font-H") { ?>selected<?php } ?>>Heavy</option>
                                     </select>
 
                                 </ul>
@@ -932,9 +745,9 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                 <ul class="config_wrap_flex">
                                     <li class="rows_inp_r mt-5">
-                                        <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align1" class="magic-radio mod_send" value="left" <?php if (isset($rb_core['topvisual_m_align']) && $rb_core['topvisual_m_align'] == "left") { ?>checked<?php } ?>><label for="co_topvisual_m_align1">좌측</label>
-                                        <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align2" class="magic-radio mod_send" value="center" <?php if (isset($rb_core['topvisual_m_align']) && $rb_core['topvisual_m_align'] == "center") { ?>checked<?php } ?>><label for="co_topvisual_m_align2">중앙</label>
-                                        <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align3" class="magic-radio mod_send" value="right" <?php if (isset($rb_core['topvisual_m_align']) && $rb_core['topvisual_m_align'] == "right") { ?>checked<?php } ?>><label for="co_topvisual_m_align3">우측</label>
+                                        <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align1" class="magic-radio mod_send" value="left" <?php if (!empty($rb_v_info['topvisual_m_align']) && $rb_v_info['topvisual_m_align'] == "left") { ?>checked<?php } ?>><label for="co_topvisual_m_align1">좌측</label>
+                                        <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align2" class="magic-radio mod_send" value="center" <?php if (!empty($rb_v_info['topvisual_m_align']) && $rb_v_info['topvisual_m_align'] == "center") { ?>checked<?php } ?>><label for="co_topvisual_m_align2">중앙</label>
+                                        <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align3" class="magic-radio mod_send" value="right" <?php if (!empty($rb_v_info['topvisual_m_align']) && $rb_v_info['topvisual_m_align'] == "right") { ?>checked<?php } ?>><label for="co_topvisual_m_align3">우측</label>
                                     </li>
                                 </ul>
 
@@ -943,7 +756,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                             <div class="skin_path_url mt-5">
                                 <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
                                 <li class="skin_path_url_txt">
-                                    /data/topvisual/<?php echo $rb_menus['me_code'] ?>.txt
+                                    /data/topvisual/<?php echo $rb_page_urls ?>.txt
                                 </li>
                                 <div class="cb"></div>
                             </div>
@@ -956,28 +769,28 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 <ul class="config_wrap_flex mt-15">
 
                                     <div class="color_set_wrap square none_inp_cl" style="position: relative;">
-                                        <input type="text" class="coloris mod_co_color" name="co_topvisual_s_color" value="<?php echo isset($rb_core['topvisual_s_color']) ? $rb_core['topvisual_s_color'] : '#ffffff'; ?>" style="width:25px !important;">
+                                        <input type="text" class="coloris mod_co_color" name="co_topvisual_s_color" value="<?php echo !empty($rb_v_info['topvisual_s_color']) ? $rb_v_info['topvisual_s_color'] : '#ffffff'; ?>" style="width:25px !important;">
                                     </div>컬러
 
                                     <select class="select select_tiny mod_send" name="co_topvisual_s_size" id="co_topvisual_s_size">
                                         <option value="">사이즈</option>
-                                        <option value="12" <?php if (isset($rb_core['topvisual_s_size']) && $rb_core['topvisual_s_size'] == "12") { ?>selected<?php } ?>>12px</option>
-                                        <option value="14" <?php if (isset($rb_core['topvisual_s_size']) && $rb_core['topvisual_s_size'] == "14") { ?>selected<?php } ?>>14px</option>
-                                        <option value="16" <?php if (isset($rb_core['topvisual_s_size']) && $rb_core['topvisual_s_size'] == "16") { ?>selected<?php } ?>>16px</option>
-                                        <option value="18" <?php if (isset($rb_core['topvisual_s_size']) && $rb_core['topvisual_s_size'] == "18") { ?>selected<?php } ?>>18px</option>
-                                        <option value="20" <?php if (isset($rb_core['topvisual_s_size']) && $rb_core['topvisual_s_size'] == "20") { ?>selected<?php } ?>>20px</option>
-                                        <option value="22" <?php if (isset($rb_core['topvisual_s_size']) && $rb_core['topvisual_s_size'] == "22") { ?>selected<?php } ?>>22px</option>
-                                        <option value="24" <?php if (isset($rb_core['topvisual_s_size']) && $rb_core['topvisual_s_size'] == "24") { ?>selected<?php } ?>>24px</option>
-                                        <option value="26" <?php if (isset($rb_core['topvisual_s_size']) && $rb_core['topvisual_s_size'] == "26") { ?>selected<?php } ?>>26px</option>
-                                        <option value="28" <?php if (isset($rb_core['topvisual_s_size']) && $rb_core['topvisual_s_size'] == "28") { ?>selected<?php } ?>>28px</option>
-                                        <option value="30" <?php if (isset($rb_core['topvisual_s_size']) && $rb_core['topvisual_s_size'] == "30") { ?>selected<?php } ?>>30px</option>
+                                        <option value="12" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "12") { ?>selected<?php } ?>>12px</option>
+                                        <option value="14" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "14") { ?>selected<?php } ?>>14px</option>
+                                        <option value="16" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "16") { ?>selected<?php } ?>>16px</option>
+                                        <option value="18" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "18") { ?>selected<?php } ?>>18px</option>
+                                        <option value="20" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "20") { ?>selected<?php } ?>>20px</option>
+                                        <option value="22" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "22") { ?>selected<?php } ?>>22px</option>
+                                        <option value="24" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "24") { ?>selected<?php } ?>>24px</option>
+                                        <option value="26" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "26") { ?>selected<?php } ?>>26px</option>
+                                        <option value="28" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "28") { ?>selected<?php } ?>>28px</option>
+                                        <option value="30" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "30") { ?>selected<?php } ?>>30px</option>
                                     </select>
 
                                     <select class="select select_tiny mod_send" name="co_topvisual_s_font" id="co_topvisual_s_font">
                                         <option value="">스타일</option>
-                                        <option value="font-R" <?php if (isset($rb_core['topvisual_s_font']) && $rb_core['topvisual_s_font'] == "font-R") { ?>selected<?php } ?>>Regular</option>
-                                        <option value="font-B" <?php if (isset($rb_core['topvisual_s_font']) && $rb_core['topvisual_s_font'] == "font-B") { ?>selected<?php } ?>>Bold</option>
-                                        <option value="font-H" <?php if (isset($rb_core['topvisual_s_font']) && $rb_core['topvisual_s_font'] == "font-H") { ?>selected<?php } ?>>Heavy</option>
+                                        <option value="font-R" <?php if (!empty($rb_v_info['topvisual_s_font']) && $rb_v_info['topvisual_s_font'] == "font-R") { ?>selected<?php } ?>>Regular</option>
+                                        <option value="font-B" <?php if (!empty($rb_v_info['topvisual_s_font']) && $rb_v_info['topvisual_s_font'] == "font-B") { ?>selected<?php } ?>>Bold</option>
+                                        <option value="font-H" <?php if (!empty($rb_v_info['topvisual_s_font']) && $rb_v_info['topvisual_s_font'] == "font-H") { ?>selected<?php } ?>>Heavy</option>
                                     </select>
 
                                 </ul>
@@ -985,9 +798,9 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                 <ul class="config_wrap_flex">
                                     <li class="rows_inp_r mt-5">
-                                        <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align1" class="magic-radio mod_send" value="left" <?php if (isset($rb_core['topvisual_s_align']) && $rb_core['topvisual_s_align'] == "left") { ?>checked<?php } ?>><label for="co_topvisual_s_align1">좌측</label>
-                                        <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align2" class="magic-radio mod_send" value="center" <?php if (isset($rb_core['topvisual_s_align']) && $rb_core['topvisual_s_align'] == "center") { ?>checked<?php } ?>><label for="co_topvisual_s_align2">중앙</label>
-                                        <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align3" class="magic-radio mod_send" value="right" <?php if (isset($rb_core['topvisual_s_align']) && $rb_core['topvisual_s_align'] == "right") { ?>checked<?php } ?>><label for="co_topvisual_s_align3">우측</label>
+                                        <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align1" class="magic-radio mod_send" value="left" <?php if (!empty($rb_v_info['topvisual_s_align']) && $rb_v_info['topvisual_s_align'] == "left") { ?>checked<?php } ?>><label for="co_topvisual_s_align1">좌측</label>
+                                        <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align2" class="magic-radio mod_send" value="center" <?php if (!empty($rb_v_info['topvisual_s_align']) && $rb_v_info['topvisual_s_align'] == "center") { ?>checked<?php } ?>><label for="co_topvisual_s_align2">중앙</label>
+                                        <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align3" class="magic-radio mod_send" value="right" <?php if (!empty($rb_v_info['topvisual_s_align']) && $rb_v_info['topvisual_s_align'] == "right") { ?>checked<?php } ?>><label for="co_topvisual_s_align3">우측</label>
                                     </li>
                                 </ul>
 
@@ -996,40 +809,13 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                             <div class="skin_path_url mt-5">
                                 <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
                                 <li class="skin_path_url_txt">
-                                    /data/topvisual/<?php echo $rb_menus['me_code'] ?>.txt
+                                    /data/topvisual/<?php echo $rb_page_urls ?>.txt
                                 </li>
                                 <div class="cb"></div>
                             </div>
 
 
                         </div>
-
-                        <div class="rb_right_err_box">
-                            <div class="main_color mt-10 font-12">
-                                서브 상단 비주얼 영역의 노출여부는<br>
-                                관리자모드 > 메뉴설정 에서 변경 가능합니다.
-                            </div>
-                            <button type="button" class="mt-10 rb_right_adm_btn main_rb_bg" onclick="javascript:window.open('<?php echo G5_ADMIN_URL ?>/menu_list.php');">메뉴 설정 바로가기</button>
-                        </div>
-                        <?php } else { ?>
-                            <div class="rb_right_err_box">
-                                <div class="main_color mt-10 font-12">
-                                    서브 상단 비주얼 영역을 사용하지 않는 페이지 입니다.<br>
-                                    관리자모드 > 메뉴설정 에서 변경 가능합니다.
-                                </div>
-                                <button type="button" class="mt-10 rb_right_adm_btn main_rb_bg" onclick="javascript:window.open('<?php echo G5_ADMIN_URL ?>/menu_list.php');">메뉴 설정 바로가기</button>
-                            </div>
-                            <?php } ?>
-                        <?php } else { ?>
-                            <div class="rb_right_err_box">
-                            <div class="main_color mt-10 font-12">
-                                메뉴 설정에 없는 페이지 입니다.<br>
-                                관리자모드 > 메뉴설정 에서 메뉴를 추가해주세요.
-                            </div>
-                            <button type="button" class="mt-10 rb_right_adm_btn main_rb_bg" onclick="javascript:window.open('<?php echo G5_ADMIN_URL ?>/menu_list.php');">메뉴 설정 바로가기</button>
-                            </div>
-                        <?php } ?>
-
 
 
                     </ul>
@@ -1082,6 +868,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         </div>
                     </ul>
 
+                    <?php if (defined("_INDEX_")) { ?>
                     <ul class="rb_config_sec">
                         <h6 class="font-B"><?php if(defined('_SHOP_')) { // 영카트?>마켓 <?php } ?>메인 상단여백 설정 (PC)</h6>
                         <h6 class="font-R rb_config_sub_txt">
@@ -1100,6 +887,10 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                             </ul>
                         </div>
                     </ul>
+                    <?php } else { ?>
+                        <input type="hidden" name="co_main_padding_top_shop" id="co_main_padding_top_shop" value="<?php echo !empty($rb_core['padding_top_shop']) ? $rb_core['padding_top_shop'] : ''; ?>">
+                        <input type="hidden" name="co_main_padding_top" id="co_main_padding_top" value="<?php echo !empty($rb_core['padding_top']) ? $rb_core['padding_top'] : ''; ?>">
+                    <?php } ?>
 
 
 
@@ -1641,49 +1432,40 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var co_main_width = $('select[name="co_main_width"]').val();
         var co_tb_width = $('select[name="co_tb_width"]').val();
 
+        <?php if (defined("_INDEX_")) { ?>
         var co_main_padding_top = $('input[name="co_main_padding_top"]:checked').val();
         var co_main_padding_top_shop = $('input[name="co_main_padding_top_shop"]:checked').val();
+        <?php } else { ?>
+        var co_main_padding_top = $('input[name="co_main_padding_top"]').val();
+        var co_main_padding_top_shop = $('input[name="co_main_padding_top_shop"]').val();
+        <?php } ?>
 
         <?php if (defined("_INDEX_")) { ?>
 
-        var co_side_skin = "<?php echo isset($rb_core['side_skin']) ? $rb_core['side_skin'] : ''; ?>";
-        var co_side_skin_shop = "<?php echo isset($rb_core['side_skin_shop']) ? $rb_core['side_skin_shop'] : ''; ?>";
-        var co_sidemenu = "<?php echo isset($rb_core['sidemenu']) ? $rb_core['sidemenu'] : ''; ?>";
-        var co_sidemenu_shop = "<?php echo isset($rb_core['sidemenu_shop']) ? $rb_core['sidemenu_shop'] : ''; ?>";
-        var co_sidemenu_width = "<?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : ''; ?>";
-        var co_sidemenu_width_shop = "<?php echo isset($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : ''; ?>";
+        var co_side_skin = "<?php echo !empty($rb_core['side_skin']) ? $rb_core['side_skin'] : ''; ?>";
+        var co_side_skin_shop = "<?php echo !empty($rb_core['side_skin_shop']) ? $rb_core['side_skin_shop'] : ''; ?>";
+        var co_sidemenu = "<?php echo !empty($rb_core['sidemenu']) ? $rb_core['sidemenu'] : ''; ?>";
+        var co_sidemenu_shop = "<?php echo !empty($rb_core['sidemenu_shop']) ? $rb_core['sidemenu_shop'] : ''; ?>";
+        var co_sidemenu_width = "<?php echo !empty($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : ''; ?>";
+        var co_sidemenu_width_shop = "<?php echo !empty($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : ''; ?>";
 
-        var co_topvisual = "<?php echo isset($rb_core['topvisual']) ? $rb_core['topvisual'] : ''; ?>";
-        var co_topvisual_shop = "<?php echo isset($rb_core['topvisual_shop']) ? $rb_core['topvisual_shop'] : ''; ?>";
-        var co_topvisual_height = "<?php echo isset($rb_core['topvisual_height']) ? $rb_core['topvisual_height'] : ''; ?>";
-        var co_topvisual_height_shop = "<?php echo isset($rb_core['topvisual_height_shop']) ? $rb_core['topvisual_height_shop'] : ''; ?>";
-        var co_topvisual_width = "<?php echo isset($rb_core['topvisual_width']) ? $rb_core['topvisual_width'] : ''; ?>";
-        var co_topvisual_bl = "<?php echo isset($rb_core['topvisual_bl']) ? $rb_core['topvisual_bl'] : ''; ?>";
-        var co_topvisual_width_shop = "<?php echo isset($rb_core['topvisual_width_shop']) ? $rb_core['topvisual_width_shop'] : ''; ?>";
-        var co_topvisual_bl_shop = "<?php echo isset($rb_core['topvisual_bl_shop']) ? $rb_core['topvisual_bl_shop'] : ''; ?>";
+        var co_topvisual_height = "<?php echo !empty($rb_v_info['topvisual_height']) ? $rb_v_info['topvisual_height'] : ''; ?>";
+        var co_topvisual_width = "<?php echo !empty($rb_v_info['topvisual_width']) ? $rb_v_info['topvisual_width'] : ''; ?>";
+        var co_topvisual_bl = "<?php echo !empty($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : ''; ?>";
 
-        var co_topvisual_m_color = "<?php echo isset($rb_core['topvisual_m_color']) ? $rb_core['topvisual_m_color'] : ''; ?>";
-        var co_topvisual_m_size = "<?php echo isset($rb_core['topvisual_m_size']) ? $rb_core['topvisual_m_size'] : ''; ?>";
-        var co_topvisual_m_font = "<?php echo isset($rb_core['topvisual_m_font']) ? $rb_core['topvisual_m_font'] : ''; ?>";
-        var co_topvisual_m_align = "<?php echo isset($rb_core['topvisual_m_align']) ? $rb_core['topvisual_m_align'] : ''; ?>";
+        var co_topvisual_m_color = "<?php echo !empty($rb_v_info['topvisual_m_color']) ? $rb_v_info['topvisual_m_color'] : ''; ?>";
+        var co_topvisual_m_size = "<?php echo !empty($rb_v_info['topvisual_m_size']) ? $rb_v_info['topvisual_m_size'] : ''; ?>";
+        var co_topvisual_m_font = "<?php echo !empty($rb_v_info['topvisual_m_font']) ? $rb_v_info['topvisual_m_font'] : ''; ?>";
+        var co_topvisual_m_align = "<?php echo !empty($rb_v_info['topvisual_m_align']) ? $rb_v_info['topvisual_m_align'] : ''; ?>";
 
-        var co_topvisual_s_color = "<?php echo isset($rb_core['topvisual_s_color']) ? $rb_core['topvisual_s_color'] : ''; ?>";
-        var co_topvisual_s_size = "<?php echo isset($rb_core['topvisual_s_size']) ? $rb_core['topvisual_s_size'] : ''; ?>";
-        var co_topvisual_s_font = "<?php echo isset($rb_core['topvisual_s_font']) ? $rb_core['topvisual_s_font'] : ''; ?>";
-        var co_topvisual_s_align = "<?php echo isset($rb_core['topvisual_s_align']) ? $rb_core['topvisual_s_align'] : ''; ?>";
+        var co_topvisual_s_color = "<?php echo !empty($rb_v_info['topvisual_s_color']) ? $rb_v_info['topvisual_s_color'] : ''; ?>";
+        var co_topvisual_s_size = "<?php echo !empty($rb_v_info['topvisual_s_size']) ? $rb_v_info['topvisual_s_size'] : ''; ?>";
+        var co_topvisual_s_font = "<?php echo !empty($rb_v_info['topvisual_s_font']) ? $rb_v_info['topvisual_s_font'] : ''; ?>";
+        var co_topvisual_s_align = "<?php echo !empty($rb_v_info['topvisual_s_align']) ? $rb_v_info['topvisual_s_align'] : ''; ?>";
 
-        var co_topvisual_m_color_shop = "<?php echo isset($rb_core['topvisual_m_color_shop']) ? $rb_core['topvisual_m_color_shop'] : ''; ?>";
-        var co_topvisual_m_size_shop = "<?php echo isset($rb_core['topvisual_m_size_shop']) ? $rb_core['topvisual_m_size_shop'] : ''; ?>";
-        var co_topvisual_m_font_shop = "<?php echo isset($rb_core['topvisual_m_font_shop']) ? $rb_core['topvisual_m_font_shop'] : ''; ?>";
-        var co_topvisual_m_align_shop = "<?php echo isset($rb_core['topvisual_m_align_shop']) ? $rb_core['topvisual_m_align_shop'] : ''; ?>";
+        var co_topvisual_bg_color = "<?php echo !empty($rb_v_info['topvisual_bg_color']) ? $rb_v_info['topvisual_bg_color'] : ''; ?>";
 
-        var co_topvisual_s_color_shop = "<?php echo isset($rb_core['topvisual_s_color_shop']) ? $rb_core['topvisual_s_color_shop'] : ''; ?>";
-        var co_topvisual_s_size_shop = "<?php echo isset($rb_core['topvisual_s_size_shop']) ? $rb_core['topvisual_s_size_shop'] : ''; ?>";
-        var co_topvisual_s_font_shop = "<?php echo isset($rb_core['topvisual_s_font_shop']) ? $rb_core['topvisual_s_font_shop'] : ''; ?>";
-        var co_topvisual_s_align_shop = "<?php echo isset($rb_core['topvisual_s_align_shop']) ? $rb_core['topvisual_s_align_shop'] : ''; ?>";
-
-        var co_topvisual_bg_color = "<?php echo isset($rb_core['side_skin']) ? $rb_core['side_skin'] : ''; ?>";
-        var co_topvisual_bg_color_shop = "<?php echo isset($rb_core['side_skin']) ? $rb_core['side_skin'] : ''; ?>";
+        var v_code = "<?php echo !empty($rb_v_info['v_code']) ? $rb_v_info['v_code'] : ''; ?>";
 
         <?php } else { ?>
 
@@ -1694,37 +1476,20 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var co_sidemenu_width = $('input[name="co_sidemenu_width"]').val();
         var co_sidemenu_width_shop = $('input[name="co_sidemenu_width_shop"]').val();
 
-        var co_topvisual = $('input[name="co_topvisual"]').val();
-        var co_topvisual_shop = $('input[name="co_topvisual_shop"]').val();
         var co_topvisual_height = $('input[name="co_topvisual_height"]').val();
-        var co_topvisual_height_shop = $('input[name="co_topvisual_height_shop"]').val();
         var co_topvisual_width = $('input[name="co_topvisual_width"]:checked').val();
         var co_topvisual_bl = $('input[name="co_topvisual_bl"]').val();
-        var co_topvisual_width_shop = $('input[name="co_topvisual_width_shop"]:checked').val();
-        var co_topvisual_bl_shop = $('input[name="co_topvisual_bl_shop"]').val();
-
         var co_topvisual_m_color = $('input[name="co_topvisual_m_color"]').val();
         var co_topvisual_m_size = $('select[name="co_topvisual_m_size"]').val();
         var co_topvisual_m_font = $('select[name="co_topvisual_m_font"]').val();
         var co_topvisual_m_align = $('input[name="co_topvisual_m_align"]:checked').val();
-
         var co_topvisual_s_color = $('input[name="co_topvisual_s_color"]').val();
         var co_topvisual_s_size = $('select[name="co_topvisual_s_size"]').val();
         var co_topvisual_s_font = $('select[name="co_topvisual_s_font"]').val();
         var co_topvisual_s_align = $('input[name="co_topvisual_s_align"]:checked').val();
 
-        var co_topvisual_m_color_shop = $('input[name="co_topvisual_m_color_shop"]').val();
-        var co_topvisual_m_size_shop = $('select[name="co_topvisual_m_size_shop"]').val();
-        var co_topvisual_m_font_shop = $('select[name="co_topvisual_m_font_shop"]').val();
-        var co_topvisual_m_align_shop = $('input[name="co_topvisual_m_align_shop"]:checked').val();
-
-        var co_topvisual_s_color_shop = $('input[name="co_topvisual_s_color_shop"]').val();
-        var co_topvisual_s_size_shop = $('select[name="co_topvisual_s_size_shop"]').val();
-        var co_topvisual_s_font_shop = $('select[name="co_topvisual_s_font_shop"]').val();
-        var co_topvisual_s_align_shop = $('input[name="co_topvisual_s_align_shop"]:checked').val();
-
         var co_topvisual_bg_color = $('input[name="co_topvisual_bg_color"]').val();
-        var co_topvisual_bg_color_shop = $('input[name="co_topvisual_bg_color_shop"]').val();
+        var v_code = $('#v_code').val();
 
         <?php } ?>
 
@@ -1770,40 +1535,6 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 "co_sidemenu_width": co_sidemenu_width,
                 "co_sidemenu_width_shop": co_sidemenu_width_shop,
 
-                "co_topvisual": co_topvisual,
-                "co_topvisual_shop": co_topvisual_shop,
-                "co_topvisual_height": co_topvisual_height,
-                "co_topvisual_height_shop": co_topvisual_height_shop,
-
-                "co_topvisual_width": co_topvisual_width,
-                "co_topvisual_bl": co_topvisual_bl,
-                "co_topvisual_width_shop": co_topvisual_width_shop,
-                "co_topvisual_bl_shop": co_topvisual_bl_shop,
-
-                "co_topvisual_m_color": co_topvisual_m_color,
-                "co_topvisual_m_size": co_topvisual_m_size,
-                "co_topvisual_m_font": co_topvisual_m_font,
-                "co_topvisual_m_align": co_topvisual_m_align,
-
-                "co_topvisual_s_color": co_topvisual_s_color,
-                "co_topvisual_s_size": co_topvisual_s_size,
-                "co_topvisual_s_font": co_topvisual_s_font,
-                "co_topvisual_s_align": co_topvisual_s_align,
-
-                "co_topvisual_m_color_shop": co_topvisual_m_color_shop,
-                "co_topvisual_m_size_shop": co_topvisual_m_size_shop,
-                "co_topvisual_m_font_shop": co_topvisual_m_font_shop,
-                "co_topvisual_m_align_shop": co_topvisual_m_align_shop,
-
-                "co_topvisual_s_color_shop": co_topvisual_s_color_shop,
-                "co_topvisual_s_size_shop": co_topvisual_s_size_shop,
-                "co_topvisual_s_font_shop": co_topvisual_s_font_shop,
-                "co_topvisual_s_align_shop": co_topvisual_s_align_shop,
-
-                "co_topvisual_bg_color": co_topvisual_bg_color,
-                "co_topvisual_bg_color_shop": co_topvisual_bg_color_shop,
-
-
                 "mod_type": mod_type,
             },
             success: function(data) {
@@ -1815,84 +1546,6 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     $('main').removeClass();
                     $('main').addClass('co_' + colorValues);
                     $('main').addClass(' co_header_' + headerValues);
-
-
-                    if (data.co_topvisual_width == "100") {
-                        $('#rb_topvisual').css('width', '100%');
-                        $('#rb_topvisual').css('margin-top', '0');
-                        $('#rb_topvisual').css('border-radius', '0');
-                        $('#rb_topvisual').css('overflow', 'inherit');
-                        $('.main_wording').css('padding-left', '0');
-                        $('.main_wording').css('padding-right', '0');
-                        $('.sub_wording').css('padding-left', '0');
-                        $('.sub_wording').css('padding-right', '0');
-                    } else {
-                        $('#rb_topvisual').css('width', '<?php echo $rb_core['sub_width'] ?>px');
-                        $('#rb_topvisual').css('margin-top', '50px');
-                        $('#rb_topvisual').css('border-radius', '10px');
-                        $('#rb_topvisual').css('overflow', 'hidden');
-                        $('.main_wording').css('padding-left', '50px');
-                        $('.main_wording').css('padding-right', '50px');
-                        $('.sub_wording').css('padding-left', '50px');
-                        $('.sub_wording').css('padding-right', '50px');
-                    }
-                    
-                    if (data.co_topvisual_width_shop == "100") {
-                        $('#rb_topvisual_shop').css('width', '100%');
-                        $('#rb_topvisual_shop').css('margin-top', '0');
-                        $('#rb_topvisual_shop').css('border-radius', '0');
-                        $('#rb_topvisual_shop').css('overflow', 'inherit');
-                        $('.main_wording_shop').css('padding-left', '0');
-                        $('.main_wording_shop').css('padding-right', '0');
-                        $('.sub_wording_shop').css('padding-left', '0');
-                        $('.sub_wording_shop').css('padding-right', '0');
-                    } else {
-                        $('#rb_topvisual_shop').css('width', '<?php echo $rb_core['sub_width'] ?>px');
-                        $('#rb_topvisual_shop').css('margin-top', '50px');
-                        $('#rb_topvisual_shop').css('border-radius', '10px');
-                        $('#rb_topvisual_shop').css('overflow', 'hidden');
-                        $('.main_wording_shop').css('padding-left', '50px');
-                        $('.main_wording_shop').css('padding-right', '50px');
-                        $('.sub_wording_shop').css('padding-left', '50px');
-                        $('.sub_wording_shop').css('padding-right', '50px');
-                    }
-
-
-                    if (data.co_topvisual == "") {
-                        $('#rb_topvisual').css('display', 'none');
-                    } else {
-                        $('#rb_topvisual').css('display', 'block');
-                    }
-
-                    if (data.co_topvisual_shop == "") {
-                        $('#rb_topvisual_shop').css('display', 'none');
-                    } else {
-                        $('#rb_topvisual_shop').css('display', 'block');
-                    }
-                    
-
-                    $('.rb_topvisual').css('background-color', data.co_topvisual_bg_color);
-                    $('.rb_topvisual_shop').css('background-color', data.co_topvisual_bg_color_shop);
-
-                    $('.main_wording').css('color', data.co_topvisual_m_color);
-                    $('.main_wording').css('font-size', data.co_topvisual_m_size+'px');
-                    $('.main_wording').css('font-family', data.co_topvisual_m_font);
-                    $('.main_wording').css('text-align', data.co_topvisual_m_align);
-
-                    $('.sub_wording').css('color', data.co_topvisual_s_color);
-                    $('.sub_wording').css('font-size', data.co_topvisual_s_size+'px');
-                    $('.sub_wording').css('font-family', data.co_topvisual_s_font);
-                    $('.sub_wording').css('text-align', data.co_topvisual_s_align);
-
-                    $('.main_wording_shop').css('color', data.co_topvisual_m_color_shop);
-                    $('.main_wording_shop').css('font-size', data.co_topvisual_m_size_shop+'px');
-                    $('.main_wording_shop').css('font-family', data.co_topvisual_m_font_shop);
-                    $('.main_wording_shop').css('text-align', data.co_topvisual_m_align_shop);
-
-                    $('.sub_wording_shop').css('color', data.co_topvisual_s_color_shop);
-                    $('.sub_wording_shop').css('font-size', data.co_topvisual_s_size_shop+'px');
-                    $('.sub_wording_shop').css('font-family', data.co_topvisual_s_font_shop);
-                    $('.sub_wording_shop').css('text-align', data.co_topvisual_s_align_shop);
 
                     // 새로운 파라미터 설정
                     var newColorSet = 'co_' + colorValues; // 예: co_6B4285
@@ -1991,6 +1644,75 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 alert('문제가 발생 했습니다. 다시 시도해주세요.');
             }
         });
+
+
+
+        $.ajax({
+            url: '<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_add.php', // Ajax 요청을 보낼 엔드포인트 URL
+            method: 'POST', // 또는 'GET' 등의 HTTP 메서드
+            dataType: 'json',
+            data: {
+                "co_topvisual_height": co_topvisual_height,
+                "co_topvisual_width": co_topvisual_width,
+                "co_topvisual_bl": co_topvisual_bl,
+                "co_topvisual_m_color": co_topvisual_m_color,
+                "co_topvisual_m_size": co_topvisual_m_size,
+                "co_topvisual_m_font": co_topvisual_m_font,
+                "co_topvisual_m_align": co_topvisual_m_align,
+                "co_topvisual_s_color": co_topvisual_s_color,
+                "co_topvisual_s_size": co_topvisual_s_size,
+                "co_topvisual_s_font": co_topvisual_s_font,
+                "co_topvisual_s_align": co_topvisual_s_align,
+                "co_topvisual_bg_color": co_topvisual_bg_color,
+                "v_code": v_code,
+                "mod_type": mod_type,
+            },
+            success: function(data) {
+                if (data.status == 'ok') {
+
+                    if (data.co_topvisual_width == "100") {
+                        $('#rb_topvisual').css('width', '100%');
+                        $('#rb_topvisual').css('margin-top', '0');
+                        $('#rb_topvisual').css('border-radius', '0');
+                        $('#rb_topvisual').css('overflow', 'inherit');
+                        $('.main_wording').css('padding-left', '0');
+                        $('.main_wording').css('padding-right', '0');
+                        $('.sub_wording').css('padding-left', '0');
+                        $('.sub_wording').css('padding-right', '0');
+                    } else {
+                        $('#rb_topvisual').css('width', '<?php echo $rb_core['sub_width'] ?>px');
+                        $('#rb_topvisual').css('margin-top', '50px');
+                        $('#rb_topvisual').css('border-radius', '10px');
+                        $('#rb_topvisual').css('overflow', 'hidden');
+                        $('.main_wording').css('padding-left', '50px');
+                        $('.main_wording').css('padding-right', '50px');
+                        $('.sub_wording').css('padding-left', '50px');
+                        $('.sub_wording').css('padding-right', '50px');
+                    }
+
+
+                    $('.rb_topvisual').css('background-color', data.co_topvisual_bg_color);
+
+                    $('.main_wording').css('color', data.co_topvisual_m_color);
+                    $('.main_wording').css('font-size', data.co_topvisual_m_size+'px');
+                    $('.main_wording').css('font-family', data.co_topvisual_m_font);
+                    $('.main_wording').css('text-align', data.co_topvisual_m_align);
+
+                    $('.sub_wording').css('color', data.co_topvisual_s_color);
+                    $('.sub_wording').css('font-size', data.co_topvisual_s_size+'px');
+                    $('.sub_wording').css('font-family', data.co_topvisual_s_font);
+                    $('.sub_wording').css('text-align', data.co_topvisual_s_align);
+
+                } else {
+                    console.log('변경실패');
+                }
+            },
+            error: function(err) {
+                alert('문제가 발생 했습니다. 다시 시도해주세요.');
+            }
+        });
+
+
     }
 
 
