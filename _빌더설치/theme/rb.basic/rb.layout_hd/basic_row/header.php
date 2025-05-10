@@ -188,6 +188,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_THEME_URL.'/rb.layout_hd/'.$rb
                         foreach( $menu_datas as $row ){
                             if( empty($row) ) continue;
                         ?>
+                        <?php if(isset($row['me_level']) && $row['me_level'] <= $member['mb_level']) { ?>
                         <li>
                             <a href="<?php echo $row['me_link']; ?>" target="_<?php echo $row['me_target']; ?>" class="font-B"><?php echo $row['me_name'] ?></a>
                             <?php
@@ -199,7 +200,9 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_THEME_URL.'/rb.layout_hd/'.$rb
                                 if($k == 0)
                                     echo '<div class="cbp-hrsub"><div class="cbp-hrsub-inner"><div><!--<h4 class="font-B">그룹</h4>--><ul>'.PHP_EOL;
                             ?>
+                                <?php if(isset($row2['me_level']) && $row2['me_level'] <= $member['mb_level']) { ?>
                                 <li><a href="<?php echo $row2['me_link']; ?>" target="_<?php echo $row2['me_target']; ?>"><?php echo $row2['me_name'] ?></a></li>
+                                <?php } ?>
                             <?php
                             $k++;
                             }   //end foreach $row2
@@ -208,6 +211,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_THEME_URL.'/rb.layout_hd/'.$rb
                                 echo '</ul></div></div></div>'.PHP_EOL;
                             ?>
                         </li>
+                        <?php } ?>
                         <?php
                         $i++;
                         }   //end foreach $row

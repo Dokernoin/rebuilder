@@ -22,10 +22,24 @@ if (!sql_query(" DESCRIBE {$g5['menu_table']} ", false)) {
                   `me_order` int(11) NOT NULL DEFAULT '0',
                   `me_use` tinyint(4) NOT NULL DEFAULT '0',
                   `me_mobile_use` tinyint(4) NOT NULL DEFAULT '0',
+                  `me_level` tinyint(4) NOT NULL DEFAULT '0',
                   PRIMARY KEY (`me_id`)
                 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ",
         true
     );
+}
+
+$columns_to_add = [
+    'me_level' => 'tinyint(4) NOT NULL DEFAULT 1'
+];
+
+foreach ($columns_to_add as $column => $attributes) {
+    // 컬럼이 있는지 확인
+    $column_check = sql_query("SHOW COLUMNS FROM {$g5['menu_table']} LIKE '{$column}'", false);
+    if (!sql_num_rows($column_check)) {
+        // 컬럼 추가
+        sql_query("ALTER TABLE {$g5['menu_table']} ADD {$column} {$attributes}", true);
+    }
 }
 
 $sql = " select * from {$g5['menu_table']} order by me_id ";
@@ -34,12 +48,17 @@ $result = sql_query($sql);
 $g5['title'] = "메뉴설정";
 require_once './admin.head.php';
 
-$colspan = 7;
+$colspan = 8;
 $sub_menu_info = '';
 ?>
 
 <div class="local_desc01 local_desc">
-    <p><strong>주의!</strong> 메뉴설정 작업 후 반드시 <strong>확인</strong>을 누르셔야 저장됩니다.</p>
+    <p>
+    <strong>주의!</strong> 메뉴설정 작업 후 반드시 <strong>확인</strong>을 누르셔야 저장됩니다.<br>
+    <strong>주의!</strong> 권한의 경우 설정된 레벨보다 낮은 회원은 메뉴를 볼 수 없습니다. (1레벨은 비회원)<br>
+    <strong>주의!</strong> 짧은 주소를 사용중이신 경우 짧은주소 형식에 맞게 링크를 설정해주세요.<br>
+    <strong>예시!</strong> 게시판 : /게시판ID, 상품목록 : /shop/list-카테고리번호, 내용관리 : /content/내용관리ID<br>
+    </p>
 </div>
 
 <form name="fmenulist" id="fmenulist" method="post" action="./menu_list_update.php" onsubmit="return fmenulist_submit(this);">
@@ -56,8 +75,9 @@ $sub_menu_info = '';
                     <th scope="col">링크</th>
                     <th scope="col">새창</th>
                     <th scope="col">순서</th>
-                    <th scope="col">메뉴사용</th>
-                    <th scope="col">상단영역</th>
+                    <th scope="col">PC사용</th>
+                    <th scope="col">모바일사용</th>
+                    <th scope="col">권한</th>
                     <th scope="col">관리</th>
                 </tr>
             </thead>
@@ -111,6 +131,11 @@ $sub_menu_info = '';
                                 <option value="0" <?php echo get_selected($row['me_mobile_use'], '0', true); ?>>사용안함</option>
                             </select>
                         </td>
+                        <td class="td_num">
+                            <label for="me_level_<?php echo $i; ?>" class="sound_only">접근권한</label>
+                            <?php echo get_member_level_select('me_level[]', 1, $member['mb_level'], $row['me_level']) ?>
+                        </td>
+
                         <td class="td_mng">
                             <?php if (strlen($row['me_code']) == 2) { ?>
                                 <button type="button" class="btn_add_submenu btn_03 ">추가</button>

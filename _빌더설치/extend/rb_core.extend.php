@@ -55,6 +55,8 @@ function get_current_menu_info() {
                 'me_name' => $row['me_name'],
                 'me_use' => $row['me_use'],
                 'me_mobile_use' => $row['me_mobile_use'],
+                'me_top_use' => $row['me_top_use'],
+                'me_level' => $row['me_level'],
             ];
         }
     }

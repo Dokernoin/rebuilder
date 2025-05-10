@@ -93,6 +93,7 @@ if(G5_COMMUNITY_USE === false) {
                         $add_arr = (isset($row['sub']) && $row['sub']) ? 'add_arr_svg' : '';
                         $add_arr_btn = (isset($row['sub']) && $row['sub']) ? '<button type="button" class="add_arr_btn"></button>' : '';
                     ?>
+                    <?php if(isset($row['me_level']) && $row['me_level'] <= $member['mb_level']) { ?>
                     <li class="<?php echo $add_arr ?>">
                         <a href="<?php echo $row['me_link']; ?>" target="_<?php echo $row['me_target']; ?>" class="font-B"><?php echo $row['me_name'] ?></a>
                         <?php echo $add_arr_btn ?>
@@ -106,7 +107,9 @@ if(G5_COMMUNITY_USE === false) {
                                 echo '<div class="cbp-hrsub"><div class="cbp-hrsub-inner"><div><!--<h4 class="font-B">그룹</h4>--><ul>'.PHP_EOL;
                             
                         ?>
+                            <?php if(isset($row2['me_level']) && $row2['me_level'] <= $member['mb_level']) { ?>
                             <li><a href="<?php echo $row2['me_link']; ?>" target="_<?php echo $row2['me_target']; ?>"><?php echo $row2['me_name'] ?></a></li>
+                            <?php } ?>
                         <?php
                         $k++;
                         }   //end foreach $row2
@@ -115,6 +118,7 @@ if(G5_COMMUNITY_USE === false) {
                             echo '</ul></div></div></div>'.PHP_EOL;
                         ?>
                     </li>
+                    <?php } ?>
                     <?php
                     $i++;
                     }   //end foreach $row
