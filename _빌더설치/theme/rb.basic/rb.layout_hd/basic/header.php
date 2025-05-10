@@ -79,7 +79,12 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_THEME_URL.'/rb.layout_hd/'.$rb
                 <nav id="cbp-hrmenu" class="cbp-hrmenu pc">
                     <ul>
                     <?php
-                    $menu_datas = get_menu_db(0, true);
+                    if(IS_MOBILE()) {
+                        $menu_datas = get_menu_db(1, true);
+                    } else {
+                        $menu_datas = get_menu_db(0, true);
+                    }
+
                     $gnb_zindex = 999; // gnb_1dli z-index 값 설정용
                     $i = 0;
                     foreach( $menu_datas as $row ){
