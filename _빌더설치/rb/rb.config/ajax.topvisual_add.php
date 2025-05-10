@@ -9,7 +9,9 @@ if(isset($mod_type) && $mod_type == 1) {
 
     $co_topvisual_height = !empty($_POST['co_topvisual_height']) ? $_POST['co_topvisual_height'] : '200';
     $co_topvisual_width = !empty($_POST['co_topvisual_width']) ? $_POST['co_topvisual_width'] : '';
-    $co_topvisual_bl = !empty($_POST['co_topvisual_bl']) ? $_POST['co_topvisual_bl'] : '10';
+    $co_topvisual_bl = isset($_POST['co_topvisual_bl']) ? $_POST['co_topvisual_bl'] : '10';
+    $co_topvisual_border = isset($_POST['co_topvisual_border']) ? $_POST['co_topvisual_border'] : '0';
+    $co_topvisual_radius = isset($_POST['co_topvisual_radius']) ? $_POST['co_topvisual_radius'] : '0';
     $co_topvisual_m_color = !empty($_POST['co_topvisual_m_color']) ? $_POST['co_topvisual_m_color'] : '#ffffff';
     $co_topvisual_m_size = !empty($_POST['co_topvisual_m_size']) ? $_POST['co_topvisual_m_size'] : '20';
     $co_topvisual_m_font = !empty($_POST['co_topvisual_m_font']) ? $_POST['co_topvisual_m_font'] : 'font-B';
@@ -37,6 +39,8 @@ if(isset($mod_type) && $mod_type == 1) {
         co_topvisual_height = '{$co_topvisual_height}',
         co_topvisual_width = '{$co_topvisual_width}',
         co_topvisual_bl = '{$co_topvisual_bl}',
+        co_topvisual_border = '{$co_topvisual_border}',
+        co_topvisual_radius = '{$co_topvisual_radius}',
         co_topvisual_m_color = '{$co_topvisual_m_color}',
         co_topvisual_m_size = '{$co_topvisual_m_size}',
         co_topvisual_m_font = '{$co_topvisual_m_font}',
@@ -53,6 +57,8 @@ if(isset($mod_type) && $mod_type == 1) {
             'co_topvisual_height' => $co_topvisual_height,
             'co_topvisual_width' => $co_topvisual_width,
             'co_topvisual_bl' => $co_topvisual_bl,
+            'co_topvisual_border' => $co_topvisual_border,
+            'co_topvisual_radius' => $co_topvisual_radius,
             'co_topvisual_m_color' => $co_topvisual_m_color,
             'co_topvisual_m_size' => $co_topvisual_m_size,
             'co_topvisual_m_font' => $co_topvisual_m_font,

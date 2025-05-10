@@ -5,6 +5,8 @@
             $topvisual_class = !empty($rb_v_info['v_code']) ? $rb_v_info['v_code'] : '';
             $topvisual_width = (!empty($rb_v_info['topvisual_width']) && $rb_v_info['topvisual_width'] > 0) ? $rb_v_info['topvisual_width'] . '%' : $rb_core['sub_width'] . 'px';
             $topvisual_height = !empty($rb_v_info['topvisual_height']) ? $rb_v_info['topvisual_height'] : '200';
+            $topvisual_radius = isset($rb_v_info['topvisual_radius']) ? $rb_v_info['topvisual_radius'] : '0';
+            $topvisual_border = isset($rb_v_info['topvisual_border']) ? $rb_v_info['topvisual_border'] : '0';
             $topvisual_bg_color = !empty($rb_v_info['topvisual_bg_color']) ? $rb_v_info['topvisual_bg_color'] : '#f9f9f9';
             $topvisual_bl = isset($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '0';
 
@@ -38,9 +40,19 @@
             }
             $has_main = trim($main) !== '';
             $has_sub = trim($sub) !== '';
+
+            if($topvisual_border == 0) {
+                $topvisual_border_in = "border:0px;";
+            } else if($topvisual_border == 1) {
+                $topvisual_border_in = "border:1px dashed rgba(0,0,0,0.1);";
+            } else if($topvisual_border == 2) {
+                $topvisual_border_in = "border:1px solid rgba(0,0,0,0.1);";
+            } else {
+                $topvisual_border_in = "";
+            }
         ?>
 
-            <div id="rb_topvisual" class="rb_topvisual <?php echo $topvisual_class; ?>" style="background-color:<?php echo $topvisual_bg_color ?>; width:<?php echo $topvisual_width; ?>; height:<?php echo $topvisual_height; ?>px; <?php if(isset($topvisual_width) && $topvisual_width == "100%") { ?>margin-top:0px; border-radius:0px; overflow:inherit<?php } else { ?>margin-top:50px; border-radius:10px; overflow:hidden<?php } ?>" data-layout="rb_topvisual">
+            <div id="rb_topvisual" class="rb_topvisual <?php echo $topvisual_class; ?>" style="background-color:<?php echo $topvisual_bg_color ?>; width:<?php echo $topvisual_width; ?>; height:<?php echo $topvisual_height; ?>px; <?php if(isset($topvisual_width) && $topvisual_width == "100%") { ?>margin-top:0px; border-radius:0px; overflow:inherit;<?php } else { ?>margin-top:50px; border-radius:<?php echo $topvisual_radius ?>px; overflow:hidden;<?php } ?> <?php echo $topvisual_border_in ?>" data-layout="rb_topvisual">
 
                 <?php if ($is_admin) { ?>
                     <input type="file" id="topvisual_file_input" accept="image/*" style="display:none;">

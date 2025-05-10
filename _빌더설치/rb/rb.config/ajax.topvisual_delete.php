@@ -6,7 +6,7 @@ if (!$is_admin) {
     exit;
 }
 
-$me_code = isset($_POST['me_code']) ? preg_replace('/[^a-z0-9_]/', '', $_POST['me_code']) : '';
+$me_code = isset($_POST['me_code']) ? $_POST['me_code'] : '';
 $key = $me_code;
 
 if (!$key) {

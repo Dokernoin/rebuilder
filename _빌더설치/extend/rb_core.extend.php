@@ -74,22 +74,6 @@ function get_current_menu_info() {
 
 $rb_menus = get_current_menu_info();
 
-// 상단 비주얼관리 테이블 추가
-if(!sql_query(" DESCRIBE rb_topvisual ", false)) {
-    $query_cp = sql_query(" CREATE TABLE IF NOT EXISTS `rb_topvisual` (
-    `v_id` int(11) NOT NULL AUTO_INCREMENT,
-    `v_code` varchar(255) NOT NULL DEFAULT '',
-    `v_name` varchar(255) NOT NULL DEFAULT '',
-    `v_url` varchar(255) NOT NULL DEFAULT '',
-    `v_device` varchar(10) NOT NULL DEFAULT 'both',
-    `v_level` tinyint(4) NOT NULL DEFAULT '1',
-    `v_use` tinyint(4) NOT NULL DEFAULT '0',
-    `v_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`v_id`)
-    ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ", true);
-    sql_query(" ALTER TABLE `rb_topvisual` ADD PRIMARY KEY (`v_id`) ", false);
-}
-
 // 현재 페이지 URL로 v_code 변환
 $rb_page_urls = $_SERVER['REQUEST_URI'];
 $rb_page_urls = preg_replace('/\.php/', '', $rb_page_urls);
@@ -101,7 +85,10 @@ $rb_v_info = sql_fetch($rb_page_sql);
 
 $rb_v_info['topvisual_height'] = !empty($rb_v_info['co_topvisual_height']) ? $rb_v_info['co_topvisual_height'] : '200'; // 상단영역 세로크기
 $rb_v_info['topvisual_width'] = !empty($rb_v_info['co_topvisual_width']) ? $rb_v_info['co_topvisual_width'] : ''; // 상단영역 가로크기
-$rb_v_info['topvisual_bl'] = !empty($rb_v_info['co_topvisual_bl']) ? $rb_v_info['co_topvisual_bl'] : '10'; // 상단영역 블라인드
+$rb_v_info['topvisual_bl'] = isset($rb_v_info['co_topvisual_bl']) ? $rb_v_info['co_topvisual_bl'] : '10'; // 상단영역 블라인드
+
+$rb_v_info['topvisual_border'] = isset($rb_v_info['co_topvisual_border']) ? $rb_v_info['co_topvisual_border'] : '0'; // 상단영역 테두리
+$rb_v_info['topvisual_radius'] = isset($rb_v_info['co_topvisual_radius']) ? $rb_v_info['co_topvisual_radius'] : '10'; // 상단영역 라운드
 
 $rb_v_info['topvisual_m_color'] = !empty($rb_v_info['co_topvisual_m_color']) ? $rb_v_info['co_topvisual_m_color'] : '#ffffff'; // 상단영역 메인워딩 컬러
 $rb_v_info['topvisual_m_size'] = !empty($rb_v_info['co_topvisual_m_size']) ? $rb_v_info['co_topvisual_m_size'] : '20'; // 상단영역 메인워딩 사이즈

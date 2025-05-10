@@ -620,6 +620,23 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                     <div class="cb"></div>
                                 </ul>
 
+                                <ul class="rows_inp_lr mt-5">
+
+                                    <li class="rows_inp_l rows_inp_l_span">
+                                        <span class="font-B">테두리</span><br>
+                                        영역 테두리
+                                    </li>
+
+                                    <li class="rows_inp_r mt-5 font-12">
+                                        <input type="radio" name="co_topvisual_border" id="co_topvisual_border_0" class="magic-radio mod_send" value="0" <?php if (isset($rb_v_info['topvisual_border']) && $rb_v_info['topvisual_border'] == "0") { ?>checked<?php } ?>><label for="co_topvisual_border_0">없음</label>
+                                        <input type="radio" name="co_topvisual_border" id="co_topvisual_border_1" class="magic-radio mod_send" value="1" <?php if (isset($rb_v_info['topvisual_border']) && $rb_v_info['topvisual_border'] == "1") { ?>checked<?php } ?>><label for="co_topvisual_border_1">점선</label>
+                                        <input type="radio" name="co_topvisual_border" id="co_topvisual_border_2" class="magic-radio mod_send" value="2" <?php if (isset($rb_v_info['topvisual_border']) && $rb_v_info['topvisual_border'] == "2") { ?>checked<?php } ?>><label for="co_topvisual_border_2">실선</label>
+                                    </li>
+
+                                    <div class="cb"></div>
+
+                                </ul>
+
 
                                 <ul class="rows_inp_lr mt-5">
                                     <li class="rows_inp_l rows_inp_l_span">
@@ -669,7 +686,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                     <li class="rows_inp_r mt-15">
                                         <div id="co_topvisual_bl_range" class="rb_range_item"></div>
-                                        <input type="hidden" name="co_topvisual_bl" id="co_topvisual_bl" class="co_range_send" value="<?php echo !empty($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '10'; ?>">
+                                        <input type="hidden" name="co_topvisual_bl" id="co_topvisual_bl" class="co_range_send" value="<?php echo isset($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '10'; ?>">
                                     </li>
 
                                     <script type="text/javascript">
@@ -677,7 +694,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                             range: "min",
                                             min: 0,
                                             max: 100,
-                                            value: <?php echo !empty($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '10'; ?>,
+                                            value: <?php echo isset($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '10'; ?>,
                                             step: 1,
                                             slide: function(e, ui) {
                                                 $("#co_topvisual_bl_range .ui-slider-handle").html(ui.value);
@@ -691,14 +708,61 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                             }
                                         });
 
-                                        $("#co_topvisual_bl_range .ui-slider-handle").html("<?php echo !empty($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '10'; ?>");
-                                        $("#co_topvisual_bl").val("<?php echo !empty($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '0'; ?>"); // 초기값 설정
+                                        $("#co_topvisual_bl_range .ui-slider-handle").html("<?php echo isset($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '10'; ?>");
+                                        $("#co_topvisual_bl").val("<?php echo isset($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '10'; ?>"); // 초기값 설정
                                     </script>
 
 
                                     </li>
                                     <div class="cb"></div>
                                 </ul>
+
+
+                                <ul class="rows_inp_lr mt-5">
+                                    <li class="rows_inp_l rows_inp_l_span">
+                                        <span class="font-B">라운드</span><br>
+                                        0~100
+                                    </li>
+
+                                    <li class="rows_inp_r mt-15">
+                                        <div id="co_topvisual_radius_range" class="rb_range_item"></div>
+                                        <input type="hidden" name="co_topvisual_radius" id="co_topvisual_radius" class="co_range_send" value="<?php echo isset($rb_v_info['topvisual_radius']) ? $rb_v_info['topvisual_radius'] : '0'; ?>">
+                                    </li>
+
+                                    <script type="text/javascript">
+                                        $("#co_topvisual_radius_range").slider({
+                                            range: "min",
+                                            min: 0,
+                                            max: 100,
+                                            value: <?php echo isset($rb_v_info['topvisual_radius']) ? $rb_v_info['topvisual_radius'] : '0'; ?>,
+                                            step: 1,
+                                            slide: function(e, ui) {
+                                                $("#co_topvisual_radius_range .ui-slider-handle").html(ui.value);
+                                                $("#co_topvisual_radius").val(ui.value); // hidden input에 값 업데이트
+
+                                                executeAjax();
+
+                                                // 반영
+                                                $('#rb_topvisual').css('border-radius', ui.value)
+
+                                            }
+                                        });
+
+                                        $("#co_topvisual_radius_range .ui-slider-handle").html("<?php echo isset($rb_v_info['topvisual_radius']) ? $rb_v_info['topvisual_radius'] : '0'; ?>");
+                                        $("#co_topvisual_radius").val("<?php echo isset($rb_v_info['topvisual_radius']) ? $rb_v_info['topvisual_radius'] : '0'; ?>"); // 초기값 설정
+                                    </script>
+
+
+                                    </li>
+                                    <div class="cb"></div>
+                                </ul>
+
+
+
+
+
+
+
                             </div>
 
                             <div class="skin_path_url mt-5">
@@ -1451,7 +1515,10 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
         var co_topvisual_height = "<?php echo !empty($rb_v_info['topvisual_height']) ? $rb_v_info['topvisual_height'] : ''; ?>";
         var co_topvisual_width = "<?php echo !empty($rb_v_info['topvisual_width']) ? $rb_v_info['topvisual_width'] : ''; ?>";
-        var co_topvisual_bl = "<?php echo !empty($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : ''; ?>";
+        var co_topvisual_bl = "<?php echo isset($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '10'; ?>";
+
+        var co_topvisual_border = "<?php echo isset($rb_v_info['topvisual_border']) ? $rb_v_info['topvisual_border'] : '0'; ?>";
+        var co_topvisual_radius = "<?php echo isset($rb_v_info['topvisual_radius']) ? $rb_v_info['topvisual_radius'] : '0'; ?>";
 
         var co_topvisual_m_color = "<?php echo !empty($rb_v_info['topvisual_m_color']) ? $rb_v_info['topvisual_m_color'] : ''; ?>";
         var co_topvisual_m_size = "<?php echo !empty($rb_v_info['topvisual_m_size']) ? $rb_v_info['topvisual_m_size'] : ''; ?>";
@@ -1479,6 +1546,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var co_topvisual_height = $('input[name="co_topvisual_height"]').val();
         var co_topvisual_width = $('input[name="co_topvisual_width"]:checked').val();
         var co_topvisual_bl = $('input[name="co_topvisual_bl"]').val();
+        var co_topvisual_border = $('input[name="co_topvisual_border"]:checked').val();
+        var co_topvisual_radius = $('input[name="co_topvisual_radius"]').val();
         var co_topvisual_m_color = $('input[name="co_topvisual_m_color"]').val();
         var co_topvisual_m_size = $('select[name="co_topvisual_m_size"]').val();
         var co_topvisual_m_font = $('select[name="co_topvisual_m_font"]').val();
@@ -1655,6 +1724,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 "co_topvisual_height": co_topvisual_height,
                 "co_topvisual_width": co_topvisual_width,
                 "co_topvisual_bl": co_topvisual_bl,
+                "co_topvisual_border": co_topvisual_border,
+                "co_topvisual_radius": co_topvisual_radius,
                 "co_topvisual_m_color": co_topvisual_m_color,
                 "co_topvisual_m_size": co_topvisual_m_size,
                 "co_topvisual_m_font": co_topvisual_m_font,
@@ -1673,7 +1744,6 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     if (data.co_topvisual_width == "100") {
                         $('#rb_topvisual').css('width', '100%');
                         $('#rb_topvisual').css('margin-top', '0');
-                        $('#rb_topvisual').css('border-radius', '0');
                         $('#rb_topvisual').css('overflow', 'inherit');
                         $('.main_wording').css('padding-left', '0');
                         $('.main_wording').css('padding-right', '0');
@@ -1682,12 +1752,21 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     } else {
                         $('#rb_topvisual').css('width', '<?php echo $rb_core['sub_width'] ?>px');
                         $('#rb_topvisual').css('margin-top', '50px');
-                        $('#rb_topvisual').css('border-radius', '10px');
                         $('#rb_topvisual').css('overflow', 'hidden');
                         $('.main_wording').css('padding-left', '50px');
                         $('.main_wording').css('padding-right', '50px');
                         $('.sub_wording').css('padding-left', '50px');
                         $('.sub_wording').css('padding-right', '50px');
+                    }
+
+                    if (data.co_topvisual_border == "0") {
+                        $('.rb_topvisual').css('border', '0px');
+                    } else if (data.co_topvisual_border == "1") {
+                        $('.rb_topvisual').css('border', '1px dashed rgba(0,0,0,0.1)');
+                    } else if (data.co_topvisual_border == "2") {
+                        $('.rb_topvisual').css('border', '1px solid rgba(0,0,0,0.1)');
+                    } else {
+                        $('.rb_topvisual').css('border', '0px');
                     }
 
 
