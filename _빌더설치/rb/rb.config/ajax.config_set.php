@@ -235,7 +235,7 @@ if($mod_type == "del") { //모듈삭제
                                 </select>
 
                                 <div style="margin-left:auto;">
-                                <input type="checkbox" name="md_title_hide" id="md_title_hide" class="magic-checkbox" value="1" <?php if (!empty($md_title_hide) && $md_title_hide == "1") { ?>checked<?php } ?>><label for="md_title_hide">숨김</label>
+                                <input type="checkbox" name="md_title_hide" id="md_title_hide" class="magic-checkbox" value="1" <?php if (isset($md_title_hide) && $md_title_hide == "1") { ?>checked<?php } ?>><label for="md_title_hide">숨김</label>
                                 </div>
 
                     </ul>

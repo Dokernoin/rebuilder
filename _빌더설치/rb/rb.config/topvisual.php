@@ -3,7 +3,7 @@
             if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 1) {
 
             $topvisual_class = !empty($rb_v_info['v_code']) ? $rb_v_info['v_code'] : '';
-            $topvisual_width = (!empty($rb_v_info['topvisual_width']) && $rb_v_info['topvisual_width'] > 0) ? $rb_v_info['topvisual_width'] . '%' : $rb_v_info['sub_width'] . 'px';
+            $topvisual_width = (!empty($rb_v_info['topvisual_width']) && $rb_v_info['topvisual_width'] > 0) ? $rb_v_info['topvisual_width'] . '%' : $rb_core['sub_width'] . 'px';
             $topvisual_height = !empty($rb_v_info['topvisual_height']) ? $rb_v_info['topvisual_height'] : '200';
             $topvisual_bg_color = !empty($rb_v_info['topvisual_bg_color']) ? $rb_v_info['topvisual_bg_color'] : '#f9f9f9';
             $topvisual_bl = isset($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '0';
@@ -16,7 +16,7 @@
 
             function get_topvisual_key() {
                 global $rb_v_info;
-                if (!empty($rb_v_info['v_code'])) return preg_replace('/[^a-z0-9_]/', '', $rb_v_info['v_code']);
+                return isset($rb_v_info['v_code']) ? $rb_v_info['v_code'] : '';
             }
 
             $key = get_topvisual_key();

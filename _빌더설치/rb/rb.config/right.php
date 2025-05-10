@@ -614,7 +614,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                     </li>
 
                                     <li class="rows_inp_r mt-3">
-                                        <input type="checkbox" name="co_topvisual_width" id="co_topvisual_width" class="magic-checkbox mod_send" value="100" <?php if(!empty($rb_v_info['topvisual_width']) && $rb_v_info['topvisual_width'] == 100) { ?>checked<?php } ?>>
+                                        <input type="checkbox" name="co_topvisual_width" id="co_topvisual_width" class="magic-checkbox mod_send" value="100" <?php if(isset($rb_v_info['topvisual_width']) && $rb_v_info['topvisual_width'] == 100) { ?>checked<?php } ?>>
                                         <label for="co_topvisual_width">100% 채우기</label>
                                     </li>
                                     <div class="cb"></div>
@@ -721,23 +721,23 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                     <select class="select select_tiny mod_send" name="co_topvisual_m_size" id="co_topvisual_m_size">
                                         <option value="">사이즈</option>
-                                        <option value="12" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "12") { ?>selected<?php } ?>>12px</option>
-                                        <option value="14" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "14") { ?>selected<?php } ?>>14px</option>
-                                        <option value="16" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "16") { ?>selected<?php } ?>>16px</option>
-                                        <option value="18" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "18") { ?>selected<?php } ?>>18px</option>
-                                        <option value="20" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "20") { ?>selected<?php } ?>>20px</option>
-                                        <option value="22" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "22") { ?>selected<?php } ?>>22px</option>
-                                        <option value="24" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "24") { ?>selected<?php } ?>>24px</option>
-                                        <option value="26" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "26") { ?>selected<?php } ?>>26px</option>
-                                        <option value="28" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "28") { ?>selected<?php } ?>>28px</option>
-                                        <option value="30" <?php if (!empty($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "30") { ?>selected<?php } ?>>30px</option>
+                                        <option value="12" <?php if (isset($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "12") { ?>selected<?php } ?>>12px</option>
+                                        <option value="14" <?php if (isset($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "14") { ?>selected<?php } ?>>14px</option>
+                                        <option value="16" <?php if (isset($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "16") { ?>selected<?php } ?>>16px</option>
+                                        <option value="18" <?php if (isset($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "18") { ?>selected<?php } ?>>18px</option>
+                                        <option value="20" <?php if (isset($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "20") { ?>selected<?php } ?>>20px</option>
+                                        <option value="22" <?php if (isset($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "22") { ?>selected<?php } ?>>22px</option>
+                                        <option value="24" <?php if (isset($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "24") { ?>selected<?php } ?>>24px</option>
+                                        <option value="26" <?php if (isset($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "26") { ?>selected<?php } ?>>26px</option>
+                                        <option value="28" <?php if (isset($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "28") { ?>selected<?php } ?>>28px</option>
+                                        <option value="30" <?php if (isset($rb_v_info['topvisual_m_size']) && $rb_v_info['topvisual_m_size'] == "30") { ?>selected<?php } ?>>30px</option>
                                     </select>
 
                                     <select class="select select_tiny mod_send" name="co_topvisual_m_font" id="co_topvisual_m_font">
                                         <option value="">스타일</option>
-                                        <option value="font-R" <?php if (!empty($rb_v_info['topvisual_m_font']) && $rb_v_info['topvisual_m_font'] == "font-R") { ?>selected<?php } ?>>Regular</option>
-                                        <option value="font-B" <?php if (!empty($rb_v_info['topvisual_m_font']) && $rb_v_info['topvisual_m_font'] == "font-B") { ?>selected<?php } ?>>Bold</option>
-                                        <option value="font-H" <?php if (!empty($rb_v_info['topvisual_m_font']) && $rb_v_info['topvisual_m_font'] == "font-H") { ?>selected<?php } ?>>Heavy</option>
+                                        <option value="font-R" <?php if (isset($rb_v_info['topvisual_m_font']) && $rb_v_info['topvisual_m_font'] == "font-R") { ?>selected<?php } ?>>Regular</option>
+                                        <option value="font-B" <?php if (isset($rb_v_info['topvisual_m_font']) && $rb_v_info['topvisual_m_font'] == "font-B") { ?>selected<?php } ?>>Bold</option>
+                                        <option value="font-H" <?php if (isset($rb_v_info['topvisual_m_font']) && $rb_v_info['topvisual_m_font'] == "font-H") { ?>selected<?php } ?>>Heavy</option>
                                     </select>
 
                                 </ul>
@@ -745,9 +745,9 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                 <ul class="config_wrap_flex">
                                     <li class="rows_inp_r mt-5">
-                                        <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align1" class="magic-radio mod_send" value="left" <?php if (!empty($rb_v_info['topvisual_m_align']) && $rb_v_info['topvisual_m_align'] == "left") { ?>checked<?php } ?>><label for="co_topvisual_m_align1">좌측</label>
-                                        <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align2" class="magic-radio mod_send" value="center" <?php if (!empty($rb_v_info['topvisual_m_align']) && $rb_v_info['topvisual_m_align'] == "center") { ?>checked<?php } ?>><label for="co_topvisual_m_align2">중앙</label>
-                                        <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align3" class="magic-radio mod_send" value="right" <?php if (!empty($rb_v_info['topvisual_m_align']) && $rb_v_info['topvisual_m_align'] == "right") { ?>checked<?php } ?>><label for="co_topvisual_m_align3">우측</label>
+                                        <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align1" class="magic-radio mod_send" value="left" <?php if (isset($rb_v_info['topvisual_m_align']) && $rb_v_info['topvisual_m_align'] == "left") { ?>checked<?php } ?>><label for="co_topvisual_m_align1">좌측</label>
+                                        <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align2" class="magic-radio mod_send" value="center" <?php if (isset($rb_v_info['topvisual_m_align']) && $rb_v_info['topvisual_m_align'] == "center") { ?>checked<?php } ?>><label for="co_topvisual_m_align2">중앙</label>
+                                        <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align3" class="magic-radio mod_send" value="right" <?php if (isset($rb_v_info['topvisual_m_align']) && $rb_v_info['topvisual_m_align'] == "right") { ?>checked<?php } ?>><label for="co_topvisual_m_align3">우측</label>
                                     </li>
                                 </ul>
 
@@ -774,23 +774,23 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                     <select class="select select_tiny mod_send" name="co_topvisual_s_size" id="co_topvisual_s_size">
                                         <option value="">사이즈</option>
-                                        <option value="12" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "12") { ?>selected<?php } ?>>12px</option>
-                                        <option value="14" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "14") { ?>selected<?php } ?>>14px</option>
-                                        <option value="16" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "16") { ?>selected<?php } ?>>16px</option>
-                                        <option value="18" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "18") { ?>selected<?php } ?>>18px</option>
-                                        <option value="20" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "20") { ?>selected<?php } ?>>20px</option>
-                                        <option value="22" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "22") { ?>selected<?php } ?>>22px</option>
-                                        <option value="24" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "24") { ?>selected<?php } ?>>24px</option>
-                                        <option value="26" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "26") { ?>selected<?php } ?>>26px</option>
-                                        <option value="28" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "28") { ?>selected<?php } ?>>28px</option>
-                                        <option value="30" <?php if (!empty($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "30") { ?>selected<?php } ?>>30px</option>
+                                        <option value="12" <?php if (isset($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "12") { ?>selected<?php } ?>>12px</option>
+                                        <option value="14" <?php if (isset($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "14") { ?>selected<?php } ?>>14px</option>
+                                        <option value="16" <?php if (isset($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "16") { ?>selected<?php } ?>>16px</option>
+                                        <option value="18" <?php if (isset($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "18") { ?>selected<?php } ?>>18px</option>
+                                        <option value="20" <?php if (isset($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "20") { ?>selected<?php } ?>>20px</option>
+                                        <option value="22" <?php if (isset($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "22") { ?>selected<?php } ?>>22px</option>
+                                        <option value="24" <?php if (isset($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "24") { ?>selected<?php } ?>>24px</option>
+                                        <option value="26" <?php if (isset($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "26") { ?>selected<?php } ?>>26px</option>
+                                        <option value="28" <?php if (isset($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "28") { ?>selected<?php } ?>>28px</option>
+                                        <option value="30" <?php if (isset($rb_v_info['topvisual_s_size']) && $rb_v_info['topvisual_s_size'] == "30") { ?>selected<?php } ?>>30px</option>
                                     </select>
 
                                     <select class="select select_tiny mod_send" name="co_topvisual_s_font" id="co_topvisual_s_font">
                                         <option value="">스타일</option>
-                                        <option value="font-R" <?php if (!empty($rb_v_info['topvisual_s_font']) && $rb_v_info['topvisual_s_font'] == "font-R") { ?>selected<?php } ?>>Regular</option>
-                                        <option value="font-B" <?php if (!empty($rb_v_info['topvisual_s_font']) && $rb_v_info['topvisual_s_font'] == "font-B") { ?>selected<?php } ?>>Bold</option>
-                                        <option value="font-H" <?php if (!empty($rb_v_info['topvisual_s_font']) && $rb_v_info['topvisual_s_font'] == "font-H") { ?>selected<?php } ?>>Heavy</option>
+                                        <option value="font-R" <?php if (isset($rb_v_info['topvisual_s_font']) && $rb_v_info['topvisual_s_font'] == "font-R") { ?>selected<?php } ?>>Regular</option>
+                                        <option value="font-B" <?php if (isset($rb_v_info['topvisual_s_font']) && $rb_v_info['topvisual_s_font'] == "font-B") { ?>selected<?php } ?>>Bold</option>
+                                        <option value="font-H" <?php if (isset($rb_v_info['topvisual_s_font']) && $rb_v_info['topvisual_s_font'] == "font-H") { ?>selected<?php } ?>>Heavy</option>
                                     </select>
 
                                 </ul>
@@ -798,9 +798,9 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                 <ul class="config_wrap_flex">
                                     <li class="rows_inp_r mt-5">
-                                        <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align1" class="magic-radio mod_send" value="left" <?php if (!empty($rb_v_info['topvisual_s_align']) && $rb_v_info['topvisual_s_align'] == "left") { ?>checked<?php } ?>><label for="co_topvisual_s_align1">좌측</label>
-                                        <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align2" class="magic-radio mod_send" value="center" <?php if (!empty($rb_v_info['topvisual_s_align']) && $rb_v_info['topvisual_s_align'] == "center") { ?>checked<?php } ?>><label for="co_topvisual_s_align2">중앙</label>
-                                        <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align3" class="magic-radio mod_send" value="right" <?php if (!empty($rb_v_info['topvisual_s_align']) && $rb_v_info['topvisual_s_align'] == "right") { ?>checked<?php } ?>><label for="co_topvisual_s_align3">우측</label>
+                                        <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align1" class="magic-radio mod_send" value="left" <?php if (isset($rb_v_info['topvisual_s_align']) && $rb_v_info['topvisual_s_align'] == "left") { ?>checked<?php } ?>><label for="co_topvisual_s_align1">좌측</label>
+                                        <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align2" class="magic-radio mod_send" value="center" <?php if (isset($rb_v_info['topvisual_s_align']) && $rb_v_info['topvisual_s_align'] == "center") { ?>checked<?php } ?>><label for="co_topvisual_s_align2">중앙</label>
+                                        <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align3" class="magic-radio mod_send" value="right" <?php if (isset($rb_v_info['topvisual_s_align']) && $rb_v_info['topvisual_s_align'] == "right") { ?>checked<?php } ?>><label for="co_topvisual_s_align3">우측</label>
                                     </li>
                                 </ul>
 
@@ -1375,13 +1375,13 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         $('link[href*="set.header.php"]').attr('href', '<?php echo G5_URL ?>/rb/rb.css/set.header.php?rb_header_set=<?php echo $rb_core['header'] ?>&rb_header_code=' + encodeURIComponent("<?php echo $rb_config['co_header'] ?>") + '&rb_header_txt=' + newTextCode2);
 
         if (newTextCode2 == 'black') {
-            <?php if (!empty($rb_builder['bu_logo_mo']) && !empty($rb_builder['bu_logo_mo_w'])) { ?>
+            <?php if (isset($rb_builder['bu_logo_mo']) && !empty($rb_builder['bu_logo_mo_w'])) { ?>
             var newSrcset1 = "<?php echo G5_URL ?>/data/logos/mo?ver=<?php echo G5_SERVER_TIME ?>";
             <?php } else { ?>
             var newSrcset1 = "<?php echo G5_THEME_URL ?>/rb.img/logos/mo.png?ver=<?php echo G5_SERVER_TIME ?>";
             <?php } ?>
 
-            <?php if (!empty($rb_builder['bu_logo_pc']) && !empty($rb_builder['bu_logo_pc_w'])) { ?>
+            <?php if (isset($rb_builder['bu_logo_pc']) && !empty($rb_builder['bu_logo_pc_w'])) { ?>
             var newSrcset2 = "<?php echo G5_URL ?>/data/logos/pc?ver=<?php echo G5_SERVER_TIME ?>";
             <?php } else { ?>
             var newSrcset2 = "<?php echo G5_THEME_URL ?>/rb.img/logos/pc.png?ver=<?php echo G5_SERVER_TIME ?>";
@@ -1389,13 +1389,13 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
         } else {
 
-            <?php if (!empty($rb_builder['bu_logo_mo']) && !empty($rb_builder['bu_logo_mo_w'])) { ?>
+            <?php if (isset($rb_builder['bu_logo_mo']) && !empty($rb_builder['bu_logo_mo_w'])) { ?>
             var newSrcset1 = "<?php echo G5_URL ?>/data/logos/mo_w?ver=<?php echo G5_SERVER_TIME ?>";
             <?php } else { ?>
             var newSrcset1 = "<?php echo G5_THEME_URL ?>/rb.img/logos/mo_w.png?ver=<?php echo G5_SERVER_TIME ?>";
             <?php } ?>
 
-            <?php if (!empty($rb_builder['bu_logo_pc']) && !empty($rb_builder['bu_logo_pc_w'])) { ?>
+            <?php if (isset($rb_builder['bu_logo_pc']) && !empty($rb_builder['bu_logo_pc_w'])) { ?>
             var newSrcset2 = "<?php echo G5_URL ?>/data/logos/pc_w?ver=<?php echo G5_SERVER_TIME ?>";
             <?php } else { ?>
             var newSrcset2 = "<?php echo G5_THEME_URL ?>/rb.img/logos/pc_w.png?ver=<?php echo G5_SERVER_TIME ?>";
@@ -1592,13 +1592,13 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     $('link[href*="set.header.php"]').attr('href', '<?php echo G5_URL ?>/rb/rb.css/set.header.php?rb_header_set=' + newHeaderSet + '&rb_header_code=' + encodeURIComponent(newHeaderCode) + '&rb_header_txt=' + newTextCode);
 
                     if (newTextCode == 'black') {
-                        <?php if (!empty($rb_builder['bu_logo_mo']) && !empty($rb_builder['bu_logo_mo_w'])) { ?>
+                        <?php if (isset($rb_builder['bu_logo_mo']) && !empty($rb_builder['bu_logo_mo_w'])) { ?>
                         var newSrcset1 = "<?php echo G5_URL ?>/data/logos/mo?ver=<?php echo G5_SERVER_TIME ?>";
                         <?php } else { ?>
                         var newSrcset1 = "<?php echo G5_THEME_URL ?>/rb.img/logos/mo.png?ver=<?php echo G5_SERVER_TIME ?>";
                         <?php } ?>
 
-                        <?php if (!empty($rb_builder['bu_logo_pc']) && !empty($rb_builder['bu_logo_pc_w'])) { ?>
+                        <?php if (isset($rb_builder['bu_logo_pc']) && !empty($rb_builder['bu_logo_pc_w'])) { ?>
                         var newSrcset2 = "<?php echo G5_URL ?>/data/logos/pc?ver=<?php echo G5_SERVER_TIME ?>";
                         <?php } else { ?>
                         var newSrcset2 = "<?php echo G5_THEME_URL ?>/rb.img/logos/pc.png?ver=<?php echo G5_SERVER_TIME ?>";
@@ -1606,13 +1606,13 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                     } else {
 
-                        <?php if (!empty($rb_builder['bu_logo_mo']) && !empty($rb_builder['bu_logo_mo_w'])) { ?>
+                        <?php if (isset($rb_builder['bu_logo_mo']) && !empty($rb_builder['bu_logo_mo_w'])) { ?>
                         var newSrcset1 = "<?php echo G5_URL ?>/data/logos/mo_w?ver=<?php echo G5_SERVER_TIME ?>";
                         <?php } else { ?>
                         var newSrcset1 = "<?php echo G5_THEME_URL ?>/rb.img/logos/mo_w.png?ver=<?php echo G5_SERVER_TIME ?>";
                         <?php } ?>
 
-                        <?php if (!empty($rb_builder['bu_logo_pc']) && !empty($rb_builder['bu_logo_pc_w'])) { ?>
+                        <?php if (isset($rb_builder['bu_logo_pc']) && !empty($rb_builder['bu_logo_pc_w'])) { ?>
                         var newSrcset2 = "<?php echo G5_URL ?>/data/logos/pc_w?ver=<?php echo G5_SERVER_TIME ?>";
                         <?php } else { ?>
                         var newSrcset2 = "<?php echo G5_THEME_URL ?>/rb.img/logos/pc_w.png?ver=<?php echo G5_SERVER_TIME ?>";

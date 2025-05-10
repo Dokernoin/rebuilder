@@ -16,7 +16,7 @@
 
             function get_topvisual_key() {
                 global $rb_v_info;
-                if (!empty($rb_v_info['v_code'])) return preg_replace('/[^a-z0-9_]/', '', $rb_v_info['v_code']);
+                return isset($rb_v_info['v_code']) ? $rb_v_info['v_code'] : '';
             }
 
             $key = get_topvisual_key();
