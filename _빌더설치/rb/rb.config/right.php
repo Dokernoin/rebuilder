@@ -407,6 +407,19 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 <div class="cb"></div>
                             </ul>
 
+                            <ul class="rows_inp_lr mt-5">
+                                <li class="rows_inp_l rows_inp_l_span">
+                                    <span class="font-B">모바일 버전</span><br>
+                                    숨김설정
+                                </li>
+
+                                <li class="rows_inp_r mt-3">
+                                    <input type="checkbox" name="co_sidemenu_hide_shop" id="co_sidemenu_hide_shop" class="magic-checkbox mod_send" value="1" <?php if(isset($rb_core['sidemenu_hide_shop']) && $rb_core['sidemenu_hide_shop'] == 1) { ?>checked<?php } ?>>
+                                    <label for="co_sidemenu_hide_shop">숨김처리 (모바일 전용)</label>
+                                </li>
+                                <div class="cb"></div>
+                            </ul>
+
                             <ul class="rows_inp_lr mt-10">
                                 <li class="rows_inp_l rows_inp_l_span">
                                     <span class="font-B">가로 크기</span><br>
@@ -448,6 +461,48 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                             </ul>
 
 
+                            <ul class="rows_inp_lr mt-10">
+                                <li class="rows_inp_l rows_inp_l_span">
+                                    <span class="font-B">여백</span><br>
+                                    0~30px
+                                </li>
+                                <li class="rows_inp_r mt-15">
+                                    <div id="co_sidemenu_padding_shop_range" class="rb_range_item"></div>
+                                    <input type="hidden" id="co_sidemenu_padding_shop" class="co_range_send" name="co_sidemenu_padding_shop" value="<?php echo !empty($rb_core['sidemenu_padding_shop']) ? $rb_core['sidemenu_padding_shop'] : '0'; ?>">
+                                </li>
+
+                                <script type="text/javascript">
+                                    $("#co_sidemenu_padding_shop_range").slider({
+                                        range: "min",
+                                        min: 0,
+                                        max: 30,
+                                        value: <?php echo !empty($rb_core['sidemenu_padding_shop']) ? $rb_core['sidemenu_padding_shop'] : '0'; ?>,
+                                        step: 5,
+                                        slide: function(e, ui) {
+                                            $("#co_sidemenu_padding_shop_range .ui-slider-handle").html(ui.value);
+                                            $("#co_sidemenu_padding_shop").val(ui.value); // hidden input에 값 업데이트
+
+                                            executeAjax();
+
+                                            var co_sidemenu_shop = $('input[name="co_sidemenu_shop"]:checked').val();
+
+                                            if(co_sidemenu_shop == 'left') {
+                                                $('#rb_sidemenu_shop').css('padding-right', ui.value);
+                                            } else if(co_sidemenu_shop == 'right') {
+                                                $('#rb_sidemenu_shop').css('padding-left', ui.value);
+                                            }
+
+
+                                        }
+                                    });
+
+                                    $("#co_sidemenu_padding_shop_range .ui-slider-handle").html("<?php echo !empty($rb_core['sidemenu_padding_shop']) ? $rb_core['sidemenu_padding_shop'] : '0'; ?>");
+                                    $("#co_sidemenu_padding_shop").val("<?php echo !empty($rb_core['sidemenu_padding_shop']) ? $rb_core['sidemenu_padding_shop'] : '0'; ?>"); // 초기값 설정
+                                </script>
+                                <div class="cb"></div>
+                            </ul>
+
+
                         </div>
 
                     </ul>
@@ -456,7 +511,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                         <h6 class="font-B">서브 사이드 영역 설정</h6>
                         <h6 class="font-R rb_config_sub_txt">
-                            서브 페이지 사이드 영역을 설정할 수 있습니다.
+                            서브 페이지 사이드 영역을 설정할 수 있습니다.<br>
+                            서브 사이드 영역은 공용으로 해당영역에 모듈을 추가할 수 있으며, 마켓과 구분됩니다.
                         </h6>
 
                         <div class="config_wrap">
@@ -468,6 +524,19 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                     <input type="radio" name="co_sidemenu" id="co_sidemenu_3" class="magic-radio mod_send" value="right" <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") { ?>checked<?php } ?>><label for="co_sidemenu_3">우측</label>
                                 </li>
 
+                                <div class="cb"></div>
+                            </ul>
+
+                            <ul class="rows_inp_lr mt-5">
+                                <li class="rows_inp_l rows_inp_l_span">
+                                    <span class="font-B">모바일 버전</span><br>
+                                    숨김설정
+                                </li>
+
+                                <li class="rows_inp_r mt-3">
+                                    <input type="checkbox" name="co_sidemenu_hide" id="co_sidemenu_hide" class="magic-checkbox mod_send" value="1" <?php if(isset($rb_core['sidemenu_hide']) && $rb_core['sidemenu_hide'] == 1) { ?>checked<?php } ?>>
+                                    <label for="co_sidemenu_hide">숨김처리 (모바일 전용)</label>
+                                </li>
                                 <div class="cb"></div>
                             </ul>
 
@@ -510,6 +579,51 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 </li>
                                 <div class="cb"></div>
                             </ul>
+
+
+                            <ul class="rows_inp_lr mt-10">
+                                <li class="rows_inp_l rows_inp_l_span">
+                                    <span class="font-B">여백</span><br>
+                                    0~30px
+                                </li>
+                                <li class="rows_inp_r mt-15">
+                                    <div id="co_sidemenu_padding_range" class="rb_range_item"></div>
+                                    <input type="hidden" id="co_sidemenu_padding" class="co_range_send" name="co_sidemenu_padding" value="<?php echo !empty($rb_core['sidemenu_padding']) ? $rb_core['sidemenu_padding'] : '0'; ?>">
+                                </li>
+
+                                <script type="text/javascript">
+                                    $("#co_sidemenu_padding_range").slider({
+                                        range: "min",
+                                        min: 0,
+                                        max: 30,
+                                        value: <?php echo !empty($rb_core['sidemenu_padding']) ? $rb_core['sidemenu_padding'] : '0'; ?>,
+                                        step: 5,
+                                        slide: function(e, ui) {
+                                            $("#co_sidemenu_padding_range .ui-slider-handle").html(ui.value);
+                                            $("#co_sidemenu_padding").val(ui.value); // hidden input에 값 업데이트
+
+                                            executeAjax();
+
+                                            var co_sidemenu = $('input[name="co_sidemenu"]:checked').val();
+
+                                            if(co_sidemenu == 'left') {
+                                                $('#rb_sidemenu').css('padding-right', ui.value);
+                                            } else if(co_sidemenu == 'right') {
+                                                $('#rb_sidemenu').css('padding-left', ui.value);
+                                            }
+
+                                        }
+                                    });
+
+                                    $("#co_sidemenu_padding_range .ui-slider-handle").html("<?php echo !empty($rb_core['sidemenu_padding']) ? $rb_core['sidemenu_padding'] : '0'; ?>");
+                                    $("#co_sidemenu_padding").val("<?php echo !empty($rb_core['sidemenu_padding']) ? $rb_core['sidemenu_padding'] : '0'; ?>"); // 초기값 설정
+                                </script>
+                                <div class="cb"></div>
+                            </ul>
+
+
+
+
 
                         </div>
 
@@ -1630,6 +1744,11 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var co_sidemenu_width = "<?php echo !empty($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : ''; ?>";
         var co_sidemenu_width_shop = "<?php echo !empty($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : ''; ?>";
 
+        var co_sidemenu_padding = "<?php echo !empty($rb_core['sidemenu_padding']) ? $rb_core['sidemenu_padding'] : '0'; ?>";
+        var co_sidemenu_padding_shop = "<?php echo !empty($rb_core['sidemenu_padding_shop']) ? $rb_core['sidemenu_padding_shop'] : '0'; ?>";
+        var co_sidemenu_hide = "<?php echo !empty($rb_core['sidemenu_hide']) ? $rb_core['sidemenu_hide'] : '0'; ?>";
+        var co_sidemenu_hide_shop = "<?php echo !empty($rb_core['sidemenu_hide_shop']) ? $rb_core['sidemenu_hide_shop'] : '0'; ?>";
+
         var co_topvisual_height = "<?php echo !empty($rb_v_info['topvisual_height']) ? $rb_v_info['topvisual_height'] : ''; ?>";
         var co_topvisual_width = "<?php echo !empty($rb_v_info['topvisual_width']) ? $rb_v_info['topvisual_width'] : ''; ?>";
         var co_topvisual_bl = "<?php echo isset($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '10'; ?>";
@@ -1661,6 +1780,11 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var co_sidemenu_shop = $('input[name="co_sidemenu_shop"]:checked').val();
         var co_sidemenu_width = $('input[name="co_sidemenu_width"]').val();
         var co_sidemenu_width_shop = $('input[name="co_sidemenu_width_shop"]').val();
+
+        var co_sidemenu_padding = $('input[name="co_sidemenu_padding"]').val();
+        var co_sidemenu_padding_shop = $('input[name="co_sidemenu_padding_shop"]').val();
+        var co_sidemenu_hide = $('input[name="co_sidemenu_hide"]:checked').val();
+        var co_sidemenu_hide_shop = $('input[name="co_sidemenu_hide_shop"]:checked').val();
 
         var co_topvisual_height = $('input[name="co_topvisual_height"]').val();
         var co_topvisual_width = $('input[name="co_topvisual_width"]:checked').val();
@@ -1725,6 +1849,10 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 "co_sidemenu_shop": co_sidemenu_shop,
                 "co_sidemenu_width": co_sidemenu_width,
                 "co_sidemenu_width_shop": co_sidemenu_width_shop,
+                "co_sidemenu_padding": co_sidemenu_padding,
+                "co_sidemenu_padding_shop": co_sidemenu_padding_shop,
+                "co_sidemenu_hide": co_sidemenu_hide,
+                "co_sidemenu_hide_shop": co_sidemenu_hide_shop,
 
                 "mod_type": mod_type,
             },
@@ -1744,6 +1872,18 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                     var newHeaderSet = 'co_header_' + headerValues; // 예: co_6B4285
                     var newHeaderCode = data.co_header; // 원본 컬러 값 (#6b4285)
+
+                    if(data.co_sidemenu_hide == 1) {
+                        $('#rb_sidemenu').addClass('pc');
+                    } else {
+                        $('#rb_sidemenu').removeClass('pc');
+                    }
+
+                    if(data.co_sidemenu_hide_shop == 1) {
+                        $('#rb_sidemenu_shop').addClass('pc');
+                    } else {
+                        $('#rb_sidemenu_shop').removeClass('pc');
+                    }
 
                     function isLightColor(hex) { //밝은계통인지, 어두운 계통인지 판단 함수
                         var r, g, b, a = 1; // 기본 알파 값

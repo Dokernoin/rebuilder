@@ -33,7 +33,6 @@ if($mod_type == 1) { //환경설정
     
     $co_menu_shop = !empty($_POST['co_menu_shop']) ? $_POST['co_menu_shop'] : '0';
 
-
     $co_gap_pc = !empty($_POST['co_gap_pc']) ? $_POST['co_gap_pc'] : '0';
     $co_inner_padding_pc = !empty($_POST['co_inner_padding_pc']) ? $_POST['co_inner_padding_pc'] : '0';
 
@@ -43,6 +42,10 @@ if($mod_type == 1) { //환경설정
     $co_sidemenu_shop = !empty($_POST['co_sidemenu_shop']) ? $_POST['co_sidemenu_shop'] : '';
     $co_sidemenu_width = !empty($_POST['co_sidemenu_width']) ? $_POST['co_sidemenu_width'] : '200';
     $co_sidemenu_width_shop = !empty($_POST['co_sidemenu_width_shop']) ? $_POST['co_sidemenu_width_shop'] : '200';
+    $co_sidemenu_padding = !empty($_POST['co_sidemenu_padding']) ? $_POST['co_sidemenu_padding'] : '0';
+    $co_sidemenu_padding_shop = !empty($_POST['co_sidemenu_padding_shop']) ? $_POST['co_sidemenu_padding_shop'] : '0';
+    $co_sidemenu_hide = !empty($_POST['co_sidemenu_hide']) ? $_POST['co_sidemenu_hide'] : '0';
+    $co_sidemenu_hide_shop = !empty($_POST['co_sidemenu_hide_shop']) ? $_POST['co_sidemenu_hide_shop'] : '0';
 }
 
 if($mod_type == 2) { //모듈설정
@@ -66,7 +69,7 @@ if($mod_type == "del") { //모듈삭제
         <?php
     
             if($is_admin) {
-            $sql = " update rb_config set co_layout = '{$co_layout}', co_layout_hd = '{$co_layout_hd}', co_layout_ft = '{$co_layout_ft}', co_layout_shop = '{$co_layout_shop}', co_layout_hd_shop = '{$co_layout_hd_shop}', co_layout_ft_shop = '{$co_layout_ft_shop}', co_color = '{$co_color}', co_header = '{$co_header}', co_font = '{$co_font}', co_gap_pc = '{$co_gap_pc}', co_inner_padding_pc = '{$co_inner_padding_pc}', co_sub_width = '{$co_sub_width}', co_main_width = '{$co_main_width}', co_tb_width = '{$co_tb_width}', co_main_padding_top = '{$co_main_padding_top}', co_main_padding_top_shop = '{$co_main_padding_top_shop}', co_menu_shop = '{$co_menu_shop}', co_side_skin = '{$co_side_skin}', co_side_skin_shop = '{$co_side_skin_shop}', co_sidemenu = '{$co_sidemenu}', co_sidemenu_shop = '{$co_sidemenu_shop}', co_sidemenu_width = '{$co_sidemenu_width}', co_sidemenu_width_shop = '{$co_sidemenu_width_shop}', co_datetime = '".G5_TIME_YMDHIS."', co_ip = '{$_SERVER['REMOTE_ADDR']}' ";
+            $sql = " update rb_config set co_layout = '{$co_layout}', co_layout_hd = '{$co_layout_hd}', co_layout_ft = '{$co_layout_ft}', co_layout_shop = '{$co_layout_shop}', co_layout_hd_shop = '{$co_layout_hd_shop}', co_layout_ft_shop = '{$co_layout_ft_shop}', co_color = '{$co_color}', co_header = '{$co_header}', co_font = '{$co_font}', co_gap_pc = '{$co_gap_pc}', co_inner_padding_pc = '{$co_inner_padding_pc}', co_sub_width = '{$co_sub_width}', co_main_width = '{$co_main_width}', co_tb_width = '{$co_tb_width}', co_main_padding_top = '{$co_main_padding_top}', co_main_padding_top_shop = '{$co_main_padding_top_shop}', co_menu_shop = '{$co_menu_shop}', co_sidemenu_padding = '{$co_sidemenu_padding}', co_sidemenu_padding_shop = '{$co_sidemenu_padding_shop}', co_sidemenu_hide = '{$co_sidemenu_hide}', co_sidemenu_hide_shop = '{$co_sidemenu_hide_shop}', co_side_skin = '{$co_side_skin}', co_side_skin_shop = '{$co_side_skin_shop}', co_sidemenu = '{$co_sidemenu}', co_sidemenu_shop = '{$co_sidemenu_shop}', co_sidemenu_width = '{$co_sidemenu_width}', co_sidemenu_width_shop = '{$co_sidemenu_width_shop}', co_datetime = '".G5_TIME_YMDHIS."', co_ip = '{$_SERVER['REMOTE_ADDR']}' ";
             sql_query($sql);
             }
 
@@ -94,6 +97,10 @@ if($mod_type == "del") { //모듈삭제
                 'co_sidemenu_shop' => $co_sidemenu_shop,
                 'co_sidemenu_width' => $co_sidemenu_width,
                 'co_sidemenu_width_shop ' => $co_sidemenu_width_shop,
+                'co_sidemenu_padding' => $co_sidemenu_padding,
+                'co_sidemenu_padding_shop ' => $co_sidemenu_padding_shop,
+                'co_sidemenu_hide' => $co_sidemenu_hide,
+                'co_sidemenu_hide_shop' => $co_sidemenu_hide_shop,
                 'status' => 'ok',
             );
             echo json_encode($data);

@@ -36,8 +36,12 @@ $rb_core['sidemenu'] = !empty($rb_config['co_sidemenu']) ? $rb_config['co_sideme
 $rb_core['sidemenu_shop'] = !empty($rb_config['co_sidemenu_shop']) ? $rb_config['co_sidemenu_shop'] : ''; // 사이드메뉴 여부, 위치 (마켓)
 $rb_core['sidemenu_width'] = !empty($rb_config['co_sidemenu_width']) ? $rb_config['co_sidemenu_width'] : '200'; // 사이드메뉴 가로크기
 $rb_core['sidemenu_width_shop'] = !empty($rb_config['co_sidemenu_width_shop']) ? $rb_config['co_sidemenu_width_shop'] : '200'; // 사이드메뉴 가로크기 (마켓)
-
+$rb_core['sidemenu_padding'] = !empty($rb_config['co_sidemenu_padding']) ? $rb_config['co_sidemenu_padding'] : '0'; // 사이드메뉴 여백
+$rb_core['sidemenu_padding_shop'] = !empty($rb_config['co_sidemenu_padding_shop']) ? $rb_config['co_sidemenu_padding_shop'] : '0'; // 사이드메뉴 여백 (마켓)
+$rb_core['sidemenu_hide'] = !empty($rb_config['co_sidemenu_hide']) ? $rb_config['co_sidemenu_hide'] : '0'; // 사이드메뉴 숨김
+$rb_core['sidemenu_hide_shop'] = !empty($rb_config['co_sidemenu_hide_shop']) ? $rb_config['co_sidemenu_hide_shop'] : '0'; // 사이드메뉴 숨김 (마켓)
 $rb_core['menu_shop'] = !empty($rb_config['co_menu_shop']) ? $rb_config['co_menu_shop'] : '0'; // 마켓 메뉴설정
+
 
 // 현재 메뉴 반환 함수
 function get_current_menu_info() {

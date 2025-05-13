@@ -25,7 +25,7 @@ if(G5_COMMUNITY_USE === false) {
             </div>
             <?php } ?>
             <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left" || isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") { ?>
-            <div id="rb_sidemenu" class="rb_sidemenu flex_box rb_sidemenu_<?php echo isset($rb_core['sidemenu']) ? $rb_core['sidemenu'] : ''; ?>" style="width:<?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>px" data-layout="rb_sidemenu"></div>
+            <div id="rb_sidemenu" class="rb_sidemenu flex_box rb_sidemenu_<?php echo isset($rb_core['sidemenu']) ? $rb_core['sidemenu'] : ''; ?> <?php if (isset($rb_core['sidemenu_hide']) && $rb_core['sidemenu_hide'] == "1") { ?>pc<?php } ?>" style="width:<?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>px; <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left") { ?>padding-right:<?php echo isset($rb_core['sidemenu_padding']) ? $rb_core['sidemenu_padding'] : '0'; ?>px;<?php } else if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") { ?>padding-left:<?php echo isset($rb_core['sidemenu_padding']) ? $rb_core['sidemenu_padding'] : '0'; ?>px;<?php } ?>" data-layout="rb_sidemenu"></div>
             <?php } ?>
 
             <div class="cb"></div>
@@ -82,53 +82,62 @@ if(G5_COMMUNITY_USE === false) {
                         </li>
                     </div>
                     
+
                     
                     <ul>
-                    <?php
-                    if(IS_MOBILE()) {
-                        $menu_datas = get_menu_db(1, true);
-                    } else {
-                        $menu_datas = get_menu_db(0, true);
-                    }
-                    $gnb_zindex = 999; // gnb_1dli z-index 값 설정용
-                    $i = 0;
-                    foreach( $menu_datas as $row ){
-                        if( empty($row) ) continue;
-                        $add_arr = (isset($row['sub']) && $row['sub']) ? 'add_arr_svg' : '';
-                        $add_arr_btn = (isset($row['sub']) && $row['sub']) ? '<button type="button" class="add_arr_btn"></button>' : '';
-                    ?>
-                    <?php if(isset($row['me_level']) && $row['me_level'] <= $member['mb_level']) { ?>
-                    <li class="<?php echo $add_arr ?>">
-                        <a href="<?php echo $row['me_link']; ?>" target="_<?php echo $row['me_target']; ?>" class="font-B"><?php echo $row['me_name'] ?></a>
-                        <?php echo $add_arr_btn ?>
-                        <?php
-                        $k = 0;
-                        foreach( (array) $row['sub'] as $row2 ){
 
-                            if( empty($row2) ) continue; 
-                            
-                            if($k == 0)
-                                echo '<div class="cbp-hrsub"><div class="cbp-hrsub-inner"><div><!--<h4 class="font-B">그룹</h4>--><ul>'.PHP_EOL;
-                            
+
+                        <?php
+                        if(IS_MOBILE()) {
+                            $menu_datas = get_menu_db(1, true);
+                        } else {
+                            $menu_datas = get_menu_db(0, true);
+                        }
+                        $gnb_zindex = 999; // gnb_1dli z-index 값 설정용
+                        $i = 0;
+                        foreach( $menu_datas as $row ){
+                            if( empty($row) ) continue;
+                            $add_arr = (isset($row['sub']) && $row['sub']) ? 'add_arr_svg' : '';
+                            $add_arr_btn = (isset($row['sub']) && $row['sub']) ? '<button type="button" class="add_arr_btn"></button>' : '';
                         ?>
-                            <?php if(isset($row2['me_level']) && $row2['me_level'] <= $member['mb_level']) { ?>
-                            <li><a href="<?php echo $row2['me_link']; ?>" target="_<?php echo $row2['me_target']; ?>"><?php echo $row2['me_name'] ?></a></li>
+                            <?php if(isset($row['me_level']) && $row['me_level'] <= $member['mb_level']) { ?>
+                            <li class="<?php echo $add_arr ?>">
+                                <a href="<?php echo $row['me_link']; ?>" target="_<?php echo $row['me_target']; ?>" class="font-B"><?php echo $row['me_name'] ?></a>
+                                <?php echo $add_arr_btn ?>
+                                <?php
+                                $k = 0;
+                                foreach( (array) $row['sub'] as $row2 ){
+
+                                    if( empty($row2) ) continue;
+
+                                    if($k == 0)
+                                        echo '<div class="cbp-hrsub"><div class="cbp-hrsub-inner"><div><!--<h4 class="font-B">그룹</h4>--><ul>'.PHP_EOL;
+
+                                ?>
+                                    <?php if(isset($row2['me_level']) && $row2['me_level'] <= $member['mb_level']) { ?>
+                                    <li><a href="<?php echo $row2['me_link']; ?>" target="_<?php echo $row2['me_target']; ?>"><?php echo $row2['me_name'] ?></a></li>
+                                    <?php } ?>
+                                <?php
+                                $k++;
+                                }   //end foreach $row2
+
+                                if($k > 0)
+                                    echo '</ul></div></div></div>'.PHP_EOL;
+                                ?>
+                            </li>
                             <?php } ?>
                         <?php
-                        $k++;
-                        }   //end foreach $row2
-
-                        if($k > 0)
-                            echo '</ul></div></div></div>'.PHP_EOL;
+                        $i++;
+                        }   //end foreach $row
                         ?>
-                    </li>
-                    <?php } ?>
-                    <?php
-                    $i++;
-                    }   //end foreach $row
-                    ?>
+
+
                     </ul>
+
+
                 </nav>
+
+
                 <!-- } -->
 
 
