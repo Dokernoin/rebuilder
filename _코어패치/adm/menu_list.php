@@ -22,7 +22,8 @@ if (!sql_query(" DESCRIBE {$g5['menu_table']} ", false)) {
                   `me_order` int(11) NOT NULL DEFAULT '0',
                   `me_use` tinyint(4) NOT NULL DEFAULT '0',
                   `me_mobile_use` tinyint(4) NOT NULL DEFAULT '0',
-                  `me_level` tinyint(4) NOT NULL DEFAULT '0',
+                  `me_level` tinyint(4) NOT NULL DEFAULT '1',
+                  `me_level_opt` tinyint(4) NOT NULL DEFAULT '1',
                   PRIMARY KEY (`me_id`)
                 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ",
         true
@@ -35,14 +36,13 @@ $result = sql_query($sql);
 $g5['title'] = "메뉴설정";
 require_once './admin.head.php';
 
-$colspan = 8;
+$colspan = 9;
 $sub_menu_info = '';
 ?>
 
 <div class="local_desc01 local_desc">
     <p>
     <strong>주의!</strong> 메뉴설정 작업 후 반드시 <strong>확인</strong>을 누르셔야 저장됩니다.<br>
-    <strong>주의!</strong> 권한의 경우 설정된 레벨보다 낮은 회원은 메뉴를 볼 수 없습니다. (1레벨은 비회원)<br>
     <strong>주의!</strong> 짧은 주소를 사용중이신 경우 짧은주소 형식에 맞게 링크를 설정해주세요.<br>
     <strong>예시!</strong> 게시판 : /게시판ID, 상품목록 : /shop/list-카테고리번호, 내용관리 : /content/내용관리ID<br>
     </p>
@@ -64,7 +64,7 @@ $sub_menu_info = '';
                     <th scope="col">순서</th>
                     <th scope="col">PC사용</th>
                     <th scope="col">모바일사용</th>
-                    <th scope="col">권한</th>
+                    <th scope="col" colspan="2">권한</th>
                     <th scope="col">관리</th>
                 </tr>
             </thead>
@@ -119,8 +119,15 @@ $sub_menu_info = '';
                             </select>
                         </td>
                         <td class="td_num">
-                            <label for="me_level_<?php echo $i; ?>" class="sound_only">접근권한</label>
+                            <label for="me_level_<?php echo $i; ?>" class="sound_only">권한</label>
                             <?php echo get_member_level_select('me_level[]', 1, $member['mb_level'], $row['me_level']) ?>
+                        </td>
+                        <td class="td_mng" style="min-width:150px;">
+                            <label for="me_level_opt_<?php echo $i; ?>" class="sound_only">옵션</label>
+                            <select id="me_level_opt" name="me_level_opt[]">
+                            <option value="1" <?php if (isset($row['me_level_opt']) && $row['me_level_opt'] == "1") { ?>selected<?php } ?>>레벨 부터 접근가능</option>
+                            <option value="2" <?php if (isset($row['me_level_opt']) && $row['me_level_opt'] == "2") { ?>selected<?php } ?>>레벨만 접근가능</option>
+                            </select>
                         </td>
 
                         <td class="td_mng">

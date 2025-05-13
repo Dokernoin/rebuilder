@@ -171,6 +171,13 @@ $selects_lev = str_replace("'", "\'", $selects_lev); // 작은따옴표 이스�
         list += "<label for=\"me_level_" + ms + "\" class=\"sound_only\">접근권한</label>";
         list += selectsLev;
         list += "</td>";
+        list += "<td class=\"td_mng\" style=\"min-width:150px;\">";
+        list += "<label for=\"me_level_opt_" + ms + "\" class=\"sound_only\">옵션</label>";
+        list += "<select id=\"me_level_opt\" name=\"me_level_opt[]\">";
+        list += "<option value=\"1\">레벨 부터 접근가능</option>";
+        list += "<option value=\"2\">레벨만 접근가능</option>";
+        list += "</select>";
+        list += "</td>";
         list += "<td class=\"td_mng\">";
         <?php if ($new == 'new') { ?>
             list += "<button type=\"button\" class=\"btn_add_submenu btn_03\">추가</button>\n";

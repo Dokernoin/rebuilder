@@ -71,7 +71,8 @@ for ($i = 0; $i < $count; $i++) {
                     me_order        = '" . sql_real_escape_string(strip_tags($_POST['me_order'][$i])) . "',
                     me_use          = '" . sql_real_escape_string(strip_tags($_POST['me_use'][$i])) . "',
                     me_mobile_use   = '" . sql_real_escape_string(strip_tags($_POST['me_mobile_use'][$i])) . "',
-                    me_level   = '" . sql_real_escape_string(strip_tags($_POST['me_level'][$i])) . "' ";
+                    me_level   = '" . sql_real_escape_string(strip_tags($_POST['me_level'][$i])) . "',
+                    me_level_opt   = '" . sql_real_escape_string(strip_tags($_POST['me_level_opt'][$i])) . "' ";
     sql_query($sql);
 }
 

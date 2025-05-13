@@ -134,39 +134,61 @@ $admin = get_admin("super");
 
 
                         <?php
-                        $menu_datas = get_menu_db(0, true);
-                        $gnb_zindex = 999; // gnb_1dli z-index 값 설정용
+                        if(IS_MOBILE()) {
+                            $menu_datas = get_menu_db(1, true);
+                        } else {
+                            $menu_datas = get_menu_db(0, true);
+                        }
+
+                        $gnb_zindex = 999;
                         $i = 0;
-                        foreach( $menu_datas as $row ){
-                            if( empty($row) ) continue;
+                        foreach ($menu_datas as $row) {
+                            if (empty($row)) continue;
+
+                            // 1차 메뉴 권한 체크
+                            if (!$is_admin && isset($row['me_level']) && $row['me_level'] > 0) {
+                                if (isset($row['me_level_opt']) && $row['me_level_opt'] == 2) {
+                                    if ($row['me_level'] != $member['mb_level']) continue;
+                                } else {
+                                    if ($row['me_level'] > $member['mb_level']) continue;
+                                }
+                            }
+
                             $add_arr = (isset($row['sub']) && $row['sub']) ? 'add_arr_svg' : '';
                             $add_arr_btn = (isset($row['sub']) && $row['sub']) ? '<button type="button" class="add_arr_btn"></button>' : '';
                         ?>
-                        <li class="<?php echo $add_arr ?>">
-                            <a href="<?php echo $row['me_link']; ?>" target="_<?php echo $row['me_target']; ?>" class="font-B"><?php echo $row['me_name'] ?></a>
-                            <?php echo $add_arr_btn ?>
-                            <?php
-                            $k = 0;
-                            foreach( (array) $row['sub'] as $row2 ){
+                            <li class="<?php echo $add_arr ?>">
+                                <a href="<?php echo $row['me_link']; ?>" target="_<?php echo $row['me_target']; ?>" class="font-B"><?php echo $row['me_name'] ?></a>
+                                <?php echo $add_arr_btn ?>
+                                <?php
+                                $k = 0;
+                                foreach ((array) $row['sub'] as $row2) {
+                                    if (empty($row2)) continue;
 
-                                if( empty($row2) ) continue;
+                                    // 2차 메뉴 권한 체크
+                                    if (!$is_admin && isset($row2['me_level']) && $row2['me_level'] > 0) {
+                                        if (isset($row2['me_level_opt']) && $row2['me_level_opt'] == 2) {
+                                            if ($row2['me_level'] != $member['mb_level']) continue;
+                                        } else {
+                                            if ($row2['me_level'] > $member['mb_level']) continue;
+                                        }
+                                    }
 
-                                if($k == 0)
-                                    echo '<div class="cbp-hrsub"><div class="cbp-hrsub-inner"><div><!--<h4 class="font-B">그룹</h4>--><ul>'.PHP_EOL;
+                                    if ($k == 0)
+                                        echo '<div class="cbp-hrsub"><div class="cbp-hrsub-inner"><div><!--<h4 class="font-B">그룹</h4>--><ul>' . PHP_EOL;
+                                ?>
+                                    <li><a href="<?php echo $row2['me_link']; ?>" target="_<?php echo $row2['me_target']; ?>"><?php echo $row2['me_name'] ?></a></li>
+                                <?php
+                                    $k++;
+                                }
 
-                            ?>
-                                <li><a href="<?php echo $row2['me_link']; ?>" target="_<?php echo $row2['me_target']; ?>"><?php echo $row2['me_name'] ?></a></li>
-                            <?php
-                            $k++;
-                            }   //end foreach $row2
-
-                            if($k > 0)
-                                echo '</ul></div></div></div>'.PHP_EOL;
-                            ?>
-                        </li>
+                                if ($k > 0)
+                                    echo '</ul></div></div></div>' . PHP_EOL;
+                                ?>
+                            </li>
                         <?php
-                        $i++;
-                        }   //end foreach $row
+                            $i++;
+                        }
                         ?>
 
                     <?php } ?>
