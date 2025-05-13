@@ -42,44 +42,6 @@ $rb_core['sidemenu_hide'] = !empty($rb_config['co_sidemenu_hide']) ? $rb_config[
 $rb_core['sidemenu_hide_shop'] = !empty($rb_config['co_sidemenu_hide_shop']) ? $rb_config['co_sidemenu_hide_shop'] : '0'; // 사이드메뉴 숨김 (마켓)
 $rb_core['menu_shop'] = !empty($rb_config['co_menu_shop']) ? $rb_config['co_menu_shop'] : '0'; // 마켓 메뉴설정
 
-
-// 현재 메뉴 반환 함수
-function get_current_menu_info() {
-    $request_uri = $_SERVER['REQUEST_URI'];
-    $parsed_uri = parse_url($request_uri);
-    $current_path = rtrim($parsed_uri['path'], '/');
-    parse_str(isset($parsed_uri['query']) ? $parsed_uri['query'] : '', $current_query_array);
-
-    $sql = "SELECT * FROM g5_menu WHERE me_link != '' ORDER BY LENGTH(me_link) DESC";
-    $result = sql_query($sql);
-
-    while ($row = sql_fetch_array($result)) {
-        $menu_url = $row['me_link'];
-        $parsed_menu = parse_url($menu_url);
-
-        if (!isset($parsed_menu['path'])) continue;
-
-        $menu_path = rtrim($parsed_menu['path'], '/');
-        parse_str(isset($parsed_menu['query']) ? $parsed_menu['query'] : '', $menu_query_array);
-
-        if ($current_path === $menu_path && $current_query_array == $menu_query_array) {
-            return [
-                'me_code' => $row['me_code'],
-                'me_id' => $row['me_id'],
-                'me_name' => $row['me_name'],
-                'me_use' => $row['me_use'],
-                'me_mobile_use' => $row['me_mobile_use'],
-                'me_top_use' => $row['me_top_use'],
-                'me_level' => $row['me_level'],
-            ];
-        }
-    }
-
-    return null;
-}
-
-$rb_menus = get_current_menu_info();
-
 // 현재 페이지 URL로 v_code 변환
 $rb_page_url = $_SERVER['REQUEST_URI'];
 $rb_page_urls = urldecode($rb_page_url);
