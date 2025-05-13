@@ -37,6 +37,8 @@ $rb_core['sidemenu_shop'] = !empty($rb_config['co_sidemenu_shop']) ? $rb_config[
 $rb_core['sidemenu_width'] = !empty($rb_config['co_sidemenu_width']) ? $rb_config['co_sidemenu_width'] : '200'; // 사이드메뉴 가로크기
 $rb_core['sidemenu_width_shop'] = !empty($rb_config['co_sidemenu_width_shop']) ? $rb_config['co_sidemenu_width_shop'] : '200'; // 사이드메뉴 가로크기 (마켓)
 
+$rb_core['menu_shop'] = !empty($rb_config['co_menu_shop']) ? $rb_config['co_menu_shop'] : '0'; // 마켓 메뉴설정
+
 // 현재 메뉴 반환 함수
 function get_current_menu_info() {
     $request_uri = $_SERVER['REQUEST_URI'];
@@ -75,13 +77,170 @@ function get_current_menu_info() {
 $rb_menus = get_current_menu_info();
 
 // 현재 페이지 URL로 v_code 변환
-$rb_page_urls = $_SERVER['REQUEST_URI'];
-$rb_page_urls = preg_replace('/\.php/', '', $rb_page_urls);
-$rb_page_urls = str_replace(['/', '?', '&', '='], '-', $rb_page_urls);
+$rb_page_url = $_SERVER['REQUEST_URI'];
+$rb_page_urls = urldecode($rb_page_url);
+$rb_page_urls = explode('?', $rb_page_urls)[0]; // 쿼리스트링 제거
+$rb_page_urls = preg_replace('/\.php$/', '', $rb_page_urls);
+$rb_page_urls = str_replace('/', '-', $rb_page_urls);
 $rb_page_urls = ltrim($rb_page_urls, '-');
+
+// ca_id 존재 시 → shop-list-XX-XX 형식
+if (isset($ca_id) && preg_match('/^\d+$/', $ca_id)) {
+    $cate_id = implode('-', str_split($ca_id, 2)); // ex: 101010 → 10-10-10
+    $rb_page_urls = 'shop-list-' . $cate_id;
+}
+
+// bo_table 존재 시 → bo-table-게시판명
+elseif (isset($bo_table) && $bo_table) {
+    $rb_page_urls = 'bo-table-' . $bo_table;
+}
+
+// co_id 존재 시 → content-컨텐츠ID
+elseif (isset($co_id) && $co_id) {
+    $rb_page_urls = 'content-' . $co_id;
+}
+
+elseif (isset($gr_id) && $gr_id) {
+    $rb_page_urls = 'group-' . $gr_id;
+}
+
+
+// 노드 신규등록
+rb_auto_insert_node_if_inherited($rb_page_urls);
 
 $rb_page_sql = "SELECT * FROM rb_topvisual WHERE v_code = '{$rb_page_urls}'";
 $rb_v_info = sql_fetch($rb_page_sql);
+
+// 상위노드 검색
+function rb_has_topvisual_all($v_code) {
+    $parts = explode('-', $v_code);
+
+    // 가장 긴 prefix부터 하나씩 줄여가며 탐색
+    for ($i = count($parts) - 1; $i > 0; $i--) {
+        $parent_code = implode('-', array_slice($parts, 0, $i));
+
+        $sql = "SELECT COUNT(*) as cnt FROM rb_topvisual
+                WHERE v_code = '{$parent_code}' AND co_topvisual_all = 1";
+        $row = sql_fetch($sql);
+
+        if (isset($row['cnt']) && $row['cnt'] > 0) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// 노드가 등록되지않은 경우 인서트 (접속 기준 상위 노드를 찾는다)
+function rb_auto_insert_node_if_inherited($v_code, $table = 'rb_topvisual') {
+    // 1. 현재 노드가 DB에 존재하는지 확인
+    $chk_sql = "SELECT COUNT(*) as cnt FROM {$table} WHERE v_code = '{$v_code}'";
+    $chk = sql_fetch($chk_sql);
+
+    if (isset($chk['cnt']) && $chk['cnt'] > 0) {
+        return; // 이미 존재 → 등록 안함
+    }
+
+    $rb_page_url = $_SERVER['REQUEST_URI'];
+
+    // 2. 상위 노드 중 co_topvisual_all = 1 인 노드 찾기
+    $parts = explode('-', $v_code);
+    for ($i = count($parts) - 1; $i > 0; $i--) {
+        $parent_code = implode('-', array_slice($parts, 0, $i));
+
+        $parent_sql = "SELECT * FROM {$table}
+                       WHERE v_code = '{$parent_code}'
+                         AND co_topvisual_all = 1
+                       LIMIT 1";
+        $parent = sql_fetch($parent_sql);
+
+        if ($parent) {
+            $v_url = $rb_page_url;
+            $v_use = 1;
+            $v_time = G5_TIME_YMDHIS;
+
+            // 기본 필드
+            $columns = ['v_code', 'v_name', 'v_url', 'v_use', 'co_topvisual_all', 'v_time'];
+            $values  = ["'{$v_code}'", "''", "'{$v_url}'", "'{$v_use}'", "'0'", "'{$v_time}'"];
+
+            // 스타일도 상속할 경우
+            if (isset($parent['co_topvisual_style_all']) && intval($parent['co_topvisual_style_all']) === 1) {
+                $style_fields = [
+                    'co_topvisual_height',
+                    'co_topvisual_width',
+                    'co_topvisual_bl',
+                    'co_topvisual_border',
+                    'co_topvisual_radius',
+                    'co_topvisual_m_color',
+                    'co_topvisual_m_size',
+                    'co_topvisual_m_font',
+                    'co_topvisual_m_align',
+                    'co_topvisual_s_color',
+                    'co_topvisual_s_size',
+                    'co_topvisual_s_font',
+                    'co_topvisual_s_align',
+                    'co_topvisual_bg_color',
+                    'co_topvisual_main'
+                ];
+
+                foreach ($style_fields as $field) {
+                    $columns[] = $field;
+                    $values[]  = "'" . addslashes($parent[$field] ?? '') . "'";
+                }
+            }
+
+            // INSERT 쿼리 실행
+            $insert_sql = "INSERT INTO {$table} (" . implode(', ', $columns) . ")
+                           VALUES (" . implode(', ', $values) . ")";
+            sql_query($insert_sql);
+
+            // 파일 복사: /data/topvisual/{parent_code}.txt / .jpg → {v_code}.txt / .jpg
+            $topvisual_path = G5_DATA_PATH . '/topvisual';
+            $exts = ['txt', 'jpg'];
+
+            foreach ($exts as $ext) {
+                $source = "{$topvisual_path}/{$parent_code}.{$ext}";
+                $target = "{$topvisual_path}/{$v_code}.{$ext}";
+
+                if (file_exists($source)) {
+                    @copy($source, $target);
+                }
+            }
+            break;
+        }
+    }
+}
+
+
+// 상위노드명 출력
+function rb_get_inherited_topvisual_node($v_code, $table = 'rb_topvisual') {
+    $parts = explode('-', $v_code);
+
+    for ($i = count($parts) - 1; $i > 0; $i--) {
+        $parent_code = implode('-', array_slice($parts, 0, $i));
+
+        $sql = "SELECT v_code, v_name, v_url FROM {$table}
+                WHERE v_code = '{$parent_code}' AND co_topvisual_all = 1 LIMIT 1";
+        $row = sql_fetch($sql);
+
+        if ($row) {
+            return $row; // 전체 정보 반환
+        }
+    }
+
+    return null;
+}
+
+
+// 기본 조건: 현재 노드가 사용 또는 전체사용일 때
+if (isset($rb_v_info['v_use']) && in_array(intval($rb_v_info['v_use']), [1, 2])) {
+    $should_show_visual = true;
+}
+
+// 추가 조건: 상위 노드 중 co_topvisual_all = 1이 있는 경우
+elseif (rb_has_topvisual_all($rb_page_urls)) {
+    $should_show_visual = true;
+}
 
 $rb_v_info['topvisual_height'] = !empty($rb_v_info['co_topvisual_height']) ? $rb_v_info['co_topvisual_height'] : '200'; // 상단영역 세로크기
 $rb_v_info['topvisual_width'] = !empty($rb_v_info['co_topvisual_width']) ? $rb_v_info['co_topvisual_width'] : ''; // 상단영역 가로크기
@@ -101,6 +260,7 @@ $rb_v_info['topvisual_s_font'] = !empty($rb_v_info['co_topvisual_s_font']) ? $rb
 $rb_v_info['topvisual_s_align'] = !empty($rb_v_info['co_topvisual_s_align']) ? $rb_v_info['co_topvisual_s_align'] : 'left'; // 상단영역 서브워딩 정렬
 
 $rb_v_info['topvisual_bg_color'] = !empty($rb_v_info['co_topvisual_bg_color']) ? $rb_v_info['co_topvisual_bg_color'] : '#f9f9f9';
+$rb_v_info['topvisual_style_all'] = !empty($rb_v_info['co_topvisual_style_all']) ? $rb_v_info['co_topvisual_style_all'] : '0';
 
 /* } */
 

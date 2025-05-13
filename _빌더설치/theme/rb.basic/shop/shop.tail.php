@@ -86,41 +86,90 @@ $admin = get_admin("super");
                     
                     
                     <ul>
-                    <?php
-                    $menu_datas = get_menu_db(0, true);
-                    $gnb_zindex = 999; // gnb_1dli z-index 값 설정용
-                    $i = 0;
-                    foreach( $menu_datas as $row ){
-                        if( empty($row) ) continue;
-                        $add_arr = (isset($row['sub']) && $row['sub']) ? 'add_arr_svg' : '';
-                        $add_arr_btn = (isset($row['sub']) && $row['sub']) ? '<button type="button" class="add_arr_btn"></button>' : '';
-                    ?>
-                    <li class="<?php echo $add_arr ?>">
-                        <a href="<?php echo $row['me_link']; ?>" target="_<?php echo $row['me_target']; ?>" class="font-B"><?php echo $row['me_name'] ?></a>
-                        <?php echo $add_arr_btn ?>
-                        <?php
-                        $k = 0;
-                        foreach( (array) $row['sub'] as $row2 ){
 
-                            if( empty($row2) ) continue; 
-                            
-                            if($k == 0)
-                                echo '<div class="cbp-hrsub"><div class="cbp-hrsub-inner"><div><!--<h4 class="font-B">그룹</h4>--><ul>'.PHP_EOL;
-                            
-                        ?>
-                            <li><a href="<?php echo $row2['me_link']; ?>" target="_<?php echo $row2['me_target']; ?>"><?php echo $row2['me_name'] ?></a></li>
-                        <?php
-                        $k++;
-                        }   //end foreach $row2
 
-                        if($k > 0)
-                            echo '</ul></div></div></div>'.PHP_EOL;
+                    <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == 1 || isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == 2) { ?>
+
+                            <?php
+                            $mshop_ca_res1 = sql_query(get_mshop_category('', 2));
+                            for($y=0; $mshop_ca_row1=sql_fetch_array($mshop_ca_res1); $y++) {
+
+                                // 2차 카테고리 유무 확인
+                                $has_sub = false;
+                                $tmp_res = sql_query(get_mshop_category($mshop_ca_row1['ca_id'], 4));
+                                if (sql_num_rows($tmp_res) > 0) $has_sub = true;
+                                sql_free_result($tmp_res);
+
+                                $add_arr = $has_sub ? 'add_arr_svg' : '';
+                                $add_arr_btn = $has_sub ? '<button type="button" class="add_arr_btn"></button>' : '';
+
+                            ?>
+                                <li class="<?php echo $add_arr ?>">
+                                    <a href="<?php echo shop_category_url($mshop_ca_row1['ca_id']); ?>" class="font-B"><?php echo get_text($mshop_ca_row1['ca_name']); ?></a>
+                                    <?php echo $add_arr_btn ?>
+                                    <?php
+                                    $mshop_ca_res2 = sql_query(get_mshop_category($mshop_ca_row1['ca_id'], 4));
+
+                                    for($u=0; $mshop_ca_row2=sql_fetch_array($mshop_ca_res2); $u++) {
+                                        if($u == 0)
+                                            echo '<div class="cbp-hrsub"><div class="cbp-hrsub-inner"><div><!--<h4 class="font-B">그룹</h4>--><ul>'.PHP_EOL;
+                                    ?>
+                                        <li><a href="<?php echo shop_category_url($mshop_ca_row2['ca_id']); ?>"><?php echo get_text($mshop_ca_row2['ca_name']); ?></a></li>
+                                    <?php
+                                    }
+
+                                    if($u > 0)
+                                        echo '</div></div></div>'.PHP_EOL;
+                                    ?>
+                                </li>
+
+                            <?php } ?>
+
+
+                    <?php } ?>
+
+
+
+                    <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == 2 || isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == 0 || isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "") { ?>
+
+
+                        <?php
+                        $menu_datas = get_menu_db(0, true);
+                        $gnb_zindex = 999; // gnb_1dli z-index 값 설정용
+                        $i = 0;
+                        foreach( $menu_datas as $row ){
+                            if( empty($row) ) continue;
+                            $add_arr = (isset($row['sub']) && $row['sub']) ? 'add_arr_svg' : '';
+                            $add_arr_btn = (isset($row['sub']) && $row['sub']) ? '<button type="button" class="add_arr_btn"></button>' : '';
                         ?>
-                    </li>
-                    <?php
-                    $i++;
-                    }   //end foreach $row
-                    ?>
+                        <li class="<?php echo $add_arr ?>">
+                            <a href="<?php echo $row['me_link']; ?>" target="_<?php echo $row['me_target']; ?>" class="font-B"><?php echo $row['me_name'] ?></a>
+                            <?php echo $add_arr_btn ?>
+                            <?php
+                            $k = 0;
+                            foreach( (array) $row['sub'] as $row2 ){
+
+                                if( empty($row2) ) continue;
+
+                                if($k == 0)
+                                    echo '<div class="cbp-hrsub"><div class="cbp-hrsub-inner"><div><!--<h4 class="font-B">그룹</h4>--><ul>'.PHP_EOL;
+
+                            ?>
+                                <li><a href="<?php echo $row2['me_link']; ?>" target="_<?php echo $row2['me_target']; ?>"><?php echo $row2['me_name'] ?></a></li>
+                            <?php
+                            $k++;
+                            }   //end foreach $row2
+
+                            if($k > 0)
+                                echo '</ul></div></div></div>'.PHP_EOL;
+                            ?>
+                        </li>
+                        <?php
+                        $i++;
+                        }   //end foreach $row
+                        ?>
+
+                    <?php } ?>
                     
 
                     <?php /* 쇼핑몰 분류 사용시

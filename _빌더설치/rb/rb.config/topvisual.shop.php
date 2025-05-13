@@ -1,7 +1,8 @@
 <?php
 if (!defined('_GNUBOARD_')) exit;
 
-            if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 1) {
+
+            if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 1 || isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 2) {
 
             $topvisual_class = !empty($rb_v_info['v_code']) ? $rb_v_info['v_code'] : '';
             $topvisual_width = (!empty($rb_v_info['topvisual_width']) && $rb_v_info['topvisual_width'] > 0) ? $rb_v_info['topvisual_width'] . '%' : $rb_core['sub_width'] . 'px';
@@ -66,7 +67,7 @@ if (!defined('_GNUBOARD_')) exit;
                             <?php echo $has_main ? nl2br(htmlspecialchars($main)) : ($is_admin ? nl2br("메인 워딩을 입력할 수 있어요.") : ''); ?>
                         </div>
                         <div class="sub_wording" style="<?php echo $topvisual_padding ?> text-align:<?php echo !empty($rb_v_info['topvisual_s_align']) ? $rb_v_info['topvisual_s_align'] : 'left'; ?>; font-size:<?php echo !empty($rb_v_info['topvisual_s_size']) ? $rb_v_info['topvisual_s_size'] : '16'; ?>px; color:<?php echo !empty($rb_v_info['topvisual_s_color']) ? $rb_v_info['topvisual_s_color'] : '#ffffff'; ?>; font-family:<?php echo !empty($rb_v_info['topvisual_s_font']) ? $rb_v_info['topvisual_s_font'] : 'font-R'; ?>;" <?php if ($is_admin) echo 'contenteditable="true"'; ?>>
-                            <?php echo $has_sub ? nl2br(htmlspecialchars($sub)) : ($is_admin ? nl2br("서브 워딩을 입력할 수 있어요. 입력 하셨다면 저장해 주세요.\n이미지 드랍 및 스타일을 설정할 수 있어요.\n워딩 설정이 안되었다면 이 글은 관리자만 볼 수 있어요.") : ''); ?>
+                            <?php echo $has_sub ? nl2br(htmlspecialchars($sub)) : ($is_admin ? nl2br("이미지 드랍 및 서브 워딩을 입력할 수 있어요.<br>이 글은 관리자만 볼 수 있어요.") : ''); ?>
                         </div>
                     </div>
                 </div>

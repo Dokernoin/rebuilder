@@ -210,44 +210,84 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_THEME_SHOP_URL.'/rb.layout_hd/
             <div class="rows_gnb_wrap">
                 <div class="inner row_gnbs" style="width:<?php echo $tb_width_inner ?>; <?php echo $tb_width_padding ?>">
                     <nav id="cbp-hrmenu" class="cbp-hrmenu pc">
+
+
                         <ul>
-                        <?php
-                        $menu_datas = get_menu_db(0, true);
-                        $gnb_zindex = 999; // gnb_1dli z-index 값 설정용
-                        $i = 0;
-                        foreach( $menu_datas as $row ){
-                            if( empty($row) ) continue;
-                        ?>
-                        <li>
-                            <a href="<?php echo $row['me_link']; ?>" target="_<?php echo $row['me_target']; ?>" class="font-B"><?php echo $row['me_name'] ?></a>
+
+                        <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == 1 || isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == 2) { ?>
+
                             <?php
-                            $k = 0;
-                            foreach( (array) $row['sub'] as $row2 ){
-
-                                if( empty($row2) ) continue; 
-
-                                if($k == 0)
-                                    echo '<div class="cbp-hrsub"><div class="cbp-hrsub-inner"><div><!--<h4 class="font-B">그룹</h4>--><ul>'.PHP_EOL;
+                            $mshop_ca_res1 = sql_query(get_mshop_category('', 2));
+                            for($j=0; $mshop_ca_row1=sql_fetch_array($mshop_ca_res1); $j++) {
                             ?>
-                                <li><a href="<?php echo $row2['me_link']; ?>" target="_<?php echo $row2['me_target']; ?>"><?php echo $row2['me_name'] ?></a></li>
+                                <li>
+                                    <a href="<?php echo shop_category_url($mshop_ca_row1['ca_id']); ?>" class="font-B"><?php echo get_text($mshop_ca_row1['ca_name']); ?></a>
+                                    <?php
+                                    $mshop_ca_res2 = sql_query(get_mshop_category($mshop_ca_row1['ca_id'], 4));
+
+                                    for($k=0; $mshop_ca_row2=sql_fetch_array($mshop_ca_res2); $k++) {
+                                        if($k == 0)
+                                            echo '<div class="cbp-hrsub"><div class="cbp-hrsub-inner"><div><!--<h4 class="font-B">그룹</h4>--><ul>'.PHP_EOL;
+                                    ?>
+                                        <li><a href="<?php echo shop_category_url($mshop_ca_row2['ca_id']); ?>"><?php echo get_text($mshop_ca_row2['ca_name']); ?></a></li>
+                                    <?php
+                                    }
+
+                                    if($k > 0)
+                                        echo '</div></div></div>'.PHP_EOL;
+                                    ?>
+                                </li>
+                            <?php } ?>
+
+                            <?php if ($j == 0) {  ?>
+                            <li><a href="javascript:void(0);">등록된 카테고리가 없습니다.</a></li>
+                            <?php } ?>
+
+                        <?php } ?>
+
+
+
+                        <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == 2 || isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == 0 || isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "") { ?>
+
                             <?php
-                            $k++;
-                            }   //end foreach $row2
-
-                            if($k > 0)
-                                echo '</ul></div></div></div>'.PHP_EOL;
+                            $menu_datas = get_menu_db(0, true);
+                            $gnb_zindex = 999; // gnb_1dli z-index 값 설정용
+                            $i = 0;
+                            foreach( $menu_datas as $row ){
+                                if( empty($row) ) continue;
                             ?>
-                        </li>
-                        <?php
-                        $i++;
-                        }   //end foreach $row
-                        ?>
+                            <li>
+                                <a href="<?php echo $row['me_link']; ?>" target="_<?php echo $row['me_target']; ?>" class="font-B"><?php echo $row['me_name'] ?></a>
+                                <?php
+                                $k = 0;
+                                foreach( (array) $row['sub'] as $row2 ){
 
-                        <?php if ($i == 0) {  ?>
-                        <li><a href="javascript:void(0);">메뉴 준비 중입니다.</a></li>
+                                    if( empty($row2) ) continue;
+
+                                    if($k == 0)
+                                        echo '<div class="cbp-hrsub"><div class="cbp-hrsub-inner"><div><!--<h4 class="font-B">그룹</h4>--><ul>'.PHP_EOL;
+                                ?>
+                                    <li><a href="<?php echo $row2['me_link']; ?>" target="_<?php echo $row2['me_target']; ?>"><?php echo $row2['me_name'] ?></a></li>
+                                <?php
+                                $k++;
+                                }   //end foreach $row2
+
+                                if($k > 0)
+                                    echo '</ul></div></div></div>'.PHP_EOL;
+                                ?>
+                            </li>
+                            <?php
+                            $i++;
+                            }   //end foreach $row
+                            ?>
+
+                            <?php if ($i == 0) {  ?>
+                            <li><a href="javascript:void(0);">메뉴 준비 중입니다.</a></li>
+                            <?php } ?>
+
                         <?php } ?>
                         
-                        <?php if($i > 0) { ?>
+
                         <li class="gnb_all_menu">
                             <a href="#" class="font-R">전체분류 보기</a>
                             <div class="cbp-hrsub">
@@ -313,7 +353,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_THEME_SHOP_URL.'/rb.layout_hd/
 
                             </div>
                         </li>
-                        <?php } ?>
+
                         
                         </ul>
                         

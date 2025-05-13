@@ -258,6 +258,7 @@ input#md_title_hide + label:after {top:3px !important;}
 .rb_page_add_wrap input {height:25px; border-radius: 4px; padding: 5px !important; font-size:12px;}
 .rb_page_add_wrap button {margin-top: 0px !important;}
 
+
 .selected_tags .tag {
     display: block;
     background: #f9f9f9;
@@ -278,10 +279,13 @@ input#md_title_hide + label:after {top:3px !important;}
 }
 
 .rb_sub_page_cr {margin-bottom: 15px; margin-top: 20px;}
-.rb_sub_page_cr span:first-child {background-color: #aaa; color:#fff; font-size: 11px; padding: 5px 10px; border-radius: 30px;}
-.rb_sub_page_cr span:last-child {background-color: #ccc; color:#fff; font-size: 11px; padding: 5px 10px; border-radius: 30px;}
+.rb_sub_page_cr span {background-color: #aaa; color:#fff; font-size: 11px; padding: 5px 10px; border-radius: 30px;}
 
 #clear_cache_btn {width: 100%;color: #fff;height: 47px;border-radius: 10px;border: 0px;}
+#clear_top_btn {width: 100%;color: #000;height: 47px;border-radius: 10px;border: 0px; background-color: #f0f0f0; font-size: 14px; margin-top: 20px;}
+.rb_config h6 {word-break: keep-all;}
+
+#clear_topvisual_btn {padding: 5px 10px; border-radius: 6px; color:#fff; border:0px;}
 
 @media (max-width: 1024px) {
 

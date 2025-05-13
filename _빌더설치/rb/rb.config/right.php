@@ -130,7 +130,6 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         </div>
                     </ul>
 
-
                     <ul class="rb_config_sec">
                         <h6 class="font-B">모듈간격 설정 (공용)</h6>
                         <h6 class="font-R rb_config_sub_txt">모듈간 간격을 설정할 수 있습니다.<br>내부 여백은 각 모듈 설정에서 개별 적용이 가능합니다.</h6>
@@ -226,6 +225,27 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                         </div>
                     </ul>
+
+
+                    <?php if(defined('_SHOP_')) { // 영카트?>
+                    <ul class="rb_config_sec">
+                        <h6 class="font-B">마켓 헤더 메뉴설정</h6>
+                        <h6 class="font-R rb_config_sub_txt">
+                            헤더 메뉴 구성을 상품 카테고리로 자동설정 할 수 있어요.
+                        </h6>
+                        <div class="config_wrap">
+                            <ul>
+
+                                    <input type="radio" name="co_menu_shop" id="co_menu_shop_1" class="magic-radio mod_send" value="0" <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "" || isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "0") { ?>checked<?php } ?>><label for="co_menu_shop_1">기본</label>
+                                    <input type="radio" name="co_menu_shop" id="co_menu_shop_2" class="magic-radio mod_send" value="1" <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "1") { ?>checked<?php } ?>><label for="co_menu_shop_2">카테고리</label>
+                                    <input type="radio" name="co_menu_shop" id="co_menu_shop_3" class="magic-radio mod_send" value="2" <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "2") { ?>checked<?php } ?>><label for="co_menu_shop_3">카테고리+기본</label>
+
+                            </ul>
+                        </div>
+                    </ul>
+                    <?php } else { ?>
+                        <input type="hidden" name="co_menu_shop" id="co_menu_shop" value="<?php echo !empty($rb_core['menu_shop']) ? $rb_core['menu_shop'] : ''; ?>">
+                    <?php } ?>
 
 
 
@@ -500,13 +520,26 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                         <h6 class="font-B">서브 상단 비주얼 영역 설정</h6>
                         <h6 class="font-R rb_config_sub_txt">
-                            서브 상단 비주얼 영역을 설정할 수 있습니다.<br>
-                            각 페이지에서 설정할 수 있으며,<br>
-                            현재 접속된 URL 을 기준으로 저장 됩니다.
+                            각 페이지에서 설정할 수 있으며, 현재 노드를 기준으로 저장 됩니다.
+                            마켓에는 <span class="font-B">하위적용</span> 옵션을 사용할 수 있으며, 현재 노드의 하위 노드를 <span class="font-B">사용</span>으로 일괄 설정하고, 설정을 복제적용 할 수 있습니다.
                         </h6>
 
                         <div class="font-12 rb_sub_page_cr">
-                        <span>현재페이지 : <?php echo $rb_page_urls ?></span>
+                        <?php
+                        $inherit_node = rb_get_inherited_topvisual_node($rb_page_urls);
+
+                        if ($inherit_node) {
+                            $name = $inherit_node['v_name'] ?: $inherit_node['v_code'];
+                            $url = $inherit_node['v_url'] ?: '#';
+                            echo "<div class='mb-15'><a href=\"{$url}\"><span class='main_rb_bg'>상속 노드 : {$name}</span></a></div>";
+                        } else {
+                            echo "";
+                        }
+
+                        ?>
+
+
+                        <span>현재 노드 : <?php echo cut_str($rb_page_urls, 40) ?></span>
                         </div>
 
                         <div>
@@ -517,11 +550,18 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                     <input type="radio" name="v_use" id="v_use_0" class="magic-radio" value="0"
                                     <?php if (!isset($rb_v_info['v_use']) || intval($rb_v_info['v_use']) === 0) { ?>checked<?php } ?>>
-                                    <label for="v_use_0">사용안함</label>
+                                    <label for="v_use_0">없음</label>
 
                                     <input type="radio" name="v_use" id="v_use_1" class="magic-radio" value="1"
                                     <?php if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 1) { ?>checked<?php } ?>>
                                     <label for="v_use_1">사용</label>
+
+                                    <?php if(defined('_SHOP_')) { // 영카트?>
+                                    <input type="radio" name="v_use" id="v_use_2" class="magic-radio" value="2"
+                                    <?php if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 2) { ?>checked<?php } ?>>
+                                    <label for="v_use_2">하위적용</label>
+                                    <?php } ?>
+
                                 </li>
 
                                 <div class="cb"></div>
@@ -534,8 +574,15 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                             const useVal = $('input[name="v_use"]:checked').val();
                             if (useVal === '1') {
                                 $('#rb_top_vis_wrap').show();
+                                $('#co_topvisual_style_all').prop('checked', false);
+                                $('#topvisual_style_all_wrap').hide();
+                            } else if (useVal === '2') {
+                                $('#rb_top_vis_wrap').show();
+                                $('#topvisual_style_all_wrap').show();
                             } else {
                                 $('#rb_top_vis_wrap').hide();
+                                $('#co_topvisual_style_all').prop('checked', false);
+                                $('#topvisual_style_all_wrap').hide();
                             }
                         }
 
@@ -563,7 +610,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                         if (data.status === 'ok') {
                                             toggleTopVisualBox(); // AJAX 성공 후 표시 여부 적용
 
-                                            if (data.v_use == "1") {
+                                            if (data.v_use == "1" || data.v_use == "2") {
                                                 $('#rb_topvisual').css('display', 'block');
                                                 $('#topvisual_btn_wrap').css('display', 'block');
                                             } else {
@@ -590,7 +637,19 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         <div class="config_wrap" id="rb_top_vis_wrap" style="display:none;">
                             <input type="hidden" name="co_topvisual" id="co_topvisual_4" value="imgtxt">
 
-                            <div class="config_wrap_bg">
+                            <div class="config_wrap_bg" id="topvisual_style_all_wrap" style="display:none;">
+                                <li class="">
+                                    <input type="checkbox" name="co_topvisual_style_all" id="co_topvisual_style_all" class="magic-checkbox mod_send" value="1" <?php if(isset($rb_v_info['topvisual_style_all']) && $rb_v_info['topvisual_style_all'] == 1) { ?>checked<?php } ?>>
+                                    <label for="co_topvisual_style_all">하위노드 동일 설정 적용</label>
+                                </li>
+                                <h6 class="font-R rb_config_sub_txt">
+                                    하위 노드에 동일한 스타일을 적용 합니다.<br>
+                                    상속 노드에 스타일이 변경되면 동시 적용 됩니다.<br>
+                                    워딩과 이미지도 적용 됩니다.
+                                </h6>
+                            </div>
+
+                            <div class="config_wrap_bg mt-10">
                                 <label class="config_wrap_sub_tit">영역 스타일</label><br>
 
                                 <ul class="rows_inp_lr mt-15">
@@ -878,6 +937,31 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 </li>
                                 <div class="cb"></div>
                             </div>
+
+                            <button type="button" id="clear_top_btn" class="font-R">상단영역 전체 초기화</button>
+                            <script>
+                            document.getElementById('clear_top_btn').addEventListener('click', function () {
+                                if (confirm('현재 설정된 서브 상단영역을 모두 초기화 합니다.\n입력된 내용 및 설정값이 모두 삭제 됩니다.\n\n계속 하시겠습니까?')) {
+                                    fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.clear_topvisual.php', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                        body: 'act=top_clear'
+                                    })
+                                    .then(res => res.text())
+                                    .then(res => {
+                                        if (res.trim() === 'ok') {
+                                            alert('초기화 완료 되었습니다.');
+                                            location.reload();
+                                        } else {
+                                            alert('초기화 실패: ' + res);
+                                        }
+                                    })
+                                    .catch(err => {
+                                        alert('에러 발생: ' + err);
+                                    });
+                                }
+                            });
+                            </script>
 
 
                         </div>
@@ -1531,6 +1615,12 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var co_main_padding_top_shop = $('input[name="co_main_padding_top_shop"]').val();
         <?php } ?>
 
+        <?php if(defined('_SHOP_')) { // 영카트?>
+        var co_menu_shop = $('input[name="co_menu_shop"]:checked').val();
+        <?php } else { ?>
+        var co_menu_shop = $('input[name="co_menu_shop"]').val();
+        <?php } ?>
+
         <?php if (defined("_INDEX_")) { ?>
 
         var co_side_skin = "<?php echo !empty($rb_core['side_skin']) ? $rb_core['side_skin'] : ''; ?>";
@@ -1559,6 +1649,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
         var co_topvisual_bg_color = "<?php echo !empty($rb_v_info['topvisual_bg_color']) ? $rb_v_info['topvisual_bg_color'] : ''; ?>";
 
+        var co_topvisual_style_all = "<?php echo !empty($rb_v_info['topvisual_style_all']) ? $rb_v_info['topvisual_style_all'] : ''; ?>";
+
         var v_code = "<?php echo !empty($rb_v_info['v_code']) ? $rb_v_info['v_code'] : ''; ?>";
 
         <?php } else { ?>
@@ -1585,6 +1677,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var co_topvisual_s_align = $('input[name="co_topvisual_s_align"]:checked').val();
 
         var co_topvisual_bg_color = $('input[name="co_topvisual_bg_color"]').val();
+        var co_topvisual_style_all = $('input[name="co_topvisual_style_all"]:checked').val();
         var v_code = $('#v_code').val();
 
         <?php } ?>
@@ -1623,6 +1716,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 "co_tb_width": co_tb_width,
                 "co_main_padding_top": co_main_padding_top,
                 "co_main_padding_top_shop": co_main_padding_top_shop,
+
+                "co_menu_shop": co_menu_shop,
 
                 "co_side_skin": co_side_skin,
                 "co_side_skin_shop": co_side_skin_shop,
@@ -1762,6 +1857,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 "co_topvisual_s_font": co_topvisual_s_font,
                 "co_topvisual_s_align": co_topvisual_s_align,
                 "co_topvisual_bg_color": co_topvisual_bg_color,
+                "co_topvisual_style_all": co_topvisual_style_all,
                 "v_code": v_code,
                 "mod_type": mod_type,
             },

@@ -21,7 +21,6 @@ if (!$key) {
 $main = isset($_POST['main']) ? trim($_POST['main']) : '';
 $sub  = isset($_POST['sub'])  ? trim($_POST['sub'])  : '';
 
-// 줄 단위로 분리 (줄바꿈 호환 처리)
 $main_lines = preg_split('/\r\n|\r|\n/', $main);
 $sub_lines  = preg_split('/\r\n|\r|\n/', $sub);
 
@@ -53,6 +52,29 @@ if ($sub_has_content) {
 $save_dir = G5_DATA_PATH . '/topvisual';
 @mkdir($save_dir, G5_DIR_PERMISSION, true);
 
-// 파일 저장
-file_put_contents($save_dir . '/' . $key . '.txt', implode("\n", $final_lines));
+// 파일 저장 (현재 노드용 .txt)
+$main_file = $save_dir . '/' . $key . '.txt';
+file_put_contents($main_file, implode("\n", $final_lines));
+
+// ✅ 조건 체크: co_topvisual_style_all = 1 인 경우에만 하위에 복사
+$parent_info = sql_fetch("SELECT co_topvisual_style_all FROM rb_topvisual WHERE v_code = '{$me_code}'");
+if (isset($parent_info['co_topvisual_style_all']) && intval($parent_info['co_topvisual_style_all']) === 1) {
+    $sub_nodes = sql_query("SELECT v_code FROM rb_topvisual WHERE v_code LIKE '{$me_code}-%'");
+    while ($row = sql_fetch_array($sub_nodes)) {
+        $sub_code = $row['v_code'];
+
+        // 하위 .txt 복사
+        $sub_txt = $save_dir . '/' . $sub_code . '.txt';
+        @copy($main_file, $sub_txt);
+
+        // 하위 .jpg 복사 (이미지가 있을 경우만)
+        $source_jpg = $save_dir . '/' . $me_code . '.jpg';
+        $target_jpg = $save_dir . '/' . $sub_code . '.jpg';
+
+        if (file_exists($source_jpg)) {
+            @copy($source_jpg, $target_jpg);
+        }
+    }
+}
+
 echo '저장이 완료되었습니다.';

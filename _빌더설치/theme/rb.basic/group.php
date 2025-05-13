@@ -14,6 +14,10 @@ include_once(G5_THEME_PATH.'/head.php');
 include_once(G5_LIB_PATH.'/latest.lib.php');
 ?>
 
+<style>
+    #container_title {display: none;}
+</style>
+
 <?php if(isset($gr_id) && $gr_id) { ?>
     <div class="rb_gr flex_box" data-layout="rb_gr_<?php echo $gr_id ?>"></div>
 <?php } ?>

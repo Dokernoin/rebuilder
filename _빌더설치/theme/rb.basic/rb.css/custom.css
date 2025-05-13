@@ -409,6 +409,10 @@ select#ct_send_cost {width: 150px;}
 .result_message.success{color: #000 !important; display: block !important;}
 /* } */
 
+/* 2.2.0.3 { */
+.mod_bn_wrap {padding-bottom: 0px !important;}
+/* } */
+
 @media all and (max-width:1024px){
 
     /* 1.1.4 { */
