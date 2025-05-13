@@ -50,24 +50,30 @@ $rb_page_urls = preg_replace('/\.php$/', '', $rb_page_urls);
 $rb_page_urls = str_replace('/', '-', $rb_page_urls);
 $rb_page_urls = ltrim($rb_page_urls, '-');
 
-// ca_id 존재 시 → shop-list-XX-XX 형식
+// 카테고리
 if (isset($ca_id) && preg_match('/^\d+$/', $ca_id)) {
     $cate_id = implode('-', str_split($ca_id, 2)); // ex: 101010 → 10-10-10
     $rb_page_urls = 'shop-list-' . $cate_id;
 }
 
-// bo_table 존재 시 → bo-table-게시판명
+// 게시판
 elseif (isset($bo_table) && $bo_table) {
     $rb_page_urls = 'bo-table-' . $bo_table;
 }
 
-// co_id 존재 시 → content-컨텐츠ID
+// 내용관리
 elseif (isset($co_id) && $co_id) {
     $rb_page_urls = 'content-' . $co_id;
 }
 
+// 그룹
 elseif (isset($gr_id) && $gr_id) {
     $rb_page_urls = 'group-' . $gr_id;
+}
+
+// 상품
+elseif (isset($it_id) && $it_id) {
+    $rb_page_urls = 'item-' . $it_id;
 }
 
 
