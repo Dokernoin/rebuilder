@@ -116,8 +116,8 @@ $from_record = ($page - 1) * $rows; // 시작 열을 구함
 
     <tr class="<?php echo $bg; ?>">
         <td headers="th_id" class="td_num"><?php echo $row['bn_id']; ?></td>
-        <td headers="th_dvc"><a href="<?php echo $bn_img; ?>" target="_blank"><?php echo $bn_img; ?></a></td>
-		<td headers="th_loc"><?php echo $row['bn_alt']; ?></td>
+        <td headers="th_dvc"><a href="<?php echo !empty($bn_img) ? $bn_img : '#'; ?>" target="_blank"><?php echo !empty($bn_img) ? $bn_img : '이미지 없음'; ?></a></td>
+		<td headers="th_loc"><?php echo !empty($row['bn_alt']) ? $row['bn_alt'] : '-'; ?></td>
         <td headers="th_loc">
 		<?php if($row['bn_position'] == "") {
 			echo "-";
