@@ -29,19 +29,6 @@ if (!sql_query(" DESCRIBE {$g5['menu_table']} ", false)) {
     );
 }
 
-$columns_to_add = [
-    'me_level' => 'tinyint(4) NOT NULL DEFAULT 1'
-];
-
-foreach ($columns_to_add as $column => $attributes) {
-    // 컬럼이 있는지 확인
-    $column_check = sql_query("SHOW COLUMNS FROM {$g5['menu_table']} LIKE '{$column}'", false);
-    if (!sql_num_rows($column_check)) {
-        // 컬럼 추가
-        sql_query("ALTER TABLE {$g5['menu_table']} ADD {$column} {$attributes}", true);
-    }
-}
-
 $sql = " select * from {$g5['menu_table']} order by me_id ";
 $result = sql_query($sql);
 
