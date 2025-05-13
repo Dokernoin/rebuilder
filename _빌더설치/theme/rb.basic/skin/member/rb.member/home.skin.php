@@ -52,7 +52,7 @@ $ca = isset($_GET['ca']) ? $_GET['ca'] : '';
                                         const data = JSON.parse(response);
                                         if (data.success) {
                                             $('#prof_image_ch').html('<img src="' + data.image_url + '" alt="profile_image">');
-                                            location.reload();
+                                            //location.reload();
                                         } else {
                                             alert(data.message);
                                         }
@@ -103,7 +103,6 @@ $ca = isset($_GET['ca']) ? $_GET['ca'] : '';
 
                     <?php if($mb['mb_id'] == $member['mb_id']) { ?>
                         <a class="fl_btns fl_btns_txt fl_btns_txt_mgl" title="정보수정" alt="정보수정" href="<?php echo G5_BBS_URL ?>/member_confirm.php?url=<?php echo G5_BBS_URL ?>/register_form.php">정보수정</a>
-                        <a class="fl_btns fl_btns_txt" title="탈퇴" alt="탈퇴" href="javascript:member_leave();">탈퇴</a>
                     <?php } else { ?>
                         <a class="fl_btns" title="쪽지보내기" alt="쪽지보내기" href="<?php echo G5_BBS_URL ?>/memo_form.php?me_recv_mb_id=<?php echo $mb['mb_id'] ?>" onclick="win_memo(this.href); return false;">
                             <img src="<?php echo G5_THEME_URL ?>/rb.img/icon/ico_msg.svg">
@@ -457,9 +456,3 @@ $ca = isset($_GET['ca']) ? $_GET['ca'] : '';
 
 <div class="cb"></div>
 
-<script>
-function member_leave() {  // 회원 탈퇴
-    if (confirm("탈퇴시 보유하신 포인트 및 기타 혜택, 개인정보 등\n모든 정보가 삭제 되며 동일 아이디로 재가입이 불가능합니다.\n\n정말 탈퇴 하시겠습니까?"))
-        location.href = '<?php echo G5_BBS_URL ?>/member_confirm.php?url=member_leave.php';
-}
-</script>

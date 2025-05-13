@@ -450,6 +450,17 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
             <li>
                 <div class="btn_confirm">
                     <button type="submit" class="btn_submit font-B" accesskey="s"><?php echo $w==''?'회원가입':'정보수정'; ?></button>
+
+                    <?php if($w == 'u') { ?>
+                    <button type="button" class="btn_submit font-B mt-10" onclick="javascript:member_leaves();" style="background-color:#f1f1f1 !important; color:#000;">회원탈퇴</button>
+
+                    <script>
+                    function member_leaves() {  // 회원 탈퇴
+                        if (confirm("탈퇴시 보유하신 포인트 및 기타 혜택, 개인정보 등\n모든 정보가 삭제 되며 동일 아이디로 재가입이 불가능합니다.\n\n정말 탈퇴 하시겠습니까?"))
+                            location.href = '<?php echo G5_BBS_URL ?>/member_confirm.php?url=member_leave.php';
+                    }
+                    </script>
+                    <?php } ?>
                 </div>
             </li>
             

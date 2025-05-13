@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_image'])) {
     }
 
     // 업로드된 이미지 URL 반환
-    $image_url = G5_DATA_URL . "/member_image/$first_two_chars/$new_filename";
+    $image_url = G5_DATA_URL . "/member_image/$first_two_chars/$new_filename?v=".G5_SERVER_TIME;
     send_json_response(true, '파일 업로드 성공', $image_url);
 } else {
     send_json_response(false, '잘못된 요청');
