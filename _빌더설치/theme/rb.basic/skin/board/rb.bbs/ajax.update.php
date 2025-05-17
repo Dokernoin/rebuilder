@@ -25,6 +25,31 @@ $bo_lightbox = isset($_POST['bo_lightbox']) ? $_POST['bo_lightbox'] : '0';
 $bo_gallery_width = isset($_POST['bo_gallery_width']) ? $_POST['bo_gallery_width'] : '';
 $bo_gallery_height = isset($_POST['bo_gallery_height']) ? $_POST['bo_gallery_height'] : '';
 
+// 보안 처리 (SQL 인젝션 방어)
+$bo_table = sql_escape_string($bo_table);
+$bo_rb_skin_top = sql_escape_string($bo_rb_skin_top);
+$bo_rb_skin_list = sql_escape_string($bo_rb_skin_list);
+$bo_rb_skin_view = sql_escape_string($bo_rb_skin_view);
+$bo_rb_skin_write = sql_escape_string($bo_rb_skin_write);
+$bo_rb_skin_cmt = sql_escape_string($bo_rb_skin_cmt);
+$bo_rb_skin_category = sql_escape_string($bo_rb_skin_category);
+$bo_rb_skin_search = sql_escape_string($bo_rb_skin_search);
+$bo_rb_skin_update = sql_escape_string($bo_rb_skin_update);
+$bo_gallery_cols = (int) $bo_gallery_cols; // 숫자는 정수로 강제 변환
+$bo_mobile_gallery_cols = (int) $bo_mobile_gallery_cols;
+$bo_page_rows = (int) $bo_page_rows;
+$bo_gap_pc = (int) $bo_gap_pc;
+$bo_gap_mo = (int) $bo_gap_mo;
+$bo_border = (int) $bo_border;
+$bo_radius = (int) $bo_radius;
+$bo_viewer1 = sql_escape_string($bo_viewer1);
+$bo_viewer2 = sql_escape_string($bo_viewer2);
+$bo_viewer3 = sql_escape_string($bo_viewer3);
+$bo_viewer4 = sql_escape_string($bo_viewer4);
+$bo_lightbox = (int) $bo_lightbox;
+$bo_gallery_width = (int) $bo_gallery_width;
+$bo_gallery_height = (int) $bo_gallery_height;
+
 if ($is_admin) {
 
     if($bo_table) {

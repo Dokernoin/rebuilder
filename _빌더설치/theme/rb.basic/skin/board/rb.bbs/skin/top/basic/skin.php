@@ -1,5 +1,32 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
+
+$columns_to_add = [
+    'bo_rb_skin_top' => 'VARCHAR(255) NOT NULL DEFAULT \'basic\'',
+    'bo_rb_skin_list' => 'VARCHAR(255) NOT NULL DEFAULT \'basic\'',
+    'bo_rb_skin_view' => 'VARCHAR(255) NOT NULL DEFAULT \'basic\'',
+    'bo_rb_skin_write' => 'VARCHAR(255) NOT NULL DEFAULT \'basic\'',
+    'bo_rb_skin_cmt' => 'VARCHAR(255) NOT NULL DEFAULT \'basic\'',
+    'bo_rb_skin_category' => 'VARCHAR(255) NOT NULL DEFAULT \'basic\'',
+    'bo_rb_skin_search' => 'VARCHAR(255) NOT NULL DEFAULT \'basic\'',
+    'bo_rb_skin_update' => 'VARCHAR(255) NOT NULL DEFAULT \'basic\'',
+    'bo_mobile_gallery_cols' => 'INT(4) NOT NULL DEFAULT \'2\'',
+    'bo_gap_pc' => 'INT(4) NOT NULL DEFAULT \'20\'',
+    'bo_gap_mo' => 'INT(4) NOT NULL DEFAULT \'20\'',
+    'bo_border' => 'INT(4) NOT NULL DEFAULT \'0\'',
+    'bo_radius' => 'INT(4) NOT NULL DEFAULT \'10\'',
+    'bo_viewer' => 'VARCHAR(255) NOT NULL DEFAULT \'\'',
+    'bo_lightbox' => 'INT(4) NOT NULL DEFAULT \'1\'',
+];
+
+foreach ($columns_to_add as $column => $attributes) {
+    // 컬럼이 있는지 확인
+    $column_check = sql_query("SHOW COLUMNS FROM {$g5['board_table']} LIKE '{$column}'", false);
+    if (!sql_num_rows($column_check)) {
+        // 컬럼 추가
+        sql_query("ALTER TABLE {$g5['board_table']} ADD {$column} {$attributes}", true);
+    }
+}
 ?>
 
     <div class="btns_gr_wrap">
