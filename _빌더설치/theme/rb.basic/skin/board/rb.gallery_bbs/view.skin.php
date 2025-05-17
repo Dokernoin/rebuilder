@@ -185,7 +185,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
             }
 
         ?>
-
+        <?php $original_content = isset($view['content']) ? $view['content'] : ''; ?>
         <?php echo get_view_thumbnail($view['content']); ?>
     </div>
     
@@ -230,13 +230,13 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
     <div id="bo_v_act">
         <?php if ($good_href) { ?>
         <span class="bo_v_act_gng">
-            <a href="<?php if(!$is_member) { ?>javascript:alert('로그인 후 이용하실 수 있습니다.');<?php } else { ?><?php echo $good_href.'&amp;'.$qstr ?><?php } ?>" id="good_button" class="bo_v_good">추천해요 <?php echo number_format($view['wr_good']) ?></a>
+            <a href="<?php if(!$is_member) { ?>javascript:alert('로그인 후 이용하실 수 있습니다.');<?php } else { ?><?php echo $good_href.'&amp;'.$qstr ?><?php } ?>" id="good_button" class="bo_v_good">추천해요 <strong><?php echo number_format($view['wr_good']) ?></strong></a>
             <b id="bo_v_act_good" class="font-R"></b>
         </span>
         <?php } ?>
         <?php if ($nogood_href) { ?>
         <span class="bo_v_act_gng">
-            <a href="<?php if(!$is_member) { ?>javascript:alert('로그인 후 이용하실 수 있습니다.');<?php } else { ?><?php echo $nogood_href.'&amp;'.$qstr ?><?php } ?>" id="nogood_button" class="bo_v_nogood">별로에요 <?php echo number_format($view['wr_nogood']) ?></a>
+            <a href="<?php if(!$is_member) { ?>javascript:alert('로그인 후 이용하실 수 있습니다.');<?php } else { ?><?php echo $nogood_href.'&amp;'.$qstr ?><?php } ?>" id="nogood_button" class="bo_v_nogood">별로에요 <strong><?php echo number_format($view['wr_nogood']) ?></strong></a>
             <b id="bo_v_act_nogood" class="font-R"></b>
         </span>
         <?php } ?>
@@ -248,13 +248,13 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
         <?php if($board['bo_use_good']) { ?>
             <span class="bo_v_act_gng">
                 
-                <a href="<?php if(!$is_member) { ?>javascript:alert('로그인 후 이용하실 수 있습니다.');<?php } else { ?>javascript:void(0);<?php } ?>" class="bo_v_good">추천해요 <?php echo number_format($view['wr_good']) ?></a>
+                <a href="<?php if(!$is_member) { ?>javascript:alert('로그인 후 이용하실 수 있습니다.');<?php } else { ?>javascript:void(0);<?php } ?>" class="bo_v_good">추천해요 <strong><?php echo number_format($view['wr_good']) ?></strong></a>
                 <b id="bo_v_act_good" class="font-R"></b>
             </span>
         <?php } ?>
         <?php if($board['bo_use_nogood']) { ?>
             <span class="bo_v_act_gng">
-                <a href="<?php if(!$is_member) { ?>javascript:alert('로그인 후 이용하실 수 있습니다.');<?php } else { ?>javascript:void(0);<?php } ?>" class="bo_v_nogood">별로에요 <?php echo number_format($view['wr_nogood']) ?></a>
+                <a href="<?php if(!$is_member) { ?>javascript:alert('로그인 후 이용하실 수 있습니다.');<?php } else { ?>javascript:void(0);<?php } ?>" class="bo_v_nogood">별로에요 <strong><?php echo number_format($view['wr_nogood']) ?></strong></a>
                 <b id="bo_v_act_nogood" class="font-R"></b>
             </span>
         <?php } ?>

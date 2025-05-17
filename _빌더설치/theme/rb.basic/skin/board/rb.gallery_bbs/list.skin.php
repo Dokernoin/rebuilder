@@ -10,7 +10,6 @@ $bo_mobile_page_rows = isset($board['bo_mobile_page_rows']) ? $board['bo_mobile_
 $bo_gallery_cols = isset($board['bo_gallery_cols']) ? $board['bo_gallery_cols'] : '';
 $bo_gallery_height = isset($board['bo_gallery_height']) ? $board['bo_gallery_height'] : '';
 $bo_mobile_gallery_height = isset($board['bo_mobile_gallery_height'])  ? $board['bo_mobile_gallery_height'] : '';
-    
 
 ?>
 
@@ -18,7 +17,7 @@ $bo_mobile_gallery_height = isset($board['bo_mobile_gallery_height'])  ? $board[
 관리자모드 > 게시판관리의 데이터대로 처리를 위해 PHP로 CSS를 처리 합니다.
 기본값은 4열 입니다.
 -->
-<link rel="stylesheet" href="<?php echo $board_skin_url ?>/style.php?bo_gallery_height=<?php echo $board['bo_gallery_height']; ?>&bo_mobile_gallery_height=<?php echo $board['bo_mobile_gallery_height']; ?>">
+<link rel="stylesheet" href="<?php echo $board_skin_url ?>/style.php?bo_gallery_height=<?php echo $bo_gallery_height; ?>&bo_mobile_gallery_height=<?php echo $bo_mobile_gallery_height; ?>">
 
 
 <div class="rb_bbs_wrap" id="scroll_container" style="width:<?php echo $width; ?>">
@@ -162,21 +161,29 @@ $bo_mobile_gallery_height = isset($board['bo_mobile_gallery_height'])  ? $board[
         </ul>
     </nav>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $("#bo_cate_ul li").addClass("swiper-slide swiper-slide-category");
-        });
-        
-        var swiper = new Swiper('.swiper-container-category', {
-            slidesPerView: 'auto', //가로갯수
-            spaceBetween: 0, // 간격
-            //slidesOffsetBefore: 40, //좌측여백
-            //slidesOffsetAfter: 40, // 우측여백
-            observer: true, //리셋
-            observeParents: true, //리셋
-            touchRatio: 1, // 드래그 가능여부
 
-        });
+            var activeElement = document.querySelector('#bo_cate_on'); // ID로 바로 찾기
+            var initialSlideIndex = 0;
 
+            if (activeElement) {
+                var parentLi = activeElement.closest('li.swiper-slide-category');
+                var allSlides = document.querySelectorAll('li.swiper-slide-category');
+                initialSlideIndex = Array.prototype.indexOf.call(allSlides, parentLi);
+            }
+
+            //console.log('초기 인덱스:', initialSlideIndex);
+
+            var swiper = new Swiper('.swiper-container-category', {
+                slidesPerView: 'auto',
+                spaceBetween: 0,
+                observer: true,
+                observeParents: true,
+                touchRatio: 1,
+                initialSlide: initialSlideIndex
+            });
+        });
     </script>
     <?php } ?>
     <!-- } -->
