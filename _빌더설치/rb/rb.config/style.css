@@ -286,6 +286,32 @@ input#md_title_hide + label:after {top:3px !important;}
 .rb_config h6 {word-break: keep-all;}
 
 #clear_topvisual_btn {padding: 5px 10px; border-radius: 6px; color:#fff; border:0px;}
+.bg_fff {background-color: #fff;}
+.flex_box_inner .rb_layout_box {border:0px;}
+.ui-sortable-handle {border:1px dashed #B9FAFF; margin: -0.5px; background-color: rgba(0,0,0,0.02); }
+.content_box_set {border:0px; background-color: #fff; border-bottom:1px dashed #B9FAFF;}
+.flex_box_inner .ui-sortable-handle {border-top:1px dashed #B9FAFF !important;}
+.rb_layout_box .add_module_wrap {padding: 0px !important;}
+.rb_layout_box .add_module_wrap .add_module_btns {
+    width: auto;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+    border-radius: 4px;
+    background-color: #fff;
+    height: 30px;
+    font-size: 12px;
+    z-index: 97;
+}
+
+.flex_box_inner {
+    position: relative;
+    border-radius: 10px;
+}
+
+#rb_sidemenu .flex_box_inner {display: none !important;}
 
 @media (max-width: 1024px) {
 

@@ -172,7 +172,7 @@ add_javascript('<script src="'.G5_JS_URL.'/jquery-migrate-1.4.1.min.js"></script
     
 if(defined('_SHOP_')) {
     if (isset($rb_core['layout_shop'])) {
-        add_javascript('<script src="' . G5_THEME_URL . '/rb.js/rb.layout.shop.js?v=2.2"></script>', 0);
+        add_javascript('<script src="' . G5_THEME_URL . '/rb.js/rb.layout.shop.js"></script>', 0);
     }
 } else { 
     if (isset($rb_core['layout'])) {
@@ -247,6 +247,7 @@ if ($is_member) { // 회원이라면 로그인 중이라는 메세지를 출력�
 
 <?php if (!empty($rb_builder['bu_load'])) { ?>
 
+
     <!-- 로더 시작 { -->
     <div id="loadings">
         <div id="loadings_spin"></div>
@@ -256,10 +257,11 @@ if ($is_member) { // 회원이라면 로그인 중이라는 메세지를 출력�
 
         // DOM을 포함한 페이지가 준비가 되면 사라집니다.
         $(window).on("load", function() {
-            $('#loadings').fadeOut(500);
+            $('#loadings').delay(1000).fadeOut(500);
         });
 
     </script>
     <!-- } -->
+
 
 <?php } ?>

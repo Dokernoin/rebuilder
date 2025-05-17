@@ -1,51 +1,65 @@
 $(document).ready(function () {
-    var flexBoxes = $('.flex_box');
-    var layoutNumbers = [];
+    function processFlexBoxesOnce($scope, callback) {
+        var flexBoxes = $scope.find('.flex_box').addBack('.flex_box').filter(function () {
+            return !$(this).data('layout-loaded'); // 중복 방지
+        });
 
-    flexBoxes.each(function (index) {
-        // 기존 data-layout 값 확인
-        var existingLayout = $(this).attr('data-layout');
+        var layoutNumbers = [];
 
-        if (!existingLayout) {
-            var layoutIndex = layoutNumbers.length + 1;
-            $(this).attr('data-layout', layoutIndex);
-            layoutNumbers.push(layoutIndex);
-        } else {
-            layoutNumbers.push(existingLayout);
+        flexBoxes.each(function (index) {
+            var $box = $(this);
+            var layout = $box.attr('data-layout');
+
+            if (!layout) {
+                layout = layoutNumbers.length + 1;
+                $box.attr('data-layout', layout);
+            }
+
+            layoutNumbers.push(layout);
+            $box.data('layout-loaded', true);
+        });
+
+        if (!layoutNumbers.length) {
+            if (callback) callback();
+            return;
         }
-    });
 
-    $.ajax({
-        url: g5_url + '/rb/rb.config/ajax.layout_set.shop.php',
-        method: 'POST',
-        dataType: 'json',
-        data: {
-            layouts: layoutNumbers
-        },
-        success: function (response) {
-            flexBoxes.each(function (index) {
-                var layoutIndex = $(this).attr('data-layout');
-                var html = response[layoutIndex];
-                if (html !== undefined) {
-                    $(this).html(html);
-                }
-            });
+        $.ajax({
+            url: g5_url + '/rb/rb.config/ajax.layout_set.shop.php',
+            method: 'POST',
+            dataType: 'json',
+            data: { layouts: layoutNumbers },
+            success: function (response) {
+                flexBoxes.each(function () {
+                    var $box = $(this);
+                    var layout = $box.attr('data-layout');
+                    var html = response[layout];
 
+                    if (html !== undefined) {
+                        $box.html(html);
+                    }
+                });
+
+                if (callback) callback();
+            },
+            error: function () {
+                console.error('레이아웃 로드 실패');
+                if (callback) callback();
+            }
+        });
+    }
+
+    // ✅ 1차 처리 → 2차로 전체 한 번 더 훑어서 놓친 거 있으면 추가 처리
+    processFlexBoxesOnce($('body'), function () {
+        processFlexBoxesOnce($('body'), function () {
             setTimeout(function () {
-                if (typeof initializeAllSliders === "function") {
-                    initializeAllSliders();
-                }
-
-                if (typeof initializeCalendar === "function") {
-                    initializeCalendar();
-                }
+                if (typeof initializeAllSliders === "function") initializeAllSliders();
+                if (typeof initializeCalendar === "function") initializeCalendar();
             }, 50);
-        },
-        error: function () {
-            console.error('레이아웃 로드 실패');
-        }
+        });
     });
 });
+
 
 
     function initializeAllSliders() {

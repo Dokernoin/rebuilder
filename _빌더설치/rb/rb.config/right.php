@@ -1303,6 +1303,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
         // 모듈설정 활성
         $('.content_box').addClass('content_box_set');
+        $('.rb_layout_box').addClass('bg_fff');
         $('.mobule_set_btn').addClass('open');
         $('.setting_set_btn').removeClass('open');
         $('.add_module_wrap').show(); //2.1.4 추가
@@ -1317,7 +1318,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     placeholder: "placeholders_box", // 드랍될 위치를 표시할 클래스 이름
                     tolerance: "pointer", // pointer를 기준으로 tolerance 설정
                     helper: "clone", // helper를 clone으로 설정
-                    items: "> .content_box", // .content_box만 드래그 가능
+                    items: "> .rb_layout_box", // .content_box만 드래그 가능
+
                     start: function(event, ui) {
                         // 드래그 시작할 때 원래 크기 저장 (padding과 border 포함)
                         originalWidth = ui.item.outerWidth();
@@ -1358,7 +1360,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         }
 
                         // data-order-id 업데이트
-                        $flexBox.find(".content_box").each(function(index) {
+                        $flexBox.find(".rb_layout_box").each(function(index) {
                             $(this).attr("data-order-id", index + 1);
                         });
 
@@ -1375,7 +1377,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         }
 
                         // data-order-id 업데이트
-                        $flexBox.find(".content_box").each(function(index) {
+                        $flexBox.find(".rb_layout_box").each(function(index) {
                             $(this).attr("data-order-id", index + 1);
                         });
 
@@ -1407,31 +1409,36 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
             });
 
             // content_box를 클릭할 때 원래 크기 저장
-            $(".content_box").on("mousedown", function(event) {
-                $(".content_box").removeClass("dragging");
+
+            $(".rb_layout_box").on("mousedown", function(event) {
+                $(".rb_layout_box").removeClass("dragging");
                 var $this = $(this);
                 originalWidth = $this.outerWidth();
                 originalHeight = $this.outerHeight();
                 $this.css({
-                    width: originalWidth - 0.5,
-                    height: originalHeight - 0.5
+                    width: originalWidth,
+                    height: originalHeight
                 });
+
                 $this.addClass("clicked");
             });
 
+
             // 마우스를 놓을 때 크기 초기화
-            $(".content_box").on("mouseup", function(event) {
+            $(".rb_layout_box").on("mouseup", function(event) {
                 var $this = $(this);
+                originalWidth = $this.outerWidth();
+                originalHeight = $this.outerHeight();
                 $this.css({
-                    width: originalWidth - 0.5,
-                    height: originalHeight - 0.5
+                    width: originalWidth,
+                    height: originalHeight
                 });
             });
 
             // 순서를 저장하는 함수
             function saveOrder() {
                 var orderData = [];
-                $(".flex_box .content_box").each(function(index) {
+                $(".flex_box .rb_layout_box").each(function(index) {
                     orderData.push({
                         id: $(this).data('id'),
                         order_id: index + 1
@@ -1495,6 +1502,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         $('.setting_set_btn').addClass('open');
         $('.mobule_set_btn').removeClass('open');
         $('.content_box').removeClass('content_box_set');
+        $('.rb_layout_box').removeClass('bg_fff');
         $('.add_module_wrap').hide(); //2.1.4 추가
     }
 
@@ -1512,6 +1520,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         $('.setting_set_btn').removeClass('open');
         $('.mobule_set_btn').removeClass('open');
         $('.content_box').removeClass('content_box_set');
+        $('.rb_layout_box').removeClass('bg_fff');
         $('.add_module_wrap').hide(); //2.1.4 추가
 
     }
@@ -1522,8 +1531,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
         // 부모 요소의 값을 가져옴
         var set_layout = $(element).closest('.flex_box').data('layout');
-        var set_title = $(element).closest('.content_box').data('title');
-        var set_id = $(element).closest('.content_box').data('id');
+        var set_title = $(element).closest('.rb_layout_box').data('title');
+        var set_id = $(element).closest('.rb_layout_box').data('id');
         var theme_name = '<?php echo $rb_core['theme']; ?>';
         var mod_type = '2';
 
@@ -1563,8 +1572,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
         // 부모 요소의 값을 가져옴
         var set_layout = $(element).closest('.flex_box').data('layout');
-        var set_title = $(element).closest('.content_box').data('title');
-        var set_id = $(element).closest('.content_box').data('id');
+        var set_title = $(element).closest('.rb_layout_box').data('title');
+        var set_id = $(element).closest('.rb_layout_box').data('id');
         var theme_name = '<?php echo $rb_core['theme']; ?>';
         var mod_type = 'del';
 

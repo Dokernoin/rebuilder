@@ -21,8 +21,9 @@
     .gnb_wrap .logo_wrap {margin-right: 20px;}
     
     .gnb_wrap nav {position: fixed; top:0px; left: 0px; width: 250px; background-color: #fff; z-index: 98; height:100%;}
-    .content_box {width: 100% !important; border-top: 0px solid #eee; padding-top: 0px; padding-bottom: 0px;}
+    .rb_layout_box {width: 100% !important; border-top: 0px solid #eee; padding-top: 0px; padding-bottom: 0px;}
     .content_box .swiper-container {padding-left: 20px; padding-right: 20px !important;}
+    .flex_box_inner {margin-bottom: 0px !important;}
     .bbs_main_wrap_tit {padding-left: 20px; padding-right: 20px;}
     .more_btn {margin-left: 15px;}
     .arr_next_btn {right:70px !important;}
@@ -89,7 +90,7 @@
     .ovlay_wrap {padding-left: 20px; padding-right: 20px;}
     .ovlay.active {border-radius: 0px;}
     
-    .q_btns {padding:20px;}
+    .q_btns {padding:20px; padding-bottom: 0px;}
     .q_btns button {margin-top: 5px; height:55px;}
     .bbs_main {padding-top: 20px; padding-bottom: 20px; border-top:1px solid #eee;}
     

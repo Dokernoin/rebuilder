@@ -57,95 +57,99 @@ foreach ($layouts as $layout_no) {
         ob_start();
         echo "<?php\n\$row_mod = " . var_export($row_mod, true) . ";\n?>\n";
         ?>
-        <ul class="content_box rb_module_shop_<?php echo $row_mod['md_id']; ?> rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_radius_<?php echo $row_mod['md_radius']; ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?>" style="width:<?php echo $row_mod['md_width']; ?>%; height:<?php echo $row_mod['md_height']; ?>;" data-layout="<?php echo $row_mod['md_layout']; ?>" data-title="<?php echo $row_mod['md_title']; ?>" data-id="<?php echo $row_mod['md_id']; ?>" data-order-id="<?php echo $row_mod['md_id']; ?>">
+        <div class="rb_layout_box" style="width:<?php echo $row_mod['md_width']; ?>%; height:<?php echo $row_mod['md_height']; ?>;" data-order-id="<?php echo $row_mod['md_id']; ?>" data-id="<?php echo $row_mod['md_id']; ?>" data-layout="<?php echo $row_mod['md_layout']; ?>" data-title="<?php echo $row_mod['md_title']; ?>">
 
-            <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'latest') { ?>
-                <div class="module_latest_wrap">
-                    <?php echo '<?php echo rb_latest("' . $row_mod['md_skin'] . '", "' . $row_mod['md_bo_table'] . '", ' . $row_mod['md_cnt'] . ', 999, 1, ' . $row_mod['md_id'] . ', "' . $row_mod['md_sca'] . '", "' . $row_mod['md_order_latest'] . '", "' . $rb_module_table . '"); ?>'; ?>
-                </div>
-            <?php } ?>
+            <ul class="content_box rb_module_shop_<?php echo $row_mod['md_id']; ?> rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_radius_<?php echo $row_mod['md_radius']; ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?>" >
 
-            <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'tab') { ?>
-            <div class="module_latest_wrap">
-            <?php
-                $tab_list_clean = addslashes($row_mod['md_tab_list']);
-
-                $tab_code = '<?php echo rb_latest_tabs("' . $row_mod['md_tab_skin'] . '", "' . $tab_list_clean . '", ' . intval($row_mod['md_cnt']) . ', 999, 1, "' . $row_mod['md_id'] . '", "' . $row_mod['md_order_latest'] . '", "' . $rb_module_table . '"); ?>';
-                echo $tab_code;
-            ?>
-            </div>
-            <?php } ?>
-
-            <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'widget') { ?>
-                <div class="module_widget_wrap">
-                    <?php echo '<?php @include_once(G5_PATH . "/rb/' . $row_mod['md_widget'] . '/widget.php"); ?>'; ?>
-                </div>
-            <?php } ?>
-
-            <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'banner') { ?>
-                <div class="module_banner_wrap">
-                    <?php echo '<?php echo rb_banners("' . $row_mod['md_banner'] . '", "' . $row_mod['md_banner_id'] . '", "' . $row_mod['md_banner_skin'] . '"); ?>'; ?>
-                </div>
-            <?php } ?>
-
-            <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'poll') { ?>
-                <div class="module_poll_wrap">
-                    <?php echo '<?php echo poll("' . $row_mod['md_poll'] . '", "' . $row_mod['md_poll_id'] . '"); ?>'; ?>
-                </div>
-            <?php } ?>
-            
-            
-            <?php if(isset($row_mod['md_type']) && $row_mod['md_type'] == "item") { ?>
-                <?php
-                // item 관련 SQL문 및 변수들을 동적으로 생성하도록 PHP 코드로 기록합니다.
-                $code  = "\n<?php\n";
-                $code .= "\$item_where = \" where it_use = '1' and it_stock_qty > 0 and it_soldout = 0\";\n";
-                $code .= "if(isset(\$row_mod['md_module']) && \$row_mod['md_module'] > 0) {\n";
-                $code .= "    \$item_where .= \" and it_type\".\$row_mod['md_module'].\" = '1' \";\n";
-                $code .= "}\n";
-                $code .= "if(isset(\$row_mod['md_sca']) && \$row_mod['md_sca']) {\n";
-                $code .= "    \$item_where .= \" AND (ca_id = '\".\$row_mod['md_sca'].\"' OR ca_id LIKE '\".\$row_mod['md_sca'].\"%') \";\n";
-                $code .= "}\n";
-                $code .= "if(isset(\$row_mod['md_order']) && \$row_mod['md_order']) {\n";
-                $code .= "    \$item_order = \" order by \" . \$row_mod['md_order'];\n";
-                $code .= "} else { \n";
-                $code .= "    \$item_order = \" order by it_id desc\";\n";
-                $code .= "}\n";
-                $code .= "\$item_limit = \" limit \" . \$row_mod['md_cnt'];\n";
-                $code .= "\$item_sql = \" select * from {\$g5['g5_shop_item_table']} \" . \$item_where . \" \" . \$item_order . \" \" . \$item_limit;\n";
-                ?>
-                <div class="module_item_wrap">
-                <?php
-                $code .= "\$list = new item_list();\n";
-                $code .= "\$list->set_img_size(300, 300);\n";
-                $code .= "\$list->set_list_skin(G5_SHOP_SKIN_PATH.'/'.\$row_mod['md_skin']);\n";
-                $code .= "\$list->set_view('it_cust_price', true);\n";
-                $code .= "\$list->set_view('it_price', true);\n";
-                $code .= "\$list->set_view('sns', true);\n";
-                $code .= "\$list->set_view('md_table', \$rb_module_table);\n";
-                $code .= "\$list->set_view('md_id', \$row_mod['md_id']);\n";
-                $code .= "\$list->set_query(\$item_sql);\n";
-                $code .= "echo \$list->run();\n";
-                $code .= "?>\n";
-                echo $code;
-                ?>
-                </div>
-            <?php } ?>
-
-
-            <?php if ($is_admin) { ?>
-                <span class="admin_ov">
-                    <div class="mod_edit">
-                        <ul class="middle_y text-center">
-                            <h2 class="font-B"><?php echo isset($row_mod['md_title']) ? $row_mod['md_title'] : ''; ?> <span>모듈 설정</span></h2>
-                            <h6 class="font-R">해당 모듈의 설정을 변경할 수 있습니다.</h6>
-                            <button type="button" class="btn_round btn_round_bg admin_set_btn" onclick="set_module_send(this);">설정</button>
-                            <button type="button" class="btn_round admin_set_btn" onclick="set_module_del(this);">삭제</button>
-                        </ul>
+                <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'latest') { ?>
+                    <div class="module_latest_wrap">
+                        <?php echo '<?php echo rb_latest("' . $row_mod['md_skin'] . '", "' . $row_mod['md_bo_table'] . '", ' . $row_mod['md_cnt'] . ', 999, 1, ' . $row_mod['md_id'] . ', "' . $row_mod['md_sca'] . '", "' . $row_mod['md_order_latest'] . '", "' . $rb_module_table . '"); ?>'; ?>
                     </div>
-                </span>
-            <?php } ?>
-        </ul>
+                <?php } ?>
+
+                <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'tab') { ?>
+                <div class="module_latest_wrap">
+                <?php
+                    $tab_list_clean = addslashes($row_mod['md_tab_list']);
+
+                    $tab_code = '<?php echo rb_latest_tabs("' . $row_mod['md_tab_skin'] . '", "' . $tab_list_clean . '", ' . intval($row_mod['md_cnt']) . ', 999, 1, "' . $row_mod['md_id'] . '", "' . $row_mod['md_order_latest'] . '", "' . $rb_module_table . '"); ?>';
+                    echo $tab_code;
+                ?>
+                </div>
+                <?php } ?>
+
+                <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'widget') { ?>
+                    <div class="module_widget_wrap">
+                        <?php echo '<?php @include_once(G5_PATH . "/rb/' . $row_mod['md_widget'] . '/widget.php"); ?>'; ?>
+                    </div>
+                <?php } ?>
+
+                <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'banner') { ?>
+                    <div class="module_banner_wrap">
+                        <?php echo '<?php echo rb_banners("' . $row_mod['md_banner'] . '", "' . $row_mod['md_banner_id'] . '", "' . $row_mod['md_banner_skin'] . '"); ?>'; ?>
+                    </div>
+                <?php } ?>
+
+                <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'poll') { ?>
+                    <div class="module_poll_wrap">
+                        <?php echo '<?php echo poll("' . $row_mod['md_poll'] . '", "' . $row_mod['md_poll_id'] . '"); ?>'; ?>
+                    </div>
+                <?php } ?>
+
+
+                <?php if(isset($row_mod['md_type']) && $row_mod['md_type'] == "item") { ?>
+                    <?php
+                    // item 관련 SQL문 및 변수들을 동적으로 생성하도록 PHP 코드로 기록합니다.
+                    $code  = "\n<?php\n";
+                    $code .= "\$item_where = \" where it_use = '1' and it_stock_qty > 0 and it_soldout = 0\";\n";
+                    $code .= "if(isset(\$row_mod['md_module']) && \$row_mod['md_module'] > 0) {\n";
+                    $code .= "    \$item_where .= \" and it_type\".\$row_mod['md_module'].\" = '1' \";\n";
+                    $code .= "}\n";
+                    $code .= "if(isset(\$row_mod['md_sca']) && \$row_mod['md_sca']) {\n";
+                    $code .= "    \$item_where .= \" AND (ca_id = '\".\$row_mod['md_sca'].\"' OR ca_id LIKE '\".\$row_mod['md_sca'].\"%') \";\n";
+                    $code .= "}\n";
+                    $code .= "if(isset(\$row_mod['md_order']) && \$row_mod['md_order']) {\n";
+                    $code .= "    \$item_order = \" order by \" . \$row_mod['md_order'];\n";
+                    $code .= "} else { \n";
+                    $code .= "    \$item_order = \" order by it_id desc\";\n";
+                    $code .= "}\n";
+                    $code .= "\$item_limit = \" limit \" . \$row_mod['md_cnt'];\n";
+                    $code .= "\$item_sql = \" select * from {\$g5['g5_shop_item_table']} \" . \$item_where . \" \" . \$item_order . \" \" . \$item_limit;\n";
+                    ?>
+                    <div class="module_item_wrap">
+                    <?php
+                    $code .= "\$list = new item_list();\n";
+                    $code .= "\$list->set_img_size(300, 300);\n";
+                    $code .= "\$list->set_list_skin(G5_SHOP_SKIN_PATH.'/'.\$row_mod['md_skin']);\n";
+                    $code .= "\$list->set_view('it_cust_price', true);\n";
+                    $code .= "\$list->set_view('it_price', true);\n";
+                    $code .= "\$list->set_view('sns', true);\n";
+                    $code .= "\$list->set_view('md_table', \$rb_module_table);\n";
+                    $code .= "\$list->set_view('md_id', \$row_mod['md_id']);\n";
+                    $code .= "\$list->set_query(\$item_sql);\n";
+                    $code .= "echo \$list->run();\n";
+                    $code .= "?>\n";
+                    echo $code;
+                    ?>
+                    </div>
+                <?php } ?>
+
+
+                <?php if ($is_admin) { ?>
+                    <span class="admin_ov">
+                        <div class="mod_edit">
+                            <ul class="middle_y text-center">
+                                <h2 class="font-B"><?php echo isset($row_mod['md_title']) ? $row_mod['md_title'] : ''; ?> <span>모듈 설정</span></h2>
+                                <h6 class="font-R">해당 모듈의 설정을 변경할 수 있습니다.</h6>
+                                <button type="button" class="btn_round btn_round_bg admin_set_btn" onclick="set_module_send(this);">설정</button>
+                                <button type="button" class="btn_round admin_set_btn" onclick="set_module_del(this);">삭제</button>
+                            </ul>
+                        </div>
+                    </span>
+                <?php } ?>
+            </ul>
+
+            <div class="flex_box_inner flex_box" data-layout="<?php echo $row_mod['md_layout']; ?>-<?php echo $row_mod['md_id']; ?>"></div>
         <?php
         $output .= ob_get_clean();
     }
