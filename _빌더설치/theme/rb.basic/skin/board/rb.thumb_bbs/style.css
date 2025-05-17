@@ -668,6 +668,159 @@ box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.1)}
 .rb_bbs_wrap #bo_v_act {margin-top: 50px;}
 .btm_btns_right a {float:left; margin-right: 4px;}
 
+#autosave_wrapper {
+    position: relative;
+}
+
+#autosave_wrapper ul.autosave_wrapper_ul1 {
+    padding-right: 115px;
+}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 105px;
+}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 #btn_autosave {
+    border-radius: 10px;
+    width: 100%;
+    height: 47px;
+    background-color: #F0F3F9;
+    color: #25282B
+}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 #autosave_pop {
+    display: none;
+    z-index: 10;
+    position: absolute !important;
+    top: 50px;
+    right: 0;
+    width: 300px;
+    height: auto !important;
+    height: 270px;
+    max-height: 270px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0px 50px rgba(0, 0, 0, 0.1);
+    border: 0px;
+}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 #autosave_pop:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 16px;
+    height: 10px;
+    right: 45px;
+    top: -9px;
+    border: solid transparent;
+    border-width: 0 8px 10px 8px;
+    border-bottom-color: currentColor;
+    box-sizing: border-box;
+    color: #fff;
+    filter: drop-shadow(0 -4px 3px rgba(0, 0, 0, .1));
+    z-index: 12;
+}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 #autosave_pop:before {
+    display: none;
+}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 #autosave_pop ul {
+    border: 0px;
+    height: 150px;
+}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 #autosave_pop li {
+    border-radius: 0px;
+    padding: 0px 0px 10px 0px;
+    font-size: 14px;
+    background-color: transparent;
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    margin-bottom: 10px;
+}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 #autosave_pop li:last-child {
+    border-bottom: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 #autosave_pop span {
+    float: none;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 #autosave_pop a {
+    float: none;
+}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 #autosave_pop button.autosave_del {
+    position: absolute;
+    top: 5px;
+    right: 0px;
+    text-indent:-999px;
+    overflow:hidden;
+    height:20px;
+    width:20px;
+    opacity: 0.3
+}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 #autosave_pop button.autosave_del:hover {opacity: 0.5;}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 #autosave_pop button.autosave_close {
+    height: 35px;
+    color: #25282B;
+    font-weight: normal;
+    font-size: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 10px;
+    width: 50%;
+}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 #autosave_pop button.autosave_close:hover {
+    background-color: #F0F3F9;
+}
+
+.autosave_save {cursor:pointer;width:100%;height:30px;background:none;color:#888;font-weight:bold;font-size:0.92em}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 #autosave_pop button.autosave_save {
+    height: 35px;
+    color: #25282B;
+    font-weight: normal;
+    font-size: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    width: 50%;
+    border-right: 1px solid rgba(0,0,0,0.05);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 0px;
+}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 #autosave_pop button.autosave_save:hover {
+    background-color: #F0F3F9;
+}
+
+#autosave_wrapper ul.autosave_wrapper_ul2 #autosave_pop .autosave_btn_wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+#autosave_wrapper ul.autosave_wrapper_ul2 .autosave_guide {
+    text-align: left;
+    font-size: 13px;
+    padding: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    color: #777;
+    line-height: 140%;
+}
+
 /* 반응형 처리 { */
 @media all and (max-width:1024px) {
     .rb_bbs_wrap .rb_bbs_for_info {float:none; width: auto; position: absolute; top:39px; right:-5px; padding-right: 0px; z-index: 97;}
