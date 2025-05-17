@@ -2,7 +2,7 @@
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
-add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0);
+add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css?ver='.G5_SERVER_TIME.'">', 0);
 ?>
 
 <div class="rb_bbs_wrap rb_bbs_write_wrap">
@@ -34,12 +34,33 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
     <!-- } -->
 
     <!-- 제목 { -->
-    <div class="rb_inp_wrap">
-        <ul>
-            <input type="text" name="wr_subject" value="<?php echo $subject ?>" id="wr_subject" required class="input required full_input" maxlength="255" placeholder="제목을 입력하세요.">
-        </ul>
-    </div>
-    <!-- } -->
+        <div class="rb_inp_wrap">
+            <div id="autosave_wrapper" class="write_div">
+                <ul class="autosave_wrapper_ul1" <?php if (!$is_member) { ?>style="padding-right:0px;"<?php } ?>>
+                <input type="text" name="wr_subject" value="<?php echo $subject ?>" id="wr_subject" required class="input required full_input" maxlength="255" placeholder="제목을 입력하세요.">
+                </ul>
+                <?php if ($is_member) { // 임시 저장된 글 기능 ?>
+                <ul class="autosave_wrapper_ul2">
+                    <script src="<?php echo G5_JS_URL; ?>/autosave.js"></script>
+                    <?php if($editor_content_js) echo $editor_content_js; ?>
+                    <button type="button" id="btn_autosave" class="btn_frmline">임시저장 <span id="autosave_count" class="font-B"><?php echo $autosave_count; ?></span></button>
+                    <div id="autosave_pop">
+                        <strong>임시 저장된 글 목록</strong>
+                        <?php if($autosave_count > 0) { ?>
+                            <ul></ul>
+                        <?php } else { ?>
+                            <div class="autosave_guide">저장된 데이터가 없습니다.</div>
+                        <?php } ?>
+                        <div class="autosave_btn_wrap">
+                        <button type="button" class="autosave_close autosave_save font-B" onclick="autosave()">저장</button>
+                        <button type="button" class="autosave_close font-B">닫기</button>
+                        </div>
+                    </div>
+                </ul>
+                <?php } ?>
+            </div>
+        </div>
+        <!-- } -->
     
     <?php
         $option = '';
