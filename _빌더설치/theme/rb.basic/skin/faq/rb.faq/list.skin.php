@@ -139,7 +139,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$faq_skin_url.'/style.css">', 0);
             } else {
                 echo '<div class="no_data">등록된 FAQ가 없어요.';
                 if($is_admin)
-                    //echo '<br><a href="'.G5_ADMIN_URL.'/faqmasterlist.php">FAQ를 새로 등록하시려면 FAQ관리</a> 메뉴를 이용해 주세요.';
+                    echo '<br><a href="'.G5_ADMIN_URL.'/faqmasterlist.php">FAQ를 새로 등록하시려면 FAQ관리</a> 메뉴를 이용해 주세요.';
                 echo '</div>';
             }
         }
@@ -148,7 +148,6 @@ add_stylesheet('<link rel="stylesheet" href="'.$faq_skin_url.'/style.css">', 0);
     
     
     <?php echo get_paging($page_rows, $page, $total_page, $_SERVER['SCRIPT_NAME'].'?'.$qstr.'&amp;page='); ?>
-
 
 <?php
 // 하단 HTML
