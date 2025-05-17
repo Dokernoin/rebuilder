@@ -2,7 +2,7 @@
 경로 : /rb/rb.widget/rb.quick_btns/
 사용자코드를 입력하세요.
 -->
-<div class="q_btns pc">
+<div class="q_btns">
     <button type="button" class="arr_bg" onclick="location.href='#';">
         <i><img src="<?php echo G5_THEME_URL ?>/rb.img/icon/icon_btn1.svg"></i>
         <span>레벨링 가이드</span>
