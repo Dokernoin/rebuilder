@@ -44,12 +44,29 @@ if ($_POST['act_type'] === 'delete') {
 
 $allowed_extensions = explode('|', $config['cf_image_extension'] . '|' . $config['cf_movie_extension'] . '|webp|hwp|xlsx|xls|zip|pdf|ppt|pptx|docx|doc|txt');
 $allowed_mimes = [
-    'image/jpeg','image/png','image/gif','image/bmp','image/webp',
-    'application/pdf','application/zip','application/msword',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    'application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    'application/vnd.ms-powerpoint','application/vnd.openxmlformats-officedocument.presentationml.presentation',
-    'text/plain'
+    // 이미지
+    'image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp', 'image/svg+xml',
+
+    // 동영상
+    'video/mp4', 'video/mpeg', 'video/ogg', 'video/webm', 'video/x-msvideo', 'video/quicktime', 'video/x-flv',
+
+    // 오디오
+    'audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp4', 'audio/webm', 'audio/x-ms-wma',
+
+    // 문서
+    'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    'application/rtf', 'text/plain', 'application/vnd.hancom.hwp',
+
+    // 압축파일
+    'application/zip', 'application/x-rar-compressed', 'application/x-7z-compressed', 'application/x-tar', 'application/gzip',
+
+    // 코드 및 기타
+    'text/html', 'application/javascript', 'text/css', 'application/json', 'application/xml', 'text/csv',
+
+    // 기타 가능성 있는 MIME
+    'application/octet-stream'
 ];
 
 if (isset($_FILES['file']) && count($_FILES['file']['name']) > 0) {
