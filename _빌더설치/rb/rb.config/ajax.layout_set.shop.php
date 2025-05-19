@@ -150,6 +150,7 @@ foreach ($layouts as $layout_no) {
             </ul>
 
             <div class="flex_box_inner flex_box" data-layout="<?php echo $row_mod['md_layout']; ?>-<?php echo $row_mod['md_id']; ?>"></div>
+        </div>
         <?php
         $output .= ob_get_clean();
     }
