@@ -126,8 +126,10 @@ foreach((array) $list as $row){
      <ul class="rb_swiper_list" onclick="location.href='<?php echo $item_link_href ?>';">
      
         <li class="rb_shop_list_item sct_li">
+
+            <?php if (isset($rb_skin['md_thumb_is']) && $rb_skin['md_thumb_is']) { ?>
             <div class="v_ch_list">
-                <?php if (isset($rb_skin['md_thumb_is']) && $rb_skin['md_thumb_is']) { ?>
+
                 <div class="rb_shop_list_item_img">
                     <a href="<?php echo $item_link_href ?>">
                     <?php echo rb_it_image($row['it_id'], $this->img_width, $this->img_height, '', '', stripslashes($row['it_name'])); ?>
@@ -156,10 +158,11 @@ foreach((array) $list as $row){
                     <?php } ?>
 
                 </div>
-                <?php } ?>
+
             </div>
+            <?php } ?>
             
-            <div class="v_ch_list_r">
+            <div class="v_ch_list_r" <?php if (isset($rb_skin['md_thumb_is']) && $rb_skin['md_thumb_is']) { ?><?php } else { ?>style="float:none; width:100%;"<?php } ?>>
                 
                 <?php if (isset($rb_skin['md_ca_is']) && $rb_skin['md_ca_is']) { ?>
                 <div class="rb_shop_list_item_ca"><?php echo $ca['ca_name'];?></div>
