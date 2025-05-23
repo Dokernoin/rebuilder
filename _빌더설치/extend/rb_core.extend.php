@@ -2,7 +2,7 @@
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 //ini_set("display_errors", 1); // 디버깅
-define('RB_VER',  '2.2.0.3'); // 버전
+define('RB_VER',  '2.2.1'); // 버전
 
 
 /*********************************************/
@@ -51,9 +51,11 @@ $rb_page_urls = str_replace('/', '-', $rb_page_urls);
 $rb_page_urls = ltrim($rb_page_urls, '-');
 
 // 카테고리
-if (isset($ca_id) && preg_match('/^\d+$/', $ca_id)) {
-    $cate_id = implode('-', str_split($ca_id, 2)); // ex: 101010 → 10-10-10
-    $rb_page_urls = 'shop-list-' . $cate_id;
+if (strpos($_SERVER['REQUEST_URI'], '/adm/') === false) {
+    if (isset($ca_id) && preg_match('/^\d+$/', $ca_id)) {
+        $cate_id = implode('-', str_split($ca_id, 2)); // ex: 101010 → 10-10-10
+        $rb_page_urls = 'shop-list-' . $cate_id;
+    }
 }
 
 // 게시판
