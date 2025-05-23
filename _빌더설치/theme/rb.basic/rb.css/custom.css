@@ -413,6 +413,11 @@ select#ct_send_cost {width: 150px;}
 .mod_bn_wrap {padding-bottom: 0px !important;}
 /* } */
 
+/* 2.2.1 { */
+.footer_copy_ul1 {width: 75%;}
+.footer_copy_ul2 {width: 25%;}
+/* } */
+
 @media all and (max-width:1024px){
 
     /* 1.1.4 { */
@@ -533,6 +538,11 @@ select#ct_send_cost {width: 150px;}
     .sub_wording {padding-left: 20px !important; padding-right: 20px !important;}
     .main_wording_shop {padding-left: 20px !important; padding-right: 20px !important;}
     .sub_wording_shop {padding-left: 20px !important; padding-right: 20px !important;}
+    /* } */
+
+    /* 2.2.1 { */
+    .footer_copy_ul1 {width: 100%;}
+    .footer_copy_ul2 {width: 100%;}
     /* } */
 
 }
