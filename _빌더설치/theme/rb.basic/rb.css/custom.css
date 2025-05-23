@@ -416,11 +416,6 @@ select#ct_send_cost {width: 150px;}
 /* 2.2.1 { */
 .footer_copy_ul1 {width: 75%;}
 .footer_copy_ul2 {width: 25%;}
-.content_box .module_widget_wrap {overflow: hidden;}
-.content_box .module_latest_wrap {overflow: hidden;}
-.content_box .module_banner_wrap {overflow: hidden;}
-.content_box .module_poll_wrap {overflow: hidden;}
-.content_box .module_item_wrap {overflow: hidden;}
 /* } */
 
 @media all and (max-width:1024px){
@@ -544,6 +539,7 @@ select#ct_send_cost {width: 150px;}
     .main_wording_shop {padding-left: 20px !important; padding-right: 20px !important;}
     .sub_wording_shop {padding-left: 20px !important; padding-right: 20px !important;}
     /* } */
+
 
     /* 2.2.1 { */
     .footer_copy_ul1 {width: 100%;}
