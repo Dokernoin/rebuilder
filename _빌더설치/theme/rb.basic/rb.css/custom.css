@@ -416,6 +416,8 @@ select#ct_send_cost {width: 150px;}
 /* 2.2.1 { */
 .footer_copy_ul1 {width: 75%;}
 .footer_copy_ul2 {width: 25%;}
+.sit_use_con {margin-right: 0px !important;}
+.use_reply_p {background-color: transparent;}
 /* } */
 
 @media all and (max-width:1024px){
