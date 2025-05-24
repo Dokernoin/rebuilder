@@ -245,6 +245,10 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
                     <option value="">선택하세요</option>
                     <?php echo conv_selected_option($category_select, $it['ca_id']); ?>
                 </select>
+                <span id="category_info_box">
+                    <span id="ca_level_label"></span>
+                    <span id="ca_level_opt_label"></span>
+                </span>
                 <script>
                     var ca_use = new Array();
                     var ca_stock_qty = new Array();
@@ -265,10 +269,11 @@ if(!sql_query(" select it_skin from {$g5['g5_shop_item_table']} limit 1", false)
             <th scope="row"><label for="ca_id<?php echo $i; ?>"><?php echo $i; ?>차 분류</label></th>
             <td>
                 <?php echo help($i.'차 분류는 기본 분류의 하위 분류 개념이 아니므로 기본 분류 선택시 해당 상품이 포함될 최하위 분류만 선택하시면 됩니다.'); ?>
-                <select name="ca_id<?php echo $i; ?>" id="ca_id<?php echo $i; ?>">
+                <select name="ca_id<?php echo $i; ?>" id="ca_id<?php echo $i; ?>" onchange="categoryChangeSub(this)">
                     <option value="">선택하세요</option>
                     <?php echo conv_selected_option($category_select, $it['ca_id'.$i]); ?>
                 </select>
+                　<span id="category_info_ca_id<?php echo $i; ?>"></span>
             </td>
         </tr>
         <?php } ?>
@@ -1901,6 +1906,44 @@ function fitemformcheck(f)
     return true;
 }
 
+
+/* 카테고리 정보 추가 리빌더 2.2.1 { */
+    function updateCategoryInfo(ca_id) {
+        if(!ca_id) {
+            document.getElementById('ca_level_label').innerText = '';
+            document.getElementById('ca_level_opt_label').innerText = '';
+            return;
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../rb/rb.lib/ajax.category_info.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4 && xhr.status === 200){
+                try {
+                    var data = JSON.parse(xhr.responseText);
+                    if(data.error === 0) {
+                        document.getElementById('ca_level_label').innerText = data.ca_level;
+                        if(data.ca_level_opt == "2") {
+                            document.getElementById('ca_level_opt_label').innerText = "레벨 전용";
+                        } else {
+                            document.getElementById('ca_level_opt_label').innerText = "레벨 부터 접근가능";
+                        }
+
+                    } else {
+                        document.getElementById('ca_level_label').innerText = '';
+                        document.getElementById('ca_level_opt_label').innerText = '';
+                    }
+                } catch(e) {
+                    // 에러시 출력 비움
+                    document.getElementById('ca_level_label').innerText = '';
+                    document.getElementById('ca_level_opt_label').innerText = '';
+                }
+            }
+        };
+        xhr.send('ca_id=' + encodeURIComponent(ca_id));
+    }
+/* } */
+
 function categorychange(f)
 {
     var idx = f.ca_id.value;
@@ -1911,9 +1954,68 @@ function categorychange(f)
         f.it_stock_qty.value = ca_stock_qty[idx];
         f.it_sell_email.value = ca_sell_email[idx];
     }
+
+    // 카테고리 정보 추가 리빌더 2.2.1
+    updateCategoryInfo(idx);
 }
 
 categorychange(document.fitemform);
+
+// 카테고리 정보 추가 리빌더 2.2.1
+window.addEventListener('DOMContentLoaded', function() {
+    var form = document.forms['fitemform'];
+    if(form && form.ca_id) {
+        updateCategoryInfo(form.ca_id.value);
+    }
+});
+
+function updateCategoryInfoSub(selectElem) {
+    var ca_id = selectElem.value;
+    var infoBoxId = "category_info_" + selectElem.id;
+
+    if (!document.getElementById(infoBoxId)) return;
+
+    if (!ca_id) {
+        document.getElementById(infoBoxId).innerHTML = '';
+        return;
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '../rb/rb.lib/ajax.category_info.php', true); // 경로 맞게
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState === 4 && xhr.status === 200){
+            try {
+                var data = JSON.parse(xhr.responseText);
+                if(data.error === 0) {
+                    if(data.ca_level_opt == "2") {
+                        document.getElementById(infoBoxId).innerHTML = data.ca_level + " 레벨 전용";
+                    } else {
+                        document.getElementById(infoBoxId).innerHTML = data.ca_level + " 레벨 부터 접근가능";
+                    }
+                } else {
+                    document.getElementById(infoBoxId).innerHTML = '';
+                }
+            } catch(e) {
+                document.getElementById(infoBoxId).innerHTML = '';
+            }
+        }
+    };
+    xhr.send('ca_id=' + encodeURIComponent(ca_id));
+}
+
+// onchange 이벤트에서 직접 호출
+function categoryChangeSub(selectElem) {
+    updateCategoryInfoSub(selectElem);
+}
+
+// 페이지 로드시 2, 3번 자동 반영
+window.addEventListener('DOMContentLoaded', function() {
+    var sel2 = document.getElementById('ca_id2');
+    var sel3 = document.getElementById('ca_id3');
+    if(sel2) updateCategoryInfoSub(sel2);
+    if(sel3) updateCategoryInfoSub(sel3);
+});
 </script>
 
 <?php
