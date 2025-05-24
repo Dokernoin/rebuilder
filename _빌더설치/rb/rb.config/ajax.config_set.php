@@ -21,7 +21,7 @@ if($mod_type == 1) { //환경설정
     $co_layout_ft = !empty($_POST['co_layout_ft']) ? $_POST['co_layout_ft'] : 'basic';
     
     $co_layout_shopp = !empty($_POST['co_layout_shop']) ? $_POST['co_layout_shop'] : 'basic';
-    $co_layout_hd_shop = !empty($_POST['co_layout_hd_shop']) ? $_POST['co_layout_hd_shop'] : 'basic';
+    $co_layout_hd_shop = !empty($_POST['co_layout_hd_shop']) ? $_POST['co_layout_hd_shop'] : 'basic_row';
     $co_layout_ft_shop = !empty($_POST['co_layout_ft_shop']) ? $_POST['co_layout_ft_shop'] : 'basic';
     
     $co_font = !empty($_POST['co_font']) ? $_POST['co_font'] : 'Pretendard';
