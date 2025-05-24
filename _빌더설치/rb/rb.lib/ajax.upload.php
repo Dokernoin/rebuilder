@@ -69,6 +69,27 @@ $allowed_mimes = [
     'application/octet-stream'
 ];
 
+function get_mime_type_fallback($file) {
+    // 1. finfo
+    if (function_exists('finfo_open')) {
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime = finfo_file($finfo, $file);
+        finfo_close($finfo);
+        return $mime;
+    }
+    // 2. mime_content_type
+    elseif (function_exists('mime_content_type')) {
+        return mime_content_type($file);
+    }
+    // 3. shell_exec file 명령 (리눅스 서버)
+    elseif (function_exists('shell_exec')) {
+        $mime = trim(@shell_exec('file -b --mime-type ' . escapeshellarg($file)));
+        if ($mime) return $mime;
+    }
+    // 4. 모두 실패: false 반환 (확장자 검사만 가능)
+    return false;
+}
+
 if (isset($_FILES['file']) && count($_FILES['file']['name']) > 0) {
     $list = [];
     for ($i = 0; $i < count($_FILES['file']['name']); $i++) {
@@ -83,13 +104,26 @@ if (isset($_FILES['file']) && count($_FILES['file']['name']) > 0) {
             exit;
         }
 
-        // MIME 타입 검사
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime = finfo_file($finfo, $tmp_file);
-        finfo_close($finfo);
-
+        // 확장자 추출
         $ext = strtolower(pathinfo($safe_name, PATHINFO_EXTENSION));
-        if (!in_array($ext, $allowed_extensions) || !in_array($mime, $allowed_mimes)) {
+        // MIME 타입 추출 (환경별로 자동 fallback)
+        $mime = get_mime_type_fallback($tmp_file);
+
+        // 검증 로직
+        $pass = false;
+        if ($mime !== false) {
+            // MIME 타입까지 모두 체크
+            if (in_array($ext, $allowed_extensions) && in_array($mime, $allowed_mimes)) {
+                $pass = true;
+            }
+        } else {
+            // MIME 타입 체크 불가 환경: 확장자만 체크 (주의 안내)
+            if (in_array($ext, $allowed_extensions)) {
+                $pass = true;
+            }
+        }
+
+        if (!$pass) {
             $return['msg'] = '허용되지 않는 파일 형식입니다.';
             echo json_encode($return);
             exit;
@@ -135,4 +169,5 @@ if (isset($_FILES['file']) && count($_FILES['file']['name']) > 0) {
     echo json_encode($return);
     exit;
 }
+
 ?>
