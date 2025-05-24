@@ -80,7 +80,7 @@ foreach ($layouts as $layout_no) {
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'widget') { ?>
                     <div class="module_widget_wrap">
-                        <?php echo '<?php @include_once(G5_PATH . "/rb/' . $row_mod['md_widget'] . '/widget.php"); ?>'; ?>
+                        <?php echo '<?php @include (G5_PATH . "/rb/' . $row_mod['md_widget'] . '/widget.php"); ?>'; ?>
                     </div>
                 <?php } ?>
 

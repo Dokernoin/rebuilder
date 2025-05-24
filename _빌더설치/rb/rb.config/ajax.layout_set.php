@@ -58,7 +58,6 @@ foreach ($layouts as $layout_no) {
         echo "<?php\n\$row_mod = " . var_export($row_mod, true) . ";\n?>\n";
         ?>
         <div class="rb_layout_box" style="width:<?php echo $row_mod['md_width']; ?>%; height:<?php echo $row_mod['md_height']; ?>;" data-order-id="<?php echo $row_mod['md_id']; ?>" data-id="<?php echo $row_mod['md_id']; ?>" data-layout="<?php echo $row_mod['md_layout']; ?>" data-title="<?php echo $row_mod['md_title']; ?>">
-
             <ul class="content_box rb_module_<?php echo $row_mod['md_id']; ?> rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_radius_<?php echo $row_mod['md_radius']; ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?>" >
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'latest') { ?>
@@ -80,7 +79,7 @@ foreach ($layouts as $layout_no) {
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'widget') { ?>
                     <div class="module_widget_wrap">
-                        <?php echo '<?php @include_once(G5_PATH . "/rb/' . $row_mod['md_widget'] . '/widget.php"); ?>'; ?>
+                        <?php echo '<?php @include (G5_PATH . "/rb/' . $row_mod['md_widget'] . '/widget.php"); ?>'; ?>
                     </div>
                 <?php } ?>
 
