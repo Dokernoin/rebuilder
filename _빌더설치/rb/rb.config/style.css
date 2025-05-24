@@ -304,6 +304,7 @@ input#md_title_hide + label:after {top:3px !important;}
     height: 30px;
     font-size: 12px;
     z-index: 97;
+    width: 60px;
 }
 
 .flex_box_inner {

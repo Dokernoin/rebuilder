@@ -1110,6 +1110,9 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                 <select class="select w30 mod_send" name="co_main_width">
                                     <option value="">메인</option>
+                                    <!--
+                                    <option value="100" <?php if(isset($rb_core['main_width']) && $rb_core['main_width'] == "100") { ?>selected<?php } ?>>100%</option>
+                                    -->
                                     <option value="1400" <?php if(isset($rb_core['main_width']) && $rb_core['main_width'] == "1400") { ?>selected<?php } ?>>1400px</option>
                                     <option value="1280" <?php if(isset($rb_core['main_width']) && $rb_core['main_width'] == "1280") { ?>selected<?php } ?>>1280px</option>
                                     <option value="1024" <?php if(isset($rb_core['main_width']) && $rb_core['main_width'] == "1024") { ?>selected<?php } ?>>1024px</option>
@@ -1119,6 +1122,9 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                 <select class="select w30 mod_send" name="co_sub_width">
                                     <option value="">서브</option>
+                                    <!--
+                                    <option value="100" <?php if(isset($rb_core['sub_width']) && $rb_core['sub_width'] == "100") { ?>selected<?php } ?>>100%</option>
+                                    -->
                                     <option value="1400" <?php if(isset($rb_core['sub_width']) && $rb_core['sub_width'] == "1400") { ?>selected<?php } ?>>1400px</option>
                                     <option value="1280" <?php if(isset($rb_core['sub_width']) && $rb_core['sub_width'] == "1280") { ?>selected<?php } ?>>1280px</option>
                                     <option value="1024" <?php if(isset($rb_core['sub_width']) && $rb_core['sub_width'] == "1024") { ?>selected<?php } ?>>1024px</option>
@@ -1288,6 +1294,55 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
     //모듈설정 토글
     function toggleSideOptions() {
 
+        // PHP에서 관리자만 스타일 삽입!
+        <?php if($is_admin) { ?>
+        // 토글 ON(열기)할 때만 스타일 삽입
+        if (!$('.content_box').hasClass('content_box_set')) {
+            if (!document.getElementById('rb_layout_box_dynamic_style')) {
+                var style = document.createElement('style');
+                style.id = 'rb_layout_box_dynamic_style';
+                style.innerHTML = `
+
+                    .rb_layout_box .content_box.pc {display: block; opacity: 0.6;}
+                    .rb_layout_box .content_box.mobile {display: block; opacity: 0.6;}
+                    .rb_layout_box.pc {display: block; opacity: 1;}
+                    .rb_layout_box.mobile {display: block; opacity: 1;}
+
+                    .rb_layout_box .content_box.pc::after {
+                        content: "PC 전용";
+                        position: absolute;
+                        top: 50%; left: 50%;
+                        transform: translate(-50%, -50%);
+                        background-color: #000;
+                        padding: 5px 5px 5px 5px;
+                        border-radius: 4px;
+                        font-size: 10px;
+                        color: #fff;
+                        z-index: 96;
+                    }
+
+                    .rb_layout_box .content_box.mobile::after {
+                        content: "Mobile 전용";
+                        position: absolute;
+                        top: 50%; left: 50%;
+                        transform: translate(-50%, -50%);
+                        background-color: #000;
+                        padding: 5px 5px 5px 5px;
+                        border-radius: 4px;
+                        font-size: 10px;
+                        color: #fff;
+                        z-index: 96;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        } else {
+            // 토글 OFF(닫기)할 때 style도 제거
+            var dynStyle = document.getElementById('rb_layout_box_dynamic_style');
+            if (dynStyle) dynStyle.remove();
+        }
+        <?php } ?>
+
         //클래스로 확인한다.
         if ($('.content_box').hasClass('content_box_set')) {
             toggleSideOptions_close_mod();
@@ -1298,6 +1353,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
     // 모듈설정 오픈
     function toggleSideOptions_open_mod() {
+
         $('.rb_config_mod1').hide();
         $('.rb_config_mod2').show();
 
@@ -2134,6 +2190,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
         var md_width = $('input[name="md_width"]').val();
         var md_height = $('input[name="md_height"]').val();
+        var md_size = $('input[name="md_size"]:checked').val();
+        var md_show = $('input[name="md_show"]:checked').val();
 
         if (md_type == "item") {
             var md_subject_is = $('#md_subject_is_shop:checked').val();
@@ -2299,6 +2357,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     "md_row_mo": md_row_mo,
                     "md_width": md_width,
                     "md_height": md_height,
+                    "md_size": md_size,
+                    "md_show": md_show,
                     "md_subject_is": md_subject_is,
                     "md_thumb_is": md_thumb_is,
                     "md_nick_is": md_nick_is,

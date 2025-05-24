@@ -256,6 +256,18 @@ if(isset($rb_core['tb_width']) && $rb_core['tb_width'] == "100") {
     $tb_width_padding = "";
 }
 
+if(isset($rb_core['main_width']) && $rb_core['main_width'] == "100") {
+    $rb_main_wide = "rb_main_wide";
+} else {
+    $rb_sub_wide = "";
+}
+
+if(isset($rb_core['sub_width']) && $rb_core['sub_width'] == "100") {
+    $rb_sub_wide = "rb_sub_wide";
+} else {
+    $rb_sub_wide = "";
+}
+
 // SEO설정
 $sql_seo = " select * from rb_seo limit 1";
 $seo = sql_fetch($sql_seo);

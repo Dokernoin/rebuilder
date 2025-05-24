@@ -27,7 +27,7 @@ foreach ($layouts as $layout_no) {
     $hash_file = G5_DATA_PATH . "/cache/rb_layout_shop_" . $layout_no . ".hash";
 
     // 체크섬 생성
-    $layout_sql = "SELECT md_id, md_order_id, md_radius, md_border, md_padding, md_width, md_height FROM rb_module_shop WHERE md_layout = '" . $layout_no . "' AND md_theme = '" . $theme_name . "' AND md_layout_name = '" . $layout_name . "' ORDER BY md_order_id, md_id ASC";
+    $layout_sql = "SELECT * FROM rb_module_shop WHERE md_layout = '" . $layout_no . "' AND md_theme = '" . $theme_name . "' AND md_layout_name = '" . $layout_name . "' ORDER BY md_order_id, md_id ASC";
     $layout_rows = sql_query($layout_sql);
     $layout_structure = '';
     while ($row = sql_fetch_array($layout_rows)) {
@@ -57,9 +57,10 @@ foreach ($layouts as $layout_no) {
         ob_start();
         echo "<?php\n\$row_mod = " . var_export($row_mod, true) . ";\n?>\n";
         ?>
-        <div class="rb_layout_box" style="width:<?php echo $row_mod['md_width']; ?>%; height:<?php echo $row_mod['md_height']; ?>;" data-order-id="<?php echo $row_mod['md_id']; ?>" data-id="<?php echo $row_mod['md_id']; ?>" data-layout="<?php echo $row_mod['md_layout']; ?>" data-title="<?php echo $row_mod['md_title']; ?>">
 
-            <ul class="content_box rb_module_shop_<?php echo $row_mod['md_id']; ?> rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_radius_<?php echo $row_mod['md_radius']; ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?>" >
+        <div class="rb_layout_box <?php echo isset($row_mod['md_show']) ? $row_mod['md_show'] : ''; ?>" style="width:<?php echo $row_mod['md_width']; ?><?php echo !empty($row_mod['md_size']) ? $row_mod['md_size'] : '%'; ?>; height:<?php echo $row_mod['md_height']; ?>;" data-order-id="<?php echo $row_mod['md_id']; ?>" data-id="<?php echo $row_mod['md_id']; ?>" data-layout="<?php echo $row_mod['md_layout']; ?>" data-title="<?php echo $row_mod['md_title']; ?>">
+
+            <ul class="content_box rb_module_shop_<?php echo $row_mod['md_id']; ?> rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_radius_<?php echo $row_mod['md_radius']; ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?> <?php echo isset($row_mod['md_show']) ? $row_mod['md_show'] : ''; ?>" >
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'latest') { ?>
                     <div class="module_latest_wrap">

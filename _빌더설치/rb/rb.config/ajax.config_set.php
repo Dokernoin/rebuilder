@@ -135,6 +135,8 @@ if($mod_type == "del") { //모듈삭제
                 $md_id = !empty($rb_module['md_id']) ? $rb_module['md_id'] : '';
                 $md_theme = !empty($rb_module['md_theme']) ? $rb_module['md_theme'] : '';
                 $md_type = !empty($rb_module['md_type']) ? $rb_module['md_type'] : '';
+                $md_show = !empty($rb_module['md_show']) ? $rb_module['md_show'] : '';
+                $md_size = !empty($rb_module['md_size']) ? $rb_module['md_size'] : '%';
                 $md_title = !empty($rb_module['md_title']) ? $rb_module['md_title'] : '';
                 $md_title_color = !empty($rb_module['md_title_color']) ? $rb_module['md_title_color'] : '#25282b';
                 $md_title_size = !empty($rb_module['md_title_size']) ? $rb_module['md_title_size'] : '20';
@@ -197,6 +199,28 @@ if($mod_type == "del") { //모듈삭제
                         <input type="hidden" name="md_layout" value="<?php echo !empty($set_layout) ? $set_layout : ''; ?>">
                         <input type="hidden" name="md_theme" value="<?php echo !empty($theme_name) ? $theme_name : ''; ?>">
                         <input type="hidden" name="md_id" value="<?php echo !empty($md_id) ? $md_id : ''; ?>">
+
+                        <?php
+                            // md_layout 컬럼의 타입을 255로 변경
+                            $sql = "SHOW COLUMNS FROM rb_module LIKE 'md_layout'";
+                            $row = sql_fetch($sql);
+
+                            if ($row && stripos($row['Type'], 'varchar(255)') === false) {
+                                $alter_sql = "ALTER TABLE rb_module MODIFY COLUMN md_layout VARCHAR(255) NOT NULL";
+                                sql_query($alter_sql);
+
+                            }
+
+                            // md_layout 컬럼의 타입을 255로 변경
+                            $sql = "SHOW COLUMNS FROM rb_module_shop LIKE 'md_layout'";
+                            $row = sql_fetch($sql);
+
+                            if ($row && stripos($row['Type'], 'varchar(255)') === false) {
+                                $alter_sql = "ALTER TABLE rb_module_shop MODIFY COLUMN md_layout VARCHAR(255) NOT NULL";
+                                sql_query($alter_sql);
+
+                            }
+                        ?>
                     </ul>
 
                     <ul class="config_wrap_flex">
@@ -262,7 +286,15 @@ if($mod_type == "del") { //모듈삭제
             <ul class="rb_config_sec">
                 <h6 class="font-B">출력 설정</h6>
                 <div class="config_wrap">
+
                     <ul>
+                        <input type="radio" name="md_show" id="md_show_1" class="magic-radio" value="" <?php if (isset($md_show) && $md_show == "") { ?>checked<?php } ?>><label for="md_show_1">공용</label>
+                        <input type="radio" name="md_show" id="md_show_2" class="magic-radio" value="pc" <?php if (isset($md_show) && $md_show == "pc") { ?>checked<?php } ?>><label for="md_show_2">PC 전용</label>
+                        <input type="radio" name="md_show" id="md_show_3" class="magic-radio" value="mobile" <?php if (isset($md_show) && $md_show == "mobile") { ?>checked<?php } ?>><label for="md_show_3">Mobile 전용</label>
+                    </ul>
+
+
+                    <ul class="mt-10">
                         <select class="select w100" name="md_type" id="md_type">
                             <option value="">출력 타입을 선택하세요.</option>
                             <option value="latest" <?php if (isset($md_type) && $md_type == "latest") { ?>selected<?php } ?>>최신글</option>
@@ -799,6 +831,7 @@ if($mod_type == "del") { //모듈삭제
                         <div class="cb"></div>
                     </ul>
                     <?php } ?>
+
                     
                     <ul class="rb_config_sec selected_banner selected_select">
                         <h6 class="font-B">백그라운드 컬러 설정</h6>
@@ -1005,24 +1038,23 @@ if($mod_type == "del") { //모듈삭제
                         <h6 class="font-B">스와이프 설정</h6>
                         <h6 class="font-R rb_config_sub_txt">
                             행X열 보다 출력갯수가 많을 경우<br>
-                            스와이프 처리 유무를 설정할 수 있습니다.
+                            스와이프 및 자동롤링 처리 유무를 설정할 수 있습니다.
                         </h6>
                         <div class="config_wrap">
                             <input type="checkbox" name="md_swiper_is" class="md_swiper_is_shop" id="md_swiper_is_shop" class="magic-checkbox" value="1" <?php if (isset($md_swiper_is) && $md_swiper_is == 1) { ?>checked<?php } ?>><label for="md_swiper_is_shop">스와이프 사용</label>
                         </div>
-                    </ul>
 
-                    <ul class="rb_config_sec selected_item selected_select">
-                        <h6 class="font-B">자동롤링 설정</h6>
-                        <h6 class="font-R rb_config_sub_txt">
-                            행X열 보다 출력갯수가 많을 경우<br>
-                            자동롤링 유무를 설정할 수 있습니다.
-                        </h6>
                         <div class="config_wrap">
                             <input type="checkbox" name="md_auto_is" id="md_auto_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_auto_is) && $md_auto_is == 1) { ?>checked<?php } ?>><label for="md_auto_is_shop">자동롤링 사용</label>　
                             <input type="number" name="md_auto_time" id="md_auto_time_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_auto_time) ? $md_auto_time : ''; ?>" placeholder="밀리초" autocomplete="off">　<span>3000=3초</span>
                         </div>
+
+
                     </ul>
+
+
+
+
                     
                     <ul class="rb_config_sec selected_item selected_select">
                         <h6 class="font-B">출력항목 설정</h6>
@@ -1120,26 +1152,22 @@ if($mod_type == "del") { //모듈삭제
                 <h6 class="font-B">스와이프 설정</h6>
                 <h6 class="font-R rb_config_sub_txt">
                     행X열 보다 출력갯수가 많을 경우<br>
-                    스와이프 처리 유무를 설정할 수 있습니다.
+                    스와이프 및 자동롤링 처리 유무를 설정할 수 있습니다.
                 </h6>
                 <div class="config_wrap">
                     <div class="config_wrap">
                         <input type="checkbox" name="md_swiper_is" class="md_swiper_is" id="md_swiper_is" class="magic-checkbox" value="1" <?php if (isset($md_swiper_is) && $md_swiper_is == 1) { ?>checked<?php } ?>><label for="md_swiper_is">스와이프 사용</label>
                     </div>
                 </div>
-            </ul>
-            
-            <ul class="rb_config_sec selected_latest_tab selected_select">
-                <h6 class="font-B">자동롤링 설정</h6>
-                <h6 class="font-R rb_config_sub_txt">
-                    행X열 보다 출력갯수가 많을 경우<br>
-                    자동롤링 유무를 설정할 수 있습니다.
-                </h6>
+
                 <div class="config_wrap">
                     <input type="checkbox" name="md_auto_is" id="md_auto_is" class="magic-checkbox" value="1" <?php if(isset($md_auto_is) && $md_auto_is == 1) { ?>checked<?php } ?>><label for="md_auto_is">자동롤링 사용</label>　
                     <input type="number" name="md_auto_time" id="md_auto_time" class="input w30 h40 text-center" value="<?php echo !empty($md_auto_time) ? $md_auto_time : ''; ?>" placeholder="밀리초" autocomplete="off">　<span>3000=3초</span>
                 </div>
             </ul>
+
+
+
             
             <ul class="rb_config_sec selected_all">
                 <h6 class="font-B">사이즈 설정</h6>
@@ -1148,13 +1176,61 @@ if($mod_type == "del") { //모듈삭제
                     숫자로만 입력해주세요.
                 </h6>
                 <div class="config_wrap">
-                    <ul>
-                        <input type="number" name="md_width" class="input w50 h40 text-center" value="<?php echo !empty($md_width) ? $md_width : ''; ?>" placeholder="숫자만 입력 (%)" autocomplete="off">　<span>% (가로사이즈)</span>
+
+                    <ul class="rows_inp_lr mt-10">
+                        <li class="rows_inp_l rows_inp_l_span">
+                            <span class="font-B">단위설정</span><br>
+                            %, PX
+                        </li>
+                        <li class="rows_inp_r">
+                            <input type="radio" name="md_size" id="md_size_1" class="magic-radio" value="%" <?php if (isset($md_size) && $md_size == "" || isset($md_size) && $md_size == "%") { ?>checked<?php } ?>><label for="md_size_1">%</label>
+                            <input type="radio" name="md_size" id="md_size_2" class="magic-radio" value="px" <?php if (isset($md_size) && $md_size == "px") { ?>checked<?php } ?>><label for="md_size_2">px</label>
+                        </li>
+
+                        <div class="cb"></div>
                     </ul>
-                    <ul class="mt-5">
-                        <input type="text" name="md_height" class="input w50 h40 text-center" value="auto" placeholder="auto" readonly autocomplete="off">　<span>% (세로사이즈)</span>
+
+                    <ul class="rows_inp_lr mt-10">
+                        <li class="rows_inp_l rows_inp_l_span">
+                            <span class="font-B">가로사이즈</span><br>
+                            %, PX
+                        </li>
+                        <li class="rows_inp_r">
+                            <input type="number" name="md_width" class="input w40 h40 text-center" value="<?php echo !empty($md_width) ? $md_width : ''; ?>" placeholder="숫자" autocomplete="off">　<span class="md_size_set">%</span>
+                        </li>
+
+                        <div class="cb"></div>
                     </ul>
+
+                    <ul class="rows_inp_lr mt-10">
+                        <li class="rows_inp_l rows_inp_l_span">
+                            <span class="font-B">세로사이즈</span><br>
+                            %, PX
+                        </li>
+                        <li class="rows_inp_r">
+                            <input type="text" name="md_height" class="input w40 h40 text-center" value="auto" placeholder="auto" readonly autocomplete="off">　<span class="md_size_set">%</span>
+                        </li>
+
+                        <div class="cb"></div>
+                    </ul>
+
+                    <script>
+                    function updateUnitSpan() {
+                        var unit = $("input[name='md_size']:checked").val();
+                        $(".md_size_set").text(unit);
+                    }
+
+                    // 라디오 변경 시 적용
+                    $(document).on('change', "input[name='md_size']", updateUnitSpan);
+
+                    // 페이지 로드시 적용
+                    $(document).ready(updateUnitSpan);
+                    </script>
+
+
+
                 </div>
+
             </ul>
             
             <ul class="rb_config_sec selected_latest_tab selected_select">
