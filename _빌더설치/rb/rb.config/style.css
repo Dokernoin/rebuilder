@@ -313,6 +313,7 @@ input#md_title_hide + label:after {top:3px !important;}
 }
 
 #rb_sidemenu .flex_box_inner {display: none !important;}
+.ml-0 {margin-left: 0px !important;}
 
 @media (max-width: 1024px) {
 

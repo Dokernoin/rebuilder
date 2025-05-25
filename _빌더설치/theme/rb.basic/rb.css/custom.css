@@ -561,4 +561,8 @@ select#ct_send_cost {width: 150px;}
     .rb_sub_wide #rb_topvisual_txt_inner {padding-left: 0px; padding-right: 0px;}
     /* } */
 
+    /* 2.2.1.1 { */
+    .mod_bn_wrap {padding: 0px !important;}
+    /* } */
+
 }

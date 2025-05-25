@@ -10,6 +10,10 @@
 .rb_module_border_solid .module_poll_wrap {border: 1px solid #ddd;}
 .rb_module_border_dashed .module_poll_wrap {border: 1px dashed #ddd;}
 
+.rb_module_border_ .module_banner_wrap {border:0px;}
+.rb_module_border_solid .module_banner_wrap {border: 1px solid #ddd;}
+.rb_module_border_dashed .module_banner_wrap {border: 1px dashed #ddd;}
+
 .rb_module_border_ .module_item_wrap {border:0px;}
 .rb_module_border_solid .module_item_wrap {border: 1px solid #ddd;}
 .rb_module_border_dashed .module_item_wrap {border: 1px dashed #ddd;}
@@ -50,7 +54,14 @@
 .rb_module_radius_25 .module_item_wrap {border-radius: 25px;}
 .rb_module_radius_30 .module_item_wrap {border-radius: 30px;}
 
-
+.rb_module_radius_ .module_banner_wrap {border-radius: 0px;}
+.rb_module_radius_0 .module_banner_wrap {border-radius: 0px;}
+.rb_module_radius_5 .module_banner_wrap {border-radius: 5px;}
+.rb_module_radius_10 .module_banner_wrap {border-radius: 10px;}
+.rb_module_radius_15 .module_banner_wrap {border-radius: 15px;}
+.rb_module_radius_20 .module_banner_wrap {border-radius: 20px;}
+.rb_module_radius_25 .module_banner_wrap {border-radius: 25px;}
+.rb_module_radius_30 .module_banner_wrap {border-radius: 30px;}
 
 .rb_module_padding_ .module_latest_wrap {padding: 0px;}
 .rb_module_padding_0 .module_latest_wrap {padding: 0px;}
@@ -150,10 +161,14 @@ section.co_gap_pc_30 {margin-top: -10px;}
     .rb_module_border_solid .module_item_wrap {margin-left: 20px; margin-right: 20px; margin-top: 20px;}
     .rb_module_border_dashed .module_item_wrap {margin-left: 20px; margin-right: 20px; margin-top: 20px;}
     
+    .rb_module_border_solid .module_banner_wrap {margin-left: 20px; margin-right: 20px; margin-top: 20px;}
+    .rb_module_border_dashed .module_banner_wrap {margin-left: 20px; margin-right: 20px; margin-top: 20px;}
+
     .module_latest_wrap {padding: 0px !important;}
     .module_widget_wrap {padding: 0px !important;}
     .module_poll_wrap {padding: 0px !important;}
     .module_item_wrap {padding: 0px !important;}
+    .module_banner_wrap {padding: 0px !important;}
     
 }
 

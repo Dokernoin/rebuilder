@@ -53,6 +53,10 @@ $md_order_latest = isset($_POST['md_order_latest']) ? $_POST['md_order_latest'] 
 $md_border = isset($_POST['md_border']) ? $_POST['md_border'] : '';
 $md_radius = isset($_POST['md_radius']) ? $_POST['md_radius'] : '0';
 $md_padding = isset($_POST['md_padding']) ? $_POST['md_padding'] : '0';
+$md_margin_top_pc = isset($_POST['md_margin_top_pc']) ? $_POST['md_margin_top_pc'] : '';
+$md_margin_top_mo = isset($_POST['md_margin_top_mo']) ? $_POST['md_margin_top_mo'] : '';
+$md_margin_btm_pc = isset($_POST['md_margin_btm_pc']) ? $_POST['md_margin_btm_pc'] : '';
+$md_margin_btm_mo = isset($_POST['md_margin_btm_mo']) ? $_POST['md_margin_btm_mo'] : '';
 $del = isset($_POST['del']) ? $_POST['del'] : '';
 $is_shop = isset($_POST['is_shop']) ? $_POST['is_shop'] : '';
 
@@ -158,6 +162,10 @@ if(isset($is_shop) && $is_shop == 1) {
                 md_border = '{$md_border}', 
                 md_radius = '{$md_radius}', 
                 md_padding = '{$md_padding}',
+                md_margin_top_pc = '{$md_margin_top_pc}',
+                md_margin_top_mo = '{$md_margin_top_mo}',
+                md_margin_btm_pc = '{$md_margin_btm_pc}',
+                md_margin_btm_mo = '{$md_margin_btm_mo}',
                 md_datetime = '".G5_TIME_YMDHIS."', 
                 md_ip = '{$_SERVER['REMOTE_ADDR']}',
                 md_order_id = '{$md_order_id}' ";
@@ -221,8 +229,12 @@ if(isset($is_shop) && $is_shop == 1) {
                 md_order = '{$md_order}', 
                 md_order_latest = '{$md_order_latest}',
                 md_border = '{$md_border}', 
-                md_radius = '{$md_radius}', 
-                md_padding = '{$md_padding}', 
+                md_radius = '{$md_radius}',
+                md_padding = '{$md_padding}',
+                md_margin_top_pc = '{$md_margin_top_pc}',
+                md_margin_top_mo = '{$md_margin_top_mo}',
+                md_margin_btm_pc = '{$md_margin_btm_pc}',
+                md_margin_btm_mo = '{$md_margin_btm_mo}',
                 md_datetime = '".G5_TIME_YMDHIS."', 
                 md_ip = '{$_SERVER['REMOTE_ADDR']}' 
                 where md_id = '{$md_id}'";

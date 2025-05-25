@@ -178,8 +178,13 @@ if($mod_type == "del") { //모듈삭제
                 $md_order_latest = !empty($rb_module['md_order_latest']) ? $rb_module['md_order_latest'] : '';
                 $md_border = !empty($rb_module['md_border']) ? $rb_module['md_border'] : '';
                 $md_module = !empty($rb_module['md_module']) ? $rb_module['md_module'] : '';
+
                 $md_radius = empty($rb_module['md_radius']) ? '0' : $rb_module['md_radius'];
                 $md_padding = empty($rb_module['md_padding']) ? '0' : $rb_module['md_padding'];
+                $md_margin_top_pc = empty($rb_module['md_margin_top_pc']) ? '' : $rb_module['md_margin_top_pc'];
+                $md_margin_top_mo = empty($rb_module['md_margin_top_mo']) ? '' : $rb_module['md_margin_top_mo'];
+                $md_margin_btm_pc = empty($rb_module['md_margin_btm_pc']) ? '' : $rb_module['md_margin_btm_pc'];
+                $md_margin_btm_mo = empty($rb_module['md_margin_btm_mo']) ? '' : $rb_module['md_margin_btm_mo'];
     
                 ?>
             
@@ -288,7 +293,7 @@ if($mod_type == "del") { //모듈삭제
                 <div class="config_wrap">
 
                     <ul>
-                        <input type="radio" name="md_show" id="md_show_1" class="magic-radio" value="" <?php if (isset($md_show) && $md_show == "") { ?>checked<?php } ?>><label for="md_show_1">공용</label>
+                        <input type="radio" name="md_show" id="md_show_1" class="magic-radio" value="" <?php if (isset($md_show) && $md_show == "" || empty($md_show)) { ?>checked<?php } ?>><label for="md_show_1">공용</label>
                         <input type="radio" name="md_show" id="md_show_2" class="magic-radio" value="pc" <?php if (isset($md_show) && $md_show == "pc") { ?>checked<?php } ?>><label for="md_show_2">PC 전용</label>
                         <input type="radio" name="md_show" id="md_show_3" class="magic-radio" value="mobile" <?php if (isset($md_show) && $md_show == "mobile") { ?>checked<?php } ?>><label for="md_show_3">Mobile 전용</label>
                     </ul>
@@ -691,6 +696,7 @@ if($mod_type == "del") { //모듈삭제
                             } else if(md_type == "banner") {
                                 $('.selected_banner').show();
                                 $('.selected_all').show();
+                                $('.selected_style').show();
                             } else if(md_type == "poll") {
                                 $('.selected_poll').show();
                                 $('.selected_all').show();
@@ -709,9 +715,7 @@ if($mod_type == "del") { //모듈삭제
 
                             $('#md_type').change(function() {
                                 var selectedValue = $(this).val();
-                                
-                                $('input[name="md_border"]').prop('checked', false);
-                                $('input[name="md_border_shop"]').prop('checked', false);
+
                                 
                                 $('input[name="md_radius"]').val('0');
                                 $('input[name="md_radius_shop"]').val('0');
@@ -729,6 +733,16 @@ if($mod_type == "del") { //모듈삭제
                                 $("#md_padding_range .ui-slider-handle").css("left", "0");
                                 $("#md_padding_range .ui-slider-range").css("width", "0");
                                 
+                                $('input[name="md_margin_top_pc"]').val('');
+                                $('input[name="md_margin_top_mo"]').val('');
+                                $('input[name="md_margin_top_pc_shop"]').val('');
+                                $('input[name="md_margin_top_mo_shop"]').val('');
+
+                                $('input[name="md_margin_btm_pc"]').val('');
+                                $('input[name="md_margin_btm_mo"]').val('');
+                                $('input[name="md_margin_btm_pc_shop"]').val('');
+                                $('input[name="md_margin_btm_mo_shop"]').val('');
+
                                 $("#md_tab_list").val('');
                                 $('#tab_selects .tag').remove();
 
@@ -854,16 +868,16 @@ if($mod_type == "del") { //모듈삭제
                         
                            <ul class="rows_inp_lr mt-10">
                                 <li class="rows_inp_l rows_inp_l_span">
-                                    <span class="font-B">테두리 스타일</span><br>
-                                    박스 테두리
+                                    <span class="font-B">테두리</span><br>
+                                    border
                                 </li>
                                 <li class="rows_inp_r mt-5">
                                     <?php if($is_shop == 1) { // 영카트?>
-                                    <input type="radio" name="md_border_shop" id="md_border_shop_1" class="magic-radio" value="" <?php if (isset($md_border) && $md_border == "") { ?>checked<?php } ?>><label for="md_border_shop_1">없음</label>　
+                                    <input type="radio" name="md_border_shop" id="md_border_shop_1" class="magic-radio" value="" <?php if (isset($md_border) && $md_border == "" || empty($md_border)) { ?>checked<?php } ?>><label for="md_border_shop_1">없음</label>
                                     <input type="radio" name="md_border_shop" id="md_border_shop_2" class="magic-radio" value="solid" <?php if (isset($md_border) && $md_border == "solid") { ?>checked<?php } ?>><label for="md_border_shop_2">실선</label>　
                                     <input type="radio" name="md_border_shop" id="md_border_shop_3" class="magic-radio" value="dashed" <?php if (isset($md_border) && $md_border == "dashed") { ?>checked<?php } ?>><label for="md_border_shop_3">점선</label>
                                     <?php } else { ?>
-                                    <input type="radio" name="md_border" id="md_border_1" class="magic-radio" value="" <?php if (isset($md_border) && $md_border == "") { ?>checked<?php } ?>><label for="md_border_1">없음</label>　
+                                    <input type="radio" name="md_border" id="md_border_1" class="magic-radio" value="" <?php if (isset($md_border) && $md_border == "" || empty($md_border)) { ?>checked<?php } ?>><label for="md_border_1">없음</label>
                                     <input type="radio" name="md_border" id="md_border_2" class="magic-radio" value="solid" <?php if (isset($md_border) && $md_border == "solid") { ?>checked<?php } ?>><label for="md_border_2">실선</label>　
                                     <input type="radio" name="md_border" id="md_border_3" class="magic-radio" value="dashed" <?php if (isset($md_border) && $md_border == "dashed") { ?>checked<?php } ?>><label for="md_border_3">점선</label>
                                     <?php } ?>
@@ -871,11 +885,51 @@ if($mod_type == "del") { //모듈삭제
 
                                 <div class="cb"></div>
                             </ul>
+
+
+
+                            <ul class="rows_inp_lr mt-10">
+                                <li class="rows_inp_l rows_inp_l_span">
+                                    <span class="font-B">상단 간격</span><br>
+                                    margin-top
+                                </li>
+                                <li class="rows_inp_r mt-5">
+                                    <?php if($is_shop == 1) { // 영카트?>
+                                    <input type="number" id="md_margin_top_pc_shop" class="tiny_input w25 ml-0" name="md_margin_top_pc_shop" placeholder="PC" value="<?php echo !empty($md_margin_top_pc) ? $md_margin_top_pc : ''; ?>"> <span class="font-12">px　</span>
+                                    <input type="number" id="md_margin_top_mo_shop" class="tiny_input w25 ml-0" name="md_margin_top_mo_shop" placeholder="Mobile" value="<?php echo !empty($md_margin_top_mo) ? $md_margin_top_mo : ''; ?>"> <span class="font-12">px</span>
+                                    <?php } else { ?>
+                                    <input type="number" id="md_margin_top_pc" class="tiny_input w25 ml-0" name="md_margin_top_pc" placeholder="PC" value="<?php echo !empty($md_margin_top_pc) ? $md_margin_top_pc : ''; ?>"> <span class="font-12">px　</span>
+                                    <input type="number" id="md_margin_top_mo" class="tiny_input w25 ml-0" name="md_margin_top_mo" placeholder="Mobile" value="<?php echo !empty($md_margin_top_mo) ? $md_margin_top_mo : ''; ?>"> <span class="font-12">px</span>
+                                    <?php } ?>
+                                </li>
+
+                                <div class="cb"></div>
+                            </ul>
+
+
+                            <ul class="rows_inp_lr mt-10">
+                                <li class="rows_inp_l rows_inp_l_span">
+                                    <span class="font-B">하단 간격</span><br>
+                                    margin-bottom
+                                </li>
+                                <li class="rows_inp_r mt-5">
+                                    <?php if($is_shop == 1) { // 영카트?>
+                                    <input type="number" id="md_margin_btm_pc_shop" class="tiny_input w25 ml-0" name="md_margin_btm_pc_shop" placeholder="PC" value="<?php echo !empty($md_margin_btm_pc) ? $md_margin_btm_pc : ''; ?>"> <span class="font-12">px　</span>
+                                    <input type="number" id="md_margin_btm_mo_shop" class="tiny_input w25 ml-0" name="md_margin_btm_mo_shop" placeholder="Mobile" value="<?php echo !empty($md_margin_btm_mo) ? $md_margin_btm_mo : ''; ?>"> <span class="font-12">px</span>
+                                    <?php } else { ?>
+                                    <input type="number" id="md_margin_btm_pc" class="tiny_input w25 ml-0" name="md_margin_btm_pc" placeholder="PC" value="<?php echo !empty($md_margin_btm_pc) ? $md_margin_btm_pc : ''; ?>"> <span class="font-12">px　</span>
+                                    <input type="number" id="md_margin_btm_mo" class="tiny_input w25 ml-0" name="md_margin_btm_mo" placeholder="Mobile" value="<?php echo !empty($md_margin_btm_mo) ? $md_margin_btm_mo : ''; ?>"> <span class="font-12">px</span>
+                                    <?php } ?>
+                                </li>
+
+                                <div class="cb"></div>
+                            </ul>
+
                             
                             <ul class="rows_inp_lr mt-10">
                                 <li class="rows_inp_l rows_inp_l_span">
                                     <span class="font-B">모서리 라운드</span><br>
-                                    0~30px
+                                    border-radius
                                 </li>
                                 <li class="rows_inp_r mt-15">
                                     <div id="md_radius_range" class="rb_range_item"></div>
@@ -920,8 +974,8 @@ if($mod_type == "del") { //모듈삭제
                             
                             <ul class="rows_inp_lr mt-10">
                                 <li class="rows_inp_l rows_inp_l_span">
-                                    <span class="font-B">내부 여백 (PC)</span><br>
-                                    0~30px
+                                    <span class="font-B">내부 여백</span><br>
+                                    padding
                                 </li>
                                 <li class="rows_inp_r mt-15">
                                     <div id="md_padding_range" class="rb_range_item"></div>
@@ -961,7 +1015,7 @@ if($mod_type == "del") { //모듈삭제
                                 </script>
                                 <div class="cb"></div>
                             </ul>
-                            
+
 
                         </div>
                     </ul>
@@ -990,7 +1044,7 @@ if($mod_type == "del") { //모듈삭제
                             </ul>
                             <ul class="rows_inp_lr mt-10">
                                 <li class="rows_inp_l rows_inp_l_span">
-                                    <span class="font-B">모바일 버전</span><br>
+                                    <span class="font-B">Mobile 버전</span><br>
                                     1024px 이하
                                 </li>
                                 <li class="rows_inp_r">
@@ -1022,7 +1076,7 @@ if($mod_type == "del") { //모듈삭제
                             </ul>
                             <ul class="rows_inp_lr mt-10">
                                 <li class="rows_inp_l rows_inp_l_span">
-                                    <span class="font-B">모바일 버전</span><br>
+                                    <span class="font-B">Mobile 버전</span><br>
                                     1024px 이하
                                 </li>
                                 <li class="rows_inp_r">
@@ -1106,7 +1160,7 @@ if($mod_type == "del") { //모듈삭제
                     </ul>
                     <ul class="rows_inp_lr mt-10">
                         <li class="rows_inp_l rows_inp_l_span">
-                            <span class="font-B">모바일 버전</span><br>
+                            <span class="font-B">Mobile 버전</span><br>
                             1024px 이하
                         </li>
                         <li class="rows_inp_r">
@@ -1136,7 +1190,7 @@ if($mod_type == "del") { //모듈삭제
                     </ul>
                     <ul class="rows_inp_lr mt-10">
                         <li class="rows_inp_l rows_inp_l_span">
-                            <span class="font-B">모바일 버전</span><br>
+                            <span class="font-B">Mobile 버전</span><br>
                             1024px 이하
                         </li>
                         <li class="rows_inp_r">
@@ -1183,7 +1237,7 @@ if($mod_type == "del") { //모듈삭제
                             %, PX
                         </li>
                         <li class="rows_inp_r">
-                            <input type="radio" name="md_size" id="md_size_1" class="magic-radio" value="%" <?php if (isset($md_size) && $md_size == "" || isset($md_size) && $md_size == "%") { ?>checked<?php } ?>><label for="md_size_1">%</label>
+                            <input type="radio" name="md_size" id="md_size_1" class="magic-radio" value="%" <?php if (isset($md_size) && $md_size == "" || isset($md_size) && $md_size == "%" || empty($md_size)) { ?>checked<?php } ?>><label for="md_size_1">%</label>
                             <input type="radio" name="md_size" id="md_size_2" class="magic-radio" value="px" <?php if (isset($md_size) && $md_size == "px") { ?>checked<?php } ?>><label for="md_size_2">px</label>
                         </li>
 
@@ -1196,7 +1250,7 @@ if($mod_type == "del") { //모듈삭제
                             %, PX
                         </li>
                         <li class="rows_inp_r">
-                            <input type="number" name="md_width" class="input w40 h40 text-center" value="<?php echo !empty($md_width) ? $md_width : ''; ?>" placeholder="숫자" autocomplete="off">　<span class="md_size_set">%</span>
+                            <input type="number" name="md_width" class="input w40 h40 text-center" value="<?php echo !empty($md_width) ? $md_width : '100'; ?>" placeholder="숫자" autocomplete="off">　<span class="md_size_set">%</span>
                         </li>
 
                         <div class="cb"></div>

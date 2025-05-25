@@ -2166,11 +2166,19 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var md_border = $('input[name="md_border_shop"]:checked').val();
         var md_radius = $('#md_radius_shop').val();
         var md_padding = $('#md_padding_shop').val();
+        var md_margin_top_pc = $('#md_margin_top_pc_shop').val();
+        var md_margin_top_mo = $('#md_margin_top_mo_shop').val();
+        var md_margin_btm_pc = $('#md_margin_btm_pc_shop').val();
+        var md_margin_btm_mo = $('#md_margin_btm_mo_shop').val();
         <?php } else { ?>
         var layout_name = '<?php echo $rb_core['layout'] ?>';
         var md_border = $('input[name="md_border"]:checked').val();
         var md_radius = $('#md_radius').val();
         var md_padding = $('#md_padding').val();
+        var md_margin_top_pc = $('#md_margin_top_pc').val();
+        var md_margin_top_mo = $('#md_margin_top_mo').val();
+        var md_margin_btm_pc = $('#md_margin_btm_pc').val();
+        var md_margin_btm_mo = $('#md_margin_btm_mo').val();
         <?php } ?>
 
 
@@ -2376,6 +2384,10 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     "md_radius": md_radius,
                     "md_module": md_module,
                     "md_padding": md_padding,
+                    "md_margin_top_pc": md_margin_top_pc,
+                    "md_margin_top_mo": md_margin_top_mo,
+                    "md_margin_btm_pc": md_margin_btm_pc,
+                    "md_margin_btm_mo": md_margin_btm_mo,
                     "md_order": md_order,
                     "md_order_latest": md_order_latest,
 
