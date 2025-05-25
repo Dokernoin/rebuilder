@@ -83,11 +83,11 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca;
     <tr>
         <th scope="row"><label for="is_reply_subject">답변 제목</label></th>
         <td><input type="text" name="is_reply_subject" class="frm_input" id="is_reply_subject" size="100"
-        value="<?php echo get_text($is['is_reply_subject']); ?>"></td>
+        value="<?php echo isset($is['is_reply_subject']) ? get_text($is['is_reply_subject']) : ''; ?>"></td>
     </tr>
     <tr>
         <th scope="row">답변 내용</th>
-        <td><?php echo editor_html('is_reply_content', get_text(html_purifier($is['is_reply_content']), 0)); ?></td>
+        <td><?php echo editor_html('is_reply_content', get_text(html_purifier(isset($is['is_reply_content']) ? $is['is_reply_content'] : ''), 0)); ?></td>
     </tr>
     <tr>
         <th scope="row">확인</th>
