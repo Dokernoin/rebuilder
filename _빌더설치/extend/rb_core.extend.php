@@ -2,7 +2,7 @@
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 //ini_set("display_errors", 1); // 디버깅
-define('RB_VER',  '2.2.1.1'); // 버전
+define('RB_VER',  '2.2.1.2'); // 버전
 
 
 /*********************************************/
@@ -58,26 +58,15 @@ if (strpos($_SERVER['REQUEST_URI'], '/adm/') === false) {
     }
 }
 
-// 게시판
-elseif (isset($bo_table) && $bo_table) {
+if (isset($bo_table) && $bo_table) {
     $rb_page_urls = 'bo-table-' . $bo_table;
-}
-
-// 내용관리
-elseif (isset($co_id) && $co_id) {
+} else if (isset($co_id) && $co_id) {
     $rb_page_urls = 'content-' . $co_id;
-}
-
-// 그룹
-elseif (isset($gr_id) && $gr_id) {
+} else if (isset($gr_id) && $gr_id) {
     $rb_page_urls = 'group-' . $gr_id;
-}
-
-// 상품
-elseif (isset($it_id) && $it_id) {
+} else if (isset($it_id) && $it_id) {
     $rb_page_urls = 'item-' . $it_id;
 }
-
 
 // 노드 신규등록
 rb_auto_insert_node_if_inherited($rb_page_urls);
