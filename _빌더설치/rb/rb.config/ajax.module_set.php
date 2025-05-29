@@ -26,6 +26,7 @@ $md_poll_id = isset($_POST['md_poll_id']) ? $_POST['md_poll_id'] : '';
 $md_theme = isset($_POST['md_theme']) ? $_POST['md_theme'] : '';
 $md_layout_name = isset($_POST['md_layout_name']) ? $_POST['md_layout_name'] : '';
 $md_cnt = isset($_POST['md_cnt']) ? $_POST['md_cnt'] : '1';
+$md_notice = isset($_POST['md_notice']) ? $_POST['md_notice'] : '0';
 $md_col = isset($_POST['md_col']) ? $_POST['md_col'] : '1';
 $md_row = isset($_POST['md_row']) ? $_POST['md_row'] : '1';
 $md_col_mo = isset($_POST['md_col_mo']) ? $_POST['md_col_mo'] : '1';
@@ -135,6 +136,7 @@ if(isset($is_shop) && $is_shop == 1) {
                 md_theme = '{$md_theme}', 
                 md_layout_name = '{$md_layout_name}', 
                 md_cnt = '{$md_cnt}', 
+                md_notice = '{$md_notice}',
                 md_col = '{$md_col}', 
                 md_row = '{$md_row}', 
                 md_col_mo = '{$md_col_mo}', 
@@ -204,6 +206,7 @@ if(isset($is_shop) && $is_shop == 1) {
                 md_theme = '{$md_theme}', 
                 md_layout_name = '{$md_layout_name}', 
                 md_cnt = '{$md_cnt}', 
+                md_notice = '{$md_notice}',
                 md_col = '{$md_col}', 
                 md_row = '{$md_row}', 
                 md_col_mo = '{$md_col_mo}', 

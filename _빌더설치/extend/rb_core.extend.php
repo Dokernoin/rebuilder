@@ -68,6 +68,7 @@ if (isset($bo_table) && $bo_table) {
     $rb_page_urls = 'item-' . $it_id;
 }
 
+
 // 노드 신규등록
 rb_auto_insert_node_if_inherited($rb_page_urls);
 
@@ -1104,12 +1105,11 @@ function byteFormat($bytes, $unit = "", $decimals = 0) {
 }
 
 // 최신글 함수(메인용)
-function rb_latest($skin_dir='', $bo_table, $rows=10, $subject_len=40, $cache_time=1, $options='', $md_sca='', $md_order='', $rb_module_table='')
+function rb_latest($skin_dir='', $bo_table, $rows=10, $subject_len=40, $cache_time=1, $options='', $md_sca='', $md_order='', $rb_module_table='', $is_notice=0)
 {
     global $g5;
 
     if (!$skin_dir) $skin_dir = 'basic';
-    
     $time_unit = 3600;  // 1시간으로 고정
 
     if(preg_match('#^theme/(.+)$#', $skin_dir, $match)) {
@@ -1136,7 +1136,7 @@ function rb_latest($skin_dir='', $bo_table, $rows=10, $subject_len=40, $cache_ti
     $caches = false;
 
     if(G5_USE_CACHE) {
-        $cache_file_name = "latest-{$bo_table}-{$skin_dir}-{$md_sca}-{$md_order}-{$rows}-{$subject_len}-".g5_cache_secret_key();
+        $cache_file_name = "latest-{$bo_table}-{$skin_dir}-{$md_sca}-{$md_order}-{$rows}-{$subject_len}-{$is_notice}-".g5_cache_secret_key();
         $caches = g5_get_cache($cache_file_name, (int) $time_unit * (int) $cache_time);
         $cache_list = isset($caches['list']) ? $caches['list'] : array();
         g5_latest_cache_data($bo_table, $cache_list);
@@ -1147,58 +1147,78 @@ function rb_latest($skin_dir='', $bo_table, $rows=10, $subject_len=40, $cache_ti
         $list = array();
 
         $board = get_board_db($bo_table, true);
-        
         if( ! $board ){
             return '';
         }
 
         $bo_subject = get_text($board['bo_subject']);
+        $tmp_write_table = $g5['write_prefix'] . $bo_table;
+        $notice_ids = array_filter(array_map('trim', explode(',', $board['bo_notice'])));
+        $notice_ids_str = count($notice_ids) ? implode(',', $notice_ids) : '';
 
-        $tmp_write_table = $g5['write_prefix'] . $bo_table; // 게시판 테이블 전체이름
-        
-        
-        $sql = "SELECT * FROM {$tmp_write_table} WHERE wr_is_comment = 0 ";
-        
-        if($md_sca) {
-            $sql .= " AND ca_name = '{$md_sca}' ";
-        }
-        
-        if($md_order) {
-            $sql .= " ORDER BY {$md_order} ";
+
+
+        if ($is_notice == 1 && $notice_ids_str) {
+            // 공지글 상단 고정, 정렬옵션 상관없이 항상 위에!
+            $sql = "SELECT * FROM {$tmp_write_table} WHERE wr_is_comment = 0";
+            if($md_sca) $sql .= " AND ca_name = '{$md_sca}' ";
+            // 공지글이면 0, 아니면 1 → 무조건 공지글이 먼저!
+            $sql .= " ORDER BY (CASE WHEN wr_id IN ($notice_ids_str) THEN 0 ELSE 1 END), ";
+            if($md_order) {
+                $sql .= " {$md_order} ";   // 일반글은 정렬옵션 적용
+            } else {
+                $sql .= " wr_num ";
+            }
+            $sql .= " LIMIT 0, {$rows} ";
+
+            $result = sql_query($sql);
+            for ($i=0; $row = sql_fetch_array($result); $i++) {
+                unset($row['wr_password']);
+                $row['wr_email'] = '';
+                if (strstr($row['wr_option'], 'secret')){
+                    $row['wr_content'] = $row['wr_link1'] = $row['wr_link2'] = '';
+                    $row['file'] = array('count'=>0);
+                }
+                $list[$i] = get_list($row, $board, $latest_skin_url, $subject_len);
+                $list[$i]['first_file_thumb'] = (isset($row['wr_file']) && $row['wr_file']) ? get_board_file_db($bo_table, $row['wr_id'], 'bf_file, bf_content', "and bf_type in (1, 2, 3, 18) ", true) : array('bf_file'=>'', 'bf_content'=>'');
+                $list[$i]['bo_table'] = $bo_table;
+                $list[$i]['is_notice'] = in_array($row['wr_id'], $notice_ids) ? true : false;
+                if(! isset($list[$i]['icon_file'])) $list[$i]['icon_file'] = '';
+            }
         } else {
-            $sql .= " ORDER BY wr_num ";
+            // 그냥 최신글 LIMIT개
+            $sql = "SELECT * FROM {$tmp_write_table} WHERE wr_is_comment = 0 ";
+            if($md_sca) $sql .= " AND ca_name = '{$md_sca}' ";
+            if($md_order) {
+                $sql .= " ORDER BY {$md_order} ";
+            } else {
+                $sql .= " ORDER BY wr_num ";
+            }
+            $sql .= " LIMIT 0, {$rows} ";
+
+            $result = sql_query($sql);
+            for ($i=0; $row = sql_fetch_array($result); $i++) {
+                unset($row['wr_password']);
+                $row['wr_email'] = '';
+                if (strstr($row['wr_option'], 'secret')){
+                    $row['wr_content'] = $row['wr_link1'] = $row['wr_link2'] = '';
+                    $row['file'] = array('count'=>0);
+                }
+                $list[$i] = get_list($row, $board, $latest_skin_url, $subject_len);
+                $list[$i]['first_file_thumb'] = (isset($row['wr_file']) && $row['wr_file']) ? get_board_file_db($bo_table, $row['wr_id'], 'bf_file, bf_content', "and bf_type in (1, 2, 3, 18) ", true) : array('bf_file'=>'', 'bf_content'=>'');
+                $list[$i]['bo_table'] = $bo_table;
+                $list[$i]['is_notice'] = in_array($row['wr_id'], $notice_ids) ? true : false;
+                if(! isset($list[$i]['icon_file'])) $list[$i]['icon_file'] = '';
+            }
         }
 
-        $sql .= " LIMIT 0, {$rows} ";
-        
-        $result = sql_query($sql);
-        for ($i=0; $row = sql_fetch_array($result); $i++) {
-            try {
-                unset($row['wr_password']);     //패스워드 저장 안함( 아예 삭제 )
-            } catch (Exception $e) {
-            }
-            $row['wr_email'] = '';              //이메일 저장 안함
-            if (strstr($row['wr_option'], 'secret')){           // 비밀글일 경우 내용, 링크, 파일 저장 안함
-                $row['wr_content'] = $row['wr_link1'] = $row['wr_link2'] = '';
-                $row['file'] = array('count'=>0);
-            }
-            $list[$i] = get_list($row, $board, $latest_skin_url, $subject_len);
-
-            $list[$i]['first_file_thumb'] = (isset($row['wr_file']) && $row['wr_file']) ? get_board_file_db($bo_table, $row['wr_id'], 'bf_file, bf_content', "and bf_type in (1, 2, 3, 18) ", true) : array('bf_file'=>'', 'bf_content'=>'');
-            $list[$i]['bo_table'] = $bo_table;
-
-
-            if(! isset($list[$i]['icon_file'])) $list[$i]['icon_file'] = '';
-        }
         g5_latest_cache_data($bo_table, $list);
 
         if(G5_USE_CACHE) {
-
             $caches = array(
                 'list' => $list,
                 'bo_subject' => sql_escape_string($bo_subject),
             );
-
             g5_set_cache($cache_file_name, $caches, (int) $time_unit * (int) $cache_time);
         }
     } else {
@@ -1216,7 +1236,9 @@ function rb_latest($skin_dir='', $bo_table, $rows=10, $subject_len=40, $cache_ti
 }
 
 
-function rb_latest_tabs($skin_dir = '', $json_list = '', $rows = 10, $subject_len = 40, $cache_time = 1, $options = '', $md_order = '', $rb_module_table = '') {
+
+
+function rb_latest_tabs($skin_dir = '', $json_list = '', $rows = 10, $subject_len = 40, $cache_time = 1, $options = '', $md_order = '', $rb_module_table = '', $is_notice = 0) {
     global $g5;
 
     if (!$skin_dir) $skin_dir = 'basic';
@@ -1265,22 +1287,36 @@ function rb_latest_tabs($skin_dir = '', $json_list = '', $rows = 10, $subject_le
         $list = [];
         $tmp_write_table = $g5['write_prefix'] . $bo_table;
 
-        $sql = "SELECT * FROM {$tmp_write_table} WHERE wr_is_comment = 0 ";
+        // 공지글 wr_id 추출
+        $notice_ids = array_filter(array_map('trim', explode(',', $board['bo_notice'])));
+        $notice_ids_str = count($notice_ids) ? implode(',', $notice_ids) : '';
 
-        if($md_sca) {
-            $sql .= " AND ca_name = '{$md_sca}' ";
-        }
-
-        if($md_order) {
-            $sql .= " ORDER BY {$md_order} ";
+        if ($is_notice == 1 && $notice_ids_str) {
+            // 공지글 상단고정, 나머지는 정렬옵션
+            $sql = "SELECT * FROM {$tmp_write_table} WHERE wr_is_comment = 0";
+            if($md_sca) $sql .= " AND ca_name = '{$md_sca}' ";
+            // 공지글은 0, 그 외는 1로 두고 정렬옵션으로 나머지 정렬
+            $sql .= " ORDER BY (CASE WHEN wr_id IN ($notice_ids_str) THEN 0 ELSE 1 END), ";
+            if($md_order) {
+                $sql .= " {$md_order} ";
+            } else {
+                $sql .= " wr_num ";
+            }
+            $sql .= " LIMIT 0, {$rows} ";
         } else {
-            $sql .= " ORDER BY wr_num ";
+            // 그냥 최신글 LIMIT개
+            $sql = "SELECT * FROM {$tmp_write_table} WHERE wr_is_comment = 0 ";
+            if($md_sca) $sql .= " AND ca_name = '{$md_sca}' ";
+            if($md_order) {
+                $sql .= " ORDER BY {$md_order} ";
+            } else {
+                $sql .= " ORDER BY wr_num ";
+            }
+            $sql .= " LIMIT 0, {$rows} ";
         }
-
-        $sql .= " LIMIT 0, {$rows} ";
-
 
         $result = sql_query($sql);
+
         for ($i = 0; $row = sql_fetch_array($result); $i++) {
             unset($row['wr_password']);
             $row['wr_email'] = '';
@@ -1291,6 +1327,7 @@ function rb_latest_tabs($skin_dir = '', $json_list = '', $rows = 10, $subject_le
             $list[$i] = get_list($row, $board, $latest_skin_url, $subject_len);
             $list[$i]['first_file_thumb'] = (isset($row['wr_file']) && $row['wr_file']) ? get_board_file_db($bo_table, $row['wr_id'], 'bf_file, bf_content', "and bf_type in (1, 2, 3, 18) ", true) : array('bf_file'=>'', 'bf_content'=>'');
             $list[$i]['bo_table'] = $bo_table;
+            $list[$i]['is_notice'] = in_array($row['wr_id'], $notice_ids) ? true : false;
             if (!isset($list[$i]['icon_file'])) $list[$i]['icon_file'] = '';
         }
 
@@ -1309,6 +1346,7 @@ function rb_latest_tabs($skin_dir = '', $json_list = '', $rows = 10, $subject_le
 
     return $content;
 }
+
 
 
 // 파일업로드

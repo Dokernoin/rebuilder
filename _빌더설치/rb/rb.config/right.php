@@ -2153,6 +2153,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         }
 
         var md_bo_table = $('select[name="md_bo_table"]').val();
+        var md_notice = $('input[name="md_notice"]:checked').val();
         var md_widget = $('select[name="md_widget"]').val();
         var md_banner = $('select[name="md_banner"]').val();
         var md_banner_id = $('select[name="md_banner_id"]').val();
@@ -2348,6 +2349,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     "md_tab_skin": md_tab_skin,
                     "md_type": md_type,
                     "md_bo_table": md_bo_table,
+                    "md_notice": md_notice,
                     "md_sca": md_sca,
                     "md_widget": md_widget,
                     "md_banner": md_banner,

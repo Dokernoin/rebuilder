@@ -178,7 +178,7 @@ if($mod_type == "del") { //모듈삭제
                 $md_order_latest = !empty($rb_module['md_order_latest']) ? $rb_module['md_order_latest'] : '';
                 $md_border = !empty($rb_module['md_border']) ? $rb_module['md_border'] : '';
                 $md_module = !empty($rb_module['md_module']) ? $rb_module['md_module'] : '';
-
+                $md_notice = !empty($rb_module['md_notice']) ? $rb_module['md_notice'] : '0';
                 $md_radius = empty($rb_module['md_radius']) ? '0' : $rb_module['md_radius'];
                 $md_padding = empty($rb_module['md_padding']) ? '0' : $rb_module['md_padding'];
                 $md_margin_top_pc = empty($rb_module['md_margin_top_pc']) ? '' : $rb_module['md_margin_top_pc'];
@@ -529,7 +529,7 @@ if($mod_type == "del") { //모듈삭제
                             <?php echo rb_skin_select('latest', $md_skin); ?>
                         </select>
                     </ul>
-                    
+
                     <?php 
                       if($is_shop == 1) {
                           // 분류리스트
@@ -587,6 +587,8 @@ if($mod_type == "del") { //모듈삭제
                     </ul>
                     
                     
+
+
 
                     <ul class="mt-5 selected_item selected_select">
                         <select class="select w100" name="md_skin" id="md_skin_shop">
@@ -791,6 +793,13 @@ if($mod_type == "del") { //모듈삭제
                             
                         });
                     </script>
+
+                    <div>
+                        <ul class="mt-5 selected_latest_tab selected_select">
+                            <input type="checkbox" name="md_notice" id="md_notice" value="1" <?php if (isset($md_notice) && $md_notice == "1") { ?>checked<?php } ?>><label for="md_notice">공지 상단고정</label>
+                        </ul>
+                    </div>
+
                    
                     <?php if(isset($md_skin) && $md_skin && isset($md_type) && $md_type == "latest") { ?>
 
