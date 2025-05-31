@@ -5,6 +5,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 // SMS 문자전송 시작
 //----------------------------------------------------------
 
+
 //추가정보 저장
 if($w == "" || $_POST['re'] == "re") {
     if(isset($pa['pa_is']) && $pa['pa_is'] == 1 && isset($pa['pa_use']) && $pa['pa_use'] == 1) {
@@ -41,9 +42,9 @@ if($w == "" || $_POST['re'] == "re") {
 } else if ($w == "u") {
     
     if(isset($pa['pa_is']) && $pa['pa_is'] == 1 && isset($pa['pa_use']) && $pa['pa_use'] == 1) {
-        
+        alert($_POST['mb_bank']);
         $sqls = "UPDATE {$g5['member_table']} 
-                    SET mb_bank = '{$_POST['mb_bank']}', 
+                    SET mb_bank = '{$_POST['mb_bank']}'
                         where mb_id = '{$mb_id}' ";
         sql_query($sqls);
         
