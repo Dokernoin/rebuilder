@@ -670,7 +670,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                     <?php if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 1) { ?>checked<?php } ?>>
                                     <label for="v_use_1">사용</label>
 
-                                    <?php if($cate_id) { // 영카트?>
+                                    <?php if(isset($cate_id) && $cate_id) { // 영카트?>
                                     <input type="radio" name="v_use" id="v_use_2" class="magic-radio" value="2"
                                     <?php if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 2) { ?>checked<?php } ?>>
                                     <label for="v_use_2">하위적용</label>
