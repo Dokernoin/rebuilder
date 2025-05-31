@@ -554,7 +554,6 @@ if($mod_type == "del") { //모듈삭제
                     
                     <ul class="mt-5 selected_item selected_select">
                         <select class="select w100" name="md_module" id="md_module_shop">
-                            <option value="">상품 타입을 선택하세요.</option>
                             <option value="0" <?php if (isset($md_module) && $md_module == "0") { ?>selected<?php } ?>>전체상품</option>
                             <option value="1" <?php if (isset($md_module) && $md_module == "1") { ?>selected<?php } ?>>히트상품</option>
                             <option value="2" <?php if (isset($md_module) && $md_module == "2") { ?>selected<?php } ?>>추천상품</option>
