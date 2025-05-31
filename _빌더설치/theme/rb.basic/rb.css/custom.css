@@ -403,7 +403,7 @@ select#ct_send_cost {width: 150px;}
 /* 2.2.0.1 { */
 .input_wrap {display: flex; align-items: center; justify-content: space-between; gap: 12px;}
 .input_wrap > input { flex: 1; }
-.rb_member .rb_reg .btn_frmline{height: 47px; background-color: #fff; color: <?php echo $rb_color?>; border-color: <?php echo $rb_color?>;}
+.rb_member .rb_reg .btn_frmline{height: 47px; background-color: #fff;}
 .result_message{display: none !important; margin-top: 8px; }
 .result_message.error{color: #f00 !important; display: block !important;}
 .result_message.success{color: #000 !important; display: block !important;}
@@ -427,6 +427,10 @@ select#ct_send_cost {width: 150px;}
 .rb_sub_wide .sub {width: 100% !important; padding-left: 50px; padding-right: 50px;}
 .rb_sub_wide #rb_topvisual_txt_inner {width: 100% !important; padding-left: 50px; padding-right: 50px;}
 .rb_layout_box.pc {display: block;}
+/* } */
+
+/* 2.2.1.4 { */
+.btn_win_zip {height:40px !important;}
 /* } */
 
 @media all and (max-width:1024px){

@@ -218,7 +218,7 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
                 <span>주소</span>
                 <div>
                     <input type="text" name="mb_zip" value="<?php echo $member['mb_zip1'].$member['mb_zip2']; ?>" id="reg_mb_zip" <?php echo $config['cf_req_addr']?"required":""; ?> class="input twopart_input <?php echo $config['cf_req_addr']?"required":""; ?>" maxlength="6"  placeholder="우편번호"> 
-                    <button type="button" class="btn_frmline" onclick="win_zip('fregisterform', 'mb_zip', 'mb_addr1', 'mb_addr2', 'mb_addr3', 'mb_addr_jibeon');">주소 검색</button>
+                    <button type="button" class="btn_frmline btn_win_zip" onclick="win_zip('fregisterform', 'mb_zip', 'mb_addr1', 'mb_addr2', 'mb_addr3', 'mb_addr_jibeon');">주소 검색</button>
                 </div>
                 <div class="mt-5">
                     <input type="text" name="mb_addr1" value="<?php echo get_text($member['mb_addr1']) ?>" id="reg_mb_addr1" <?php echo $config['cf_req_addr']?"required":""; ?> class="input frm_address full_input <?php echo $config['cf_req_addr']?"required":""; ?>"  placeholder="기본주소">
