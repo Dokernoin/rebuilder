@@ -29,6 +29,12 @@ if(defined('_INDEX_')) { // index에서만 실행
 }
 /* } */
 
+// 사이드영역 숨김처리
+$current_page = basename($_SERVER['PHP_SELF']);
+if ($current_page === 'mypage.php' || $current_page === 'partner.php') {
+    echo '<style>#rb_sidemenu_shop {display:none;} #rb_sidemenu_float_shop {width:100% !important; float:none !important;}</style>';
+}
+
 ?>
 
 <?php 
