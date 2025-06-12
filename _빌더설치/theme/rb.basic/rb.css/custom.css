@@ -433,6 +433,10 @@ select#ct_send_cost {width: 150px;}
 .btn_win_zip {height:40px !important;}
 /* } */
 
+/* 2.2.1.5 { */
+.sit_use_li {padding-bottom: 45px !important;}
+/* } */
+
 @media all and (max-width:1024px){
 
     /* 1.1.4 { */

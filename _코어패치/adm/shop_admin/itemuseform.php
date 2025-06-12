@@ -50,6 +50,10 @@ $qstr .= ($qstr ? '&amp;' : '').'sca='.$sca;
 <input type="hidden" name="stx" value="<?php echo $stx; ?>">
 <input type="hidden" name="page" value="<?php echo $page; ?>">
 
+<!-- 20250612 리빌더 { -->
+<input type="hidden" name="mb_id" value="<?php echo $is['mb_id']; ?>">
+<input type="hidden" name="it_name" value="<?php echo $is['it_name']; ?>">
+<!-- } -->
 
 <div class="tbl_frm01 tbl_wrap">
     <table>
