@@ -83,9 +83,9 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
                 <?php if($w == "" || isset($re) && $re == "re") { ?>
                     <?php if(isset($_POST['mb_partner']) && $_POST['mb_partner'] == 1 || isset($re) && $re == "re") { ?>
                         <?php if(isset($pa['pa_add_use']) && $pa['pa_add_use'] == 1) { ?>
-                            <li class="rb_reg_sub_title">입점사 회원으로 <?php if(isset($re) && $re == "re") { ?>재<?php } ?>가입 합니다.</li>
+                            <li class="rb_reg_sub_title">입점사 회원으로 <?php if(isset($re) && $re == "re") { ?>전환<?php } ?>가입 합니다.</li>
                         <?php } else { ?>
-                            <li class="rb_reg_sub_title">입점사 회원으로 <?php if(isset($re) && $re == "re") { ?>재<?php } ?>가입 신청 합니다.<br>관리자 승인 이후 입점사 전용 서비스를 이용하실 수 있습니다.</li>
+                            <li class="rb_reg_sub_title">입점사 회원으로 <?php if(isset($re) && $re == "re") { ?>전환<?php } ?>가입 신청 합니다.<br>관리자 승인 이후 입점사 전용 서비스를 이용하실 수 있습니다.</li>
                         <?php } ?>
                     <?php } else { ?>
                     <li class="rb_reg_sub_title">일반 회원으로 가입 합니다.</li>
@@ -449,7 +449,7 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
             
             <li>
                 <div class="btn_confirm">
-                    <button type="submit" class="btn_submit font-B" accesskey="s"><?php echo $w==''?'회원가입':'정보수정'; ?></button>
+                    <button type="submit" class="btn_submit font-B" accesskey="s"><?php if ($re == "re") { ?>전환가입<?php } else { ?><?php echo $w==''?'회원가입':'정보수정'; ?><?php } ?></button>
 
                     <?php if($w == 'u') { ?>
                     <button type="button" class="btn_submit font-B mt-10" onclick="javascript:member_leaves();" style="background-color:#f1f1f1 !important; color:#000;">회원탈퇴</button>
