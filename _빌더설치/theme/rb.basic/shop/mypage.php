@@ -119,8 +119,8 @@ for($k=0; $cp=sql_fetch_array($res); $k++) {
 	    
         <h3>내정보</h3>
         <dl class="op_area">
-            <dt>연락처</dt>
-            <dd><?php echo ($member['mb_tel'] ? $member['mb_tel'] : '미등록'); ?></dd>
+            <dt>휴대전화</dt>
+            <dd><?php echo ($member['mb_hp'] ? $member['mb_hp'] : '미등록'); ?></dd>
             <dt>E-Mail</dt>
             <dd><?php echo ($member['mb_email'] ? $member['mb_email'] : '미등록'); ?></dd>
             <dt>최종접속일시</dt>
@@ -128,7 +128,7 @@ for($k=0; $cp=sql_fetch_array($res); $k++) {
             <dt>회원가입일시</dt>
             <dd><?php echo $member['mb_datetime']; ?></dd>
             <dt id="smb_my_ovaddt">주소</dt>
-            <dd id="smb_my_ovaddd"><?php echo sprintf("(%s%s)", $member['mb_zip1'], $member['mb_zip2']).' '.print_address($member['mb_addr1'], $member['mb_addr2'], $member['mb_addr3'], $member['mb_addr_jibeon']); ?></dd>
+            <dd id="smb_my_ovaddd"><?php echo print_address($member['mb_addr1'], $member['mb_addr2'], $member['mb_addr3'], $member['mb_addr_jibeon']); ?></dd>
         </dl>
 
         <a href="<?php echo G5_BBS_URL; ?>/member_confirm.php?url=member_leave.php" onclick="return member_leave();" class="withdrawal withdrawal_none_ov">회원탈퇴</a>
