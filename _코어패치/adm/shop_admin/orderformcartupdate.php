@@ -28,6 +28,10 @@ $mod_history = '';
 $cnt = (isset($_POST['ct_id']) && is_array($_POST['ct_id'])) ? count($_POST['ct_id']) : 0;
 $arr_it_id = array();
 
+
+$notified_members = [];
+$notified_partners = [];
+
 for ($i=0; $i<$cnt; $i++)
 {
     $k = isset($_POST['ct_chk'][$i]) ? (int) $_POST['ct_chk'][$i] : '';
@@ -177,6 +181,23 @@ for ($i=0; $i<$cnt; $i++)
                     and ct_id  = '$ct_id' ";
         sql_query($sql);
     }
+
+
+    if ($ct_status == '취소') {
+        // 주문자에게 쪽지
+        if ($mb_id && !in_array($mb_id, $notified_members)) {
+            memo_auto_send('주문하신 상품이 취소 처리되었습니다.', '', $mb_id, 'system-msg');
+            $notified_members[] = $mb_id;
+        }
+
+        // 파트너에게 쪽지
+        $partner_id = trim($ct['ct_partner']);
+        if ($partner_id && !in_array($partner_id, $notified_partners)) {
+            memo_auto_send('관리자가 취소한 주문건이 있습니다.', '', $partner_id, 'system-msg');
+            $notified_partners[] = $partner_id;
+        }
+    }
+
     /* } */
 
 
@@ -398,6 +419,17 @@ if($cancel_change) {
 
 $sql .= " where od_id = '$od_id' ";
 sql_query($sql);
+
+
+if ($_POST['ct_status'] == '배송') {
+    // 주문자에게 쪽지
+    $order = sql_fetch("SELECT mb_id FROM {$g5['g5_shop_order_table']} WHERE od_id = '$od_id'");
+    if (!empty($order['mb_id'])) {
+        memo_auto_send('주문하신 상품이 배송 처리 되었습니다. 주문내역에서 배송조회가 가능합니다.', '', $order['mb_id'], 'system-msg');
+    }
+}
+
+
 
 $qstr = "sort1=$sort1&amp;sort2=$sort2&amp;sel_field=$sel_field&amp;search=$search&amp;page=$page";
 

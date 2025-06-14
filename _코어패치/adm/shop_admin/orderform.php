@@ -63,18 +63,32 @@ if($default['de_escrow_use'])
 $qstr = "$qstr1&amp;sort1=$sort1&amp;sort2=$sort2&amp;page=$page";
 
 // 상품목록
-$sql = " select it_id,
-                it_name,
-                cp_price,
-                ct_notax,
-                ct_send_cost,
-                it_sc_type
-           from {$g5['g5_shop_cart_table']}
-          where od_id = '{$od['od_id']}'
-          group by it_id
-          order by ct_id ";
-$result = sql_query($sql);
-
+if(isset($pa['pa_is']) && $pa['pa_is'] == 1) {
+    $sql = " select it_id,
+                    it_name,
+                    ct_partner,
+                    cp_price,
+                    ct_notax,
+                    ct_send_cost,
+                    it_sc_type
+               from {$g5['g5_shop_cart_table']}
+              where od_id = '{$od['od_id']}'
+              group by it_id
+              order by ct_id ";
+    $result = sql_query($sql);
+} else {
+    $sql = " select it_id,
+                    it_name,
+                    cp_price,
+                    ct_notax,
+                    ct_send_cost,
+                    it_sc_type
+               from {$g5['g5_shop_cart_table']}
+              where od_id = '{$od['od_id']}'
+              group by it_id
+              order by ct_id ";
+    $result = sql_query($sql);
+}
 // 주소 참고항목 필드추가
 if(!isset($od['od_addr3'])) {
     sql_query(" ALTER TABLE `{$g5['g5_shop_order_table']}`
@@ -154,6 +168,9 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
         <caption>주문 상품 목록</caption>
         <thead>
         <tr>
+            <?php if(isset($pa['pa_is']) && $pa['pa_is'] == 1) { ?>
+            <th scope="col">판매자</th>
+            <?php } ?>
             <th scope="col">상품명</th>
             <th scope="col">
                 <label for="sit_select_all" class="sound_only">주문 상품 전체</label>
@@ -187,9 +204,13 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
             // 상품이미지
             $image = get_it_image($row['it_id'], 50, 50);
 
+            $mbx = get_member($row['ct_partner']);
+            $names = isset($mbx['mb_nick']) ? get_text($mbx['mb_nick']) : '';
+
+
             // 상품의 옵션정보
             if(isset($pa['pa_is']) && $pa['pa_is'] == 1) {
-                $sql = " select ct_id, it_id, ct_price, ct_point, ct_qty, ct_option, ct_status, cp_price, ct_stock_use, ct_point_use, ct_send_cost, io_type, io_price, ct_delivery_company, ct_invoice, ct_invoice_time
+                $sql = " select ct_partner, ct_id, it_id, ct_price, ct_point, ct_qty, ct_option, ct_status, cp_price, ct_stock_use, ct_point_use, ct_send_cost, io_type, io_price, ct_delivery_company, ct_invoice, ct_invoice_time
                         from {$g5['g5_shop_cart_table']}
                         where od_id = '{$od['od_id']}'
                           and it_id = '{$row['it_id']}'
@@ -247,6 +268,11 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
             ?>
             <tr>
                 <?php if($k == 0) { ?>
+                <?php if(isset($pa['pa_is']) && $pa['pa_is'] == 1) { ?>
+                <td rowspan="<?php echo $rowspan; ?>">
+                    <a href="../rb/partner_list.php?sfl=mb_id&stx=<?php echo $row['ct_partner'] ?>"><?php echo $names; ?> (<?php echo $row['ct_partner']; ?>)</a>
+                </td>
+                <?php } ?>
                 <td rowspan="<?php echo $rowspan; ?>" class="td_left">
                     <a href="./itemform.php?w=u&amp;it_id=<?php echo $row['it_id']; ?>"><?php echo $image; ?> <?php echo stripslashes($row['it_name']); ?></a>
                     <?php if($od['od_tax_flag'] && $row['ct_notax']) echo '[비과세상품]'; ?>
