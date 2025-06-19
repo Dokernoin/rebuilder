@@ -77,13 +77,20 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
         const newSrcset1 = isLight ? rbConfig.logoMo : rbConfig.logoMoWhite;
         const newSrcset2 = isLight ? rbConfig.logoPc : rbConfig.logoPcWhite;
 
-        // 로그인 페이지가 아닐 경우에만 처리 @미니님a 님 개선코드 적용
-        if (!window.location.pathname.includes('/bbs/login.php')) {
-            document.getElementById('sourceSmall').setAttribute('srcset', `${newSrcset1}?ver=${rbConfig.serverTime}`);
-            document.getElementById('sourceLarge').setAttribute('srcset', `${newSrcset2}?ver=${rbConfig.serverTime}`);
-            document.getElementById('fallbackImage').setAttribute('src', `${newSrcset2}?ver=${rbConfig.serverTime}`);
+        const sourceSmall = document.getElementById('sourceSmall');
+        const sourceLarge = document.getElementById('sourceLarge');
+        const fallbackImage = document.getElementById('fallbackImage');
+
+        if (sourceSmall) {
+            sourceSmall.setAttribute('srcset', `${newSrcset1}?ver=${rbConfig.serverTime}`);
         }
-    });
+        if (sourceLarge) {
+            sourceLarge.setAttribute('srcset', `${newSrcset2}?ver=${rbConfig.serverTime}`);
+        }
+        if (fallbackImage) {
+            fallbackImage.setAttribute('src', `${newSrcset2}?ver=${rbConfig.serverTime}`);
+        }
+        });
 </script>
 
 <?php
