@@ -727,6 +727,11 @@ a.btn02 {background: #25282B !important; font-weight: normal !important; border-
     
     /* 2.2.1.5 { */
     #sct_location.view_location {position: relative !important; top:auto !important; padding-top: 0px !important; margin-top: -20px;}
+    .sit_order_btn button {width: 49% !important;}
+    .sit_order_btn button.sit_btn_cart {float:right !important;}
+    .sit_order_btn button.sit_btn_buy {float:left !important;}
+    #sct_sortlst {padding-left: 20px; padding-right: 20px;}
+    #sct #sct_sortlst {padding-left: 0px; padding-right: 0px;}
     /* } */
 
 }
