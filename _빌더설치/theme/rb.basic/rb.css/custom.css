@@ -600,16 +600,8 @@ select#ct_send_cost {width: 150px;}
     /* } */
 
     /* 2.2.1.5 { */
-    .rb_bo_top .module_banner_wrap{margin-left: 20px; margin-right: 20px;}
-    .rb_bo_btm .module_banner_wrap{margin-left: 20px; margin-right: 20px;}
-    .rb_co_top .module_banner_wrap{margin-left: 20px; margin-right: 20px;}
-    .rb_co_btm .module_banner_wrap{margin-left: 20px; margin-right: 20px;}
-    .rb_ca_top .module_banner_wrap{margin-left: 20px; margin-right: 20px;}
-    .rb_ca_btm .module_banner_wrap{margin-left: 20px; margin-right: 20px;}
-    .rb_it_top .module_banner_wrap{margin-left: 20px; margin-right: 20px;}
-    .rb_it_btm .module_banner_wrap{margin-left: 20px; margin-right: 20px;}
-    .rb_ev_top .module_banner_wrap{margin-left: 20px; margin-right: 20px;}
-    .rb_ev_btm .module_banner_wrap{margin-left: 20px; margin-right: 20px;}
+    .rb_it_top {margin-top: 0px;}
+    .mod_bn_wrap {padding: 20px !important; padding-bottom: 0px !important}
     /* } */
 
 }
