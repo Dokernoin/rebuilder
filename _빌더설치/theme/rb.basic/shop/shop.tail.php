@@ -20,6 +20,9 @@ $admin = get_admin("super");
             <?php if(isset($ca_id) && $ca_id) { ?>
                 <div class="rb_ca_btm flex_box" data-layout="rb_ca_btm_shop_<?php echo $ca_id ?>"></div>
             <?php } ?>
+            <?php if(isset($ev_id) && $ev_id) { ?>
+                <div class="rb_ev_btm flex_box" data-layout="rb_ev_btm_shop_<?php echo $ev_id ?>"></div>
+            <?php } ?>
         <?php } ?>
 
         <?php if (!defined("_INDEX_")) { ?>

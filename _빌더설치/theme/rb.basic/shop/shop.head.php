@@ -107,6 +107,12 @@ if ($current_page === 'mypage.php' || $current_page === 'partner.php') {
             <?php if(isset($ca_id) && $ca_id) { ?>
                 <div class="rb_ca_top flex_box" data-layout="rb_ca_top_shop_<?php echo $ca_id ?>"></div>
             <?php } ?>
+            <?php if(isset($ev_id) && $ev_id) { ?>
+                <div class="rb_ev_top flex_box" data-layout="rb_ev_top_shop_<?php echo $ev_id ?>"></div>
+            <?php } ?>
+
+
+
         <?php } ?>
 
         <?php if (isset($rb_core['padding_top_shop']) && $rb_core['padding_top_shop'] == 1) { ?>
