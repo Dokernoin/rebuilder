@@ -578,6 +578,9 @@ a.btn02 {background: #25282B !important; font-weight: normal !important; border-
 #sit_qa_wbtn a#itemqa_list {display: none;}
 /* } */
 
+/* 2.2.1.5 { */
+#sit_btn_opt {z-index: 12 !important;}
+/* } */
 
 @media all and (max-width:1024px) {
     
@@ -722,6 +725,10 @@ a.btn02 {background: #25282B !important; font-weight: normal !important; border-
     #sct .rb_shop_list {padding-left: 0px; padding-right: 0px;}
     #ssch .rb_shop_list {padding-left: 0px; padding-right: 0px;}
     
+    /* 2.2.1.5 { */
+    #sct_location.view_location {position: relative !important; top:auto !important; padding-top: 0px !important; margin-top: -20px;}
+    /* } */
+
 }
 
 @media all and (max-width:768px) {
