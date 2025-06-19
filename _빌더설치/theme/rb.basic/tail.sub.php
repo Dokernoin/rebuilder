@@ -94,10 +94,14 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 </script>
 
 <?php
-    //리빌드세팅
-    add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.color.php?rb_color_set=' . urlencode($rb_core['color']) . '&rb_color_code=' . urlencode($rb_config['co_color']) . '" />', 0);
-    add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.header.php?rb_header_set=' . urlencode($rb_core['header']) . '&rb_header_code=' . urlencode($rb_config['co_header']) . '" />', 0);
-    add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.style.css?ver='.G5_TIME_YMDHIS.'" />', 0);
+    $rb_core_colors = isset($rb_core['color']) ? $rb_core['color'] : '';
+    $rb_core_headers = isset($rb_core['header']) ? $rb_core['header'] : '';
+    $rb_config_colors = isset($rb_config['co_color']) ? $rb_config['co_color'] : '';
+    $rb_config_headers = isset($rb_config['co_header']) ? $rb_config['co_header'] : '';
+
+    add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.color.php?rb_color_set=' . urlencode($rb_core_colors) . '&rb_color_code=' . urlencode($rb_config_colors) . '" />', 0);
+    add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.header.php?rb_header_set=' . urlencode($rb_core_headers) . '&rb_header_code=' . urlencode($rb_config_headers) . '" />', 0);
+    add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.style.css?ver='.G5_SERVER_TIME.'" />', 0);
 ?>
 </body>
 </html>
