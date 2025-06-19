@@ -120,6 +120,15 @@ $selects_lev = str_replace("'", "\'", $selects_lev); // 작은따옴표 이스�
         });
     });
 
+    function htmlEscape(str) {
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
     function add_menu_list(name, link, code) {
         var $menulist = $("#menulist", opener.document);
         var ms = new Date().getTime();
@@ -130,9 +139,12 @@ $selects_lev = str_replace("'", "\'", $selects_lev); // 작은따옴표 이스�
             sub_menu_class = " class=\"td_category sub_menu_class\"";
         <?php } ?>
 
-        var selectsLev = '<?php echo $selects_lev; ?>';
+        name = htmlEscape(name);
+        link = htmlEscape(link);
 
+        var selectsLev = '<?php echo $selects_lev; ?>';
         var list = "<tr class=\"menu_list menu_group_<?php echo $code; ?>\">";
+
         list += "<td" + sub_menu_class + ">";
         list += "<label for=\"me_name_" + ms + "\"  class=\"sound_only\">메뉴<strong class=\"sound_only\"> 필수</strong></label>";
         list += "<input type=\"hidden\" name=\"code[]\" value=\"<?php echo $code; ?>\">";
