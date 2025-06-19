@@ -758,9 +758,7 @@ if($mod_type == "del") { //모듈삭제
                                     $('.selected_latest_tab').hide();
                                 }
 
-                                if (selectedValue !== "banner") {
-                                    $('.selected_style').show();
-                                }
+                                $('.selected_style').show();
                                 
                                 if (selectedValue !== "none") {
                                     $('.selected_' + selectedValue).show();
