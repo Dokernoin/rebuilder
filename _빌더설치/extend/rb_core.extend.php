@@ -1,8 +1,14 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
-//ini_set("display_errors", 1); // 디버깅
-define('RB_VER',  '2.2.1.4'); // 버전
+// 500 에러가 나오시는 경우 아래 코드를 주석해제하셔서
+// 보이는 에러구문을 알려주세요.
+
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+
+define('RB_VER',  '2.2.1.5'); // 버전
 
 
 /*********************************************/
