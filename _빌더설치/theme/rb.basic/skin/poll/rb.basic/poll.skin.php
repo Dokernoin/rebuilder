@@ -5,20 +5,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <link rel="stylesheet" href="<?php echo $poll_skin_url ?>/style.css?ver=<?php echo G5_TIME_YMDHIS ?>">
 
 <div class="bbs_main">
-        <!-- { -->
-        <ul class="bbs_main_wrap_tit">
-            <li class="bbs_main_wrap_tit_l">
-                <a href="javascript:void(0);"><h2 class="font-B">설문조사</h2></a>
-            </li>
-            
-            <li class="bbs_main_wrap_tit_r">
-                <a href="<?php echo G5_BBS_URL."/poll_result.php?po_id=$po_id&amp;skin_dir=".urlencode($skin_dir); ?>" target="_blank" onclick="poll_result(this.href); return false;" class="more_btn more_btn_poll">결과보기</a>
-            </li>
-                    
-                    
-            <div class="cb"></div>
-        </ul>
-           
         <ul>
 
             <!-- 설문조사 시작 { -->
@@ -27,7 +13,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
             <input type="hidden" name="skin_dir" value="<?php echo urlencode($skin_dir); ?>">
             <div id="poll">
                 <div class="poll_con">
-                    <p class="font-B"><?php echo $po['po_subject'] ?></p>
+                    <p class="font-B"><span class="cut2"><?php echo $po['po_subject'] ?></span></p>
                     <ul>
                         <?php for ($i=1; $i<=9 && $po["po_poll{$i}"]; $i++) {  ?>
                         <li class="chk_box">
@@ -43,6 +29,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
                         <button type="submit" class="btn_poll">투표하기</button>
                     </div>
                     
+                    <a href="<?php echo G5_BBS_URL."/poll_result.php?po_id=$po_id&amp;skin_dir=".urlencode($skin_dir); ?>" target="_blank" onclick="poll_result(this.href); return false;" class="more_btn more_btn_poll">결과보기</a>
                 </div>
             </div>
             </form>
