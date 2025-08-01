@@ -367,8 +367,8 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_THEME_SHOP_URL.'/rb.layout_hd/
                                     $k++;
                                     }   // end for
 
-                                    if($k > 0)
-                                        echo ''.PHP_EOL;
+                                    if($k == 0)
+                                        echo '등록된 분류가 없습니다.'.PHP_EOL;
                                     ?>
                                 </div>
 
