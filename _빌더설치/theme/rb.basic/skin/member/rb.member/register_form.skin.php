@@ -46,7 +46,7 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
         <input type="hidden" name="agree2" value="<?php echo $agree2 ?>">
         <input type="hidden" name="cert_type" value="<?php echo $member['mb_certify']; ?>">
         <input type="hidden" name="cert_no" value="">
-        <input type="hidden" name="re" value="<?php echo $re ?>">
+        <input type="hidden" name="re" value="<?php echo isset($re) ? $re : ''; ?>">
         
         <?php if (isset($member['mb_sex'])) {  ?><input type="hidden" name="mb_sex" value="<?php echo $member['mb_sex'] ?>"><?php }  ?>
         <?php if (isset($member['mb_nick_date']) && $member['mb_nick_date'] > date("Y-m-d", G5_SERVER_TIME - ($config['cf_nick_modify'] * 86400))) { // 닉네임수정일이 지나지 않았다면  ?>
@@ -58,7 +58,7 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
             <?php if($w == "") { ?>
                 <input type="hidden" name="mb_partner" value="<?php echo $_POST['mb_partner'] ?>">
             <?php } else { ?>
-                <?php if ($re == "re") { ?>
+                <?php if (isset($re) && $re == "re") { ?>
                 <input type="hidden" name="mb_partner" value="<?php echo $is_mb_partner ?>">
                 <?php } else { ?>
                 <input type="hidden" name="mb_partner" value="<?php echo isset($member['mb_partner']) ? get_text($member['mb_partner']) : ''; ?>">
@@ -449,7 +449,7 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
             
             <li>
                 <div class="btn_confirm">
-                    <button type="submit" class="btn_submit font-B" accesskey="s"><?php if ($re == "re") { ?>전환가입<?php } else { ?><?php echo $w==''?'회원가입':'정보수정'; ?><?php } ?></button>
+                    <button type="submit" class="btn_submit font-B" accesskey="s"><?php if (isset($re) && $re == "re") { ?>전환가입<?php } else { ?><?php echo $w==''?'회원가입':'정보수정'; ?><?php } ?></button>
 
                     <?php if($w == 'u') { ?>
                     <button type="button" class="btn_submit font-B mt-10" onclick="javascript:member_leaves();" style="background-color:#f1f1f1 !important; color:#000;">회원탈퇴</button>
