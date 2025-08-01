@@ -509,13 +509,7 @@ $pg_anchor = '<ul class="anchor">
         빌더 구동에 필요한 테이블이 설치 됩니다.<br><br>
         rb_ 로 시작하는 동일한 테이블명 있는경우 테이블 생성이 되지 않을 수 있으며<br>
         성능 보장을 위해 가급적 PHP7.X ~ PHP8.X 버전을 사용해주세요.<br>
-        <strong>DB 테이블 설치 후 빌더설정 > [DB 업데이트] 를 반드시 실행해주세요.</strong><br><br>
-        
-        --------------<br>
-        <b>생성되는 테이블 목록</b><br>
-        rb_builder (빌더설정), rb_config (환경설정), rb_module (모듈설정)<br>
-        rb_banner (배너관리), rb_seo (SEO설정)<br>
-        --------------<br><br>
+        <strong>DB 테이블 설치 후 빌더설정 > [DB 업데이트 실행] 를 반드시 클릭해주세요.</strong><br><br>
         
         테이블 설치 후 <b>환경설정 > 테마설정</b> 메뉴에서<br>
         <b>Rebuilder Basic 테마를 적용</b> 해주시고<br>
