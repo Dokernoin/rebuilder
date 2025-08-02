@@ -44,8 +44,8 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     document.addEventListener('DOMContentLoaded', function () {
         // PHP 데이터를 JavaScript 객체로 전달
         const rbConfig = {
-            headerColor: "<?php echo $rb_config['co_header'] ?>",
-            headerSet: "<?php echo $rb_core['header'] ?>",
+            headerColor: "<?php echo isset($rb_config['co_header']) ? $rb_config['co_header'] : ''; ?>",
+            headerSet: "<?php echo isset($rb_core['header']) ? $rb_core['header'] : ''; ?>",
             logoMo: "<?php echo !empty($rb_builder['bu_logo_mo']) && !empty($rb_builder['bu_logo_mo_w']) ? G5_URL . '/data/logos/mo' : G5_THEME_URL . '/rb.img/logos/mo.png' ?>",
             logoMoWhite: "<?php echo !empty($rb_builder['bu_logo_mo']) && !empty($rb_builder['bu_logo_mo_w']) ? G5_URL . '/data/logos/mo_w' : G5_THEME_URL . '/rb.img/logos/mo_w.png' ?>",
             logoPc: "<?php echo !empty($rb_builder['bu_logo_pc']) && !empty($rb_builder['bu_logo_pc_w']) ? G5_URL . '/data/logos/pc' : G5_THEME_URL . '/rb.img/logos/pc.png' ?>",

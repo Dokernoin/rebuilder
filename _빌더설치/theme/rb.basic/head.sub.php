@@ -242,7 +242,7 @@ if ($is_member) { // 회원이라면 로그인 중이라는 메세지를 출력�
 
 ?>
 
-<main class="<?php echo $rb_core['color'] ?> <?php echo $rb_core['header'] ?>" id="main">
+<main class="<?php echo isset($rb_core['color']) ? $rb_core['color'] : ''; ?> <?php echo isset($rb_core['header']) ? $rb_core['header'] : ''; ?>" id="main">
 
 
 <?php if (!empty($rb_builder['bu_load'])) { ?>
