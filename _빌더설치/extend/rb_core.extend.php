@@ -8,7 +8,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 //ini_set('display_startup_errors', 1);
 //error_reporting(E_ALL);
 
-define('RB_VER',  '2.2.1.5'); // 버전
+define('RB_VER',  '2.2.2'); // 버전
 
 
 /*********************************************/
@@ -257,7 +257,7 @@ if(isset($rb_core['tb_width']) && $rb_core['tb_width'] == "100") {
 if(isset($rb_core['main_width']) && $rb_core['main_width'] == "100") {
     $rb_main_wide = "rb_main_wide";
 } else {
-    $rb_sub_wide = "";
+    $rb_main_wide = "";
 }
 
 if(isset($rb_core['sub_width']) && $rb_core['sub_width'] == "100") {
