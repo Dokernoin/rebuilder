@@ -35,7 +35,6 @@ $rb_core['inner_padding_pc'] = !empty($rb_config['co_inner_padding_pc']) ? $rb_c
 
 
 /* 2.2 { */
-
 $rb_core['side_skin'] = !empty($rb_config['co_side_skin']) ? $rb_config['co_side_skin'] : ''; // 사이드메뉴 스킨
 $rb_core['side_skin_shop'] = !empty($rb_config['co_side_skin_shop']) ? $rb_config['co_side_skin_shop'] : ''; // 사이드메뉴 스킨 (마켓)
 $rb_core['sidemenu'] = !empty($rb_config['co_sidemenu']) ? $rb_config['co_sidemenu'] : ''; // 사이드메뉴 여부, 위치
@@ -1113,7 +1112,7 @@ function byteFormat($bytes, $unit = "", $decimals = 0) {
 }
 
 // 최신글 함수(메인용)
-function rb_latest($skin_dir='', $bo_table, $rows=10, $subject_len=40, $cache_time=1, $options='', $md_sca='', $md_order='', $rb_module_table='', $is_notice=0)
+function rb_latest($bo_table, $skin_dir='', $rows=10, $subject_len=40, $cache_time=1, $options='', $md_sca='', $md_order='', $rb_module_table='', $is_notice=0)
 {
     global $g5;
 
@@ -1432,7 +1431,7 @@ function rb_get_file_thumbnail($file, $wr_id){
 }
 
 // 게시글보기 썸네일 생성
-function rb_get_view_thumbnail($contents, $thumb_width=0, $wr_id)
+function rb_get_view_thumbnail($contents = '', $thumb_width = 0, $wr_id = '')
 {
     global $board, $config;
 
