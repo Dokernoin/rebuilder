@@ -58,7 +58,7 @@ $rb_page_urls = ltrim($rb_page_urls, '-');
 
 // 카테고리
 if (strpos($_SERVER['REQUEST_URI'], '/adm/') === false) {
-    if (isset($ca_id) && preg_match('/^\d+$/', $ca_id)) {
+    if (isset($ca_id) && preg_match('/^\d+$/', $ca_id) && isset($w) && $w != "u") {
         $cate_id = implode('-', str_split($ca_id, 2)); // ex: 101010 → 10-10-10
         $rb_page_urls = 'shop-list-' . $cate_id;
     }
@@ -70,7 +70,7 @@ if (isset($bo_table) && $bo_table) {
     $rb_page_urls = 'content-' . $co_id;
 } else if (isset($gr_id) && $gr_id) {
     $rb_page_urls = 'group-' . $gr_id;
-} else if (isset($it_id) && $it_id) {
+} else if (isset($it_id) && $it_id && isset($w) && $w != "u") {
     $rb_page_urls = 'item-' . $it_id;
 } else if(isset($ev_id) && $ev_id) {
     $rb_page_urls = 'event-' . $ev_id;
