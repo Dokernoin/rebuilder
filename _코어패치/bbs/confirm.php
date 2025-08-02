@@ -1,6 +1,7 @@
 <?php
 include_once('./_common.php');
 include_once(G5_PATH.'/head.sub.php');
+add_javascript('<script src="'.G5_THEME_URL.'/rb.js/rb.common.js"></script>', 0);
 
 $pattern1 = "/[\<\>\'\"\\\'\\\"\(\)]/";
 $pattern2 = "/\r\n|\r|\n|[^\x20-\x7e]/";
@@ -21,11 +22,61 @@ check_url_host($url2);
 check_url_host($url3);
 ?>
 
+<style>
+.rb-custom-alert-popup {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 300px;
+    max-width: 450px;
+    background: #fff;
+    color: #000;
+    padding: 25px 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+    font-size: 15px;
+    text-align: center;
+    word-break: keep-all;
+    line-height: 140%;
+    animation: customAlertShow 0.22s cubic-bezier(.68,-0.55,.27,1.55);
+    z-index: 12345678905;
+}
+
+.rb-custom-alert-popup svg {opacity: 0.2; margin-bottom: 10px;}
+
+.rb-custom-alert-popup-bg {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 12345678904;
+    width: 100%;
+    height:100%;
+    background: rgba(0,0,0,0.2);
+}
+
+.rb-custom-alert-popup .rb-alert-btn {
+    display:inline-block; padding:12px 25px; font-size:15px;
+    color:#25282B; border:none; border-radius:10px; cursor:pointer; background-color: #ced3db !important;
+}
+
+.rb-custom-alert-popup .rb-alert-btn.rb-btn-ok {
+    background-color: #25282B !important;
+    color:#fff !important;
+}
+
+
+@keyframes customAlertShow {
+    from { opacity:0; transform: translate(-50%, -46%) scale(0.97);}
+    to   { opacity:1; transform: translate(-50%, -50%) scale(1);}
+}
+</style>
+
 <script>
 var conf = "<?php echo strip_tags($msg); ?>";
 
-rb_confirm(conf).then(function(result) {
-    if (result) {
+rb_confirm(conf).then(function(confirmed) {
+    if (confirmed) {
         document.location.replace("<?php echo $url1; ?>");
     } else {
         document.location.replace("<?php echo $url2; ?>");
