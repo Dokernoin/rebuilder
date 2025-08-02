@@ -288,7 +288,7 @@ body.sLightBox{overflow:hidden !important;}
     to   { opacity:1; transform: translate(-50%, -50%) scale(1);}
 }
 
-@media all and (max-width:768px) {
+@media all and (max-width:512px) {
     .rb-custom-alert-popup {width: 90%;}
 }
 /* } */

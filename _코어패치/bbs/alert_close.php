@@ -22,8 +22,7 @@ if($error) {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    min-width: 300px;
-    max-width: 450px;
+    width: 400px;
     background: #fff;
     color: #000;
     padding: 25px 25px;
@@ -63,6 +62,10 @@ if($error) {
 @keyframes customAlertShow {
     from { opacity:0; transform: translate(-50%, -46%) scale(0.97);}
     to   { opacity:1; transform: translate(-50%, -50%) scale(1);}
+}
+
+@media all and (max-width:512px) {
+    .rb-custom-alert-popup {width: 90%;}
 }
 </style>
 

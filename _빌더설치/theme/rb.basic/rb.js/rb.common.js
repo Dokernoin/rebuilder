@@ -15,6 +15,10 @@ window.alert = function (msg, callback) {
 
     $('body').append(rb_alert_bg).append(rb_alert_popup);
 
+    setTimeout(function () {
+        rb_alert_popup.find('.rb-btn-ok').focus();
+    }, 10);
+
     function closeAlert() {
         rb_alert_bg.fadeOut(220, function () {
             rb_alert_bg.remove();
