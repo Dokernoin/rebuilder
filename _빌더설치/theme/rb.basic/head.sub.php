@@ -221,7 +221,7 @@ add_javascript('<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12
 add_javascript('<script src="'.G5_THEME_URL.'/rb.js/swiper.js"></script>', 0);
 add_stylesheet('<link rel="stylesheet" href="'.G5_THEME_URL.'/rb.fonts/'.$font.'/'.$font.'.css?ver='.filemtime(G5_THEME_PATH.'/rb.fonts/'.$font.'/'.$font.'.css').'" />', 0);  
 add_stylesheet('<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" />', 0);
-
+add_javascript('<script src="'.G5_THEME_URL.'/rb.js/rb.common.js"></script>', 0);
 
 if(!defined('G5_IS_ADMIN'))
     echo $config['cf_add_script'];
