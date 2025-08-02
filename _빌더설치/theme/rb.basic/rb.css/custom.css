@@ -463,6 +463,13 @@ select#ct_send_cost {width: 150px;}
 .rb_it_btm .no_data_section_ul1 {display: none; border:1px dashed #eee; border-radius: 10px; font-size: 14px; color:rgba(0,0,0,0.3);}
 /* } */
 
+/* 2.2.2 { */
+#rb_sidemenu_float_shop #sct_location.view_location {top:0px !important; margin-top: -10px;}
+#rb_sidemenu_float_shop {position: relative;}
+.rb_bbs_wrap .rb_bbs_top {position: inherit; margin-bottom: 0px !important;}
+.rb_bbs_wrap .rb_bbs_top li.cnts {float:left;}
+/* } */
+
 @media all and (max-width:1024px){
 
     /* 1.1.4 { */
