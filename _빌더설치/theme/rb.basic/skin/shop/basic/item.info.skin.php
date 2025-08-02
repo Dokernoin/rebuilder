@@ -197,6 +197,55 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 		            <button type="submit" onclick="document.pressed=this.value;" value="바로구매" class="sit_btn_buy">바로구매</button> 
 		       </div>
 			</div>
+
+            <?php if(IS_MOBILE()) { ?>
+             <script>
+                $(document).ready(function() {
+                    function adjustTop() {
+                        var headerHeight = document.querySelector('.sum_section').getBoundingClientRect().height + 67;
+                        $('#sit_buy').css('padding-bottom', headerHeight + 'px');
+                    }
+
+                    // 처음 로딩 시 top 값 조정
+                    adjustTop();
+
+                    // 윈도우 리사이즈 시 top 값 재조정
+                    $(window).resize(adjustTop);
+
+                    // sum_section의 변화를 감지하여 adjustTop 함수 호출
+                    var sumSection = document.querySelector('.sum_section');
+                    var observer = new MutationObserver(function(mutations) {
+                        mutations.forEach(function(mutation) {
+                            adjustTop();
+                        });
+                    });
+
+                    observer.observe(sumSection, {
+                        attributes: true,
+                        childList: true,
+                        subtree: true,
+                        characterData: true
+                    });
+                });
+            </script>
+             <?php } else { ?>
+             <script>
+                $(document).ready(function() {
+                    function adjustTop() {
+                        var headerHeight = $('#header').outerHeight(true);
+                        $('#sit_buy_inner').css('top', headerHeight + 'px');
+                        document.getElementById('sit_buy_inner').style.setProperty('top', headerHeight + 'px');
+                    }
+
+                    // 처음 로딩 시 top 값 조정
+                    adjustTop();
+
+                    // 윈도우 리사이즈 시 top 값 재조정
+                    $(window).resize(adjustTop);
+                });
+            </script>
+            <?php } ?>
+
             <?php } else { ?>
             <div class="no_data">구매할 수 없는 상품 입니다.</div>
             <?php } ?>
@@ -204,53 +253,7 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_SHOP_CSS_URL.'/style.css">', 0
 	    </div>   
 	</div>
 	    
-     <?php if(IS_MOBILE()) { ?>
-     <script>
-        $(document).ready(function() {
-            function adjustTop() {
-                var headerHeight = document.querySelector('.sum_section').getBoundingClientRect().height + 67;
-                $('#sit_buy').css('padding-bottom', headerHeight + 'px');
-            }
 
-            // 처음 로딩 시 top 값 조정
-            adjustTop();
-
-            // 윈도우 리사이즈 시 top 값 재조정
-            $(window).resize(adjustTop);
-
-            // sum_section의 변화를 감지하여 adjustTop 함수 호출
-            var sumSection = document.querySelector('.sum_section');
-            var observer = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    adjustTop();
-                });
-            });
-
-            observer.observe(sumSection, {
-                attributes: true,
-                childList: true,
-                subtree: true,
-                characterData: true
-            });
-        });
-    </script>
-     <?php } else { ?>
-	 <script>
-        $(document).ready(function() {
-            function adjustTop() {
-                var headerHeight = $('#header').outerHeight(true);
-                $('#sit_buy_inner').css('top', headerHeight + 'px');
-                document.getElementById('sit_buy_inner').style.setProperty('top', headerHeight + 'px');
-            }
-
-            // 처음 로딩 시 top 값 조정
-            adjustTop();
-
-            // 윈도우 리사이즈 시 top 값 재조정
-            $(window).resize(adjustTop);
-        });
-    </script>
-	<?php } ?>
 	
 	<script>
         
