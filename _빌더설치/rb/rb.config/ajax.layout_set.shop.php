@@ -119,7 +119,11 @@ foreach ($layouts as $layout_no) {
                     <?php
                     // item 관련 SQL문 및 변수들을 동적으로 생성하도록 PHP 코드로 기록합니다.
                     $code  = "\n<?php\n";
+                    $code .= "if(isset(\$row_mod['md_soldout_hidden']) && \$row_mod['md_soldout_hidden'] == 1) {\n";
                     $code .= "\$item_where = \" where it_use = '1' and it_stock_qty > 0 and it_soldout = 0\";\n";
+                    $code .= "} else { \n";
+                    $code .= "\$item_where = \" where it_use = '1'\";\n";
+                    $code .= "}\n";
                     $code .= "if(isset(\$row_mod['md_module']) && \$row_mod['md_module'] > 0) {\n";
                     $code .= "    \$item_where .= \" and it_type\".\$row_mod['md_module'].\" = '1' \";\n";
                     $code .= "}\n";
@@ -127,9 +131,17 @@ foreach ($layouts as $layout_no) {
                     $code .= "    \$item_where .= \" AND (ca_id = '\".\$row_mod['md_sca'].\"' OR ca_id LIKE '\".\$row_mod['md_sca'].\"%') \";\n";
                     $code .= "}\n";
                     $code .= "if(isset(\$row_mod['md_order']) && \$row_mod['md_order']) {\n";
+                    $code .= "if(isset(\$row_mod['md_soldout_asc']) && \$row_mod['md_soldout_asc'] == 1) {\n";
+                    $code .= "    \$item_order = \" order by it_soldout asc, \" . \$row_mod['md_order'];\n";
+                    $code .= "} else { \n";
                     $code .= "    \$item_order = \" order by \" . \$row_mod['md_order'];\n";
+                    $code .= "}\n";
+                    $code .= "} else { \n";
+                    $code .= "if(isset(\$row_mod['md_soldout_asc']) && \$row_mod['md_soldout_asc'] == 1) {\n";
+                    $code .= "    \$item_order = \" order by it_soldout asc, it_id desc\";\n";
                     $code .= "} else { \n";
                     $code .= "    \$item_order = \" order by it_id desc\";\n";
+                    $code .= "}\n";
                     $code .= "}\n";
                     $code .= "\$item_limit = \" limit \" . \$row_mod['md_cnt'];\n";
                     $code .= "\$item_sql = \" select * from {\$g5['g5_shop_item_table']} \" . \$item_where . \" \" . \$item_order . \" \" . \$item_limit;\n";

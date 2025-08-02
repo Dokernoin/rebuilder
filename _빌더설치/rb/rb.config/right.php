@@ -2162,6 +2162,9 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var md_poll = $('select[name="md_poll"]').val();
         var md_poll_id = $('select[name="md_poll_id"]').val();
 
+        var md_soldout_hidden = $('input[name="md_soldout_hidden"]:checked').val();
+        var md_soldout_asc = $('input[name="md_soldout_asc"]:checked').val();
+
         <?php if(defined('_SHOP_')) { // 영카트?>
         var layout_name = '<?php echo $rb_core['layout_shop'] ?>';
         var md_border = $('input[name="md_border_shop"]:checked').val();
@@ -2328,16 +2331,18 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
             return false;
             <?php } ?>
 
-
             // Ajax 요청 실행
             $.ajax({
                 url: '<?php echo G5_URL ?>/rb/rb.config/ajax.module_set.php', // Ajax 요청을 보낼 엔드포인트 URL
                 method: 'POST',
                 dataType: 'json',
                 data: {
-                    <?php if(defined('_SHOP_')) { // 영카트?> "is_shop": "1",
-                    <?php } else { ?> "is_shop": "0",
-                    <?php } ?> "md_id": md_id,
+                    <?php if(defined('_SHOP_')) { // 영카트?>
+                        "is_shop": "1",
+                    <?php } else { ?>
+                        "is_shop": "0",
+                    <?php } ?>
+                    "md_id": md_id,
                     "md_title": md_title,
                     "md_title_color": md_title_color,
                     "md_title_size": md_title_size,
@@ -2392,11 +2397,13 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     "md_margin_btm_mo": md_margin_btm_mo,
                     "md_order": md_order,
                     "md_order_latest": md_order_latest,
-
+                    "md_soldout_hidden": md_soldout_hidden,
+                    "md_soldout_asc": md_soldout_asc,
                 },
+
+
                 success: function(data) {
                     if (data.status == 'ok') {
-
                         console.log('모듈저장:' + data.md_title);
                         alert(data.md_title + ' 모듈이 저장 되었습니다.');
                         location.reload();
@@ -2408,6 +2415,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 error: function(err) {
                     alert('문제가 발생 했습니다. 다시 시도해주세요.');
                 }
+
             });
 
         }

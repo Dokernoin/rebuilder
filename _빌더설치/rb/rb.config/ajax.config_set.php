@@ -178,6 +178,8 @@ if($mod_type == "del") { //모듈삭제
                 $md_order_latest = !empty($rb_module['md_order_latest']) ? $rb_module['md_order_latest'] : '';
                 $md_border = !empty($rb_module['md_border']) ? $rb_module['md_border'] : '';
                 $md_module = !empty($rb_module['md_module']) ? $rb_module['md_module'] : '';
+                $md_soldout_hidden = !empty($rb_module['md_soldout_hidden']) ? $rb_module['md_soldout_hidden'] : '';
+                $md_soldout_asc = !empty($rb_module['md_soldout_asc']) ? $rb_module['md_soldout_asc'] : '';
                 $md_notice = !empty($rb_module['md_notice']) ? $rb_module['md_notice'] : '0';
                 $md_radius = empty($rb_module['md_radius']) ? '0' : $rb_module['md_radius'];
                 $md_padding = empty($rb_module['md_padding']) ? '0' : $rb_module['md_padding'];
@@ -594,6 +596,13 @@ if($mod_type == "del") { //모듈삭제
                             <?php echo rb_list_skin_options("^main.[0-9]+\.skin\.php", G5_SHOP_SKIN_PATH, $md_skin); ?>
                         </select>
                     </ul>
+
+                    <div>
+                        <ul class="mt-5 selected_item selected_select">
+                            <input type="checkbox" name="md_soldout_asc" id="md_soldout_asc" value="1" <?php if (isset($md_soldout_asc) && $md_soldout_asc == "1") { ?>checked<?php } ?>><label for="md_soldout_asc">품절상품 후순위 정렬</label>
+                            <input type="checkbox" name="md_soldout_hidden" id="md_soldout_hidden" value="1" <?php if (isset($md_soldout_hidden) && $md_soldout_hidden == "1") { ?>checked<?php } ?>><label for="md_soldout_hidden">품절상품 숨김</label>
+                        </ul>
+                    </div>
 
                     <?php } ?>
 

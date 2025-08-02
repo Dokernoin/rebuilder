@@ -49,6 +49,8 @@ $md_swiper_is = isset($_POST['md_swiper_is']) ? $_POST['md_swiper_is'] : '';
 $md_auto_is = isset($_POST['md_auto_is']) ? $_POST['md_auto_is'] : '';
 $md_auto_time = isset($_POST['md_auto_time']) ? $_POST['md_auto_time'] : '';
 $md_module = isset($_POST['md_module']) ? $_POST['md_module'] : '';
+$md_soldout_hidden = isset($_POST['md_soldout_hidden']) ? $_POST['md_soldout_hidden'] : '';
+$md_soldout_asc = isset($_POST['md_soldout_asc']) ? $_POST['md_soldout_asc'] : '';
 $md_order = isset($_POST['md_order']) ? $_POST['md_order'] : '';
 $md_order_latest = isset($_POST['md_order_latest']) ? $_POST['md_order_latest'] : '';
 $md_border = isset($_POST['md_border']) ? $_POST['md_border'] : '';
@@ -159,6 +161,8 @@ if(isset($is_shop) && $is_shop == 1) {
                 md_auto_is = '{$md_auto_is}', 
                 md_auto_time = '{$md_auto_time}', 
                 md_module = '{$md_module}', 
+                md_soldout_hidden = '{$md_soldout_hidden}',
+                md_soldout_asc = '{$md_soldout_asc}',
                 md_order = '{$md_order}',
                 md_order_latest = '{$md_order_latest}',
                 md_border = '{$md_border}', 
@@ -229,6 +233,8 @@ if(isset($is_shop) && $is_shop == 1) {
                 md_auto_is = '{$md_auto_is}', 
                 md_auto_time = '{$md_auto_time}',
                 md_module = '{$md_module}', 
+                md_soldout_hidden = '{$md_soldout_hidden}',
+                md_soldout_asc = '{$md_soldout_asc}',
                 md_order = '{$md_order}', 
                 md_order_latest = '{$md_order_latest}',
                 md_border = '{$md_border}', 
