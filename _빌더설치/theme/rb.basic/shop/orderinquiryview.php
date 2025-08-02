@@ -24,7 +24,7 @@ if($od['od_pg'] == 'lg') {
         $st_count1 = $st_count2 = 0;
         $custom_cancel = false;
 
-        $sql = " select it_id, it_name, ct_send_cost, it_sc_type
+        $sql = " select it_id, it_name, ct_send_cost, it_sc_type, ct_partner
                     from {$g5['g5_shop_cart_table']}
                     where od_id = '$od_id'
                     group by it_id
@@ -99,6 +99,15 @@ if($od['od_pg'] == 'lg') {
 	                    if($sendcost == 0)
 	                        $ct_send_cost = '무료';
 	                }
+
+                    if(isset($pa['pa_is']) && $pa['pa_is'] == 1) {
+                        if(isset($row['ct_partner']) && $row['ct_partner']) {
+                            $pm = get_member($row['ct_partner']);
+                            $partnmer_nick = $pm['mb_nick'];
+                        } else {
+                            $partnmer_nick = "-";
+                        }
+                    }
 	
 	                for($k=0; $opt=sql_fetch_array($res); $k++) {
 	                    if($opt['io_type'])
@@ -108,13 +117,7 @@ if($od['od_pg'] == 'lg') {
 	
 	                    $sell_price = $opt_price * $opt['ct_qty'];
 	                    $point = $opt['ct_point'] * $opt['ct_qty'];
-                        
-                        if(isset($pa['pa_is']) && $pa['pa_is'] == 1) {
-                            if(isset($opt['ct_partner']) && $opt['ct_partner']) {
-                                $pm = get_member($opt['ct_partner']);
-                            }
-                        }
-	
+
 	                    if($k == 0) {
 	            ?>
 	            <?php } ?>
@@ -133,7 +136,7 @@ if($od['od_pg'] == 'lg') {
 	                <td headers="th_itsum" class="td_numbig text_right"><?php echo number_format($sell_price); ?></td>
 	                <td headers="th_itst" class="td_mngsmall"><?php echo $opt['ct_status']; ?></td>
 	                <?php if(isset($pa['pa_is']) && $pa['pa_is'] == 1) { ?>
-	                <td headers="th_partner" class="td_mngsmall"><?php echo isset($pm['mb_nick']) ? $pm['mb_nick'] : '-'; ?></td>
+	                <td headers="th_partner" class="td_mngsmall"><?php echo $partnmer_nick; ?></td>
 	                <?php } ?>
 	            </tr>
 	            <?php
