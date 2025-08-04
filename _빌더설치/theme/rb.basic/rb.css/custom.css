@@ -468,6 +468,8 @@ select#ct_send_cost {width: 150px;}
 #rb_sidemenu_float_shop {position: relative;}
 .rb_bbs_wrap .rb_bbs_top {position: inherit; margin-bottom: 0px !important;}
 .rb_bbs_wrap .rb_bbs_top li.cnts {float:left;}
+.module_banner_wrap {overflow: hidden;}
+.bn_radius {overflow: hidden;}
 /* } */
 
 @media all and (max-width:1024px){

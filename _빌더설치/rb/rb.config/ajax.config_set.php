@@ -693,11 +693,13 @@ if($mod_type == "del") { //모듈삭제
                                 $('.selected_latest').show();
                                 $('.selected_all').show();
                                 $('.selected_latest_tab').show();
+                                $('.selected_cnt').show();
                                 $('.selected_style').show();
                             } else if(md_type == "tab") {
                                 $('.selected_tab').show();
                                 $('.selected_all').show();
-                                 $('.selected_latest_tab').show();
+                                $('.selected_latest_tab').show();
+                                $('.selected_cnt').show();
                                 $('.selected_style').show();
                             } else if(md_type == "widget") {
                                 $('.selected_widget').show();
@@ -707,6 +709,7 @@ if($mod_type == "del") { //모듈삭제
                                 $('.selected_banner').show();
                                 $('.selected_all').show();
                                 $('.selected_style').show();
+                                $('.selected_cnt').show();
                             } else if(md_type == "poll") {
                                 $('.selected_poll').show();
                                 $('.selected_all').show();
@@ -720,6 +723,7 @@ if($mod_type == "del") { //모듈삭제
                                 $('.selected_all').hide();
                                 $('.selected_style').hide();
                                 $('.selected_latest_tab').hide();
+                                $('.selected_cnt').hide();
                                 $('.selected_tab').hide();
                             }
 
@@ -763,8 +767,13 @@ if($mod_type == "del") { //모듈삭제
                                 
                                 if (selectedValue == "latest" || selectedValue == "tab") {
                                     $('.selected_latest_tab').show();
+                                    $('.selected_cnt').show();
+                                } else if (selectedValue == "banner") {
+                                    $('.selected_latest_tab').hide();
+                                    $('.selected_cnt').show();
                                 } else {
                                     $('.selected_latest_tab').hide();
+                                    $('.selected_cnt').hide();
                                 }
 
                                 $('.selected_style').show();
@@ -1157,16 +1166,24 @@ if($mod_type == "del") { //모듈삭제
             </ul>
             
             
-            <ul class="rb_config_sec selected_latest_tab selected_select">
+            <ul class="rb_config_sec selected_cnt selected_select">
                 <h6 class="font-B">출력갯수 설정</h6>
                 <h6 class="font-R rb_config_sub_txt">
                     열(가로)X행(세로) 출력갯수를 설정할 수 있습니다.
+                    <span class="main_color selected_banner selected_select"><br>배너모듈의 경우 출력갯수는 배너관리의 설정에 따릅니다.</span>
                 </h6>
                 <div class="config_wrap">
                     <ul class="rows_inp_lr">
-                        <li class="rows_inp_l">
+
+                        <li class="rows_inp_l rows_inp_l_span selected_banner selected_select">
+                            <span class="font-B">PC 버전</span><br>
+                            1024px 이상
+                        </li>
+
+                        <li class="rows_inp_l selected_latest_tab selected_select">
                             <input type="number" name="md_cnt" id="md_cnt" class="input w60 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="갯수" autocomplete="off" autocomplete="off">　<span>개</span>
                         </li>
+
                         <li class="rows_inp_r">
                             <input type="number" name="md_col" id="md_col" class="input w30 h40 text-center" value="<?php echo !empty($md_col) ? $md_col : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
                             <input type="number" name="md_row" id="md_row" class="input w30 h40 text-center" value="<?php echo !empty($md_row) ? $md_row : ''; ?>" placeholder="행" autocomplete="off">
@@ -1187,10 +1204,10 @@ if($mod_type == "del") { //모듈삭제
                 </div>
             </ul>
             
-            <ul class="rb_config_sec selected_latest_tab selected_select">
+            <ul class="rb_config_sec selected_cnt selected_select">
                 <h6 class="font-B">간격 설정</h6>
                 <h6 class="font-R rb_config_sub_txt">
-                    게시물간의 간격(여백)을 설정할 수 있습니다.
+                    오브젝트의 간격(여백)을 설정할 수 있습니다.
                 </h6>
                 <div class="config_wrap">
                     <ul class="rows_inp_lr mt-10">
@@ -1217,7 +1234,7 @@ if($mod_type == "del") { //모듈삭제
                 </div>
             </ul>
             
-            <ul class="rb_config_sec selected_latest_tab selected_select">
+            <ul class="rb_config_sec selected_cnt selected_select">
                 <h6 class="font-B">스와이프 설정</h6>
                 <h6 class="font-R rb_config_sub_txt">
                     행X열 보다 출력갯수가 많을 경우<br>
