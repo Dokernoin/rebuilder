@@ -104,12 +104,43 @@ foreach ($layouts as $layout_no) {
                 <?php } ?>
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'banner') { ?>
+
+                    <div class="bbs_main_wrap_tit" style="display:<?php echo (isset($row_mod['md_title_hide']) && $row_mod['md_title_hide'] == '1') ? 'none' : 'block'; ?>">
+                        <ul class="bbs_main_wrap_tit_l">
+                            <!-- 타이틀 { -->
+                            <a href="javascript:void(0);">
+                                <h2 class="<?php echo isset($row_mod['md_title_font']) ? $row_mod['md_title_font'] : 'font-B'; ?>" style="color:<?php echo isset($row_mod['md_title_color']) ? $row_mod['md_title_color'] : '#25282b'; ?>; font-size:<?php echo isset($row_mod['md_title_size']) ? $row_mod['md_title_size'] : '20'; ?>px; "><?php echo $row_mod['md_title'] ?></h2>
+                            </a>
+                            <!-- } -->
+                        </ul>
+
+                        <ul class="bbs_main_wrap_tit_r"></ul>
+
+                        <div class="cb"></div>
+                    </div>
+
                     <div class="module_banner_wrap">
                         <?php echo '<?php echo rb_banners("' . $row_mod['md_banner'] . '", "' . $row_mod['md_banner_id'] . '", "' . $row_mod['md_banner_skin'] . '"); ?>'; ?>
                     </div>
+
                 <?php } ?>
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'poll') { ?>
+
+                    <div class="bbs_main_wrap_tit" style="display:<?php echo (isset($row_mod['md_title_hide']) && $row_mod['md_title_hide'] == '1') ? 'none' : 'block'; ?>">
+                        <ul class="bbs_main_wrap_tit_l">
+                            <!-- 타이틀 { -->
+                            <a href="javascript:void(0);">
+                                <h2 class="<?php echo isset($row_mod['md_title_font']) ? $row_mod['md_title_font'] : 'font-B'; ?>" style="color:<?php echo isset($row_mod['md_title_color']) ? $row_mod['md_title_color'] : '#25282b'; ?>; font-size:<?php echo isset($row_mod['md_title_size']) ? $row_mod['md_title_size'] : '20'; ?>px; "><?php echo $row_mod['md_title'] ?></h2>
+                            </a>
+                            <!-- } -->
+                        </ul>
+
+                        <ul class="bbs_main_wrap_tit_r"></ul>
+
+                        <div class="cb"></div>
+                    </div>
+
                     <div class="module_poll_wrap">
                         <?php echo '<?php echo poll("' . $row_mod['md_poll'] . '", "' . $row_mod['md_poll_id'] . '"); ?>'; ?>
                     </div>
