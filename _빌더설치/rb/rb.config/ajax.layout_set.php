@@ -79,7 +79,7 @@ foreach ($layouts as $layout_no) {
         data-title="<?php echo $row_mod['md_title']; ?>"
         >
 
-            <ul class="content_box rb_module_<?php echo $row_mod['md_id']; ?> rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_radius_<?php echo $row_mod['md_radius']; ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?> <?php echo isset($row_mod['md_show']) ? $row_mod['md_show'] : ''; ?> <?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 1) { ?>rb_module_wide<?php } ?>" >
+            <ul class="content_box rb_module_<?php echo $row_mod['md_id']; ?> rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_radius_<?php echo $row_mod['md_radius']; ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?> <?php echo isset($row_mod['md_show']) ? $row_mod['md_show'] : ''; ?> <?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 1) { ?>rb_module_wide<?php } ?> <?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 2) { ?>rb_module_mid<?php } ?>" >
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'latest') { ?>
                     <div class="module_latest_wrap">
@@ -166,7 +166,7 @@ foreach ($layouts as $layout_no) {
 
         <script>
             $(function(){
-                $('.content_box.rb_module_wide').each(function(){
+                $('.content_box.rb_module_wide, .content_box.rb_module_mid').each(function(){
                     var parentWidth = $(this).parent().width();
                     $(this).css('min-width', parentWidth + 'px');
                 });

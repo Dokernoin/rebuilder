@@ -892,14 +892,18 @@ if($mod_type == "del") { //모듈삭제
 
                            <ul class="rows_inp_lr mt-10">
                                 <li class="rows_inp_l rows_inp_l_span">
-                                    <span class="font-B">와이드(채우기)</span><br>
-                                    width: 100vw;
+                                    <span class="font-B">와이드</span><br>
+                                    wide
                                 </li>
                                 <li class="rows_inp_r mt-5">
                                     <?php if($is_shop == 1) { // 영카트?>
-                                    <input type="checkbox" name="md_wide_is_shop" id="md_wide_is_shop" value="1" <?php if (isset($md_wide_is) && $md_wide_is == "1") { ?>checked<?php } ?>><label for="md_wide_is_shop">와이드(채우기)</label>
+                                    <input type="radio" name="md_wide_is_shop" id="md_wide_is_shop_1" class="magic-radio" value="" <?php if (isset($md_wide_is) && $md_wide_is == "" || empty($md_wide_is)) { ?>checked<?php } ?>><label for="md_wide_is_shop_1">기본</label>
+                                    <input type="radio" name="md_wide_is_shop" id="md_wide_is_shop_2" class="magic-radio" value="1" <?php if (isset($md_wide_is) && $md_wide_is == "1") { ?>checked<?php } ?>><label for="md_wide_is_shop_2">100%</label>
+                                    <input type="radio" name="md_wide_is_shop" id="md_wide_is_shop_3" class="magic-radio" value="2" <?php if (isset($md_wide_is) && $md_wide_is == "2") { ?>checked<?php } ?>><label for="md_wide_is_shop_3">1920px</label>
                                     <?php } else { ?>
-                                    <input type="checkbox" name="md_wide_is" id="md_wide_is" value="1" <?php if (isset($md_wide_is) && $md_wide_is == "1") { ?>checked<?php } ?>><label for="md_wide_is">와이드(채우기)</label>
+                                    <input type="radio" name="md_wide_is" id="md_wide_is_1" class="magic-radio" value="" <?php if (isset($md_wide_is) && $md_wide_is == "" || empty($md_wide_is)) { ?>checked<?php } ?>><label for="md_wide_is_1">기본</label>
+                                    <input type="radio" name="md_wide_is" id="md_wide_is_2" class="magic-radio" value="1" <?php if (isset($md_wide_is) && $md_wide_is == "1") { ?>checked<?php } ?>><label for="md_wide_is_2">100%</label>
+                                    <input type="radio" name="md_wide_is" id="md_wide_is_3" class="magic-radio" value="2" <?php if (isset($md_wide_is) && $md_wide_is == "2") { ?>checked<?php } ?>><label for="md_wide_is_3">1920px</label>
                                     <?php } ?>
                                 </li>
 

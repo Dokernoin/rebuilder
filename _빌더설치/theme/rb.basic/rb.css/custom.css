@@ -470,12 +470,9 @@ select#ct_send_cost {width: 150px;}
 .rb_bbs_wrap .rb_bbs_top li.cnts {float:left;}
 .module_banner_wrap {overflow: hidden;}
 .bn_radius {overflow: hidden;}
-.rb_module_wide{
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-}
+.rb_module_wide {width: 100vw;position: relative;left: 50%;transform: translateX(-50%);padding-left: 40px !important;padding-right: 40px !important;}
+.rb_module_mid {width: 1920px;position: relative;left: 50%;transform: translateX(-50%);}
+.index {padding-bottom: 30px; padding-top: 20px;}
 
 /* } */
 
@@ -622,6 +619,7 @@ select#ct_send_cost {width: 150px;}
 
     /* 2.2.2 { */
     .rb_module_wide{width:100%; min-width: 100% !important; left:auto; transform:none;}
+    .rb_module_mid{width:100%; min-width: 100% !important; left:auto; transform:none;}
     .mod_bn_wrap {padding-bottom:20px !important; padding-top: 20px !important;}
     .mo-mb-0 {margin-bottom: 0px !important; margin-top: 10px !important;}
     /* } */

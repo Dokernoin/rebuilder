@@ -1064,7 +1064,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                     .then(res => res.text())
                                     .then(res => {
                                         if (res.trim() === 'ok') {
-                                            alert('초기화 완료 되었습니다.');
+                                            //alert('초기화 완료 되었습니다.');
                                             location.reload();
                                         } else {
                                             alert('초기화 실패: ' + res);
@@ -1201,7 +1201,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 .then(res => res.text())
                                 .then(res => {
                                     if (res.trim() === 'ok') {
-                                        alert('캐시 파일이 모두 삭제되었습니다.');
+                                        //alert('캐시 파일이 모두 삭제되었습니다.');
                                         location.reload();
                                     } else {
                                         alert('삭제 실패: ' + res);
@@ -2408,7 +2408,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 success: function(data) {
                     if (data.status == 'ok') {
                         console.log('모듈저장:' + data.md_title);
-                        alert(data.md_title + ' 모듈이 저장 되었습니다.');
+                        //alert(data.md_title + ' 모듈이 저장 되었습니다.');
                         location.reload();
 
                     } else {
