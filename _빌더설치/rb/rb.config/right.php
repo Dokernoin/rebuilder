@@ -2174,6 +2174,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var md_margin_top_mo = $('#md_margin_top_mo_shop').val();
         var md_margin_btm_pc = $('#md_margin_btm_pc_shop').val();
         var md_margin_btm_mo = $('#md_margin_btm_mo_shop').val();
+        var md_wide_is = $('input[name="md_wide_is_shop"]:checked').val();
         <?php } else { ?>
         var layout_name = '<?php echo $rb_core['layout'] ?>';
         var md_border = $('input[name="md_border"]:checked').val();
@@ -2183,6 +2184,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var md_margin_top_mo = $('#md_margin_top_mo').val();
         var md_margin_btm_pc = $('#md_margin_btm_pc').val();
         var md_margin_btm_mo = $('#md_margin_btm_mo').val();
+        var md_wide_is = $('input[name="md_wide_is"]:checked').val();
         <?php } ?>
 
 
@@ -2355,6 +2357,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     "md_type": md_type,
                     "md_bo_table": md_bo_table,
                     "md_notice": md_notice,
+                    "md_wide_is": md_wide_is,
                     "md_sca": md_sca,
                     "md_widget": md_widget,
                     "md_banner": md_banner,

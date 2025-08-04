@@ -181,6 +181,7 @@ if($mod_type == "del") { //모듈삭제
                 $md_soldout_hidden = !empty($rb_module['md_soldout_hidden']) ? $rb_module['md_soldout_hidden'] : '';
                 $md_soldout_asc = !empty($rb_module['md_soldout_asc']) ? $rb_module['md_soldout_asc'] : '';
                 $md_notice = !empty($rb_module['md_notice']) ? $rb_module['md_notice'] : '0';
+                $md_wide_is = !empty($rb_module['md_wide_is']) ? $rb_module['md_wide_is'] : '0';
                 $md_radius = empty($rb_module['md_radius']) ? '0' : $rb_module['md_radius'];
                 $md_padding = empty($rb_module['md_padding']) ? '0' : $rb_module['md_padding'];
                 $md_margin_top_pc = empty($rb_module['md_margin_top_pc']) ? '' : $rb_module['md_margin_top_pc'];
@@ -814,7 +815,6 @@ if($mod_type == "del") { //모듈삭제
                             <input type="checkbox" name="md_notice" id="md_notice" value="1" <?php if (isset($md_notice) && $md_notice == "1") { ?>checked<?php } ?>><label for="md_notice">공지 상단고정</label>
                         </ul>
                     </div>
-
                    
                     <?php if(isset($md_skin) && $md_skin && isset($md_type) && $md_type == "latest") { ?>
 
@@ -889,6 +889,22 @@ if($mod_type == "del") { //모듈삭제
                         <h6 class="font-B">모듈 스타일 설정</h6>
                         <h6 class="font-R rb_config_sub_txt">모듈 박스의 스타일을 설정할 수 있습니다.</h6>
                         <div class="config_wrap">
+
+                           <ul class="rows_inp_lr mt-10">
+                                <li class="rows_inp_l rows_inp_l_span">
+                                    <span class="font-B">와이드(채우기)</span><br>
+                                    width: 100vw;
+                                </li>
+                                <li class="rows_inp_r mt-5">
+                                    <?php if($is_shop == 1) { // 영카트?>
+                                    <input type="checkbox" name="md_wide_is_shop" id="md_wide_is_shop" value="1" <?php if (isset($md_wide_is) && $md_wide_is == "1") { ?>checked<?php } ?>><label for="md_wide_is_shop">와이드(채우기)</label>
+                                    <?php } else { ?>
+                                    <input type="checkbox" name="md_wide_is" id="md_wide_is" value="1" <?php if (isset($md_wide_is) && $md_wide_is == "1") { ?>checked<?php } ?>><label for="md_wide_is">와이드(채우기)</label>
+                                    <?php } ?>
+                                </li>
+
+                                <div class="cb"></div>
+                            </ul>
                         
                            <ul class="rows_inp_lr mt-10">
                                 <li class="rows_inp_l rows_inp_l_span">

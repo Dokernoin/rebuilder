@@ -77,7 +77,7 @@ foreach ($layouts as $layout_no) {
         data-title="<?php echo $row_mod['md_title']; ?>"
         >
 
-            <ul class="content_box rb_module_shop_<?php echo $row_mod['md_id']; ?> rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_radius_<?php echo $row_mod['md_radius']; ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?> <?php echo isset($row_mod['md_show']) ? $row_mod['md_show'] : ''; ?>" >
+            <ul class="content_box rb_module_shop_<?php echo $row_mod['md_id']; ?> rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_radius_<?php echo $row_mod['md_radius']; ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?> <?php echo isset($row_mod['md_show']) ? $row_mod['md_show'] : ''; ?> <?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 1) { ?>rb_module_wide<?php } ?>" >
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'latest') { ?>
                     <div class="module_latest_wrap">
@@ -104,7 +104,7 @@ foreach ($layouts as $layout_no) {
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'banner') { ?>
 
-                    <div class="bbs_main_wrap_tit" style="display:<?php echo (isset($row_mod['md_title_hide']) && $row_mod['md_title_hide'] == '1') ? 'none' : 'block'; ?>">
+                    <div class="bbs_main_wrap_tit mo-mb-0" style="display:<?php echo (isset($row_mod['md_title_hide']) && $row_mod['md_title_hide'] == '1') ? 'none' : 'block'; ?>">
                         <ul class="bbs_main_wrap_tit_l">
                             <!-- 타이틀 { -->
                             <a href="javascript:void(0);">
@@ -210,7 +210,17 @@ foreach ($layouts as $layout_no) {
             </ul>
 
             <div class="flex_box_inner flex_box" data-layout="<?php echo $row_mod['md_layout']; ?>-<?php echo $row_mod['md_id']; ?>"></div>
+
         </div>
+
+        <script>
+            $(function(){
+                $('.content_box.rb_module_wide').each(function(){
+                    var parentWidth = $(this).parent().width();
+                    $(this).css('min-width', parentWidth + 'px');
+                });
+            });
+        </script>
         <?php
         $output .= ob_get_clean();
     }
@@ -234,5 +244,3 @@ foreach ($layouts as $layout_no) {
 
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode($result_data);
-
-
