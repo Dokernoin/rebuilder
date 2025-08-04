@@ -182,6 +182,7 @@ if($mod_type == "del") { //모듈삭제
                 $md_soldout_asc = !empty($rb_module['md_soldout_asc']) ? $rb_module['md_soldout_asc'] : '';
                 $md_notice = !empty($rb_module['md_notice']) ? $rb_module['md_notice'] : '0';
                 $md_wide_is = !empty($rb_module['md_wide_is']) ? $rb_module['md_wide_is'] : '0';
+                $md_arrow_type  = !empty($rb_module['md_arrow_type']) ? $rb_module['md_arrow_type'] : '0';
                 $md_radius = empty($rb_module['md_radius']) ? '0' : $rb_module['md_radius'];
                 $md_padding = empty($rb_module['md_padding']) ? '0' : $rb_module['md_padding'];
                 $md_margin_top_pc = empty($rb_module['md_margin_top_pc']) ? '' : $rb_module['md_margin_top_pc'];
@@ -1143,6 +1144,12 @@ if($mod_type == "del") { //모듈삭제
                         </div>
 
                         <div class="config_wrap">
+                            <input type="radio" name="md_arrow_type_shop" id="md_arrow_type_shop_0" class="magic-radio" value="" <?php if (isset($md_arrow_type) && $md_arrow_type == "" || empty($md_arrow_type)) { ?>checked<?php } ?>><label for="md_arrow_type_shop_0">기본버튼</label>
+                            <input type="radio" name="md_arrow_type_shop" id="md_arrow_type_shop_1" class="magic-radio" value="1" <?php if (isset($md_arrow_type) && $md_arrow_type == "1") { ?>checked<?php } ?>><label for="md_arrow_type_shop_1">원형버튼(오버)</label>
+                            <input type="radio" name="md_arrow_type_shop" id="md_arrow_type_shop_2" class="magic-radio" value="2" <?php if (isset($md_arrow_type) && $md_arrow_type == "2") { ?>checked<?php } ?>><label for="md_arrow_type_shop_2">버튼숨김</label>
+                        </div>
+
+                        <div class="config_wrap">
                             <input type="checkbox" name="md_auto_is" id="md_auto_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_auto_is) && $md_auto_is == 1) { ?>checked<?php } ?>><label for="md_auto_is_shop">자동롤링 사용</label>　
                             <input type="number" name="md_auto_time" id="md_auto_time_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_auto_time) ? $md_auto_time : ''; ?>" placeholder="밀리초" autocomplete="off">　<span>3000=3초</span>
                         </div>
@@ -1261,9 +1268,13 @@ if($mod_type == "del") { //모듈삭제
                     스와이프 및 자동롤링 처리 유무를 설정할 수 있습니다.
                 </h6>
                 <div class="config_wrap">
-                    <div class="config_wrap">
-                        <input type="checkbox" name="md_swiper_is" class="md_swiper_is" id="md_swiper_is" class="magic-checkbox" value="1" <?php if (isset($md_swiper_is) && $md_swiper_is == 1) { ?>checked<?php } ?>><label for="md_swiper_is">스와이프 사용</label>
-                    </div>
+                    <input type="checkbox" name="md_swiper_is" class="md_swiper_is" id="md_swiper_is" class="magic-checkbox" value="1" <?php if (isset($md_swiper_is) && $md_swiper_is == 1) { ?>checked<?php } ?>><label for="md_swiper_is">스와이프 사용</label>
+                </div>
+
+                <div class="config_wrap">
+                    <input type="radio" name="md_arrow_type" id="md_arrow_type_0" class="magic-radio" value="" <?php if (isset($md_arrow_type) && $md_arrow_type == "" || empty($md_arrow_type)) { ?>checked<?php } ?>><label for="md_arrow_type_0">기본버튼</label>
+                    <input type="radio" name="md_arrow_type" id="md_arrow_type_1" class="magic-radio" value="1" <?php if (isset($md_arrow_type) && $md_arrow_type == "1") { ?>checked<?php } ?>><label for="md_arrow_type_1">원형버튼(오버)</label>
+                    <input type="radio" name="md_arrow_type" id="md_arrow_type_2" class="magic-radio" value="2" <?php if (isset($md_arrow_type) && $md_arrow_type == "2") { ?>checked<?php } ?>><label for="md_arrow_type_2">버튼숨김</label>
                 </div>
 
                 <div class="config_wrap">

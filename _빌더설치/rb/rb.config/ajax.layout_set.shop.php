@@ -80,13 +80,13 @@ foreach ($layouts as $layout_no) {
             <ul class="content_box rb_module_shop_<?php echo $row_mod['md_id']; ?> rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_radius_<?php echo $row_mod['md_radius']; ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?> <?php echo isset($row_mod['md_show']) ? $row_mod['md_show'] : ''; ?> <?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 1) { ?>rb_module_wide<?php } ?> <?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 2) { ?>rb_module_mid<?php } ?>" >
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'latest') { ?>
-                    <div class="module_latest_wrap">
+                    <div class="module_latest_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>">
                         <?php echo '<?php echo rb_latest("' . $row_mod['md_bo_table'] . '", "' . $row_mod['md_skin'] . '", ' . $row_mod['md_cnt'] . ', 999, 1, ' . $row_mod['md_id'] . ', "' . $row_mod['md_sca'] . '", "' . $row_mod['md_order_latest'] . '", "' . $rb_module_table . '", "' . $row_mod['md_notice'] . '"); ?>'; ?>
                     </div>
                 <?php } ?>
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'tab') { ?>
-                <div class="module_latest_wrap">
+                <div class="module_latest_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>">
                 <?php
                     $tab_list_clean = addslashes($row_mod['md_tab_list']);
 
@@ -118,7 +118,7 @@ foreach ($layouts as $layout_no) {
                         <div class="cb"></div>
                     </div>
 
-                    <div class="module_banner_wrap">
+                    <div class="module_banner_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>">
                         <?php echo '<?php echo rb_banners("' . $row_mod['md_banner'] . '", "' . $row_mod['md_banner_id'] . '", "' . $row_mod['md_banner_skin'] . '"); ?>'; ?>
                     </div>
                 <?php } ?>
@@ -176,7 +176,7 @@ foreach ($layouts as $layout_no) {
                     $code .= "\$item_limit = \" limit \" . \$row_mod['md_cnt'];\n";
                     $code .= "\$item_sql = \" select * from {\$g5['g5_shop_item_table']} \" . \$item_where . \" \" . \$item_order . \" \" . \$item_limit;\n";
                     ?>
-                    <div class="module_item_wrap">
+                    <div class="module_item_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>">
                     <?php
                     $code .= "\$list = new item_list();\n";
                     $code .= "\$list->set_img_size(300, 300);\n";
