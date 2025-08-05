@@ -1367,7 +1367,7 @@ function rb_upload_files($srcfile, $destfile, $dir)
 }
 
 // 배너출력
-function rb_banners($position, $bnid='', $skin='')
+function rb_banners($position, $bnid='', $skin='', $order='')
 {
     global $g5, $rb_core;
     
@@ -1391,11 +1391,11 @@ function rb_banners($position, $bnid='', $skin='')
             }
             $result = sql_query($sql);
         } else { 
-            if($skin == "rb.mod/banner/skin/rb.random" || $skin == "rb.mod/banner/skin/rb.wide_bar_random") {
+            if($order == "rand()") {
                 if(IS_MOBILE()) {
-                    $sql = " select * from rb_banner where '".G5_TIME_YMDHIS."' between bn_begin_time and bn_end_time and bn_position = '$position' and bn_device IN ('mobile', 'both') order by rand() limit 1 ";
+                    $sql = " select * from rb_banner where '".G5_TIME_YMDHIS."' between bn_begin_time and bn_end_time and bn_position = '$position' and bn_device IN ('mobile', 'both') order by rand() ";
                 } else { 
-                    $sql = " select * from rb_banner where '".G5_TIME_YMDHIS."' between bn_begin_time and bn_end_time and bn_position = '$position' and bn_device IN ('pc', 'both') order by rand() limit 1 ";
+                    $sql = " select * from rb_banner where '".G5_TIME_YMDHIS."' between bn_begin_time and bn_end_time and bn_position = '$position' and bn_device IN ('pc', 'both') order by rand() ";
                 }
                 $result = sql_query($sql);
             } else { 

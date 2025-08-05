@@ -176,6 +176,7 @@ if($mod_type == "del") { //모듈삭제
                 $md_auto_time = !empty($rb_module['md_auto_time']) ? $rb_module['md_auto_time'] : '';
                 $md_order = !empty($rb_module['md_order']) ? $rb_module['md_order'] : '';
                 $md_order_latest = !empty($rb_module['md_order_latest']) ? $rb_module['md_order_latest'] : '';
+                $md_order_banner = !empty($rb_module['md_order_banner']) ? $rb_module['md_order_banner'] : '';
                 $md_border = !empty($rb_module['md_border']) ? $rb_module['md_border'] : '';
                 $md_module = !empty($rb_module['md_module']) ? $rb_module['md_module'] : '';
                 $md_soldout_hidden = !empty($rb_module['md_soldout_hidden']) ? $rb_module['md_soldout_hidden'] : '';
@@ -367,6 +368,14 @@ if($mod_type == "del") { //모듈삭제
                     </ul>
                     
                     <ul class="mt-5 selected_banner selected_select">
+                        <select class="select w100" name="md_order_banner">
+                            <option value="">출력 옵션을 선택하세요.</option>
+                            <option value="bn_order, bn_id desc" <?php if (isset($md_order_banner) && $md_order_banner == "bn_order, bn_id desc") { ?>selected<?php } ?>>기본순</option>
+                            <option value="rand()" <?php if (isset($md_order_banner) && $md_order_banner == "rand()") { ?>selected<?php } ?>>랜덤</option>
+                        </select>
+                    </ul>
+
+                    <ul class="mt-5 selected_banner selected_select">
                         <select class="select w100" name="md_banner_skin">
                             <option value="">출력 스킨을 선택하세요.</option>
                             <?php echo rb_banner_skin_select('rb.mod/banner/skin', $md_banner_skin); ?>
@@ -379,6 +388,8 @@ if($mod_type == "del") { //모듈삭제
                     </ul>
                     
                     
+
+
                     <!-- 탭 { -->
 
                     <ul class="mt-5 selected_tab selected_select" id="tab_send">

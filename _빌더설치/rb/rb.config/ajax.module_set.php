@@ -55,6 +55,7 @@ $md_soldout_hidden = isset($_POST['md_soldout_hidden']) ? $_POST['md_soldout_hid
 $md_soldout_asc = isset($_POST['md_soldout_asc']) ? $_POST['md_soldout_asc'] : '';
 $md_order = isset($_POST['md_order']) ? $_POST['md_order'] : '';
 $md_order_latest = isset($_POST['md_order_latest']) ? $_POST['md_order_latest'] : '';
+$md_order_banner = isset($_POST['md_order_banner']) ? $_POST['md_order_banner'] : '';
 $md_border = isset($_POST['md_border']) ? $_POST['md_border'] : '';
 $md_radius = isset($_POST['md_radius']) ? $_POST['md_radius'] : '0';
 $md_padding = isset($_POST['md_padding']) ? $_POST['md_padding'] : '0';
@@ -169,6 +170,7 @@ if(isset($is_shop) && $is_shop == 1) {
                 md_soldout_asc = '{$md_soldout_asc}',
                 md_order = '{$md_order}',
                 md_order_latest = '{$md_order_latest}',
+                md_order_banner = '{$md_order_banner}',
                 md_border = '{$md_border}', 
                 md_radius = '{$md_radius}', 
                 md_padding = '{$md_padding}',
@@ -243,6 +245,7 @@ if(isset($is_shop) && $is_shop == 1) {
                 md_soldout_asc = '{$md_soldout_asc}',
                 md_order = '{$md_order}', 
                 md_order_latest = '{$md_order_latest}',
+                md_order_banner = '{$md_order_banner}',
                 md_border = '{$md_border}', 
                 md_radius = '{$md_radius}',
                 md_padding = '{$md_padding}',
