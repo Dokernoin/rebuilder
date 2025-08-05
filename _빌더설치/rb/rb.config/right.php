@@ -2190,7 +2190,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         <?php } ?>
 
 
-        if (md_type == "item") {
+        if (md_type == "item" || md_type == "item_tab") {
             var md_cnt = $('#md_cnt_shop').val();
             var md_col = $('#md_col_shop').val();
             var md_row = $('#md_row_shop').val();
@@ -2209,7 +2209,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var md_size = $('input[name="md_size"]:checked').val();
         var md_show = $('input[name="md_show"]:checked').val();
 
-        if (md_type == "item") {
+        if (md_type == "item" || md_type == "item_tab") {
             var md_subject_is = $('#md_subject_is_shop:checked').val();
             var md_thumb_is = $('#md_thumb_is_shop:checked').val();
             var md_nick_is = $('#md_nick_is_shop:checked').val();
@@ -2248,6 +2248,9 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var md_tab_list = $('input[name="md_tab_list"]').val();
         var md_tab_skin = $('select[name="md_tab_skin"]').val();
 
+        var md_item_tab_list = $('input[name="md_item_tab_list"]').val();
+        var md_item_tab_skin = $('select[name="md_item_tab_skin"]').val();
+
         if (md_title == "") {
             alert('모듈 타이틀을 입력해주세요.');
             $('input[name="md_title"]').focus();
@@ -2284,6 +2287,10 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
             alert('탭으로 출력할 게시판 또는 카테고리를 선택해주세요.');
             $('select[name="md_bo_table_tab"]').focus();
             return false;
+        } else if (md_type == "item_tab" && md_item_tab_list == "" || md_type == "item_tab" && md_item_tab_list == "[]") {
+            alert('탭으로 출력할 상품분류를 선택해주세요.');
+            $('select[name="md_sca_shop"]').focus();
+            return false;
         } else if (md_type == "tab" && md_tab_skin == "") {
             alert('최신글 탭 스킨을 선택해주세요.');
             $('#md_tab_skin').focus();
@@ -2304,11 +2311,11 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
             alert('투표 스킨을 선택해주세요.');
             $('select[name="md_poll"]').focus();
             return false;
-        } else if (md_type == "item" && md_module == "") {
+        } else if (md_type == "item" && md_module == "" || md_type == "item_tab" && md_module == "") {
             alert('상품 타입을 선택해주세요.');
             $('#md_module_shop').focus();
             return false;
-        } else if (md_type == "item" && md_order == "") {
+        } else if (md_type == "item" && md_order == "" || md_type == "item_tab" && md_order == "") {
             alert('상품 출력옵션을 선택해주세요.');
             $('#md_order_shop').focus();
             return false;
@@ -2320,16 +2327,23 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
             alert('배너 출력옵션을 선택해주세요.');
             $('#md_order_banner').focus();
             return false;
-        } else if (md_type == "item" && md_cnt < 1) {
+        } else if (md_type == "item" && md_cnt < 1 || md_type == "item_tab" && md_cnt < 1) {
             alert('상품 출력개수를 입력해주세요.');
             $('#md_cnt_shop').focus();
             return false;
         } else if (md_type == "item" && md_col < 1 || md_type == "item" && md_row < 1 || md_type == "item" && md_col_mo < 1 || md_type == "item" && md_row_mo < 1) {
             alert('상품 출력(열X행) 옵션을 설정해주세요.');
             return false;
+        } else if (md_type == "item_tab" && md_col < 1 || md_type == "item_tab" && md_row < 1 || md_type == "item_tab" && md_col_mo < 1 || md_type == "item_tab" && md_row_mo < 1) {
+            alert('상품 출력(열X행) 옵션을 설정해주세요.');
+            return false;
         } else if (md_type == "item" && md_skin == "") {
             alert('출력 스킨을 선택해주세요.');
             $('#md_skin_shop').focus();
+            return false;
+        } else if (md_type == "item_tab" && md_item_tab_skin == "") {
+            alert('출력 스킨을 선택해주세요.');
+            $('#md_item_tab_skin').focus();
             return false;
         } else {
 
@@ -2361,6 +2375,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     "md_skin": md_skin,
                     "md_tab_list": md_tab_list,
                     "md_tab_skin": md_tab_skin,
+                    "md_item_tab_list": md_item_tab_list,
+                    "md_item_tab_skin": md_item_tab_skin,
                     "md_type": md_type,
                     "md_bo_table": md_bo_table,
                     "md_notice": md_notice,

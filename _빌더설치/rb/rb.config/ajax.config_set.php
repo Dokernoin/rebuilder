@@ -145,6 +145,8 @@ if($mod_type == "del") { //모듈삭제
                 $md_skin = !empty($rb_module['md_skin']) ? $rb_module['md_skin'] : '';
                 $md_tab_skin = !empty($rb_module['md_tab_skin']) ? $rb_module['md_tab_skin'] : '';
                 $md_tab_list = !empty($rb_module['md_tab_list']) ? $rb_module['md_tab_list'] : '';
+                $md_item_tab_list = !empty($rb_module['md_item_tab_list']) ? $rb_module['md_item_tab_list'] : '';
+                $md_item_tab_skin = !empty($rb_module['md_item_tab_skin']) ? $rb_module['md_item_tab_skin'] : '';
                 $md_bo_table = !empty($rb_module['md_bo_table']) ? $rb_module['md_bo_table'] : '';
                 $md_sca = !empty($rb_module['md_sca']) ? $rb_module['md_sca'] : '';
                 $md_widget = !empty($rb_module['md_widget']) ? $rb_module['md_widget'] : '';
@@ -307,13 +309,14 @@ if($mod_type == "del") { //모듈삭제
                     <ul class="mt-10">
                         <select class="select w100" name="md_type" id="md_type">
                             <option value="">출력 타입을 선택하세요.</option>
-                            <option value="latest" <?php if (isset($md_type) && $md_type == "latest") { ?>selected<?php } ?>>최신글</option>
-                            <option value="tab" <?php if (isset($md_type) && $md_type == "tab") { ?>selected<?php } ?>>최신글 탭</option>
+                            <option value="latest" <?php if (isset($md_type) && $md_type == "latest") { ?>selected<?php } ?>>최신글(단일)</option>
+                            <option value="tab" <?php if (isset($md_type) && $md_type == "tab") { ?>selected<?php } ?>>최신글(탭)</option>
                             <option value="widget" <?php if (isset($md_type) && $md_type == "widget") { ?>selected<?php } ?>>위젯</option>
                             <option value="banner" <?php if (isset($md_type) && $md_type == "banner") { ?>selected<?php } ?>>배너</option>
                             <option value="poll" <?php if (isset($md_type) && $md_type == "poll") { ?>selected<?php } ?>>투표</option>
                             <?php if($is_shop == 1) { // 영카트?>
                             <option value="item" <?php if (isset($md_type) && $md_type == "item") { ?>selected<?php } ?>>상품</option>
+                            <option value="item_tab" <?php if (isset($md_type) && $md_type == "item_tab") { ?>selected<?php } ?>>상품(탭)</option>
                             <?php } ?>
                         </select>
                     </ul>
@@ -567,6 +570,119 @@ if($mod_type == "del") { //모듈삭제
                     ?>
                     
                     
+
+
+                    <ul class="mt-5 selected_item selected_select">
+                        <select class="select w100" name="md_sca" id="md_sca_shop">
+                            <option value="">전체 카테고리</option>
+                            <?php echo conv_selected_option($category_select, $md_sca); ?>
+                        </select>
+                    </ul>
+
+                    <div id="item_tab_selects" class="selected_tags selected_item_tab mt-3"></div>
+                    <input type="hidden" name="md_item_tab_list" id="md_item_tab_list" class="selected_item_tab" value='<?php echo htmlspecialchars($md_item_tab_list, ENT_QUOTES); ?>'>
+
+                    <script>
+                    $(function () {
+                        let itemSelectedData = [];
+
+                        // --- 초기 복원 ---
+                        const savedList = $('#md_item_tab_list').val();
+                        if (savedList && savedList.startsWith('[')) {
+                            try {
+                                const parsed = JSON.parse(savedList);
+                                if (Array.isArray(parsed)) {
+                                    parsed.forEach((item, idx) => {
+                                        if (!itemSelectedData.includes(item)) {
+                                            itemSelectedData.push(item);
+                                            addItemTag(item);
+                                        }
+                                    });
+                                    // select는 마지막 값으로 설정
+                                    if (itemSelectedData.length)
+                                        $('#md_sca_shop').val(itemSelectedData[itemSelectedData.length - 1]);
+                                    updateItemHiddenField();
+                                }
+                            } catch (e) {
+                                console.error('태그 복원 실패:', e, savedList);
+                            }
+                        }
+
+                        // --- 선택 시 ---
+                        $('#md_sca_shop').on('change', function () {
+                            const value = $(this).val();
+                            const text = $(this).find('option:selected').text().trim();
+
+                            if (!value) return;
+                            if (itemSelectedData.includes(value)) return;
+
+                            itemSelectedData.push(value);
+                            addItemTag(value, text);
+                            // 항상 select는 마지막 선택값을 유지
+                            $('#md_sca_shop').val(value);
+                            updateItemHiddenField();
+                        });
+
+                        // --- 태그 삭제 ---
+                        $('#item_tab_selects').on('click', '.item-tag-remove', function () {
+                            const $tag = $(this).closest('.item-tag');
+                            const key = $tag.data('key');
+                            // 태그 삭제
+                            itemSelectedData = itemSelectedData.filter(k => String(k) !== String(key));
+                            $tag.remove();
+
+                            // select는 마지막 값으로 설정 (남은게 있다면)
+                            if (itemSelectedData.length) {
+                                $('#md_sca_shop').val(itemSelectedData[itemSelectedData.length - 1]);
+                            } else {
+                                $('#md_sca_shop').val('');
+                            }
+                            updateItemHiddenField();
+                        });
+
+                        // --- 드래그 정렬 ---
+                        $('#item_tab_selects').sortable({
+                            items: '.item-tag',
+                            update: function () {
+                                let newOrder = [];
+                                $('#item_tab_selects .item-tag').each(function () {
+                                    newOrder.push($(this).data('key'));
+                                });
+                                itemSelectedData = newOrder;
+                                // select는 마지막 값으로 설정
+                                if (itemSelectedData.length) {
+                                    $('#md_sca_shop').val(itemSelectedData[itemSelectedData.length - 1]);
+                                } else {
+                                    $('#md_sca_shop').val('');
+                                }
+                                updateItemHiddenField();
+                            }
+                        });
+
+                        // --- 태그 추가 함수 ---
+                        function addItemTag(value, text) {
+                            text = text || $('#md_sca_shop option[value="' + value + '"]').text().trim() || value;
+                            const tagHtml = `
+                                <span class="item-tag" data-key="${value}">
+                                    ${text}
+                                    <button type="button" class="item-tag-remove" title="삭제">×</button>
+                                </span>
+                            `;
+                            $('#item_tab_selects').append(tagHtml);
+                        }
+
+                        // --- hidden 값 업데이트 ---
+                        function updateItemHiddenField() {
+                            // #md_type 값이 'item_tab'일 때만 값 입력
+                            if ($('#md_type').val() === 'item_tab' && itemSelectedData.length >= 2) {
+                                $('#md_item_tab_list').val(JSON.stringify(itemSelectedData));
+                            } else {
+                                $('#md_item_tab_list').val('');
+                            }
+                        }
+                    });
+                    </script>
+
                     <ul class="mt-5 selected_item selected_select">
                         <select class="select w100" name="md_module" id="md_module_shop">
                             <option value="0" <?php if (isset($md_module) && $md_module == "0") { ?>selected<?php } ?>>전체상품</option>
@@ -578,12 +694,8 @@ if($mod_type == "del") { //모듈삭제
                         </select>
                     </ul>
                     
-                    <ul class="mt-5 selected_item selected_select">
-                        <select class="select w100" name="md_sca" id="md_sca_shop">
-                            <option value="">전체 카테고리</option>
-                            <?php echo conv_selected_option($category_select, $md_sca); ?>
-                        </select>
-                    </ul>
+
+
                     
                     <ul class="mt-5 selected_item selected_select">
                         <select class="select w100" name="md_order" id="md_order_shop">
@@ -599,14 +711,18 @@ if($mod_type == "del") { //모듈삭제
                             <option value="rand()" <?php if (isset($md_order) && $md_order == "rand()") { ?>selected<?php } ?>>랜덤</option>
                         </select>
                     </ul>
-                    
-                    
 
 
 
-                    <ul class="mt-5 selected_item selected_select">
+                    <ul class="mt-5 selected_item_skin selected_select">
                         <select class="select w100" name="md_skin" id="md_skin_shop">
                             <?php echo rb_list_skin_options("^main.[0-9]+\.skin\.php", G5_SHOP_SKIN_PATH, $md_skin); ?>
+                        </select>
+                    </ul>
+
+                    <ul class="mt-5 selected_item_skin_tab selected_select">
+                        <select class="select w100" name="md_item_tab_skin" id="md_item_tab_skin">
+                            <?php echo rb_list_skin_options("^main.[0-9]+\.skin\.php", G5_SHOP_SKIN_PATH, $md_item_tab_skin); ?>
                         </select>
                     </ul>
 
@@ -702,6 +818,18 @@ if($mod_type == "del") { //모듈삭제
                             $('.selected_all').hide();
                             $('.selected_style').hide();
                             
+                                $('.selected_latest_tab').hide();
+                                $('.selected_cnt').hide();
+                                $('.selected_tab').hide();
+                                $('.selected_item').hide();
+                                $('.selected_item_skin').hide();
+                                $('.selected_item_skin_tab').hide();
+                                $('.selected_item_tab').hide();
+                                $('.selected_banner').hide();
+                                $('.selected_poll').hide();
+                                $('.selected_widget').hide();
+                                $('.selected_latest').hide();
+
                             if(md_type == "latest") {
                                 $('.selected_latest').show();
                                 $('.selected_all').show();
@@ -714,6 +842,12 @@ if($mod_type == "del") { //모듈삭제
                                 $('.selected_latest_tab').show();
                                 $('.selected_cnt').show();
                                 $('.selected_style').show();
+                            } else if(md_type == "item_tab") {
+                                $('.selected_item').show();
+                                $('.selected_item_tab').show();
+                                $('.selected_all').show();
+                                $('.selected_style').show();
+                                $('.selected_item_skin_tab').show();
                             } else if(md_type == "widget") {
                                 $('.selected_widget').show();
                                 $('.selected_all').show();
@@ -731,13 +865,7 @@ if($mod_type == "del") { //모듈삭제
                                 $('.selected_item').show();
                                 $('.selected_all').show();
                                 $('.selected_style').show();
-                            } else { 
-                                $('.selected_select').hide();
-                                $('.selected_all').hide();
-                                $('.selected_style').hide();
-                                $('.selected_latest_tab').hide();
-                                $('.selected_cnt').hide();
-                                $('.selected_tab').hide();
+                                $('.selected_item_skin').show();
                             }
 
                             $('#md_type').change(function() {
@@ -770,8 +898,17 @@ if($mod_type == "del") { //모듈삭제
                                 $('input[name="md_margin_btm_pc_shop"]').val('');
                                 $('input[name="md_margin_btm_mo_shop"]').val('');
 
+                                $('select[name="md_sca"]').val('');
+                                $('select[name="md_module"]').val('0');
+                                $('select[name="md_order"]').val('');
+                                $('select[name="md_skin"]').val('');
+                                $('select[name="md_order_latest"]').val('');
+
                                 $("#md_tab_list").val('');
                                 $('#tab_selects .tag').remove();
+
+                                $("#md_item_tab_list").val('');
+                                $('#item_tab_selects .item-tag').remove();
 
 
                                 $('.selected_select').hide();
@@ -781,12 +918,30 @@ if($mod_type == "del") { //모듈삭제
                                 if (selectedValue == "latest" || selectedValue == "tab") {
                                     $('.selected_latest_tab').show();
                                     $('.selected_cnt').show();
+                                } else if (selectedValue == "widget") {
+                                    $('.selected_widget').show();
+                                } else if (selectedValue == "poll") {
+                                    $('.selected_poll').show();
+                                } else if (selectedValue == "item_tab") {
+                                    $('.selected_item').show();
+                                    $('.selected_item_tab').show();
+                                    $('.selected_item_skin_tab').show();
+                                } else if (selectedValue == "item") {
+                                    $('.selected_item').show();
+                                    $('.selected_item_skin').show();
                                 } else if (selectedValue == "banner") {
-                                    $('.selected_latest_tab').hide();
+                                    $('.selected_banner').show();
                                     $('.selected_cnt').show();
                                 } else {
                                     $('.selected_latest_tab').hide();
+                                    $('.selected_item_tab').hide();
                                     $('.selected_cnt').hide();
+                                    $('.selected_item').hide();
+                                    $('.selected_widget').hide();
+                                    $('.selected_poll').hide();
+                                    $('.selected_banner').hide();
+                                    $('.selected_item_skin_tab').hide();
+                                    $('.selected_item_skin').hide();
                                 }
 
                                 $('.selected_style').show();
@@ -882,6 +1037,28 @@ if($mod_type == "del") { //모듈삭제
                     </ul>
                     <?php } ?>
 
+                    <?php if(isset($md_skin) && $md_skin && isset($md_type) && $md_type == "item") { ?>
+                    <ul class="skin_path_url mt-5">
+                        <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
+                        <li class="skin_path_url_txt">
+                        <?php echo '/theme/'.$theme_name.'/skin/shop/',$md_skin; ?>
+                        </li>
+                        <div class="cb"></div>
+                    </ul>
+                    <?php } ?>
+
+                    <?php if(isset($md_item_tab_skin) && $md_item_tab_skin && isset($md_type) && $md_type == "item_tab") { ?>
+                    <ul class="skin_path_url mt-5">
+                        <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
+                        <li class="skin_path_url_txt">
+                        <?php echo '/theme/'.$theme_name.'/skin/shop/',$md_item_tab_skin; ?>
+                        </li>
+                        <div class="cb"></div>
+                    </ul>
+                    <?php } ?>
+
+
+
                     
                     <ul class="rb_config_sec selected_banner selected_select">
                         <h6 class="font-B">백그라운드 컬러 설정</h6>
@@ -899,7 +1076,7 @@ if($mod_type == "del") { //모듈삭제
                     
                     <ul class="rb_config_sec selected_style selected_select">
                         <h6 class="font-B">모듈 스타일 설정</h6>
-                        <h6 class="font-R rb_config_sub_txt">모듈 박스의 스타일을 설정할 수 있습니다.</h6>
+                        <h6 class="font-R rb_config_sub_txt">모듈 박스의 스타일을 설정할 수 있습니다.<br>와이드 옵션은 가로 1열인 모듈에만 사용해주세요.</h6>
                         <div class="config_wrap">
 
                            <ul class="rows_inp_lr mt-10">

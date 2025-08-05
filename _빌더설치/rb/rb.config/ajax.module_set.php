@@ -13,6 +13,8 @@ $md_layout = isset($_POST['md_layout']) ? $_POST['md_layout'] : '';
 $md_skin = isset($_POST['md_skin']) ? $_POST['md_skin'] : '';
 $md_tab_list = isset($_POST['md_tab_list']) ? $_POST['md_tab_list'] : '';
 $md_tab_skin = isset($_POST['md_tab_skin']) ? $_POST['md_tab_skin'] : '';
+$md_item_tab_list = isset($_POST['md_item_tab_list']) ? $_POST['md_item_tab_list'] : '';
+$md_item_tab_skin = isset($_POST['md_item_tab_skin']) ? $_POST['md_item_tab_skin'] : '';
 $md_type = isset($_POST['md_type']) ? $_POST['md_type'] : '';
 $md_bo_table = isset($_POST['md_bo_table']) ? $_POST['md_bo_table'] : '';
 $md_sca = isset($_POST['md_sca']) ? $_POST['md_sca'] : '';
@@ -128,6 +130,8 @@ if(isset($is_shop) && $is_shop == 1) {
                 md_skin = '{$md_skin}', 
                 md_tab_skin = '{$md_tab_skin}',
                 md_tab_list = '{$md_tab_list}',
+                md_item_tab_skin = '{$md_item_tab_skin}',
+                md_item_tab_list = '{$md_item_tab_list}',
                 md_type = '{$md_type}', 
                 md_bo_table = '{$md_bo_table}', 
                 md_sca = '{$md_sca}',
@@ -203,6 +207,8 @@ if(isset($is_shop) && $is_shop == 1) {
                 md_skin = '{$md_skin}', 
                 md_tab_skin = '{$md_tab_skin}',
                 md_tab_list = '{$md_tab_list}',
+                md_item_tab_skin = '{$md_item_tab_skin}',
+                md_item_tab_list = '{$md_item_tab_list}',
                 md_type = '{$md_type}', 
                 md_bo_table = '{$md_bo_table}', 
                 md_sca = '{$md_sca}', 
