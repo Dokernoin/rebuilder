@@ -2273,7 +2273,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
             $('select[name="md_bo_table"]').focus();
             return false;
         } else if (md_type == "latest" && md_cnt < 1) {
-            alert('게시물 출력갯수를 입력해주세요.');
+            alert('게시물 출력개수를 입력해주세요.');
             $('#md_cnt').focus();
             return false;
         } else if (md_type == "latest" && md_col < 1 || md_type == "latest" && md_row < 1 || md_type == "latest" && md_col_mo < 1 || md_type == "latest" && md_row_mo < 1) {
@@ -2316,7 +2316,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
             $('#md_order_latest').focus();
             return false;
         } else if (md_type == "item" && md_cnt < 1) {
-            alert('상품 출력갯수를 입력해주세요.');
+            alert('상품 출력개수를 입력해주세요.');
             $('#md_cnt_shop').focus();
             return false;
         } else if (md_type == "item" && md_col < 1 || md_type == "item" && md_row < 1 || md_type == "item" && md_col_mo < 1 || md_type == "item" && md_row_mo < 1) {

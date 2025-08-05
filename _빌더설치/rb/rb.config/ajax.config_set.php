@@ -112,7 +112,7 @@ if($mod_type == "del") { //모듈삭제
         
     <h6 class="font-R rb_config_sub_txt">
     공식 배포되는 스킨 외에 커스텀 된 스킨의 경우<br>
-    갯수, 간격, 스와이프, 출력항목 등이 작동하지 않을 수 있습니다.
+    개수, 간격, 스와이프, 출력항목 등이 작동하지 않을 수 있습니다.
     </h6>
 
         <?php if($set_layout == "") { ?>
@@ -201,7 +201,7 @@ if($mod_type == "del") { //모듈삭제
 
             <ul class="rb_config_sec">
                 <h6 class="font-B">모듈 타이틀 설정</h6>
-                <h6 class="font-R rb_config_sub_txt">모듈 타이틀의 워딩 및 스타일을 설정할 수 있습니다.<br>배너, 투표의 경우는 적용되지 않습니다.</h6>
+                <h6 class="font-R rb_config_sub_txt">모듈 타이틀의 워딩 및 스타일을 설정할 수 있습니다.</h6>
                 <div class="config_wrap">
                     <ul>
                         <input type="text" name="md_title" class="input w100" value="<?php echo !empty($md_title) ? $md_title : ''; ?>" placeholder="타이틀을 입력하세요." autocomplete="off">
@@ -1072,14 +1072,14 @@ if($mod_type == "del") { //모듈삭제
                     ?>
 
                     <ul class="rb_config_sec selected_item selected_select">
-                        <h6 class="font-B">출력갯수 설정</h6>
+                        <h6 class="font-B">출력개수 설정</h6>
                         <h6 class="font-R rb_config_sub_txt">
-                            열(가로)X행(세로) 출력갯수를 설정할 수 있습니다.
+                            열(가로)X행(세로) 출력개수를 설정할 수 있습니다.
                         </h6>
                         <div class="config_wrap">
                             <ul class="rows_inp_lr">
                                 <li class="rows_inp_l">
-                                    <input type="number" name="md_cnt" id="md_cnt_shop" class="input w60 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="갯수" autocomplete="off" autocomplete="off">　<span>개</span>
+                                    <input type="number" name="md_cnt" id="md_cnt_shop" class="input w60 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="개수" autocomplete="off" autocomplete="off">　<span>개</span>
                                 </li>
                                 <li class="rows_inp_r">
                                     <input type="number" name="md_col" id="md_col_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_col) ? $md_col : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
@@ -1136,7 +1136,7 @@ if($mod_type == "del") { //모듈삭제
                     <ul class="rb_config_sec selected_item selected_select">
                         <h6 class="font-B">스와이프 설정</h6>
                         <h6 class="font-R rb_config_sub_txt">
-                            행X열 보다 출력갯수가 많을 경우<br>
+                            행X열 보다 출력개수가 많을 경우<br>
                             스와이프 및 자동롤링 처리 유무를 설정할 수 있습니다.
                         </h6>
                         <div class="config_wrap">
@@ -1173,7 +1173,7 @@ if($mod_type == "del") { //모듈삭제
                                 <input type="checkbox" name="md_subject_is" id="md_subject_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_subject_is) && $md_subject_is == 1) { ?>checked<?php } ?>><label for="md_subject_is_shop">상품명</label><br>
                                 <input type="checkbox" name="md_content_is" id="md_content_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_content_is) && $md_content_is == 1) { ?>checked<?php } ?>><label for="md_content_is_shop">상품설명</label>　
                                 <input type="checkbox" name="md_date_is" id="md_date_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_date_is) && $md_date_is == 1) { ?>checked<?php } ?>><label for="md_date_is_shop">등록일</label>　
-                                <input type="checkbox" name="md_comment_is" id="md_comment_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_comment_is) && $md_comment_is == 1) { ?>checked<?php } ?>><label for="md_comment_is_shop">찜갯수</label>　
+                                <input type="checkbox" name="md_comment_is" id="md_comment_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_comment_is) && $md_comment_is == 1) { ?>checked<?php } ?>><label for="md_comment_is_shop">찜개수</label>
                                 <input type="checkbox" name="md_icon_is" id="md_icon_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_icon_is) && $md_icon_is == 1) { ?>checked<?php } ?>><label for="md_icon_is_shop">아이콘</label>
                             </ul>
                         </div>
@@ -1194,10 +1194,10 @@ if($mod_type == "del") { //모듈삭제
             
             
             <ul class="rb_config_sec selected_cnt selected_select">
-                <h6 class="font-B">출력갯수 설정</h6>
+                <h6 class="font-B">출력개수 설정</h6>
                 <h6 class="font-R rb_config_sub_txt">
-                    열(가로)X행(세로) 출력갯수를 설정할 수 있습니다.
-                    <span class="main_color selected_banner selected_select"><br>배너모듈의 경우 출력갯수는 배너관리의 설정에 따릅니다.</span>
+                    열(가로)X행(세로) 출력개수를 설정할 수 있습니다.
+                    <span class="main_color selected_banner selected_select"><br>배너모듈의 경우 전체개수는 배너관리의 설정에 따릅니다.</span>
                 </h6>
                 <div class="config_wrap">
                     <ul class="rows_inp_lr">
@@ -1208,7 +1208,7 @@ if($mod_type == "del") { //모듈삭제
                         </li>
 
                         <li class="rows_inp_l selected_latest_tab selected_select">
-                            <input type="number" name="md_cnt" id="md_cnt" class="input w60 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="갯수" autocomplete="off" autocomplete="off">　<span>개</span>
+                            <input type="number" name="md_cnt" id="md_cnt" class="input w60 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="개수" autocomplete="off" autocomplete="off">　<span>개</span>
                         </li>
 
                         <li class="rows_inp_r">
@@ -1264,7 +1264,7 @@ if($mod_type == "del") { //모듈삭제
             <ul class="rb_config_sec selected_cnt selected_select">
                 <h6 class="font-B">스와이프 설정</h6>
                 <h6 class="font-R rb_config_sub_txt">
-                    행X열 보다 출력갯수가 많을 경우<br>
+                    행X열 보다 출력개수가 많을 경우<br>
                     스와이프 및 자동롤링 처리 유무를 설정할 수 있습니다.
                 </h6>
                 <div class="config_wrap">
