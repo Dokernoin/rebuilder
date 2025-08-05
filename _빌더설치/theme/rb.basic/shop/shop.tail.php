@@ -314,6 +314,7 @@ $admin = get_admin("super");
 <link rel="stylesheet" href="<?php echo G5_THEME_URL ?>/rb.css/datepicker.css" />
 <!-- } -->
 
+
 <?php
     //리빌드세팅
     if($is_admin) {
@@ -337,6 +338,12 @@ if ($config['cf_analytics']) {
 
 <script src="<?php echo G5_JS_URL; ?>/sns.js"></script>
 <!-- } 하단 끝 -->
+
+<style>
+    @media all and (max-width:1024px) {
+        .chat_open_btn {bottom:90px !important;}
+    }
+</style>
 
 <?php
 include_once(G5_THEME_PATH.'/tail.sub.php');

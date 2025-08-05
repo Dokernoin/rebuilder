@@ -474,7 +474,7 @@ select#ct_send_cost {width: 150px;}
 .rb_module_mid {width: 1920px;position: relative;left: 50%;transform: translateX(-50%);}
 .index {padding-bottom: 30px; padding-top: 20px;}
 
-.rb_swiper .rb_swiper_paging_btn {right: 65px;}
+.rb_swiper .rb_swiper_paging_btn {right: 75px;}
 .rb_swiper .rb_swiper_paging_btn .rb-swiper-prev {border-right:0px; border-radius: 0px; border-top-left-radius: 4px; border-bottom-left-radius: 4px;}
 .rb_swiper .rb_swiper_paging_btn .rb-swiper-next {margin-left: -4px; border-radius: 0px; border-top-right-radius: 4px; border-bottom-right-radius: 4px}
 
