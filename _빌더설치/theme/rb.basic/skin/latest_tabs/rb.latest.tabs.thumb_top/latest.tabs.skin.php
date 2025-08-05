@@ -14,7 +14,7 @@ if(isset($rb_skin['md_title']) && $rb_skin['md_title']) {
 
 <link rel="stylesheet" href="<?php echo $latest_skin_url ?>/style.css?ver=<?php echo G5_SERVER_TIME ?>">
 
-<div class="bbs_main">
+<div class="bbs_main rb_latest_tabs_top">
     <!-- 제목 영역 -->
     <ul class="bbs_main_wrap_tit" style="display:<?php echo (isset($rb_skin['md_title_hide']) && $rb_skin['md_title_hide'] == '1') ? 'none' : 'block'; ?>">
         <li class="bbs_main_wrap_tit_l">
@@ -47,7 +47,7 @@ if(isset($rb_skin['md_title']) && $rb_skin['md_title']) {
 
                     var swiper = new Swiper('.swiper-container-tab-<?php echo $rb_skin['md_id']; ?>', {
                         slidesPerView: 'auto',
-                        spaceBetween: 5,
+                        spaceBetween: 0,
                         touchRatio: 1,
                         observer: true,
                         observeParents: true

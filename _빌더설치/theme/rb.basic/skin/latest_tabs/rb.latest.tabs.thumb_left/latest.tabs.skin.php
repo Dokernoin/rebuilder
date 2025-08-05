@@ -47,7 +47,7 @@ $rb_skin['md_tab_list'] 탭 설정
 
 
 
-<div class="bbs_main">
+<div class="bbs_main rb_latest_tabs_left">
     <!-- 제목 영역 -->
     <ul class="bbs_main_wrap_tit" style="display:<?php echo (isset($rb_skin['md_title_hide']) && $rb_skin['md_title_hide'] == '1') ? 'none' : 'block'; ?>">
         <li class="bbs_main_wrap_tit_l">
@@ -80,7 +80,7 @@ $rb_skin['md_tab_list'] 탭 설정
 
                     var swiper = new Swiper('.swiper-container-tab-<?php echo $rb_skin['md_id']; ?>', {
                         slidesPerView: 'auto',
-                        spaceBetween: 5,
+                        spaceBetween: 0,
                         touchRatio: 1,
                         observer: true,
                         observeParents: true
