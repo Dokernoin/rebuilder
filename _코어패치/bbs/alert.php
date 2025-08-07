@@ -11,7 +11,7 @@ if($error) {
     $g5['title'] = "결과안내 페이지";
 }
 include_once(G5_PATH.'/head.sub.php');
-add_javascript('<script src="'.G5_THEME_URL.'/rb.js/rb.common.js"></script>', 0);
+add_javascript('<script src="'.G5_URL.'/js/rb.common.js"></script>', 0);
 
 // 필수 입력입니다.
 // 양쪽 공백 없애기

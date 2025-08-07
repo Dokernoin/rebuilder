@@ -22,7 +22,7 @@ if (is_array($files)) {
 }
 
 require_once G5_PATH . '/head.sub.php';
-add_javascript('<script src="'.G5_THEME_URL.'/rb.js/rb.common.js"></script>', 0);
+add_javascript('<script src="'.G5_URL.'/js/rb.common.js"></script>', 0);
 
 function print_menu1($key, $no = '')
 {
