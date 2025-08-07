@@ -46,48 +46,52 @@ while ($r = sql_fetch_array($res)) {
     $xml .= '</url>' . PHP_EOL;
 }
 
-// 카테고리
-$res = sql_query("SELECT ca_id FROM {$g5['g5_shop_category_table']} WHERE ca_use='1'");
-while ($r = sql_fetch_array($res)) {
-    $xml .= '  <url>';
-    $xml .= '<loc>' . htmlspecialchars($base_url.'/shop/list.php?ca_id='.$r['ca_id'], ENT_QUOTES | ENT_XML1, 'UTF-8') . '</loc>';
-    $xml .= '<changefreq>weekly</changefreq><priority>0.7</priority>';
-    $xml .= '</url>' . PHP_EOL;
-}
+if (defined('G5_USE_SHOP') && G5_USE_SHOP) {
 
-// 상품 - 히트/추천/신/인기/할인 → 가장 먼저! (priority 1.0, 중복X)
-$special_types = [
-    'it_type1' => '히트',
-    'it_type2' => '추천',
-    'it_type3' => '신상품',
-    'it_type4' => '인기',
-    'it_type5' => '할인',
-];
-$already_output = [];
-foreach ($special_types as $col => $desc) {
-    $sql = "SELECT it_id, it_time FROM {$g5['g5_shop_item_table']} WHERE it_use='1' AND {$col}='1'";
-    $res = sql_query($sql);
+    // 카테고리
+    $res = sql_query("SELECT ca_id FROM {$g5['g5_shop_category_table']} WHERE ca_use='1'");
+    while ($r = sql_fetch_array($res)) {
+        $xml .= '  <url>';
+        $xml .= '<loc>' . htmlspecialchars($base_url.'/shop/list.php?ca_id='.$r['ca_id'], ENT_QUOTES | ENT_XML1, 'UTF-8') . '</loc>';
+        $xml .= '<changefreq>weekly</changefreq><priority>0.7</priority>';
+        $xml .= '</url>' . PHP_EOL;
+    }
+
+    // 상품 - 히트/추천/신/인기/할인 → 가장 먼저! (priority 1.0, 중복X)
+    $special_types = [
+        'it_type1' => '히트',
+        'it_type2' => '추천',
+        'it_type3' => '신상품',
+        'it_type4' => '인기',
+        'it_type5' => '할인',
+    ];
+    $already_output = [];
+    foreach ($special_types as $col => $desc) {
+        $sql = "SELECT it_id, it_time FROM {$g5['g5_shop_item_table']} WHERE it_use='1' AND {$col}='1'";
+        $res = sql_query($sql);
+        while ($r = sql_fetch_array($res)) {
+            if (isset($already_output[$r['it_id']])) continue;
+            $already_output[$r['it_id']] = 1;
+            $xml .= '  <url>';
+            $xml .= '<loc>' . htmlspecialchars($base_url.'/shop/item.php?it_id='.$r['it_id'], ENT_QUOTES | ENT_XML1, 'UTF-8') . '</loc>';
+            $xml .= '<lastmod>' . date('Y-m-d', strtotime($r['it_time'])) . '</lastmod>';
+            $xml .= '<changefreq>daily</changefreq><priority>1.0</priority>';
+            $xml .= '</url>' . PHP_EOL;
+        }
+    }
+
+    // 상품 - 나머지 전체 상품 (히트/추천/신/인기/할인 중복제외, priority 0.9)
+    $res = sql_query("SELECT it_id, it_time FROM {$g5['g5_shop_item_table']} WHERE it_use='1'");
     while ($r = sql_fetch_array($res)) {
         if (isset($already_output[$r['it_id']])) continue;
         $already_output[$r['it_id']] = 1;
         $xml .= '  <url>';
         $xml .= '<loc>' . htmlspecialchars($base_url.'/shop/item.php?it_id='.$r['it_id'], ENT_QUOTES | ENT_XML1, 'UTF-8') . '</loc>';
         $xml .= '<lastmod>' . date('Y-m-d', strtotime($r['it_time'])) . '</lastmod>';
-        $xml .= '<changefreq>daily</changefreq><priority>1.0</priority>';
+        $xml .= '<changefreq>daily</changefreq><priority>0.9</priority>';
         $xml .= '</url>' . PHP_EOL;
     }
-}
 
-// 상품 - 나머지 전체 상품 (히트/추천/신/인기/할인 중복제외, priority 0.9)
-$res = sql_query("SELECT it_id, it_time FROM {$g5['g5_shop_item_table']} WHERE it_use='1'");
-while ($r = sql_fetch_array($res)) {
-    if (isset($already_output[$r['it_id']])) continue;
-    $already_output[$r['it_id']] = 1;
-    $xml .= '  <url>';
-    $xml .= '<loc>' . htmlspecialchars($base_url.'/shop/item.php?it_id='.$r['it_id'], ENT_QUOTES | ENT_XML1, 'UTF-8') . '</loc>';
-    $xml .= '<lastmod>' . date('Y-m-d', strtotime($r['it_time'])) . '</lastmod>';
-    $xml .= '<changefreq>daily</changefreq><priority>0.9</priority>';
-    $xml .= '</url>' . PHP_EOL;
 }
 
 $xml .= '</urlset>';
