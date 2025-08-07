@@ -1190,8 +1190,9 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     <ul class="rb_config_sec">
                         <h6 class="font-B">사이트맵(xml)생성</h6>
                         <h6 class="font-R rb_config_sub_txt">
-                        버튼을 클릭하시면 /data/sitemap.xml 파일이 생성 됩니다.<br>
-                        생성 완료 시 사이트맵 다운로드 버튼이 활성화 됩니다.
+                        버튼을 클릭하시면 루트에 sitemap.xml 파일이 생성 됩니다.<br>
+                        생성 완료 시 사이트맵 다운로드 버튼이 활성화 되며,<br>
+                        빌더설정 > SEO관리 robots.txt 에 자동으로 등록 됩니다.
                         <!--
                         만들어진 파일은 검색엔진에 제출할 수 있습니다.<br><br>
                         게시판, 게시물, 일반페이지, 상품분류, 상품이 대상이 됩니다.<br>
@@ -1202,9 +1203,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         우선순위 0.7 : 게시판, 상품분류<br>
                         우선순위 0.5 : 일반페이지<br><br>
 
-                        직접제출 또는 사이트맵 파일의 경로를 빌더설정 > SEO관리 페이지의<br>
-                        robots.txt 섹션에 넣어주셔도 좋습니다.<br>
-                        Sitemap: <?php echo G5_DATA_URL ?>/data/sitemap.xml
+                        Sitemap: <?php echo G5_URL ?>/sitemap.xml
                         -->
 
                         </h6>
