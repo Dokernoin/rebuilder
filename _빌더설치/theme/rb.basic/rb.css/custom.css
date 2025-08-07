@@ -514,6 +514,8 @@ select#ct_send_cost {width: 150px;}
 
 
 .rb_item_po_rels .shop_main_list_rb {position: static;}
+#sitemap_gen_btn {color:#fff; text-decoration:none; background-color: #25282B; padding:8px 16px; border-radius:5px; display: inline-block; margin-top: 5px; width: 140px; text-align: center;}
+#sitemap_download_link {color:#fff; text-decoration:none; padding:8px 16px; border-radius:5px; display: inline-block; margin-top: 5px; display: none; width: 140px; text-align: center;}
 /* } */
 
 @media all and (max-width:1024px){
@@ -679,6 +681,7 @@ select#ct_send_cost {width: 150px;}
     .module_item_wrap_inner .more_btn.more_btn_item_tabs {right: 20px;}
     .rb_item_po_rels {margin-top: 20px;}
     .md_arrow_1 .rb_swiper .rb_swiper_paging_btn {top:50%;}
+
     /* } */
 
 }

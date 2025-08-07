@@ -1187,9 +1187,72 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         </div>
                     </ul>
 
+                    <ul class="rb_config_sec">
+                        <h6 class="font-B">사이트맵(xml)생성</h6>
+                        <h6 class="font-R rb_config_sub_txt">
+                        버튼을 클릭하시면 /data/sitemap.xml 파일이 생성 됩니다.<br>
+                        생성 완료 시 사이트맵 다운로드 버튼이 활성화 됩니다.
+                        <!--
+                        만들어진 파일은 검색엔진에 제출할 수 있습니다.<br><br>
+                        게시판, 게시물, 일반페이지, 상품분류, 상품이 대상이 됩니다.<br>
+                        비밀글, 비공개상품 등은 포함되지 않습니다.<br><br>
+
+                        우선순위 1.0 : 게시물 및 히트/추천/신/인기/할인 상품<br>
+                        우선순위 0.9 : 나머지 상품<br>
+                        우선순위 0.7 : 게시판, 상품분류<br>
+                        우선순위 0.5 : 일반페이지<br><br>
+
+                        직접제출 또는 사이트맵 파일의 경로를 빌더설정 > SEO관리 페이지의<br>
+                        robots.txt 섹션에 넣어주셔도 좋습니다.<br>
+                        Sitemap: <?php echo G5_DATA_URL ?>/data/sitemap.xml
+                        -->
+
+                        </h6>
+                        <div class="config_wrap">
+
+                            <ul>
+                                <a id="sitemap_gen_btn" href="javascript:void(0);"><span id="sitemap_btn_text">사이트맵 생성</span></a>
+                                <a id="sitemap_download_link" class="main_rb_bg" href="javascript:void(0);">사이트맵 다운로드</a>
+                            </ul>
+
+
+                            <script>
+                            $('#sitemap_gen_btn').on('click', function(){
+                                var $btn = $(this);
+                                var $txt = $('#sitemap_btn_text');
+
+                                // "생성중..." 상태로 표시 (비활성화)
+                                $btn.prop('disabled', true);
+                                $txt.text('생성중..');
+
+                                // AJAX로 sitemap 생성
+                                $.post('<?php echo G5_URL ?>/rb/sitemap.php', {}, function(res){
+                                    if(res.success){
+                                        // 버튼 숨기고 다운로드 링크로 교체
+                                        $btn.hide();
+
+                                        $('#sitemap_download_link')
+                                            .attr('href', res.url)
+                                            .attr('download', 'sitemap.xml')
+                                            .css('display','inline-block')
+                                            .show()
+
+                                    }else{
+                                        $btn.prop('disabled', false);
+                                        $txt.text('사이트맵 생성');
+                                        alert('생성 실패: '+res.msg);
+                                    }
+                                }, 'json');
+                            });
+                            </script>
+
+                        </div>
+                    </ul>
+
 
                     <ul class="rb_config_sec">
-                        <button type="button" class="main_rb_bg" id="clear_cache_btn" class="btn">캐시 삭제</button>
+
+                        <button type="button" class="main_rb_bg" id="clear_cache_btn">캐시 삭제</button>
                         <script>
                         document.getElementById('clear_cache_btn').addEventListener('click', function () {
                             if (confirm('/data/cache/ 폴더의 모든 캐시파일이 제거되며,\n비로그인 접속시 메인 레이아웃 캐시가 재생성 됩니다.\n\n계속하시겠습니까?')) {
