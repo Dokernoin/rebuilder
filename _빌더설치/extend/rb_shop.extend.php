@@ -164,3 +164,11 @@ function rb_list_skin_options_chk($pattern, $dirname = './', $selected_value = '
 
     return $file_exists;
 }
+
+// 카테고리명 출력
+function get_category_name($ca_id) {
+    global $g5;
+    $sql = "SELECT ca_name FROM {$g5['g5_shop_category_table']} WHERE ca_id = '".sql_real_escape_string($ca_id)."'";
+    $row = sql_fetch($sql);
+    return isset($row['ca_name']) ? $row['ca_name'] : $ca_id;
+}
