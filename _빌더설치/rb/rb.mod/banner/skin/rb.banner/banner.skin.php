@@ -7,14 +7,6 @@ $md_banner_bg = isset($rb_skin['md_banner_bg']) ? $rb_skin['md_banner_bg'] : '';
 
 ?>
 
-<style>
-    .swiper-button-next-slide_bn {right:20px;}
-    .swiper-button-prev-slide_bn {left:20px;}
-    .swiper-button-next-slide_bn svg {width: 10px;}
-    .swiper-button-prev-slide_bn svg {width: 10px;}
-</style>
-
-
 <?php
 $i = 0; // $i 변수를 초기화
 
@@ -53,6 +45,7 @@ while ($row = sql_fetch_array($result)) {
 if ($i > 0) echo '</ul>';
 
 if(isset($rb_skin['md_swiper_is']) && $rb_skin['md_swiper_is'] == 1) echo '
+</div>
 <div class="swiper-button-next swiper-button-next-slide_bn swiper-button-next-slide_bn_'.$row_mod['md_id'].'">
 <svg width="24" height="46" viewBox="0 0 24 46" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 45L22.3333 23L1 1" stroke="#09244B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -64,7 +57,7 @@ if(isset($rb_skin['md_swiper_is']) && $rb_skin['md_swiper_is'] == 1) echo '
 </svg>
 </div>'.PHP_EOL;
 
-if ($i > 0) echo '</div></div>';
+if ($i > 0) echo '</div>';
 ?>
 
 

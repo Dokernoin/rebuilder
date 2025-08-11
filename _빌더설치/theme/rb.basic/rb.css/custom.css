@@ -487,6 +487,25 @@ select#ct_send_cost {width: 150px;}
 
 .md_arrow_2 .rb_swiper .rb_swiper_paging_btn {display: none !important;}
 
+.md_arrow_1 .mod_bn_wrap .swiper-button-next {opacity: 0 !important;}
+.md_arrow_1 .mod_bn_wrap .swiper-button-prev {opacity: 0 !important;}
+.md_arrow_1 .mod_bn_wrap:hover .swiper-button-next {opacity: 1 !important;}
+.md_arrow_1 .mod_bn_wrap:hover .swiper-button-prev {opacity: 1 !important;}
+.md_arrow_1 .mod_bn_wrap .swiper-button-next {width: 30px !important; height:30px !important; border-radius: 50%; background-color: #fff; border:0px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);}
+.md_arrow_1 .mod_bn_wrap .swiper-button-prev {width: 30px !important; height:30px !important; border-radius: 50%; background-color: #fff; border:0px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);}
+.md_arrow_1 .mod_bn_wrap .swiper-button-next {right: 5px !important; left: auto !important;}
+.md_arrow_1 .mod_bn_wrap .swiper-button-prev {left:5px !important; right: auto !important;}
+.md_arrow_1 .mod_bn_wrap .swiper-button-next svg {width: 6px; height:auto;}
+.md_arrow_1 .mod_bn_wrap .swiper-button-prev svg {width: 6px; height:auto;}
+
+.mod_bn_wrap .swiper-button-next {right:25px;}
+.mod_bn_wrap .swiper-button-prev {left:25px;}
+.mod_bn_wrap .swiper-button-next svg {width: 10px; height:auto;}
+.mod_bn_wrap .swiper-button-prev svg {width: 10px; height:auto;}
+
+.md_arrow_2 .mod_bn_wrap .swiper-button-next {display: none !important;}
+.md_arrow_2 .mod_bn_wrap .swiper-button-prev {display: none !important;}
+
 .rb_item_tab_nav {margin-bottom: 0px; display: flex;}
 .rb_item_tab_nav .rb_tab_nav {flex:1; position: relative; margin-bottom: 20px;}
 .rb_item_tab_nav .rb_tab_nav a {display: inline-flex; padding: 12px 25px; line-height: 100%; position: relative; font-size: 14px; border:1px solid rgba(0,0,0,0.1); border-radius: 50px;}
