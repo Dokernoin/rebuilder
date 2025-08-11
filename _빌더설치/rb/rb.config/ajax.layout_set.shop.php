@@ -158,7 +158,7 @@ foreach ($layouts as $layout_no) {
                     $code .= "    \$item_where .= \" and it_type\".\$row_mod['md_module'].\" = '1' \";\n";
                     $code .= "}\n";
                     $code .= "if(isset(\$row_mod['md_sca']) && \$row_mod['md_sca']) {\n";
-                    $code .= "\$item_where .= \" AND (ca_id = '\".\$row_mod['md_sca'].\"' OR ca_id LIKE '\".\$row_mod['md_sca'].\"%' OR ca_id2 = '\".\$row_mod['md_sca'].\"' OR ca_id2 LIKE '\".\$row_mod['md_sca'].\"%' OR ca_id3 = '\".\$row_mod['md_sca'].\"' OR ca_id3 LIKE '\".\$row_mod['md_sca'].\"%') \";\n";
+                    $code .= "\$item_where .= \" AND (ca_id = '\".\$row_mod['md_sca'].\"' OR ca_id LIKE '\".\$row_mod['md_sca'].\"%') \";\n";
                     $code .= "}\n";
                     $code .= "if(isset(\$row_mod['md_order']) && \$row_mod['md_order']) {\n";
                     $code .= "if(isset(\$row_mod['md_soldout_asc']) && \$row_mod['md_soldout_asc'] == 1) {\n";
