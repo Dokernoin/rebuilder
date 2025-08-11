@@ -268,11 +268,7 @@ foreach ($layouts as $layout_no) {
                     $code .= "if(isset(\$row_mod['md_module']) && \$row_mod['md_module'] > 0) {\n";
                     $code .= "    \$item_where .= \" and it_type\".\$row_mod['md_module'].\" = '1' \";\n";
                     $code .= "}\n";
-                    $code .= "\$item_where .= \" AND (
-                        ca_id = '{$tab_sca}' OR ca_id LIKE '{$tab_sca}%'
-                        OR ca_id2 = '{$tab_sca}' OR ca_id2 LIKE '{$tab_sca}%'
-                        OR ca_id3 = '{$tab_sca}' OR ca_id3 LIKE '{$tab_sca}%'
-                    ) \";\n";
+                    $code .= "\$item_where .= \" AND (ca_id = '{$tab_sca}' OR ca_id LIKE '{$tab_sca}%') \";\n";
                     $code .= "if(isset(\$row_mod['md_order']) && \$row_mod['md_order']) {\n";
                     $code .= "if(isset(\$row_mod['md_soldout_asc']) && \$row_mod['md_soldout_asc'] == 1) {\n";
                     $code .= "    \$item_order = \" order by it_soldout asc, \" . \$row_mod['md_order'];\n";
