@@ -2350,7 +2350,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
             $('select[name="md_bo_table_tab"]').focus();
             return false;
         } else if (md_type == "item_tab" && md_item_tab_list == "" || md_type == "item_tab" && md_item_tab_list == "[]") {
-            alert('탭으로 출력할 상품분류를 선택해주세요.');
+            alert('상품탭의 분류는 최소 2개이상 선택해주세요.');
             $('select[name="md_sca_shop"]').focus();
             return false;
         } else if (md_type == "tab" && md_tab_skin == "") {
