@@ -11,7 +11,7 @@ if(G5_COMMUNITY_USE === false) {
     return;
 }
 ?>
-        <?php if (!defined("_INDEX_")) { ?>
+        <?php if (!defined("_INDEX_") || !$sidebar_hidden) { ?>
             <?php if(isset($bo_table) && $bo_table) { ?>
                 <div class="rb_bo_btm flex_box" data-layout="rb_bo_btm_<?php echo $bo_table ?>"></div>
             <?php } ?>
@@ -19,19 +19,28 @@ if(G5_COMMUNITY_USE === false) {
                 <div class="rb_co_btm flex_box" data-layout="rb_co_btm_<?php echo $co_id ?>"></div>
             <?php } ?>
         <?php } ?>
-
-        <?php if (!defined("_INDEX_")) { ?>
-            <?php if(isset($side_float) && $side_float) { ?>
+        
+        <?php if (!defined('_INDEX_') && !$sidebar_hidden) { ?>
+            <?php if (!empty($side_float)) { ?>
             </div>
             <?php } ?>
-            <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left" || isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") { ?>
-            <div id="rb_sidemenu" class="rb_sidemenu flex_box rb_sidemenu_<?php echo isset($rb_core['sidemenu']) ? $rb_core['sidemenu'] : ''; ?> <?php if (isset($rb_core['sidemenu_hide']) && $rb_core['sidemenu_hide'] == "1") { ?>pc<?php } ?>" style="width:<?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>px; <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left") { ?>padding-right:<?php echo isset($rb_core['sidemenu_padding']) ? $rb_core['sidemenu_padding'] : '0'; ?>px;<?php } else if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") { ?>padding-left:<?php echo isset($rb_core['sidemenu_padding']) ? $rb_core['sidemenu_padding'] : '0'; ?>px;<?php } ?>" data-layout="rb_sidemenu"></div>
+
+            <?php if (isset($rb_core['sidemenu']) && in_array($rb_core['sidemenu'], ['left','right'], true)) { 
+                $side   = $rb_core['sidemenu'];
+                $width  = isset($rb_core['sidemenu_width']) ? (int)$rb_core['sidemenu_width'] : 200;
+                $pad    = isset($rb_core['sidemenu_padding']) ? (int)$rb_core['sidemenu_padding'] : 0;
+                $hidepc = (!empty($rb_core['sidemenu_hide']) && $rb_core['sidemenu_hide'] == '1') ? 'pc' : '';
+                $padcss = ($side === 'left') ? "padding-right:{$pad}px;" : "padding-left:{$pad}px;";
+            ?>
+            <div id="rb_sidemenu"
+                class="rb_sidemenu flex_box rb_sidemenu_<?php echo $side; ?> <?php echo $hidepc; ?>"
+                style="width:<?php echo $width; ?>px; <?php echo $padcss; ?>"
+                data-layout="rb_sidemenu"></div>
             <?php } ?>
 
             <div class="cb"></div>
-
         <?php } ?>
-
+        
         </section>
     </div>
     
@@ -85,12 +94,12 @@ if(G5_COMMUNITY_USE === false) {
 
                     
                     <ul>
-
-
+                    
+     
                         <?php
                         if(IS_MOBILE()) {
                             $menu_datas = get_menu_db(1, true);
-                        } else {
+                        } else { 
                             $menu_datas = get_menu_db(0, true);
                         }
 
@@ -144,13 +153,13 @@ if(G5_COMMUNITY_USE === false) {
                             $i++;
                         }
                         ?>
-
+                    
                     </ul>
 
-
+                    
                 </nav>
-
-
+                
+                
                 <!-- } -->
 
 

@@ -225,8 +225,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                         </div>
                     </ul>
-
-
+                    
+                    
                     <?php if(defined('_SHOP_')) { // 영카트?>
                     <ul class="rb_config_sec">
                         <h6 class="font-B">마켓 헤더 메뉴설정</h6>
@@ -235,10 +235,10 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         </h6>
                         <div class="config_wrap">
                             <ul>
-
-                                    <input type="radio" name="co_menu_shop" id="co_menu_shop_1" class="magic-radio mod_send" value="0" <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "" || isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "0") { ?>checked<?php } ?>><label for="co_menu_shop_1">기본</label>
-                                    <input type="radio" name="co_menu_shop" id="co_menu_shop_2" class="magic-radio mod_send" value="1" <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "1") { ?>checked<?php } ?>><label for="co_menu_shop_2">카테고리</label>
-                                    <input type="radio" name="co_menu_shop" id="co_menu_shop_3" class="magic-radio mod_send" value="2" <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "2") { ?>checked<?php } ?>><label for="co_menu_shop_3">카테고리+기본</label>
+                                
+                                    <input type="radio" name="co_menu_shop" id="co_menu_shop_1" class="magic-radio mod_send" value="0" <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "" || isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "0") { ?>checked<?php } ?>><label for="co_menu_shop_1">기본</label>　
+                                    <input type="radio" name="co_menu_shop" id="co_menu_shop_2" class="magic-radio mod_send" value="1" <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "1") { ?>checked<?php } ?>><label for="co_menu_shop_2">카테고리</label>　
+                                    <input type="radio" name="co_menu_shop" id="co_menu_shop_3" class="magic-radio mod_send" value="2" <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "2") { ?>checked<?php } ?>><label for="co_menu_shop_3">카테고리+기본</label>　
 
                             </ul>
                         </div>
@@ -399,14 +399,14 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                             <ul class="rows_inp_lr mt-10">
 
                                 <li class="rows_inp_r mt-5">
-                                    <input type="radio" name="co_sidemenu_shop" id="co_sidemenu_shop_1" class="magic-radio mod_send" value="" <?php if (isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "") { ?>checked<?php } ?>><label for="co_sidemenu_shop_1">없음</label>
-                                    <input type="radio" name="co_sidemenu_shop" id="co_sidemenu_shop_2" class="magic-radio mod_send" value="left" <?php if (isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "left") { ?>checked<?php } ?>><label for="co_sidemenu_shop_2">좌측</label>
-                                    <input type="radio" name="co_sidemenu_shop" id="co_sidemenu_shop_3" class="magic-radio mod_send" value="right" <?php if (isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "right") { ?>checked<?php } ?>><label for="co_sidemenu_shop_3">우측</label>
+                                    <input type="radio" name="co_sidemenu_shop" id="co_sidemenu_shop_1" class="magic-radio mod_send" value="" <?php if (isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "") { ?>checked<?php } ?>><label for="co_sidemenu_shop_1">없음</label>　
+                                    <input type="radio" name="co_sidemenu_shop" id="co_sidemenu_shop_2" class="magic-radio mod_send" value="left" <?php if (isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "left") { ?>checked<?php } ?>><label for="co_sidemenu_shop_2">좌측</label>　
+                                    <input type="radio" name="co_sidemenu_shop" id="co_sidemenu_shop_3" class="magic-radio mod_send" value="right" <?php if (isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "right") { ?>checked<?php } ?>><label for="co_sidemenu_shop_3">우측</label>　
                                 </li>
 
                                 <div class="cb"></div>
                             </ul>
-
+                            
                             <ul class="rows_inp_lr mt-5">
                                 <li class="rows_inp_l rows_inp_l_span">
                                     <span class="font-B">모바일 버전</span><br>
@@ -459,8 +459,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 </li>
                                 <div class="cb"></div>
                             </ul>
-
-
+                            
+                            
                             <ul class="rows_inp_lr mt-10">
                                 <li class="rows_inp_l rows_inp_l_span">
                                     <span class="font-B">여백</span><br>
@@ -483,7 +483,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                             $("#co_sidemenu_padding_shop").val(ui.value); // hidden input에 값 업데이트
 
                                             executeAjax();
-
+                                        
                                             var co_sidemenu_shop = $('input[name="co_sidemenu_shop"]:checked').val();
 
                                             if(co_sidemenu_shop == 'left') {
@@ -519,14 +519,14 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                             <ul class="rows_inp_lr mt-10">
 
                                 <li class="rows_inp_r mt-5">
-                                    <input type="radio" name="co_sidemenu" id="co_sidemenu_1" class="magic-radio mod_send" value="" <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "") { ?>checked<?php } ?>><label for="co_sidemenu_1">없음</label>
-                                    <input type="radio" name="co_sidemenu" id="co_sidemenu_2" class="magic-radio mod_send" value="left" <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left") { ?>checked<?php } ?>><label for="co_sidemenu_2">좌측</label>
-                                    <input type="radio" name="co_sidemenu" id="co_sidemenu_3" class="magic-radio mod_send" value="right" <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") { ?>checked<?php } ?>><label for="co_sidemenu_3">우측</label>
+                                    <input type="radio" name="co_sidemenu" id="co_sidemenu_1" class="magic-radio mod_send" value="" <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "") { ?>checked<?php } ?>><label for="co_sidemenu_1">없음</label>　
+                                    <input type="radio" name="co_sidemenu" id="co_sidemenu_2" class="magic-radio mod_send" value="left" <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left") { ?>checked<?php } ?>><label for="co_sidemenu_2">좌측</label>　
+                                    <input type="radio" name="co_sidemenu" id="co_sidemenu_3" class="magic-radio mod_send" value="right" <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") { ?>checked<?php } ?>><label for="co_sidemenu_3">우측</label>　
                                 </li>
 
                                 <div class="cb"></div>
                             </ul>
-
+                            
                             <ul class="rows_inp_lr mt-5">
                                 <li class="rows_inp_l rows_inp_l_span">
                                     <span class="font-B">모바일 버전</span><br>
@@ -579,8 +579,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 </li>
                                 <div class="cb"></div>
                             </ul>
-
-
+                            
+                            
                             <ul class="rows_inp_lr mt-10">
                                 <li class="rows_inp_l rows_inp_l_span">
                                     <span class="font-B">여백</span><br>
@@ -603,7 +603,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                             $("#co_sidemenu_padding").val(ui.value); // hidden input에 값 업데이트
 
                                             executeAjax();
-
+                                        
                                             var co_sidemenu = $('input[name="co_sidemenu"]:checked').val();
 
                                             if(co_sidemenu == 'left') {
@@ -620,15 +620,110 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 </script>
                                 <div class="cb"></div>
                             </ul>
-
-
-
-
+                            
+                            
+                            
+                            
 
                         </div>
 
                     </ul>
 
+                    <ul class="rb_config_sec">
+
+                        <h6 class="font-B">서브 사이드 노출 설정</h6>
+                        <h6 class="font-R rb_config_sub_txt">
+                            서브 사이드 영역 노출 여부를 설정할 수 있습니다.<br>
+                            해당 영역에서 미노출 설정을 하신 경우, 서브 사이드 영역 설정 여부와 무관하게 우선 적용 됩니다.
+                        </h6>
+
+                        <div class="font-12 rb_sub_page_cr">
+                        <?php
+                        $inherit_node = rb_get_inherited_topvisual_node($rb_page_urls);
+
+                        if ($inherit_node) {
+                            $name = $inherit_node['v_name'] ?: $inherit_node['v_code'];
+                            $url = $inherit_node['v_url'] ?: '#';
+                            echo "<div class='mb-15'><a href=\"{$url}\"><span class='main_rb_bg'>상속 노드 : {$name}</span></a></div>";
+                        } else {
+                            echo "";
+                        }
+
+                        ?>
+                        
+                        
+                        <span>현재 노드 : <?php echo cut_str($rb_page_urls, 40) ?></span>
+                        </div>
+
+                        <div>
+                            <ul class="rows_inp_lr mt-10">
+                                <li class="rows_inp_r mt-5">
+                                    <?php
+                                    $sidebar_hide_sql = " select `s_code` from `rb_sidebar_hide` where `s_code` = '$rb_page_urls' ";
+                                    $sidebar_hide = sql_fetch($sidebar_hide_sql);
+
+                                    $sidebar_hidden = $sidebar_hide ? "1" : "0";
+                                    ?>
+                                    <input type="hidden" name="s_code" id="s_code" value="<?php echo $rb_page_urls ?>">
+                                    
+                                    <input type="radio" name="s_use" id="s_use_0" class="magic-radio" value="0"
+                                    <?php if (!isset($$sidebar_hidden) || intval($sidebar_hidden) === 0) { ?>checked<?php } ?>>
+                                    <label for="s_use_0">노출</label>　
+
+                                    <input type="radio" name="s_use" id="s_use_1" class="magic-radio" value="1"
+                                    <?php if (isset($sidebar_hidden) && intval($sidebar_hidden) === 1) { ?>checked<?php } ?>>
+                                    <label for="s_use_1">미노출</label>　                                    
+                                </li>
+
+                                <div class="cb"></div>
+                            </ul>
+                        </div>
+
+                        <script>
+                        function toggleSidebarHide() {
+                            const hideVal = $('input[name="s_use"]:checked').val();
+                            if (hideVal === '1') {
+
+                            } else {
+
+                            }
+                        }
+
+                        $(document).ready(function () {
+                            // 페이지 로드시 적용
+                            toggleSidebarHide();
+
+                            // s_use 라디오 변경 시 AJAX + 표시제어
+                            $(document).on('change', 'input[name="s_use"]', function () {
+                                const s_use = $(this).val();
+                                const s_code = $('#v_code').val();
+                                const fullUrl = window.location.pathname + window.location.search;
+
+                                $.ajax({
+                                    url: '<?php echo G5_URL ?>/rb/rb.config/ajax.sidebar_hide_add.php',
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: {
+                                        s_code: s_code,
+                                        s_use: s_use
+                                    },
+                                    success: function (data) {
+                                        if (data.status === 'ok') {
+                                            toggleTopVisualBox(); // AJAX 성공 후 표시 여부 적용
+                                        } else {
+                                            alert('오류 발생: ' + (data.message || '알 수 없는 오류'));
+                                        }
+                                    },
+                                    error: function (xhr, status, error) {
+                                        alert('서버 오류 발생: ' + error);
+                                        console.error(xhr.responseText);
+                                    }
+                                });
+                            });
+                        });
+                        </script>
+
+                    </ul>
 
                     <ul class="rb_config_sec">
 
@@ -651,39 +746,39 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         }
 
                         ?>
-
-
+                        
+                        
                         <span>현재 노드 : <?php echo cut_str($rb_page_urls, 40) ?></span>
                         </div>
-
+                        
                         <div>
                             <ul class="rows_inp_lr mt-10">
 
                                 <li class="rows_inp_r mt-5">
                                     <input type="hidden" name="v_code" id="v_code" value="<?php echo $rb_page_urls ?>">
-
+                                    
                                     <input type="radio" name="v_use" id="v_use_0" class="magic-radio" value="0"
                                     <?php if (!isset($rb_v_info['v_use']) || intval($rb_v_info['v_use']) === 0) { ?>checked<?php } ?>>
-                                    <label for="v_use_0">없음</label>
+                                    <label for="v_use_0">없음</label>　
 
                                     <input type="radio" name="v_use" id="v_use_1" class="magic-radio" value="1"
                                     <?php if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 1) { ?>checked<?php } ?>>
-                                    <label for="v_use_1">사용</label>
-
+                                    <label for="v_use_1">사용</label>　
+                                    
                                     <?php if(isset($cate_id) && $cate_id) { // 영카트?>
                                     <input type="radio" name="v_use" id="v_use_2" class="magic-radio" value="2"
                                     <?php if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 2) { ?>checked<?php } ?>>
                                     <label for="v_use_2">하위적용</label>
                                     <?php } ?>
-
+                                    
                                 </li>
 
                                 <div class="cb"></div>
                             </ul>
                         </div>
-
+                        
                         <script>
-
+                            
                         function toggleTopVisualBox() {
                             const useVal = $('input[name="v_use"]:checked').val();
                             if (useVal === '1') {
@@ -699,8 +794,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 $('#topvisual_style_all_wrap').hide();
                             }
                         }
-
-
+                            
+                            
                         $(document).ready(function () {
                             // 페이지 로드시 적용
                             toggleTopVisualBox();
@@ -723,7 +818,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                     success: function (data) {
                                         if (data.status === 'ok') {
                                             toggleTopVisualBox(); // AJAX 성공 후 표시 여부 적용
-
+                                            
                                             if (data.v_use == "1" || data.v_use == "2") {
                                                 $('#rb_topvisual').css('display', 'block');
                                                 $('#topvisual_btn_wrap').css('display', 'block');
@@ -731,7 +826,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                                 $('#rb_topvisual').css('display', 'none');
                                                 $('#topvisual_btn_wrap').css('display', 'none');
                                             }
-
+                                            
                                         } else {
                                             alert('오류 발생: ' + (data.message || '알 수 없는 오류'));
                                         }
@@ -743,10 +838,10 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 });
                             });
                         });
-
+                            
 
                         </script>
-
+                        
 
                         <div class="config_wrap" id="rb_top_vis_wrap" style="display:none;">
                             <input type="hidden" name="co_topvisual" id="co_topvisual_4" value="imgtxt">
@@ -762,10 +857,10 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                     워딩과 이미지도 적용 됩니다.
                                 </h6>
                             </div>
-
+                           
                             <div class="config_wrap_bg mt-10">
                                 <label class="config_wrap_sub_tit">영역 스타일</label><br>
-
+                                
                                 <ul class="rows_inp_lr mt-15">
                                     <li class="rows_inp_l rows_inp_l_span">
                                         <span class="font-B">배경 컬러</span><br>
@@ -792,22 +887,22 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                     </li>
                                     <div class="cb"></div>
                                 </ul>
-
+                                
                                 <ul class="rows_inp_lr mt-5">
-
+                                   
                                     <li class="rows_inp_l rows_inp_l_span">
                                         <span class="font-B">테두리</span><br>
                                         영역 테두리
                                     </li>
 
                                     <li class="rows_inp_r mt-5 font-12">
-                                        <input type="radio" name="co_topvisual_border" id="co_topvisual_border_0" class="magic-radio mod_send" value="0" <?php if (isset($rb_v_info['topvisual_border']) && $rb_v_info['topvisual_border'] == "0") { ?>checked<?php } ?>><label for="co_topvisual_border_0">없음</label>
-                                        <input type="radio" name="co_topvisual_border" id="co_topvisual_border_1" class="magic-radio mod_send" value="1" <?php if (isset($rb_v_info['topvisual_border']) && $rb_v_info['topvisual_border'] == "1") { ?>checked<?php } ?>><label for="co_topvisual_border_1">점선</label>
-                                        <input type="radio" name="co_topvisual_border" id="co_topvisual_border_2" class="magic-radio mod_send" value="2" <?php if (isset($rb_v_info['topvisual_border']) && $rb_v_info['topvisual_border'] == "2") { ?>checked<?php } ?>><label for="co_topvisual_border_2">실선</label>
+                                        <input type="radio" name="co_topvisual_border" id="co_topvisual_border_0" class="magic-radio mod_send" value="0" <?php if (isset($rb_v_info['topvisual_border']) && $rb_v_info['topvisual_border'] == "0") { ?>checked<?php } ?>><label for="co_topvisual_border_0">없음</label>　
+                                        <input type="radio" name="co_topvisual_border" id="co_topvisual_border_1" class="magic-radio mod_send" value="1" <?php if (isset($rb_v_info['topvisual_border']) && $rb_v_info['topvisual_border'] == "1") { ?>checked<?php } ?>><label for="co_topvisual_border_1">점선</label>　
+                                        <input type="radio" name="co_topvisual_border" id="co_topvisual_border_2" class="magic-radio mod_send" value="2" <?php if (isset($rb_v_info['topvisual_border']) && $rb_v_info['topvisual_border'] == "2") { ?>checked<?php } ?>><label for="co_topvisual_border_2">실선</label>　
                                     </li>
-
+                                    
                                     <div class="cb"></div>
-
+                                   
                                 </ul>
 
 
@@ -889,8 +984,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                     </li>
                                     <div class="cb"></div>
                                 </ul>
-
-
+                                
+                                
                                 <ul class="rows_inp_lr mt-5">
                                     <li class="rows_inp_l rows_inp_l_span">
                                         <span class="font-B">라운드</span><br>
@@ -930,15 +1025,15 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                     </li>
                                     <div class="cb"></div>
                                 </ul>
-
-
-
-
-
-
-
+                                
+                                
+                                
+                                
+                                
+                                
+                                
                             </div>
-
+                            
                             <div class="skin_path_url mt-5">
                                 <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
                                 <li class="skin_path_url_txt">
@@ -954,7 +1049,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                     <div class="color_set_wrap square none_inp_cl" style="position: relative;">
                                         <input type="text" class="coloris mod_co_color" name="co_topvisual_m_color" value="<?php echo !empty($rb_v_info['topvisual_m_color']) ? $rb_v_info['topvisual_m_color'] : '#ffffff'; ?>" style="width:25px !important;">
-                                    </div>컬러
+                                    </div>컬러　
 
 
                                     <select class="select select_tiny mod_send" name="co_topvisual_m_size" id="co_topvisual_m_size">
@@ -983,14 +1078,14 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                 <ul class="config_wrap_flex">
                                     <li class="rows_inp_r mt-5">
-                                        <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align1" class="magic-radio mod_send" value="left" <?php if (isset($rb_v_info['topvisual_m_align']) && $rb_v_info['topvisual_m_align'] == "left") { ?>checked<?php } ?>><label for="co_topvisual_m_align1">좌측</label>
-                                        <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align2" class="magic-radio mod_send" value="center" <?php if (isset($rb_v_info['topvisual_m_align']) && $rb_v_info['topvisual_m_align'] == "center") { ?>checked<?php } ?>><label for="co_topvisual_m_align2">중앙</label>
+                                        <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align1" class="magic-radio mod_send" value="left" <?php if (isset($rb_v_info['topvisual_m_align']) && $rb_v_info['topvisual_m_align'] == "left") { ?>checked<?php } ?>><label for="co_topvisual_m_align1">좌측</label>　
+                                        <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align2" class="magic-radio mod_send" value="center" <?php if (isset($rb_v_info['topvisual_m_align']) && $rb_v_info['topvisual_m_align'] == "center") { ?>checked<?php } ?>><label for="co_topvisual_m_align2">중앙</label>　
                                         <input type="radio" name="co_topvisual_m_align" id="co_topvisual_m_align3" class="magic-radio mod_send" value="right" <?php if (isset($rb_v_info['topvisual_m_align']) && $rb_v_info['topvisual_m_align'] == "right") { ?>checked<?php } ?>><label for="co_topvisual_m_align3">우측</label>
                                     </li>
                                 </ul>
 
                             </div>
-
+                            
                             <div class="skin_path_url mt-5">
                                 <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
                                 <li class="skin_path_url_txt">
@@ -998,17 +1093,17 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 </li>
                                 <div class="cb"></div>
                             </div>
-
-
-
-
+                            
+                            
+                            
+                            
                             <div class="config_wrap_bg">
                                 <label class="config_wrap_sub_tit">서브워딩 스타일</label><br>
                                 <ul class="config_wrap_flex mt-15">
 
                                     <div class="color_set_wrap square none_inp_cl" style="position: relative;">
                                         <input type="text" class="coloris mod_co_color" name="co_topvisual_s_color" value="<?php echo !empty($rb_v_info['topvisual_s_color']) ? $rb_v_info['topvisual_s_color'] : '#ffffff'; ?>" style="width:25px !important;">
-                                    </div>컬러
+                                    </div>컬러　
 
                                     <select class="select select_tiny mod_send" name="co_topvisual_s_size" id="co_topvisual_s_size">
                                         <option value="">사이즈</option>
@@ -1036,14 +1131,14 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                 <ul class="config_wrap_flex">
                                     <li class="rows_inp_r mt-5">
-                                        <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align1" class="magic-radio mod_send" value="left" <?php if (isset($rb_v_info['topvisual_s_align']) && $rb_v_info['topvisual_s_align'] == "left") { ?>checked<?php } ?>><label for="co_topvisual_s_align1">좌측</label>
-                                        <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align2" class="magic-radio mod_send" value="center" <?php if (isset($rb_v_info['topvisual_s_align']) && $rb_v_info['topvisual_s_align'] == "center") { ?>checked<?php } ?>><label for="co_topvisual_s_align2">중앙</label>
+                                        <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align1" class="magic-radio mod_send" value="left" <?php if (isset($rb_v_info['topvisual_s_align']) && $rb_v_info['topvisual_s_align'] == "left") { ?>checked<?php } ?>><label for="co_topvisual_s_align1">좌측</label>　
+                                        <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align2" class="magic-radio mod_send" value="center" <?php if (isset($rb_v_info['topvisual_s_align']) && $rb_v_info['topvisual_s_align'] == "center") { ?>checked<?php } ?>><label for="co_topvisual_s_align2">중앙</label>　
                                         <input type="radio" name="co_topvisual_s_align" id="co_topvisual_s_align3" class="magic-radio mod_send" value="right" <?php if (isset($rb_v_info['topvisual_s_align']) && $rb_v_info['topvisual_s_align'] == "right") { ?>checked<?php } ?>><label for="co_topvisual_s_align3">우측</label>
                                     </li>
                                 </ul>
 
                             </div>
-
+                            
                             <div class="skin_path_url mt-5">
                                 <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
                                 <li class="skin_path_url_txt">
@@ -1051,7 +1146,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 </li>
                                 <div class="cb"></div>
                             </div>
-
+                            
                             <button type="button" id="clear_top_btn" class="font-R">상단영역 전체 초기화</button>
                             <script>
                             document.getElementById('clear_top_btn').addEventListener('click', function () {
@@ -1076,7 +1171,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 }
                             });
                             </script>
-
+                            
 
                         </div>
 
@@ -1084,7 +1179,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     </ul>
                     <?php } ?>
 
-
+                    
 
 
 
@@ -1186,7 +1281,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                         </div>
                     </ul>
-
+                    
                     <ul class="rb_config_sec">
                         <h6 class="font-B">사이트맵(xml)생성</h6>
                         <h6 class="font-R rb_config_sub_txt">
@@ -1197,7 +1292,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         만들어진 파일은 검색엔진에 제출할 수 있습니다.<br><br>
                         게시판, 게시물, 일반페이지, 상품분류, 상품이 대상이 됩니다.<br>
                         비밀글, 비공개상품 등은 포함되지 않습니다.<br><br>
-
+                        
                         우선순위 1.0 : 게시물 및 히트/추천/신/인기/할인 상품<br>
                         우선순위 0.9 : 나머지 상품<br>
                         우선순위 0.7 : 게시판, 상품분류<br>
@@ -1205,10 +1300,10 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                         Sitemap: <?php echo G5_URL ?>/sitemap.xml
                         -->
-
+                        
                         </h6>
                         <div class="config_wrap">
-
+                           
                             <ul>
                                 <a id="sitemap_gen_btn" href="javascript:void(0);"><span id="sitemap_btn_text">사이트맵 생성</span></a>
                                 <a id="sitemap_download_link" class="main_rb_bg" href="javascript:void(0);">사이트맵 다운로드</a>
@@ -1235,7 +1330,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                             .attr('download', 'sitemap.xml')
                                             .css('display','inline-block')
                                             .show()
-
+                                            
                                     }else{
                                         $btn.prop('disabled', false);
                                         $txt.text('사이트맵 생성');
@@ -1304,7 +1399,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         parent: '.sh-side-demos-container', // 상위 container
         formatToggle: false, // Hex, RGB, HSL 토글버튼 활성
         format: 'hex', // 색상 포맷지정
-        margin: 0, // margin
+        margin: 0, // margin 
         swatchesOnly: false, // 색상 견본만 표시여부
         alpha: true, // 알파(투명) 활성여부
         theme: 'polaroid', // default, large, polaroid, pill
@@ -1314,12 +1409,12 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         autoClose: true, // 자동닫기 - 확인 안됨
         inline: false, // color picker를 인라인 위젯으로 사용시 true
         defaultColor: '#ffffff', // 기본 색상인 인라인 mode
-        // Clear Button 설정
+        // Clear Button 설정 
         clearButton: true,
-        //clearLabel: '초기화',
-        // Close Button 설정
+        //clearLabel: '초기화', 
+        // Close Button 설정 
         closeButton: true, // true, false
-        closeLabel: '닫기', // 닫기버튼 텍스트
+        closeLabel: '닫기', // 닫기버튼 텍스트	
         swatches: [
             '#AA20FF',
             '#FFC700',
@@ -1355,7 +1450,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
     //모듈설정 토글
     function toggleSideOptions() {
-
+        
         // PHP에서 관리자만 스타일 삽입!
         <?php if($is_admin) { ?>
         // 토글 ON(열기)할 때만 스타일 삽입
@@ -1437,7 +1532,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     tolerance: "pointer", // pointer를 기준으로 tolerance 설정
                     helper: "clone", // helper를 clone으로 설정
                     items: "> .rb_layout_box", // .content_box만 드래그 가능
-
+                    
                     start: function(event, ui) {
                         // 드래그 시작할 때 원래 크기 저장 (padding과 border 포함)
                         originalWidth = ui.item.outerWidth();
@@ -1527,7 +1622,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
             });
 
             // content_box를 클릭할 때 원래 크기 저장
-
+            
             $(".rb_layout_box").on("mousedown", function(event) {
                 $(".rb_layout_box").removeClass("dragging");
                 var $this = $(this);
@@ -1537,10 +1632,10 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     width: originalWidth,
                     height: originalHeight
                 });
-
+              
                 $this.addClass("clicked");
             });
-
+            
 
             // 마우스를 놓을 때 크기 초기화
             $(".rb_layout_box").on("mouseup", function(event) {
@@ -1855,7 +1950,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var co_main_padding_top = $('input[name="co_main_padding_top"]').val();
         var co_main_padding_top_shop = $('input[name="co_main_padding_top_shop"]').val();
         <?php } ?>
-
+        
         <?php if(defined('_SHOP_')) { // 영카트?>
         var co_menu_shop = $('input[name="co_menu_shop"]:checked').val();
         <?php } else { ?>
@@ -1863,14 +1958,14 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         <?php } ?>
 
         <?php if (defined("_INDEX_")) { ?>
-
+        
         var co_side_skin = "<?php echo !empty($rb_core['side_skin']) ? $rb_core['side_skin'] : ''; ?>";
         var co_side_skin_shop = "<?php echo !empty($rb_core['side_skin_shop']) ? $rb_core['side_skin_shop'] : ''; ?>";
         var co_sidemenu = "<?php echo !empty($rb_core['sidemenu']) ? $rb_core['sidemenu'] : ''; ?>";
         var co_sidemenu_shop = "<?php echo !empty($rb_core['sidemenu_shop']) ? $rb_core['sidemenu_shop'] : ''; ?>";
         var co_sidemenu_width = "<?php echo !empty($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : ''; ?>";
         var co_sidemenu_width_shop = "<?php echo !empty($rb_core['sidemenu_width_shop']) ? $rb_core['sidemenu_width_shop'] : ''; ?>";
-
+        
         var co_sidemenu_padding = "<?php echo !empty($rb_core['sidemenu_padding']) ? $rb_core['sidemenu_padding'] : '0'; ?>";
         var co_sidemenu_padding_shop = "<?php echo !empty($rb_core['sidemenu_padding_shop']) ? $rb_core['sidemenu_padding_shop'] : '0'; ?>";
         var co_sidemenu_hide = "<?php echo !empty($rb_core['sidemenu_hide']) ? $rb_core['sidemenu_hide'] : '0'; ?>";
@@ -1879,10 +1974,10 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var co_topvisual_height = "<?php echo !empty($rb_v_info['topvisual_height']) ? $rb_v_info['topvisual_height'] : ''; ?>";
         var co_topvisual_width = "<?php echo !empty($rb_v_info['topvisual_width']) ? $rb_v_info['topvisual_width'] : ''; ?>";
         var co_topvisual_bl = "<?php echo isset($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '10'; ?>";
-
+        
         var co_topvisual_border = "<?php echo isset($rb_v_info['topvisual_border']) ? $rb_v_info['topvisual_border'] : '0'; ?>";
         var co_topvisual_radius = "<?php echo isset($rb_v_info['topvisual_radius']) ? $rb_v_info['topvisual_radius'] : '0'; ?>";
-
+        
         var co_topvisual_m_color = "<?php echo !empty($rb_v_info['topvisual_m_color']) ? $rb_v_info['topvisual_m_color'] : ''; ?>";
         var co_topvisual_m_size = "<?php echo !empty($rb_v_info['topvisual_m_size']) ? $rb_v_info['topvisual_m_size'] : ''; ?>";
         var co_topvisual_m_font = "<?php echo !empty($rb_v_info['topvisual_m_font']) ? $rb_v_info['topvisual_m_font'] : ''; ?>";
@@ -1892,22 +1987,22 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var co_topvisual_s_size = "<?php echo !empty($rb_v_info['topvisual_s_size']) ? $rb_v_info['topvisual_s_size'] : ''; ?>";
         var co_topvisual_s_font = "<?php echo !empty($rb_v_info['topvisual_s_font']) ? $rb_v_info['topvisual_s_font'] : ''; ?>";
         var co_topvisual_s_align = "<?php echo !empty($rb_v_info['topvisual_s_align']) ? $rb_v_info['topvisual_s_align'] : ''; ?>";
-
+        
         var co_topvisual_bg_color = "<?php echo !empty($rb_v_info['topvisual_bg_color']) ? $rb_v_info['topvisual_bg_color'] : ''; ?>";
-
+        
         var co_topvisual_style_all = "<?php echo !empty($rb_v_info['topvisual_style_all']) ? $rb_v_info['topvisual_style_all'] : ''; ?>";
-
+        
         var v_code = "<?php echo !empty($rb_v_info['v_code']) ? $rb_v_info['v_code'] : ''; ?>";
-
+        
         <?php } else { ?>
-
+        
         var co_side_skin = $('select[name="co_side_skin"]').val();
         var co_side_skin_shop = $('select[name="co_side_skin_shop"]').val();
         var co_sidemenu = $('input[name="co_sidemenu"]:checked').val();
         var co_sidemenu_shop = $('input[name="co_sidemenu_shop"]:checked').val();
         var co_sidemenu_width = $('input[name="co_sidemenu_width"]').val();
         var co_sidemenu_width_shop = $('input[name="co_sidemenu_width_shop"]').val();
-
+        
         var co_sidemenu_padding = $('input[name="co_sidemenu_padding"]').val();
         var co_sidemenu_padding_shop = $('input[name="co_sidemenu_padding_shop"]').val();
         var co_sidemenu_hide = $('input[name="co_sidemenu_hide"]:checked').val();
@@ -1930,7 +2025,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var co_topvisual_bg_color = $('input[name="co_topvisual_bg_color"]').val();
         var co_topvisual_style_all = $('input[name="co_topvisual_style_all"]:checked').val();
         var v_code = $('#v_code').val();
-
+        
         <?php } ?>
 
         var mod_type = '1';
@@ -1967,7 +2062,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 "co_tb_width": co_tb_width,
                 "co_main_padding_top": co_main_padding_top,
                 "co_main_padding_top_shop": co_main_padding_top_shop,
-
+                
                 "co_menu_shop": co_menu_shop,
 
                 "co_side_skin": co_side_skin,
@@ -1999,19 +2094,19 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                     var newHeaderSet = 'co_header_' + headerValues; // 예: co_6B4285
                     var newHeaderCode = data.co_header; // 원본 컬러 값 (#6b4285)
-
+                    
                     if(data.co_sidemenu_hide == 1) {
                         $('#rb_sidemenu').addClass('pc');
-                    } else {
+                    } else { 
                         $('#rb_sidemenu').removeClass('pc');
                     }
 
                     if(data.co_sidemenu_hide_shop == 1) {
                         $('#rb_sidemenu_shop').addClass('pc');
-                    } else {
+                    } else { 
                         $('#rb_sidemenu_shop').removeClass('pc');
                     }
-
+                    
                     function isLightColor(hex) { //밝은계통인지, 어두운 계통인지 판단 함수
                         var r, g, b, a = 1; // 기본 알파 값
 
@@ -2102,8 +2197,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 alert('문제가 발생 했습니다. 다시 시도해주세요.');
             }
         });
-
-
+        
+        
         <?php if (!defined("_INDEX_")) { ?>
         $.ajax({
             url: '<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_add.php', // Ajax 요청을 보낼 엔드포인트 URL
@@ -2148,25 +2243,25 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         $('.sub_wording').css('padding-left', '50px');
                         $('.sub_wording').css('padding-right', '50px');
                     }
-
+                    
                     if (data.co_topvisual_border == "0") {
                         $('.rb_topvisual').css('border', '0px');
                     } else if (data.co_topvisual_border == "1") {
                         $('.rb_topvisual').css('border', '1px dashed rgba(0,0,0,0.1)');
                     } else if (data.co_topvisual_border == "2") {
                         $('.rb_topvisual').css('border', '1px solid rgba(0,0,0,0.1)');
-                    } else {
+                    } else { 
                         $('.rb_topvisual').css('border', '0px');
                     }
 
 
                     $('.rb_topvisual').css('background-color', data.co_topvisual_bg_color);
-
+                    
                     $('.main_wording').css('color', data.co_topvisual_m_color);
                     $('.main_wording').css('font-size', data.co_topvisual_m_size+'px');
                     $('.main_wording').css('font-family', data.co_topvisual_m_font);
                     $('.main_wording').css('text-align', data.co_topvisual_m_align);
-
+                    
                     $('.sub_wording').css('color', data.co_topvisual_s_color);
                     $('.sub_wording').css('font-size', data.co_topvisual_s_size+'px');
                     $('.sub_wording').css('font-family', data.co_topvisual_s_font);
@@ -2181,8 +2276,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
             }
         });
         <?php } ?>
-
-
+        
+        
     }
 
 
@@ -2223,10 +2318,10 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var md_banner_skin = $('select[name="md_banner_skin"]').val();
         var md_poll = $('select[name="md_poll"]').val();
         var md_poll_id = $('select[name="md_poll_id"]').val();
-
-        var md_soldout_hidden = $('input[name="md_soldout_hidden"]:checked').val();
-        var md_soldout_asc = $('input[name="md_soldout_asc"]:checked').val();
-
+        
+        var md_soldout_hidden = $('input[name="md_soldout_hidden"]:checked').val();    
+        var md_soldout_asc = $('input[name="md_soldout_asc"]:checked').val();    
+        
         <?php if(defined('_SHOP_')) { // 영카트?>
         var layout_name = '<?php echo $rb_core['layout_shop'] ?>';
         var md_border = $('input[name="md_border_shop"]:checked').val();
@@ -2309,7 +2404,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
         var md_tab_list = $('input[name="md_tab_list"]').val();
         var md_tab_skin = $('select[name="md_tab_skin"]').val();
-
+        
         var md_item_tab_list = $('input[name="md_item_tab_list"]').val();
         var md_item_tab_skin = $('select[name="md_item_tab_skin"]').val();
 
@@ -2422,11 +2517,11 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 method: 'POST',
                 dataType: 'json',
                 data: {
-                    <?php if(defined('_SHOP_')) { // 영카트?>
+                    <?php if(defined('_SHOP_')) { // 영카트?> 
                         "is_shop": "1",
-                    <?php } else { ?>
+                    <?php } else { ?> 
                         "is_shop": "0",
-                    <?php } ?>
+                    <?php } ?> 
                     "md_id": md_id,
                     "md_title": md_title,
                     "md_title_color": md_title_color,
@@ -2490,8 +2585,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     "md_soldout_hidden": md_soldout_hidden,
                     "md_soldout_asc": md_soldout_asc,
                 },
-
-
+                
+                
                 success: function(data) {
                     if (data.status == 'ok') {
                         console.log('모듈저장:' + data.md_title);
@@ -2505,7 +2600,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 error: function(err) {
                     alert('문제가 발생 했습니다. 다시 시도해주세요.');
                 }
-
+                
             });
 
         }
