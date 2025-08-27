@@ -68,13 +68,20 @@ include_once(G5_PATH.'/rb/rb.mod/alarm/alarm.php'); // 실시간 알림
         -->
         <section class="<?php if (defined("_INDEX_")) { ?>index co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } else { ?>sub co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } ?>" style="<?php if (!defined("_INDEX_")) { ?>width:<?php echo $rb_core['sub_width'] ?>px;<?php } else { ?>width:<?php echo $rb_core['main_width'] ?>px;<?php } ?>">
 
-        <?php if (!defined("_INDEX_")) { ?>
+        <?php
+            $safe = sql_escape_string($rb_page_urls);
+            $row = sql_fetch("SELECT 1 AS ok FROM rb_sidebar_hide WHERE s_code='{$safe}' LIMIT 1");
+            $sidebar_hidden = (bool)$row;
+        ?>
+
+
+        <?php if (!defined('_INDEX_') && !$sidebar_hidden) { ?>
 
             <?php
                 $side_float = "";
-                if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left") {
+                if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left" && !$sidebar_hidden) {
                     $side_float = "float:right; width: calc(100% - ".$rb_core['sidemenu_width']."px);";
-                } else if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") {
+                } else if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right" && !$sidebar_hidden) {
                     $side_float = "float:left; width: calc(100% - ".$rb_core['sidemenu_width']."px);";
                 }
             ?>
@@ -98,4 +105,3 @@ include_once(G5_PATH.'/rb/rb.mod/alarm/alarm.php'); // 실시간 알림
         <?php } ?>
         
         <?php if (!defined("_INDEX_")) { ?><h2 id="container_title"><?php echo get_head_title($g5['title']); ?></h2><?php } ?>
-
