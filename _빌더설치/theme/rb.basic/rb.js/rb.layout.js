@@ -1,4 +1,56 @@
 $(document).ready(function () {
+    function getBasePathFromG5(){
+        try{
+        var u = new URL(typeof g5_url === 'string' ? g5_url : '/', window.location.origin);
+        return (u.pathname || '/').replace(/\/+$/,'');
+        }catch(e){
+        return '';
+        }
+    }
+    function getPathRelativeToBase(){
+        var base = getBasePathFromG5();
+        var cur  = window.location.pathname || '/';
+        if(base && cur.indexOf(base) === 0){
+        cur = cur.slice(base.length);
+        if(!cur.startsWith('/')) cur = '/'+cur;
+        }
+        return cur.replace(/^\/+/, '').replace(/\/{2,}/g, '/');
+    }
+
+    function getGETFromRewrite(){
+        var path = getPathRelativeToBase();
+        var qsParams = new URLSearchParams(window.location.search);
+        var qsObj    = Object.fromEntries(qsParams.entries());
+
+        var rules = [
+        { re: /^content\/([0-9a-zA-Z_]+)\/?$/,          map: m => ({ co_id: m[1], rewrite:'1' }) },
+        { re: /^content\/([^\/]+)\/$/,                  map: m => ({ co_seo_title: m[1], rewrite:'1' }) },
+        { re: /^rss\/([0-9a-zA-Z_]+)\/?$/,              map: m => ({ bo_table: m[1] }) },
+        { re: /^([0-9a-zA-Z_]+)\/write$/,               map: m => ({ bo_table: m[1], rewrite:'1' }) },
+        { re: /^([0-9a-zA-Z_]+)\/([0-9]+)\/?$/,         map: m => ({ bo_table: m[1], wr_id: m[2], rewrite:'1' }) },
+        { re: /^([0-9a-zA-Z_]+)\/([^\/]+)\/$/,          map: m => ({ bo_table: m[1], wr_seo_title: m[2], rewrite:'1' }) },
+        { re: /^([0-9a-zA-Z_]+)\/?$/,                   map: m => ({ bo_table: m[1], rewrite:'1' }) },
+        ];
+
+        var fromPath = {};
+        for(var i=0;i<rules.length;i++){
+        var m = path.match(rules[i].re);
+        if(m){ fromPath = rules[i].map(m); break; }
+        }
+        return Object.assign({}, fromPath, qsObj);
+    }
+
+    function toQueryString(obj){
+        var usp = new URLSearchParams();
+        Object.keys(obj || {}).forEach(function(k){
+        if (obj[k] !== undefined && obj[k] !== null) usp.append(k, obj[k]);
+        });
+        var s = usp.toString();
+        return s ? ('?'+s) : '';
+    }
+
+    window._GET = getGETFromRewrite();
+    
     function processFlexBoxesOnce($scope, callback) {
         var flexBoxes = $scope.find('.flex_box').addBack('.flex_box').filter(function () {
             return !$(this).data('layout-loaded'); // 중복 방지
@@ -23,9 +75,11 @@ $(document).ready(function () {
             if (callback) callback();
             return;
         }
+        
+        var qs = toQueryString(getGETFromRewrite());
 
         $.ajax({
-            url: g5_url + '/rb/rb.config/ajax.layout_set.php',
+            url: g5_url + '/rb/rb.config/ajax.layout_set.php' + qs,
             method: 'POST',
             dataType: 'json',
             data: { layouts: layoutNumbers },
