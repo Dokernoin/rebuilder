@@ -1,0 +1,36 @@
+/* === Preset Overlay === */
+.rb-preset-overlay{
+  position:absolute;
+  z-index:60;
+  pointer-events:none;
+  background:rgba(99,102,241,.08);            /* 연한 하이라이트 */
+  outline:2px dashed var(--brand-600, #635BFF);
+  border-radius:12px;
+  box-shadow:0 4px 24px rgba(2,6,23,.15);
+  z-index: 100;
+}
+.rb-preset-overlay .badge{
+  position:absolute;
+  top:-10px; left:0;
+  transform:translateY(-100%);
+  padding:6px 10px;
+  border-radius:999px;
+  background:#111827; color:#fff;
+  font-weight:700; font-size:12px;
+  box-shadow:0 4px 14px rgba(0,0,0,.25);
+  pointer-events:none;
+}
+
+/* === Preset Export Button === */
+.preset_export_btn,
+.preset_apply_btn {
+  color:#fff;
+  text-decoration:none;
+  background-color: #25282B;
+  padding:8px 16px;
+  border-radius:5px;
+  display: inline-block;
+  margin-top: 5px;
+  width: 140px;
+  text-align: center;
+}
