@@ -70,11 +70,11 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         <h6 class="font-R rb_config_sub_txt">내보내기 할 모듈을 선택하세요.<br>선택한 모듈이 좌측에 표시됩니다.</h6>
 
                         <div class="module_list_wrap">
-
+                            <div class="module_list_content"></div>
                         </div>
                     </ul>
 
-                    <ul class="rb_config_sec">
+                    <ul class="rb_config_sec preset_apply">
                         <h6 class="font-B">프리셋 적용하기</h6>
                         <h6 class="font-R rb_config_sub_txt">적용할 프리셋을 선택하세요.<br>제작된 환경의 리빌더 버전을 확인하세요.</h6>
                         <select class="select mt-5 w100 mod_send" name="preset_selected">
