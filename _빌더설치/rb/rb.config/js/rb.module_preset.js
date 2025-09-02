@@ -495,8 +495,8 @@
     $(SEL.side).addClass('open');
     $('.rb_config').hide();
     $(SEL.panel).show();
-    $('.sh-side-options-item').removeClass('active');
-    $('.preset_set_btn').addClass('active');
+    $('.sh-side-options-item').removeClass('open');
+    $('.preset_set_btn').addClass('open');
     if (typeof window.rbStopModuleEditMode === 'function') window.rbStopModuleEditMode();
     $('.rb_layout_highlight, .rb_overlay, .rb_highlight_outline').remove();
   };

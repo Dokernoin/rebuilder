@@ -1478,6 +1478,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         $('.rb_layout_box').addClass('bg_fff');
         $('.mobule_set_btn').addClass('open');
         $('.setting_set_btn').removeClass('open');
+        $('.preset_set_btn').removeClass('open');
         $('.add_module_wrap').show(); //2.1.4 추가
 
         // 모듈이동
@@ -1657,6 +1658,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         $('.content_box').removeClass('handles');
         $('.mobule_set_btn').removeClass('open');
         $('.setting_set_btn').removeClass('open');
+        $('.preset_set_btn').removeClass('open');
         $('.add_module_wrap').hide(); //2.1.4 추가
 
         toggleSideOptions_close();
@@ -1675,6 +1677,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         //환경설정 활성
         $('.setting_set_btn').addClass('open');
         $('.mobule_set_btn').removeClass('open');
+        $('.preset_set_btn').removeClass('open');
         $('.content_box').removeClass('content_box_set');
         $('.rb_layout_box').removeClass('bg_fff');
         $('.add_module_wrap').hide(); //2.1.4 추가
@@ -1693,6 +1696,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
         $('.setting_set_btn').removeClass('open');
         $('.mobule_set_btn').removeClass('open');
+        $('.preset_set_btn').removeClass('open');
         $('.content_box').removeClass('content_box_set');
         $('.rb_layout_box').removeClass('bg_fff');
         $('.add_module_wrap').hide(); //2.1.4 추가
