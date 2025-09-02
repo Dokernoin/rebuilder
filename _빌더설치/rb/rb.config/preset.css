@@ -51,3 +51,15 @@
   height: 200px;
   overflow-y: scroll;
 }
+
+/* === Preset Meta Box === */
+.preset_meta {
+  padding: 5px 10px;
+  border-radius: 10px;
+  background: #f1f3f5;
+  margin-top:  10px;
+}
+
+.preset_meta p {
+  padding: 5px 0;
+}
