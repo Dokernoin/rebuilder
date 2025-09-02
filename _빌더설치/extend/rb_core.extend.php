@@ -602,6 +602,73 @@ function rb_banner_select_is($bn_position) {
     return $str;
 }
 
+// 프리셋 디렉토리 조회
+function rb_preset_dir_select($preset_type, $selected = '')
+{
+    // 허용값 보정
+    $preset_type = strtolower(trim($preset_type));
+    if ($preset_type !== 'shop' && $preset_type !== 'community') {
+        $preset_type = (defined('_SHOP_') ? 'shop' : 'community');
+    }
+
+    $base = rtrim(G5_PATH, '/').'/rb/rb.preset';
+    if (!is_dir($base)) return '';
+
+    $list = array();
+
+    // rb/rb.preset 하위 1뎁스 폴더 탐색
+    $dh = opendir($base);
+    if ($dh) {
+        while (false !== ($entry = readdir($dh))) {
+            if ($entry === '.' || $entry === '..' || $entry[0] === '.') continue;
+
+            $dirPath = $base . '/' . $entry;
+            if (!is_dir($dirPath)) continue;
+
+            $jsonPath = $dirPath . '/preset.json';
+            if (!is_file($jsonPath)) continue;
+
+            // preset.json 읽기
+            $json = @file_get_contents($jsonPath);
+            if ($json === false) continue;
+
+            $data = json_decode($json, true);
+            if (!is_array($data)) continue;
+
+            // meta.preset_type 체크
+            $meta = isset($data['meta']) && is_array($data['meta']) ? $data['meta'] : array();
+            $ptype = isset($meta['preset_type']) ? strtolower(trim($meta['preset_type'])) : '';
+
+            if ($ptype !== $preset_type) continue;
+
+            // 표시명: meta.preset_name 우선, 없으면 폴더명
+            $pname = isset($meta['preset_name']) && $meta['preset_name'] !== '' ? $meta['preset_name'] : $entry;
+
+            // 수집 (value는 폴더명, label은 표시명)
+            $list[] = array('value' => $entry, 'label' => $pname);
+        }
+        closedir($dh);
+    }
+
+    // 이름 기준 정렬(표시명 → 폴더명 fallback)
+    usort($list, function($a, $b){
+        $ta = mb_strtolower($a['label']);
+        $tb = mb_strtolower($b['label']);
+        if ($ta === $tb) return strcmp($a['value'], $b['value']);
+        return ($ta < $tb) ? -1 : 1;
+    });
+
+    // 옵션 문자열 생성
+    $str = '';
+    foreach ($list as $it) {
+        // label에 디렉토리명도 괄호로 보조표시(이름 중복 대비)
+        $label = ($it['label'] === $it['value']) ? $it['label'] : ($it['label'].' ('.$it['value'].')');
+        $str .= option_selected($it['value'], $selected, $label);
+    }
+
+    return $str;
+}
+
 
 // 디렉토리 조회
 function rb_dir_select($skin_gubun, $selected = '')
@@ -719,11 +786,11 @@ function rb_skin_select_is($skin_gubun, $selected = '')
 function rb_skin_select($skin_gubun, $selected = '')
 {
     global $config;
-    
-    $str = "";
 
+    $str = "";
     $skins = array();
 
+    // 테마 스킨
     if (defined('G5_THEME_PATH') && $config['cf_theme']) {
         $dirs = rb_skin_dir($skin_gubun, G5_THEME_PATH . '/' . G5_SKIN_DIR);
         if (!empty($dirs)) {
@@ -733,18 +800,48 @@ function rb_skin_select($skin_gubun, $selected = '')
         }
     }
 
+    // 기본 스킨 (원래 로직 유지)
     $skins = array_merge($skins, rb_skin_dir($skin_gubun));
 
+    // 프리셋 스킨 추가: rb/rb.preset/<프리셋>/skin/<구분>/<스킨>
+    $preset_root = G5_PATH . '/rb/rb.preset';
+    if (is_dir($preset_root)) {
+        $preset_dirs = @scandir($preset_root);
+        if ($preset_dirs !== false) {
+            foreach ($preset_dirs as $pname) {
+                if ($pname === '.' || $pname === '..') continue;
+                $p_skin_root = $preset_root . '/' . $pname . '/' . G5_SKIN_DIR;
+                if (!is_dir($p_skin_root)) continue;
+                $p_dirs = rb_skin_dir($skin_gubun, $p_skin_root);
+                if (!empty($p_dirs)) {
+                    foreach ($p_dirs as $dir) {
+                        $skins[] = 'rb.preset/' . $pname . '/' . G5_SKIN_DIR . '/' . $skin_gubun . '/' . $dir;
+                    }
+                }
+            }
+        }
+    }
 
+    // 출력
     for ($i = 0; $i < count($skins); $i++) {
 
-        if (preg_match('#^theme/(.+)$#', $skins[$i], $match)) {
-            $text = $match[1];
-        }
-        
-        if(strpos($skins[$i], "theme/") !== false) {
+        // theme/xxx
+        if (preg_match('#^theme/(.+)$#', $skins[$i], $m)) {
+            $text = $m[1];
             $str .= option_selected($skins[$i], $selected, $text);
+            continue;
         }
+
+        // rb.preset/<preset>/skin/<gubun>/<dir>
+        if (preg_match('#^rb\.preset/([^/]+)/' . preg_quote(G5_SKIN_DIR, '#') . '/' . preg_quote($skin_gubun, '#') . '/([^/]+)$#', $skins[$i], $m)) {
+            $preset_name = $m[1];
+            $dir_name    = $m[2];
+            $text = '(프리셋) ' . $preset_name . ' / ' . $dir_name;
+            $str .= option_selected($skins[$i], $selected, $text);
+            continue;
+        }
+
+        // 원래 로직은 theme/ 만 출력하므로, 기타 항목은 건너뜀
     }
 
     return $str;
@@ -759,17 +856,14 @@ function rb_skin_dir($skin, $skin_path = G5_SKIN_PATH)
 
     $result_array = array();
 
-    $dirname = $skin_path . '/' . $skin . '/';
+    $dirname = rtrim($skin_path, '/').'/'.$skin.'/';
     if (!is_dir($dirname)) {
         return array();
     }
 
     $handle = opendir($dirname);
-    while ($file = readdir($handle)) {
-        if ($file == '.' || $file == '..') {
-            continue;
-        }
-
+    while (($file = readdir($handle)) !== false) {
+        if ($file == '.' || $file == '..') continue;
         if (is_dir($dirname . $file)) {
             $result_array[] = $file;
         }
@@ -1119,10 +1213,15 @@ function rb_latest($bo_table, $skin_dir='', $rows=10, $subject_len=40, $cache_ti
     if (!$skin_dir) $skin_dir = 'basic';
     $time_unit = 3600;  // 1시간으로 고정
 
-    if(preg_match('#^theme/(.+)$#', $skin_dir, $match)) {
+    if (preg_match('#^rb\.preset/#', $skin_dir)) {
+        // 예) rb.preset/MY_PRESET/skin/latest/my-skin
+        $latest_skin_path = G5_PATH . '/rb/' . $skin_dir;
+        $latest_skin_url  = G5_URL  . '/rb/' . $skin_dir;
+
+    } else if (preg_match('#^theme/(.+)$#', $skin_dir, $match)) {
         if (G5_IS_MOBILE) {
             $latest_skin_path = G5_THEME_MOBILE_PATH.'/'.G5_SKIN_DIR.'/latest/'.$match[1];
-            if(!is_dir($latest_skin_path))
+            if (!is_dir($latest_skin_path))
                 $latest_skin_path = G5_THEME_PATH.'/'.G5_SKIN_DIR.'/latest/'.$match[1];
             $latest_skin_url = str_replace(G5_PATH, G5_URL, $latest_skin_path);
         } else {
@@ -1130,8 +1229,9 @@ function rb_latest($bo_table, $skin_dir='', $rows=10, $subject_len=40, $cache_ti
             $latest_skin_url = str_replace(G5_PATH, G5_URL, $latest_skin_path);
         }
         $skin_dir = $match[1];
+
     } else {
-        if(G5_IS_MOBILE) {
+        if (G5_IS_MOBILE) {
             $latest_skin_path = G5_MOBILE_PATH.'/'.G5_SKIN_DIR.'/latest/'.$skin_dir;
             $latest_skin_url  = G5_MOBILE_URL.'/'.G5_SKIN_DIR.'/latest/'.$skin_dir;
         } else {
@@ -1139,6 +1239,7 @@ function rb_latest($bo_table, $skin_dir='', $rows=10, $subject_len=40, $cache_ti
             $latest_skin_url  = G5_SKIN_URL.'/latest/'.$skin_dir;
         }
     }
+
 
     $caches = false;
 
@@ -1253,7 +1354,12 @@ function rb_latest_tabs($skin_dir = '', $json_list = '', $rows = 10, $subject_le
 
     $time_unit = 3600; // 1시간
 
-    if (preg_match('#^theme/(.+)$#', $skin_dir, $match)) {
+    if (preg_match('#^rb\.preset/#', $skin_dir)) {
+        // 예) rb.preset/TEST_PRESET/skin/latest_tabs/my-skin
+        $latest_skin_path = G5_PATH . '/rb/' . $skin_dir;
+        $latest_skin_url  = G5_URL  . '/rb/' . $skin_dir;
+
+    } else if (preg_match('#^theme/(.+)$#', $skin_dir, $match)) {
         if (G5_IS_MOBILE) {
             $latest_skin_path = G5_THEME_MOBILE_PATH.'/'.G5_SKIN_DIR.'/latest_tabs/'.$match[1];
             if (!is_dir($latest_skin_path))
@@ -1264,6 +1370,7 @@ function rb_latest_tabs($skin_dir = '', $json_list = '', $rows = 10, $subject_le
             $latest_skin_url = str_replace(G5_PATH, G5_URL, $latest_skin_path);
         }
         $skin_dir = $match[1];
+
     } else {
         if (G5_IS_MOBILE) {
             $latest_skin_path = G5_MOBILE_PATH.'/'.G5_SKIN_DIR.'/latest_tabs/'.$skin_dir;

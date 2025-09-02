@@ -3,7 +3,9 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.config/style.css?ver='.G5_TIME_YMDHIS.'">', 0);
+add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.config/preset.css?ver='.G5_TIME_YMDHIS.'">', 0);
 add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.config/coloris/coloris.css?ver='.G5_TIME_YMDHIS.'">', 0);
+add_javascript('<script src="'.G5_URL.'/rb/rb.config/js/rb.module_preset.js"></script>', 0);
 add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></script>', 0);
 ?>
 
@@ -17,6 +19,11 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
     </a>
     <a class="sh-side-options-item sh-accent-color mobule_set_btn" title="모듈설정" onclick="toggleSideOptions();">
         <div class="sh-side-options-item-container"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_mod.svg"></div>
+    </a>
+    <a class="sh-side-options-item sh-accent-color preset_set_btn" title="프리셋 설정" onclick="toggleSideOptions_open_preset();">
+    <div class="sh-side-options-item-container">
+        <img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_preset.svg" alt="프리셋">
+    </div>
     </a>
 
     <a class="sh-side-options-item sh-accent-color setting_set_btn" title="환경설정" onclick="toggleSideOptions_open_set();">
@@ -35,6 +42,51 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
         <div class="sh-side-demos-loop">
             <div class="sh-side-demos-loop-container">
+
+                <?php
+                    $preset_type = defined('_SHOP_') ? "shop" : "community";
+                    $preset_type_text = $preset_type == "shop" ? "영카트" : "커뮤니티";
+                ?>
+                <div class="rb_config rb_config_mod3">
+                    <input type="hidden" name="preset_md_theme" value="<?php echo $rb_core['theme'];?>">
+                    <input type="hidden" name="preset_md_layout" value="<?php echo $rb_core['layout'];?>">
+                    <input type="hidden" name="preset_md_type" value="<?php echo $preset_type;?>">
+
+                    <h2 class="font-B"><span><?php echo $preset_type_text; ?></span> 모듈 프리셋 설정</h2>
+                    <h6 class="font-R rb_config_sub_txt">모듈 프리셋을 내보내기 또는 적용할 수 있습니다.<br>프리셋이 제작된 리빌더 버전에 따라 적용되지 않을 수 있습니다.<br><br>현재 리빌더 버전 : <?php echo RB_VER;?></h6>
+
+
+                    
+                    <ul class="rb_config_sec">
+                        <h6 class="font-B">레이아웃 선택</h6>
+                        <h6 class="font-R rb_config_sub_txt">내보내기/적용 레이아웃을 선택하세요.<br>선택한 레이아웃이 좌측에 표시됩니다.</h6>
+                        <select class="select mt-5 w100 mod_send" name="preset_selected_layout">
+                            <option value="">모듈 레이아웃 선택</option>
+                        </select>
+                    </ul>
+
+                    <ul class="rb_config_sec select_module">
+                        <h6 class="font-B">프리셋 내보내기</h6>
+                        <h6 class="font-R rb_config_sub_txt">내보내기 할 모듈을 선택하세요.<br>선택한 모듈이 좌측에 표시됩니다.</h6>
+
+                        <div class="module_list_wrap">
+                            <div class="module_list_content"></div>
+                        </div>
+                    </ul>
+
+                    <ul class="rb_config_sec preset_apply">
+                        <h6 class="font-B">프리셋 적용하기</h6>
+                        <h6 class="font-R rb_config_sub_txt">적용할 프리셋을 선택하세요.<br>제작된 환경의 리빌더 버전을 확인하세요.</h6>
+                        <select class="select mt-5 w100 mod_send" name="preset_selected">
+                            <option value="">프리셋 선택</option>
+                            <?php echo rb_preset_dir_select($preset_type); ?>
+                        </select>
+
+                        <div class="preset_info">
+
+                        </div>
+                    </ul>
+                </div>
 
                 <div class="rb_config rb_config_mod2" id="inq_res">
                     <h2 class="font-B">모듈설정</h2>
@@ -1349,6 +1401,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
     $(document).ready(function() {
         $('.rb_config_mod1').hide();
         $('.rb_config_mod2').hide();
+        $('.rb_config_mod3').hide();
         $("#saveOrderButton").hide();
     });
 
@@ -1417,6 +1470,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
     function toggleSideOptions_open_mod() {
 
         $('.rb_config_mod1').hide();
+        $('.rb_config_mod3').hide();
         $('.rb_config_mod2').show();
 
         // 모듈설정 활성
@@ -1424,6 +1478,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         $('.rb_layout_box').addClass('bg_fff');
         $('.mobule_set_btn').addClass('open');
         $('.setting_set_btn').removeClass('open');
+        $('.preset_set_btn').removeClass('open');
         $('.add_module_wrap').show(); //2.1.4 추가
 
         // 모듈이동
@@ -1596,12 +1651,14 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
     function toggleSideOptions_close_mod() {
         $('.rb_config_mod1').hide();
         $('.rb_config_mod2').hide();
+        $('.rb_config_mod3').hide();
 
         // 모듈설정 비활성
         $(".flex_box").sortable("destroy");
         $('.content_box').removeClass('handles');
         $('.mobule_set_btn').removeClass('open');
         $('.setting_set_btn').removeClass('open');
+        $('.preset_set_btn').removeClass('open');
         $('.add_module_wrap').hide(); //2.1.4 추가
 
         toggleSideOptions_close();
@@ -1615,10 +1672,12 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
         $('.rb_config_mod1').show();
         $('.rb_config_mod2').hide();
+        $('.rb_config_mod3').hide();
 
         //환경설정 활성
         $('.setting_set_btn').addClass('open');
         $('.mobule_set_btn').removeClass('open');
+        $('.preset_set_btn').removeClass('open');
         $('.content_box').removeClass('content_box_set');
         $('.rb_layout_box').removeClass('bg_fff');
         $('.add_module_wrap').hide(); //2.1.4 추가
@@ -1637,6 +1696,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
         $('.setting_set_btn').removeClass('open');
         $('.mobule_set_btn').removeClass('open');
+        $('.preset_set_btn').removeClass('open');
         $('.content_box').removeClass('content_box_set');
         $('.rb_layout_box').removeClass('bg_fff');
         $('.add_module_wrap').hide(); //2.1.4 추가
