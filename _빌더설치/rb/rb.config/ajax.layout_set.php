@@ -51,52 +51,64 @@ foreach ($layouts as $layout_no) {
     $result = sql_query($sql);
     $sql_cnts = sql_fetch("SELECT COUNT(*) as cnt FROM rb_module WHERE md_layout = '" . $layout_no . "' AND md_theme = '" . $theme_name . "' AND md_layout_name = '" . $layout_name . "'");
     $rb_module_table = "rb_module";
-
+    
     $output = "<?php\nob_start();\n\n\$rb_module_table = 'rb_module';\n\$GLOBALS['rb_module_table'] = \$rb_module_table;\n\$is_admin = " . var_export($is_admin, true) . ";\n?>\n";
 
     while ($row_mod = sql_fetch_array($result)) {
         ob_start();
         echo "<?php\n\$row_mod = " . var_export($row_mod, true) . ";\n?>\n";
         ?>
-
-
-        <div
-        class="rb_layout_box <?php echo isset($row_mod['md_show']) ? $row_mod['md_show'] : ''; ?>"
-        style="width:<?php echo $row_mod['md_width']; ?><?php echo !empty($row_mod['md_size']) ? $row_mod['md_size'] : '%'; ?>; height:<?php echo $row_mod['md_height']; ?>;
+        
+        
+        <div 
+        class="rb_layout_box <?php echo isset($row_mod['md_show']) ? $row_mod['md_show'] : ''; ?>" 
+        style="width:<?php echo $row_mod['md_width']; ?><?php echo !empty($row_mod['md_size']) ? $row_mod['md_size'] : '%'; ?>; height:<?php echo $row_mod['md_height']; ?>; 
         margin-top:<?php
             echo IS_MOBILE()
                 ? (!empty($row_mod['md_margin_top_mo']) ? $row_mod['md_margin_top_mo'] : '0')
                 : (!empty($row_mod['md_margin_top_pc']) ? $row_mod['md_margin_top_pc'] : '0');
-        ?>px;
+        ?>px; 
         margin-bottom:<?php
             echo IS_MOBILE()
                 ? (!empty($row_mod['md_margin_btm_mo']) ? $row_mod['md_margin_btm_mo'] : '0')
                 : (!empty($row_mod['md_margin_btm_pc']) ? $row_mod['md_margin_btm_pc'] : '0');
-        ?>px;"
-        data-order-id="<?php echo $row_mod['md_id']; ?>"
-        data-id="<?php echo $row_mod['md_id']; ?>"
-        data-layout="<?php echo $row_mod['md_layout']; ?>"
+        ?>px;" 
+        data-order-id="<?php echo $row_mod['md_id']; ?>" 
+        data-id="<?php echo $row_mod['md_id']; ?>" 
+        data-layout="<?php echo $row_mod['md_layout']; ?>" 
         data-title="<?php echo $row_mod['md_title']; ?>"
         >
-
+           
             <ul class="content_box rb_module_<?php echo $row_mod['md_id']; ?> rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_radius_<?php echo $row_mod['md_radius']; ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?> <?php echo isset($row_mod['md_show']) ? $row_mod['md_show'] : ''; ?> <?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 1) { ?>rb_module_wide<?php } ?> <?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 2) { ?>rb_module_mid<?php } ?>" >
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'latest') { ?>
                     <div class="module_latest_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>">
-                        <?php echo '<?php echo rb_latest("' . $row_mod['md_bo_table'] . '", "' . $row_mod['md_skin'] . '", ' . $row_mod['md_cnt'] . ', 999, 1, ' . $row_mod['md_id'] . ', "' . $row_mod['md_sca'] . '", "' . $row_mod['md_order_latest'] . '", "' . $rb_module_table . '", "' . $row_mod['md_notice'] . '"); ?>'; ?>
+                        <?php if (empty($row_mod['md_bo_table'])) { ?>
+                            <?php if ($is_admin) { ?>
+                                <div class="rb_module_notice">모듈 설정에서 게시판을 설정해주세요.</div>
+                            <?php } ?>
+                        <?php } else { ?>
+                            <?php echo '<?php echo rb_latest("' . $row_mod['md_bo_table'] . '", "' . $row_mod['md_skin'] . '", ' . $row_mod['md_cnt'] . ', 999, 1, ' . $row_mod['md_id'] . ', "' . $row_mod['md_sca'] . '", "' . $row_mod['md_order_latest'] . '", "' . $rb_module_table . '", "' . $row_mod['md_notice'] . '"); ?>'; ?>
+                        <?php } ?>
                     </div>
                 <?php } ?>
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'tab') { ?>
-                <div class="module_latest_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>">
-                <?php
-                    $tab_list_clean = addslashes($row_mod['md_tab_list']);
-
-                    $tab_code = '<?php echo rb_latest_tabs("' . $row_mod['md_tab_skin'] . '", "' . $tab_list_clean . '", ' . intval($row_mod['md_cnt']) . ', 999, 1, "' . $row_mod['md_id'] . '", "' . $row_mod['md_order_latest'] . '", "' . $rb_module_table . '", "' . $row_mod['md_notice'] . '"); ?>';
-                    echo $tab_code;
-                ?>
-                </div>
+                    <div class="module_latest_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>">
+                    <?php
+                        if (empty($row_mod['md_tab_list'])) {
+                            if ($is_admin) {
+                                echo '<div class="rb_module_notice">모듈 설정에서 게시판을 설정해주세요.</div>';
+                            }
+                        } else {
+                            $tab_list_clean = addslashes($row_mod['md_tab_list']);
+                            $tab_code = '<?php echo rb_latest_tabs("' . $row_mod['md_tab_skin'] . '", "' . $tab_list_clean . '", ' . intval($row_mod['md_cnt']) . ', 999, 1, "' . $row_mod['md_id'] . '", "' . $row_mod['md_order_latest'] . '", "' . $rb_module_table . '", "' . $row_mod['md_notice'] . '"); ?>';
+                            echo $tab_code;
+                        }
+                    ?>
+                    </div>
                 <?php } ?>
+
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'widget') { ?>
                     <div class="module_widget_wrap">
@@ -105,7 +117,7 @@ foreach ($layouts as $layout_no) {
                 <?php } ?>
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'banner') { ?>
-
+                   
                     <div class="bbs_main_wrap_tit mo-mb-0" style="display:<?php echo (isset($row_mod['md_title_hide']) && $row_mod['md_title_hide'] == '1') ? 'none' : 'block'; ?>">
                         <ul class="bbs_main_wrap_tit_l">
                             <!-- 타이틀 { -->
@@ -119,15 +131,22 @@ foreach ($layouts as $layout_no) {
 
                         <div class="cb"></div>
                     </div>
-
+                    
                     <div class="module_banner_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>">
-                        <?php echo '<?php echo rb_banners("' . $row_mod['md_banner'] . '", "' . $row_mod['md_banner_id'] . '", "' . $row_mod['md_banner_skin'] . '", "' . $row_mod['md_order_banner'] . '"); ?>'; ?>
+                        <?php if (empty($row_mod['md_banner'])) { ?>
+                            <?php if ($is_admin) { ?>
+                                <div class="rb_module_notice">모듈 설정에서 배너를 설정해주세요.</div>
+                            <?php } ?>
+                        <?php } else { ?>
+                            <?php echo '<?php echo rb_banners("' . $row_mod['md_banner'] . '", "' . $row_mod['md_banner_id'] . '", "' . $row_mod['md_banner_skin'] . '", "' . $row_mod['md_order_banner'] . '"); ?>'; ?>
+                        <?php } ?>
                     </div>
 
+                    
                 <?php } ?>
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'poll') { ?>
-
+                   
                     <div class="bbs_main_wrap_tit" style="display:<?php echo (isset($row_mod['md_title_hide']) && $row_mod['md_title_hide'] == '1') ? 'none' : 'block'; ?>">
                         <ul class="bbs_main_wrap_tit_l">
                             <!-- 타이틀 { -->
@@ -141,9 +160,15 @@ foreach ($layouts as $layout_no) {
 
                         <div class="cb"></div>
                     </div>
-
+                    
                     <div class="module_poll_wrap">
-                        <?php echo '<?php echo poll("' . $row_mod['md_poll'] . '", "' . $row_mod['md_poll_id'] . '"); ?>'; ?>
+                        <?php if (empty($row_mod['md_poll'])) { ?>
+                            <?php if ($is_admin) { ?>
+                                <div class="rb_module_notice">모듈 설정에서 투표를 설정해주세요.</div>
+                            <?php } ?>
+                        <?php } else { ?>
+                            <?php echo '<?php echo poll("' . $row_mod['md_poll'] . '", "' . $row_mod['md_poll_id'] . '"); ?>'; ?>
+                        <?php } ?>
                     </div>
                 <?php } ?>
 
@@ -160,10 +185,10 @@ foreach ($layouts as $layout_no) {
                     </span>
                 <?php } ?>
             </ul>
-
+            
             <div class="flex_box_inner flex_box" data-layout="<?php echo $row_mod['md_layout']; ?>-<?php echo $row_mod['md_id']; ?>"></div>
         </div>
-
+        
         <script>
             $(function(){
                 $('.content_box.rb_module_wide, .content_box.rb_module_mid').each(function(){
@@ -172,7 +197,7 @@ foreach ($layouts as $layout_no) {
                 });
             });
         </script>
-
+        
         <?php
         $output .= ob_get_clean();
     }

@@ -139,6 +139,8 @@ try {
             $targets[$zipRel] = null; // 값은 아래에서 채움
         }
 
+        unset($row['md_bo_table'], $row['md_tab_list'], $row['md_banner'], $row['md_poll']);
+
         $mods[] = $row;
     }
 
