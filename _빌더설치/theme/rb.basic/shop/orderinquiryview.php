@@ -24,11 +24,19 @@ if($od['od_pg'] == 'lg') {
         $st_count1 = $st_count2 = 0;
         $custom_cancel = false;
 
+        if(isset($pa['pa_is']) && $pa['pa_is'] == 1) {
         $sql = " select it_id, it_name, ct_send_cost, it_sc_type, ct_partner
                     from {$g5['g5_shop_cart_table']}
                     where od_id = '$od_id'
                     group by it_id
                     order by ct_id ";
+        } else {
+        $sql = " select it_id, it_name, ct_send_cost, it_sc_type
+                    from {$g5['g5_shop_cart_table']}
+                    where od_id = '$od_id'
+                    group by it_id
+                    order by ct_id ";
+        }
         $result = sql_query($sql);
         ?>
         

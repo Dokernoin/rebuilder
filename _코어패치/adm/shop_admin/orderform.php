@@ -204,9 +204,10 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
             // 상품이미지
             $image = get_it_image($row['it_id'], 50, 50);
 
-            $mbx = get_member($row['ct_partner']);
-            $names = isset($mbx['mb_nick']) ? get_text($mbx['mb_nick']) : '';
-
+            if(isset($row['ct_partner']) && $row['ct_partner']) {
+                $mbx = get_member($row['ct_partner']);
+                $names = isset($mbx['mb_nick']) ? get_text($mbx['mb_nick']) : '';
+            }
 
             // 상품의 옵션정보
             if(isset($pa['pa_is']) && $pa['pa_is'] == 1) {
