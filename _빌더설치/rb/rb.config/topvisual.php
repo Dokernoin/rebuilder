@@ -99,24 +99,36 @@ if (!defined('_GNUBOARD_')) exit;
 
                 <!-- 블러 배경 -->
                 <div id="rb_topvisual_bl" style="border-radius:<?php echo $topvisual_radius ?>px; background-color:rgba(0,0,0,<?php echo $topvisual_bl / 100; ?>);"></div>
+
+                <?php if ($is_admin) { ?>
+                <div id="topvisual_btn_wrap">
+                    <button type="button" id="save_topvisual_btn">워딩 저장</button>
+                    <button type="button" id="delete_topvisual_btn">이미지 삭제</button>
+                </div>
+                <?php } ?>
             </div>
 
             <?php if ($is_admin) { ?>
-            <div id="topvisual_btn_wrap">
-                <button type="button" id="save_topvisual_btn">워딩 저장</button>
-                <button type="button" id="delete_topvisual_btn">이미지 삭제</button>
-            </div>
+
             <script>
             const visual = document.getElementById('rb_topvisual');
             const fileInput = document.getElementById('topvisual_file_input');
 
             visual.addEventListener('click', (e) => {
-                if (!e.target.closest('#rb_topvisual_txt')) fileInput.click();
+              // 텍스트 영역/컨트롤/버튼 등은 업로드 금지
+              const isCtrl  = e.target.closest('[contenteditable="true"]');
+              const isBtns  = e.target.closest('#topvisual_btn_wrap'); // 혹시 시각적으로 겹치는 경우 대비
+
+              if (isCtrl || isBtns) return;
+
+              // 배경/블러 층을 클릭했을 때만 파일 선택
+              const isBg = (e.target === visual) || e.target.id === 'rb_topvisual_bl';
+              if (isBg) fileInput.click();
             });
 
             visual.addEventListener('dragover', e => {
                 e.preventDefault();
-                visual.style.outline = '2px dashed #ccc';
+                visual.style.outline = '2px dashed #00d6ee';
             });
             visual.addEventListener('dragleave', () => visual.style.outline = 'none');
             visual.addEventListener('drop', e => {
