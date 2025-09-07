@@ -29,21 +29,6 @@ if(defined('_INDEX_')) { // index에서만 실행
 }
 /* } */
 
-// 사이드영역 숨김처리
-$current_page = basename($_SERVER['PHP_SELF']);
-if (
-    $current_page === 'mypage.php' ||
-    $current_page === 'partner.php' ||
-    $current_page === 'cart.php' ||
-    $current_page === 'orderform.php' ||
-    $current_page === 'orderinquiry.php' ||
-    $current_page === 'orderinquiryview.php' ||
-    $current_page === 'couponzone.php' ||
-    $current_page === 'wishlist.php'
-) {
-    echo '<style>#rb_sidemenu_shop {display:none;} #rb_sidemenu_float_shop {width:100% !important; float:none !important;}</style>';
-}
-
 ?>
 
 <?php 
@@ -100,19 +85,26 @@ if (
         <?php } ?>
         ">
         
-        <?php if (!defined("_INDEX_")) { ?>
+        <?php
+            $safe = sql_escape_string($rb_page_urls);
+            $row = sql_fetch("SELECT 1 AS ok FROM rb_sidebar_hide WHERE s_code='{$safe}' LIMIT 1");
+            $sidebar_hidden = (bool)$row;
+        ?>
+
+        <?php if (!defined('_INDEX_') && !$sidebar_hidden) { ?>
 
             <?php
                 $side_float_shop = "";
-                if (isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "left") {
+                if (isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "left" && !$sidebar_hidden) {
                     $side_float_shop = "float:right; width: calc(100% - ".$rb_core['sidemenu_width_shop']."px);";
-                } else if (isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "right") {
+                } else if (isset($rb_core['sidemenu_shop']) && $rb_core['sidemenu_shop'] == "right" && !$sidebar_hidden) {
                     $side_float_shop = "float:left; width: calc(100% - ".$rb_core['sidemenu_width_shop']."px);";
                 }
             ?>
-            <?php if(isset($side_float_shop) && $side_float_shop) { ?>
+            <?php if (!empty($side_float_shop)) { ?>
             <div id="rb_sidemenu_float_shop" style="<?php echo $side_float_shop ?>">
             <?php } ?>
+
         <?php } ?>
 
 

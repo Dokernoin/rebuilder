@@ -28,8 +28,8 @@ $admin = get_admin("super");
             <?php } ?>
         <?php } ?>
 
-        <?php if (!defined("_INDEX_")) { ?>
-            <?php if(isset($side_float_shop) && $side_float_shop) { ?>
+        <?php if (!defined('_INDEX_') && !$sidebar_hidden) { ?>
+            <?php if (!empty($side_float_shop)) { ?>
             </div>
             <?php } ?>
 

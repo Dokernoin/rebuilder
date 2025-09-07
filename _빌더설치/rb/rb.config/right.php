@@ -550,7 +550,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
                     <ul class="rb_config_sec" <?php if(defined('_SHOP_')) { // 영카트?>style="display:none !important;" <?php } else { ?>style="display:block !important;" <?php } ?>>
 
-                        <h6 class="font-B">서브 사이드 영역 설정</h6>
+                        <h6 class="font-B"><?php if(defined('_SHOP_')) { // 영카트?>마켓 <?php } ?>서브 사이드 영역 설정</h6>
                         <h6 class="font-R rb_config_sub_txt">
                             서브 페이지 사이드 영역을 설정할 수 있습니다.<br>
                             서브 사이드 영역은 공용으로 해당영역에 모듈을 추가할 수 있으며, 마켓과 구분됩니다.
@@ -666,6 +666,56 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
 
 
+                        </div>
+
+                    </ul>
+
+
+                    <ul class="rb_config_sec">
+
+                        <h6 class="font-B">서브 사이드 영역 노출 설정</h6>
+                        <h6 class="font-R rb_config_sub_txt">
+                            서브 사이드 영역을 현재페이지(노드) 에서 숨길 수 있습니다.<br>
+                            서브 사이드 영역 설정 여부와 무관하게 우선적용 됩니다.
+                        </h6>
+
+                        <div class="font-12 rb_sub_page_cr">
+                            <?php
+                        $inherit_node = rb_get_inherited_topvisual_node($rb_page_urls);
+
+                        if ($inherit_node) {
+                            $name = $inherit_node['v_name'] ?: $inherit_node['v_code'];
+                            $url  = $inherit_node['v_url'] ?: '#';
+                            echo "<div class='mb-15'><a href=\"{$url}\"><span class='main_rb_bg'>상속 노드 : {$name}</span></a></div>";
+                        }
+
+                        ?>
+                            <span>현재 노드 : <?php echo cut_str($rb_page_urls, 40) ?></span>
+                        </div>
+
+                        <div>
+                            <ul class="rows_inp_lr mt-10">
+                                <li class="rows_inp_r mt-5">
+                                    <?php
+                                    // SQL 인젝션 방지
+                                    $rb_page_esc = sql_escape_string($rb_page_urls);
+                                    $sidebar_hide_sql = "SELECT `s_code` FROM `rb_sidebar_hide` WHERE `s_code` = '{$rb_page_esc}'";
+                                    $sidebar_hide = sql_fetch($sidebar_hide_sql);
+
+                                    // 존재하면 미노출(1), 없으면 노출(0)
+                                    $sidebar_hidden = $sidebar_hide ? 1 : 0;
+                                    ?>
+                                    <input type="hidden" name="s_code" id="s_code" value="<?php echo $rb_page_urls; ?>">
+
+                                    <input type="radio" name="s_use" id="s_use_0" class="magic-radio" value="0" <?php echo ($sidebar_hidden == 0 ? 'checked' : ''); ?>>
+                                    <label for="s_use_0">노출</label>
+
+                                    <input type="radio" name="s_use" id="s_use_1" class="magic-radio" value="1" <?php echo ($sidebar_hidden == 1 ? 'checked' : ''); ?>>
+                                    <label for="s_use_1">미노출</label>
+                                </li>
+
+                                <div class="cb"></div>
+                            </ul>
                         </div>
 
                     </ul>
@@ -1095,24 +1145,24 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                     rb_confirm("현재 설정된 서브 상단영역을 모두 초기화 합니다.\n입력된 내용 및 설정값이 모두 삭제 됩니다.\n\n계속 하시겠습니까?").then(function(confirmed) {
                                         if (confirmed) {
                                             fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.clear_topvisual.php', {
-                                                method: 'POST',
-                                                headers: {
-                                                    'Content-Type': 'application/x-www-form-urlencoded'
-                                                },
-                                                body: 'act=top_clear'
-                                            })
-                                            .then(res => res.text())
-                                            .then(res => {
-                                                if (res.trim() === 'ok') {
-                                                    //alert('초기화 완료 되었습니다.');
-                                                    location.reload();
-                                                } else {
-                                                    alert('초기화 실패: ' + res);
-                                                }
-                                            })
-                                            .catch(err => {
-                                                alert('에러 발생: ' + err);
-                                            });
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/x-www-form-urlencoded'
+                                                    },
+                                                    body: 'act=top_clear'
+                                                })
+                                                .then(res => res.text())
+                                                .then(res => {
+                                                    if (res.trim() === 'ok') {
+                                                        //alert('초기화 완료 되었습니다.');
+                                                        location.reload();
+                                                    } else {
+                                                        alert('초기화 실패: ' + res);
+                                                    }
+                                                })
+                                                .catch(err => {
+                                                    alert('에러 발생: ' + err);
+                                                });
                                         } else {
                                             // 취소 시 실행 코드
                                         }
@@ -1337,24 +1387,24 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                 rb_confirm("/data/cache/ 폴더의 모든 캐시파일이 제거되며,\n비로그인 접속시 메인 레이아웃 캐시가 재생성 됩니다.\n\n계속하시겠습니까?").then(function(confirmed) {
                                     if (confirmed) {
                                         fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.clear_cache.php', {
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/x-www-form-urlencoded'
-                                            },
-                                            body: 'act=clear'
-                                        })
-                                        .then(res => res.text())
-                                        .then(res => {
-                                            if (res.trim() === 'ok') {
-                                                //alert('캐시 파일이 모두 삭제되었습니다.');
-                                                location.reload();
-                                            } else {
-                                                alert('삭제 실패: ' + res);
-                                            }
-                                        })
-                                        .catch(err => {
-                                            alert('에러 발생: ' + err);
-                                        });
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                                },
+                                                body: 'act=clear'
+                                            })
+                                            .then(res => res.text())
+                                            .then(res => {
+                                                if (res.trim() === 'ok') {
+                                                    //alert('캐시 파일이 모두 삭제되었습니다.');
+                                                    location.reload();
+                                                } else {
+                                                    alert('삭제 실패: ' + res);
+                                                }
+                                            })
+                                            .catch(err => {
+                                                alert('에러 발생: ' + err);
+                                            });
                                     } else {
                                         // 취소 시 실행 코드
                                     }
@@ -1378,7 +1428,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                             } catch (e) {
                                 console.error(e);
                             }
-                            //location.reload();
+                            location.reload();
                         });
                     </script>
 
@@ -3244,6 +3294,34 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                 alert('문제가 발생 했습니다. 다시 시도해주세요.');
             }
         });
+
+
+        // 영역 숨기기
+        const s_use = $('input[name="s_use"]:checked').val();
+        const s_code = $('#s_code').val(); // ← #v_code → #s_code 로 수정
+
+        $.ajax({
+            url: '<?php echo G5_URL ?>/rb/rb.config/ajax.subside_hide.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                s_code: s_code,
+                s_use: s_use
+            },
+            success: function(data) {
+                if (data.status === 'ok') {
+
+                } else {
+                    alert('오류 발생: ' + (data.message || '알 수 없는 오류'));
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('서버 오류 발생: ' + error);
+                console.error(xhr.responseText);
+            }
+        });
+
+
         <?php } ?>
 
 

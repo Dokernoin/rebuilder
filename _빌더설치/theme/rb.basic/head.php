@@ -90,19 +90,26 @@ include_once(G5_PATH.'/rb/rb.mod/alarm/alarm.php'); // 실시간 알림
         <?php } ?>
         ">
 
-        <?php if (!defined("_INDEX_")) { ?>
+        <?php
+            $safe = sql_escape_string($rb_page_urls);
+            $row = sql_fetch("SELECT 1 AS ok FROM rb_sidebar_hide WHERE s_code='{$safe}' LIMIT 1");
+            $sidebar_hidden = (bool)$row;
+        ?>
+
+        <?php if (!defined('_INDEX_') && !$sidebar_hidden) { ?>
 
             <?php
                 $side_float = "";
-                if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left") {
+                if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left" && !$sidebar_hidden) {
                     $side_float = "float:right; width: calc(100% - ".$rb_core['sidemenu_width']."px);";
-                } else if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") {
+                } else if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right" && !$sidebar_hidden) {
                     $side_float = "float:left; width: calc(100% - ".$rb_core['sidemenu_width']."px);";
                 }
             ?>
-            <?php if(isset($side_float) && $side_float) { ?>
+            <?php if (!empty($side_float)) { ?>
             <div id="rb_sidemenu_float" style="<?php echo $side_float ?>">
             <?php } ?>
+
         <?php } ?>
 
 
