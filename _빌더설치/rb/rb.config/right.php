@@ -5,7 +5,16 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.config/style.css?ver='.G5_TIME_YMDHIS.'">', 0);
 add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.config/coloris/coloris.css?ver='.G5_TIME_YMDHIS.'">', 0);
 add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></script>', 0);
+
+//CSRF 보안
+if (!isset($_SESSION['rb_widget_csrf'])) {
+  $_SESSION['rb_widget_csrf'] = bin2hex(function_exists('random_bytes') ? random_bytes(32) : openssl_random_pseudo_bytes(32));
+}
 ?>
+
+<script>
+    window.RB_WIDGET_CSRF = "<?php echo $_SESSION['rb_widget_csrf'] ?>";
+</script>
 
 <div class="sh-side-options-container" style="margin-top:100px">
     <a href="javascript:void(0);" class="sh-side-options-item sh-accent-color" id="saveOrderButton" title="모듈정렬 저장">
@@ -18,6 +27,12 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
     <a class="sh-side-options-item sh-accent-color mobule_set_btn" title="모듈설정" onclick="toggleSideOptions();">
         <div class="sh-side-options-item-container"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_mod.svg"></div>
     </a>
+
+    <?php if (defined("_INDEX_")) { ?>
+    <a class="sh-side-options-item sh-accent-color section_set_btn" title="섹션설정" onclick="toggleSideSection();">
+        <div class="sh-side-options-item-container"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_sec.svg"></div>
+    </a>
+    <?php } ?>
 
     <a class="sh-side-options-item sh-accent-color setting_set_btn" title="환경설정" onclick="toggleSideOptions_open_set();">
         <div class="sh-side-options-item-container"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_set.svg"></div>
@@ -36,6 +51,17 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         <div class="sh-side-demos-loop">
             <div class="sh-side-demos-loop-container">
 
+                <div class="rb_config rb_config_mod3" id="inq_res_section">
+                    <h2 class="font-B">섹션설정</h2>
+                    <div class="rb_config_sec">
+                        <div class="no_data">
+                            변경할 섹션을 선택해주세요.<br>
+                            메인페이지의 각 섹션에 마우스를 오버해주세요.
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="rb_config rb_config_mod2" id="inq_res">
                     <h2 class="font-B">모듈설정</h2>
                     <div class="rb_config_sec">
@@ -49,7 +75,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 <div class="rb_config rb_config_mod1">
 
                     <h2 class="font-B">환경설정</h2>
-                    <h6 class="font-R rb_config_sub_txt">레이아웃 및 웹폰트는 새로고침 후 확인해주세요.<br>이외 모든 설정은 변경즉시 적용 됩니다.<br>서브영역 설정의 경우 서브페이지로 이동해주세요.</h6>
+                    <h6 class="font-R rb_config_sub_txt">웹사이트의 전반적인 환경설정 입니다.<br>서브영역 전용 설정의 경우<br>서브페이지에서 패널을 오픈해주세요.</h6>
                     <ul class="rb_config_sec">
                         <h6 class="font-B">강조컬러 설정 (공용)</h6>
                         <div class="config_wrap">
@@ -131,7 +157,22 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     </ul>
 
                     <ul class="rb_config_sec">
-                        <h6 class="font-B">모듈간격 설정 (공용)</h6>
+                        <h6 class="font-B">
+                            모듈간격 설정 (공용)
+
+                            <div class="rb-help" data-open="false">
+                                <button type="button" class="rb-help-btn" data-img="<?php echo G5_URL ?>/rb/rb.config/image/guide/help-img-2.png" data-txt="삽입된 모듈간의 간격을 일괄 조정할 수 있어요. 개별 조정도 가능하지만 일괄 조정이 필요할때 사용하세요." data-title="모듈 간격설정 이란?" data-alt="미리보기" aria-expanded="false">
+                                    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+                                        <g fill='none'>
+                                            <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
+                                            <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
+                                        </g>
+                                    </svg>
+                                </button>
+                                <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                            </div>
+
+                        </h6>
                         <h6 class="font-R rb_config_sub_txt">모듈간 간격을 설정할 수 있습니다.<br>내부 여백은 각 모듈 설정에서 개별 적용이 가능합니다.</h6>
                         <div class="config_wrap">
 
@@ -236,15 +277,15 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         <div class="config_wrap">
                             <ul>
 
-                                    <input type="radio" name="co_menu_shop" id="co_menu_shop_1" class="magic-radio mod_send" value="0" <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "" || isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "0") { ?>checked<?php } ?>><label for="co_menu_shop_1">기본</label>
-                                    <input type="radio" name="co_menu_shop" id="co_menu_shop_2" class="magic-radio mod_send" value="1" <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "1") { ?>checked<?php } ?>><label for="co_menu_shop_2">카테고리</label>
-                                    <input type="radio" name="co_menu_shop" id="co_menu_shop_3" class="magic-radio mod_send" value="2" <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "2") { ?>checked<?php } ?>><label for="co_menu_shop_3">카테고리+기본</label>
+                                <input type="radio" name="co_menu_shop" id="co_menu_shop_1" class="magic-radio mod_send" value="0" <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "" || isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "0") { ?>checked<?php } ?>><label for="co_menu_shop_1">기본</label>
+                                <input type="radio" name="co_menu_shop" id="co_menu_shop_2" class="magic-radio mod_send" value="1" <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "1") { ?>checked<?php } ?>><label for="co_menu_shop_2">카테고리</label>
+                                <input type="radio" name="co_menu_shop" id="co_menu_shop_3" class="magic-radio mod_send" value="2" <?php if (isset($rb_core['menu_shop']) && $rb_core['menu_shop'] == "2") { ?>checked<?php } ?>><label for="co_menu_shop_3">카테고리+기본</label>
 
                             </ul>
                         </div>
                     </ul>
                     <?php } else { ?>
-                        <input type="hidden" name="co_menu_shop" id="co_menu_shop" value="<?php echo !empty($rb_core['menu_shop']) ? $rb_core['menu_shop'] : ''; ?>">
+                    <input type="hidden" name="co_menu_shop" id="co_menu_shop" value="<?php echo !empty($rb_core['menu_shop']) ? $rb_core['menu_shop'] : ''; ?>">
                     <?php } ?>
 
 
@@ -486,9 +527,9 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                             var co_sidemenu_shop = $('input[name="co_sidemenu_shop"]:checked').val();
 
-                                            if(co_sidemenu_shop == 'left') {
+                                            if (co_sidemenu_shop == 'left') {
                                                 $('#rb_sidemenu_shop').css('padding-right', ui.value);
-                                            } else if(co_sidemenu_shop == 'right') {
+                                            } else if (co_sidemenu_shop == 'right') {
                                                 $('#rb_sidemenu_shop').css('padding-left', ui.value);
                                             }
 
@@ -606,9 +647,9 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                             var co_sidemenu = $('input[name="co_sidemenu"]:checked').val();
 
-                                            if(co_sidemenu == 'left') {
+                                            if (co_sidemenu == 'left') {
                                                 $('#rb_sidemenu').css('padding-right', ui.value);
-                                            } else if(co_sidemenu == 'right') {
+                                            } else if (co_sidemenu == 'right') {
                                                 $('#rb_sidemenu').css('padding-left', ui.value);
                                             }
 
@@ -639,7 +680,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         </h6>
 
                         <div class="font-12 rb_sub_page_cr">
-                        <?php
+                            <?php
                         $inherit_node = rb_get_inherited_topvisual_node($rb_page_urls);
 
                         if ($inherit_node) {
@@ -653,7 +694,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         ?>
 
 
-                        <span>현재 노드 : <?php echo cut_str($rb_page_urls, 40) ?></span>
+                            <span>현재 노드 : <?php echo cut_str($rb_page_urls, 40) ?></span>
                         </div>
 
                         <div>
@@ -662,17 +703,14 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                                 <li class="rows_inp_r mt-5">
                                     <input type="hidden" name="v_code" id="v_code" value="<?php echo $rb_page_urls ?>">
 
-                                    <input type="radio" name="v_use" id="v_use_0" class="magic-radio" value="0"
-                                    <?php if (!isset($rb_v_info['v_use']) || intval($rb_v_info['v_use']) === 0) { ?>checked<?php } ?>>
+                                    <input type="radio" name="v_use" id="v_use_0" class="magic-radio" value="0" <?php if (!isset($rb_v_info['v_use']) || intval($rb_v_info['v_use']) === 0) { ?>checked<?php } ?>>
                                     <label for="v_use_0">없음</label>
 
-                                    <input type="radio" name="v_use" id="v_use_1" class="magic-radio" value="1"
-                                    <?php if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 1) { ?>checked<?php } ?>>
+                                    <input type="radio" name="v_use" id="v_use_1" class="magic-radio" value="1" <?php if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 1) { ?>checked<?php } ?>>
                                     <label for="v_use_1">사용</label>
 
                                     <?php if(isset($cate_id) && $cate_id) { // 영카트?>
-                                    <input type="radio" name="v_use" id="v_use_2" class="magic-radio" value="2"
-                                    <?php if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 2) { ?>checked<?php } ?>>
+                                    <input type="radio" name="v_use" id="v_use_2" class="magic-radio" value="2" <?php if (isset($rb_v_info['v_use']) && intval($rb_v_info['v_use']) === 2) { ?>checked<?php } ?>>
                                     <label for="v_use_2">하위적용</label>
                                     <?php } ?>
 
@@ -683,68 +721,65 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         </div>
 
                         <script>
-
-                        function toggleTopVisualBox() {
-                            const useVal = $('input[name="v_use"]:checked').val();
-                            if (useVal === '1') {
-                                $('#rb_top_vis_wrap').show();
-                                $('#co_topvisual_style_all').prop('checked', false);
-                                $('#topvisual_style_all_wrap').hide();
-                            } else if (useVal === '2') {
-                                $('#rb_top_vis_wrap').show();
-                                $('#topvisual_style_all_wrap').show();
-                            } else {
-                                $('#rb_top_vis_wrap').hide();
-                                $('#co_topvisual_style_all').prop('checked', false);
-                                $('#topvisual_style_all_wrap').hide();
+                            function toggleTopVisualBox() {
+                                const useVal = $('input[name="v_use"]:checked').val();
+                                if (useVal === '1') {
+                                    $('#rb_top_vis_wrap').show();
+                                    $('#co_topvisual_style_all').prop('checked', false);
+                                    $('#topvisual_style_all_wrap').hide();
+                                } else if (useVal === '2') {
+                                    $('#rb_top_vis_wrap').show();
+                                    $('#topvisual_style_all_wrap').show();
+                                } else {
+                                    $('#rb_top_vis_wrap').hide();
+                                    $('#co_topvisual_style_all').prop('checked', false);
+                                    $('#topvisual_style_all_wrap').hide();
+                                }
                             }
-                        }
 
 
-                        $(document).ready(function () {
-                            // 페이지 로드시 적용
-                            toggleTopVisualBox();
+                            $(document).ready(function() {
+                                // 페이지 로드시 적용
+                                toggleTopVisualBox();
 
-                            // v_use 라디오 변경 시 AJAX + 표시제어
-                            $(document).on('change', 'input[name="v_use"]', function () {
-                                const v_use = $(this).val();
-                                const v_code = $('#v_code').val();
-                                const fullUrl = window.location.pathname + window.location.search;
+                                // v_use 라디오 변경 시 AJAX + 표시제어
+                                $(document).on('change', 'input[name="v_use"]', function() {
+                                    const v_use = $(this).val();
+                                    const v_code = $('#v_code').val();
+                                    const fullUrl = window.location.pathname + window.location.search;
 
-                                $.ajax({
-                                    url: '<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_add.php',
-                                    type: 'POST',
-                                    dataType: 'json',
-                                    data: {
-                                        v_code: v_code,
-                                        v_use: v_use,
-                                        v_url: fullUrl
-                                    },
-                                    success: function (data) {
-                                        if (data.status === 'ok') {
-                                            toggleTopVisualBox(); // AJAX 성공 후 표시 여부 적용
+                                    $.ajax({
+                                        url: '<?php echo G5_URL ?>/rb/rb.config/ajax.topvisual_add.php',
+                                        type: 'POST',
+                                        dataType: 'json',
+                                        data: {
+                                            v_code: v_code,
+                                            v_use: v_use,
+                                            v_url: fullUrl
+                                        },
+                                        success: function(data) {
+                                            if (data.status === 'ok') {
+                                                toggleTopVisualBox(); // AJAX 성공 후 표시 여부 적용
 
-                                            if (data.v_use == "1" || data.v_use == "2") {
-                                                $('#rb_topvisual').css('display', 'block');
-                                                $('#topvisual_btn_wrap').css('display', 'block');
+                                                if (data.v_use == "1" || data.v_use == "2") {
+                                                    $('#rb_topvisual').css('display', 'block');
+                                                    $('#topvisual_btn_wrap').css('display', 'block');
+                                                } else {
+                                                    $('#rb_topvisual').css('display', 'none');
+                                                    $('#topvisual_btn_wrap').css('display', 'none');
+                                                }
+
                                             } else {
-                                                $('#rb_topvisual').css('display', 'none');
-                                                $('#topvisual_btn_wrap').css('display', 'none');
+                                                alert('오류 발생: ' + (data.message || '알 수 없는 오류'));
                                             }
-
-                                        } else {
-                                            alert('오류 발생: ' + (data.message || '알 수 없는 오류'));
+                                        },
+                                        error: function(xhr, status, error) {
+                                            alert('서버 오류 발생: ' + error);
+                                            console.error(xhr.responseText);
                                         }
-                                    },
-                                    error: function (xhr, status, error) {
-                                        alert('서버 오류 발생: ' + error);
-                                        console.error(xhr.responseText);
-                                    }
+                                    });
                                 });
                             });
-                        });
-
-
                         </script>
 
 
@@ -774,7 +809,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                                     <li class="rows_inp_r mt-3">
                                         <div class="color_set_wrap square none_inp_cl tiny_inp_cl" style="position: relative;">
-                                        <input type="text" class="coloris mod_co_color" name="co_topvisual_bg_color" value="<?php echo !empty($rb_v_info['topvisual_bg_color']) ? $rb_v_info['topvisual_bg_color'] : '#f9f9f9'; ?>" style="width:200px !important;">
+                                            <input type="text" class="coloris mod_co_color" name="co_topvisual_bg_color" value="<?php echo !empty($rb_v_info['topvisual_bg_color']) ? $rb_v_info['topvisual_bg_color'] : '#f9f9f9'; ?>" style="width:200px !important;">
                                         </div>
                                     </li>
                                     <div class="cb"></div>
@@ -1054,27 +1089,36 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                             <button type="button" id="clear_top_btn" class="font-R">상단영역 전체 초기화</button>
                             <script>
-                            document.getElementById('clear_top_btn').addEventListener('click', function () {
-                                if (confirm('현재 설정된 서브 상단영역을 모두 초기화 합니다.\n입력된 내용 및 설정값이 모두 삭제 됩니다.\n\n계속 하시겠습니까?')) {
-                                    fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.clear_topvisual.php', {
-                                        method: 'POST',
-                                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                                        body: 'act=top_clear'
-                                    })
-                                    .then(res => res.text())
-                                    .then(res => {
-                                        if (res.trim() === 'ok') {
-                                            //alert('초기화 완료 되었습니다.');
-                                            location.reload();
+                                document.getElementById('clear_top_btn').addEventListener('click', function() {
+
+
+                                    rb_confirm("현재 설정된 서브 상단영역을 모두 초기화 합니다.\n입력된 내용 및 설정값이 모두 삭제 됩니다.\n\n계속 하시겠습니까?").then(function(confirmed) {
+                                        if (confirmed) {
+                                            fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.clear_topvisual.php', {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                                },
+                                                body: 'act=top_clear'
+                                            })
+                                            .then(res => res.text())
+                                            .then(res => {
+                                                if (res.trim() === 'ok') {
+                                                    //alert('초기화 완료 되었습니다.');
+                                                    location.reload();
+                                                } else {
+                                                    alert('초기화 실패: ' + res);
+                                                }
+                                            })
+                                            .catch(err => {
+                                                alert('에러 발생: ' + err);
+                                            });
                                         } else {
-                                            alert('초기화 실패: ' + res);
+                                            // 취소 시 실행 코드
                                         }
-                                    })
-                                    .catch(err => {
-                                        alert('에러 발생: ' + err);
                                     });
-                                }
-                            });
+
+                                });
                             </script>
 
 
@@ -1137,29 +1181,63 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                         </div>
                     </ul>
 
-                    <?php if (defined("_INDEX_")) { ?>
+
                     <ul class="rb_config_sec">
-                        <h6 class="font-B"><?php if(defined('_SHOP_')) { // 영카트?>마켓 <?php } ?>메인 상단여백 설정 (PC)</h6>
+                        <h6 class="font-B"><?php if(defined('_SHOP_')) { // 영카트?>마켓 <?php } ?>여백 설정 (PC)</h6>
                         <h6 class="font-R rb_config_sub_txt">
-                            PC버전 상단의 여백을 제거할 수 있습니다.
+                            PC버전 상/하단 여백을 설정할 수 있습니다.<br>
+                            0을 입력하시는 경우 여백이 제거 됩니다. (설정값-모듈간격)<br>
+                            값이 없으면 기본값이 들어갑니다.
                         </h6>
                         <div class="config_wrap">
-                            <ul>
-                                <?php if(defined('_SHOP_')) { // 영카트?>
-                                <input type="checkbox" name="co_main_padding_top_shop" id="co_main_padding_top_shop" class="magic-checkbox mod_send" value="1" <?php if(isset($rb_core['padding_top_shop']) && $rb_core['padding_top_shop'] == 1) { ?>checked<?php } ?>><label for="co_main_padding_top_shop">여백제거</label>
-                                <input type="checkbox" style="display:none;" name="co_main_padding_top" id="co_main_padding_top" class="magic-checkbox mod_send" value="1" <?php if(isset($rb_core['padding_top']) && $rb_core['padding_top'] == 1) { ?>checked<?php } ?>><label for="co_main_padding_top" style="display:none;">여백제거</label>
-                                <?php } else { ?>
-                                <input type="checkbox" name="co_main_padding_top" id="co_main_padding_top" class="magic-checkbox mod_send" value="1" <?php if(isset($rb_core['padding_top']) && $rb_core['padding_top'] == 1) { ?>checked<?php } ?>><label for="co_main_padding_top">여백제거</label>
-                                <input type="checkbox" style="display:none;" name="co_main_padding_top_shop" id="co_main_padding_top_shop" class="magic-checkbox mod_send" value="1" <?php if(isset($rb_core['padding_top_shop']) && $rb_core['padding_top_shop'] == 1) { ?>checked<?php } ?>><label for="co_main_padding_top_shop" style="display:none;">여백제거</label>
-                                <?php } ?>
 
+                            <ul class="rows_inp_lr mt-10">
+                                <li class="rows_inp_l rows_inp_l_span">
+                                    <span class="font-B">상단 여백</span><br>
+                                    padding-top
+                                </li>
+                                <li class="rows_inp_r mt-5">
+                                    <?php if(defined('_SHOP_')) { // 영카트?>
+                                    <input type="number" id="co_padding_top_shop" class="tiny_input w25 ml-0" name="co_padding_top_shop" placeholder="메인" value="<?php echo isset($rb_core['padding_top_shop']) ? $rb_core['padding_top_shop'] : ''; ?>"> <span class="font-12">px　</span>
+                                    <input type="number" id="co_padding_top_sub_shop" class="tiny_input w25 ml-0" name="co_padding_top_sub_shop" placeholder="서브" value="<?php echo isset($rb_core['padding_top_sub_shop']) ? $rb_core['padding_top_sub_shop'] : ''; ?>"> <span class="font-12">px</span>
+                                    <input type="hidden" id="co_padding_top" name="co_padding_top" value="<?php echo isset($rb_core['padding_top']) ? $rb_core['padding_top'] : ''; ?>">
+                                    <input type="hidden" id="co_padding_top_sub" name="co_padding_top_sub" value="<?php echo isset($rb_core['padding_top_sub']) ? $rb_core['padding_top_sub'] : ''; ?>">
+                                    <?php } else { ?>
+                                    <input type="number" id="co_padding_top" class="tiny_input w25 ml-0" name="co_padding_top" placeholder="메인" value="<?php echo isset($rb_core['padding_top']) ? $rb_core['padding_top'] : ''; ?>"> <span class="font-12">px　</span>
+                                    <input type="number" id="co_padding_top_sub" class="tiny_input w25 ml-0" name="co_padding_top_sub" placeholder="서브" value="<?php echo isset($rb_core['padding_top_sub']) ? $rb_core['padding_top_sub'] : ''; ?>"> <span class="font-12">px</span>
+                                    <input type="hidden" id="co_padding_top_shop" name="co_padding_top_shop" value="<?php echo isset($rb_core['padding_top_shop']) ? $rb_core['padding_top_shop'] : ''; ?>">
+                                    <input type="hidden" id="co_padding_top_sub_shop" name="co_padding_top_sub_shop" value="<?php echo isset($rb_core['padding_top_sub_shop']) ? $rb_core['padding_top_sub_shop'] : ''; ?>">
+                                    <?php } ?>
+                                </li>
+
+                                <div class="cb"></div>
                             </ul>
+
+                            <ul class="rows_inp_lr mt-10">
+                                <li class="rows_inp_l rows_inp_l_span">
+                                    <span class="font-B">하단 여백</span><br>
+                                    padding-bottom
+                                </li>
+                                <li class="rows_inp_r mt-5">
+                                    <?php if(defined('_SHOP_')) { // 영카트?>
+                                    <input type="number" id="co_padding_btm_shop" class="tiny_input w25 ml-0" name="co_padding_btm_shop" placeholder="메인" value="<?php echo isset($rb_core['padding_btm_shop']) ? $rb_core['padding_btm_shop'] : ''; ?>"> <span class="font-12">px　</span>
+                                    <input type="number" id="co_padding_btm_sub_shop" class="tiny_input w25 ml-0" name="co_padding_btm_sub_shop" placeholder="서브" value="<?php echo isset($rb_core['padding_btm_sub_shop']) ? $rb_core['padding_btm_sub_shop'] : ''; ?>"> <span class="font-12">px</span>
+                                    <input type="hidden" id="co_padding_btm" name="co_padding_btm" value="<?php echo isset($rb_core['padding_btm']) ? $rb_core['padding_btm'] : ''; ?>">
+                                    <input type="hidden" id="co_padding_btm_sub" name="co_padding_btm_sub" value="<?php echo isset($rb_core['padding_btm_sub']) ? $rb_core['padding_btm_sub'] : ''; ?>">
+                                    <?php } else { ?>
+                                    <input type="number" id="co_padding_btm" class="tiny_input w25 ml-0" name="co_padding_btm" placeholder="메인" value="<?php echo isset($rb_core['padding_btm']) ? $rb_core['padding_btm'] : ''; ?>"> <span class="font-12">px　</span>
+                                    <input type="number" id="co_padding_btm_sub" class="tiny_input w25 ml-0" name="co_padding_btm_sub" placeholder="서브" value="<?php echo isset($rb_core['padding_btm_sub']) ? $rb_core['padding_btm_sub'] : ''; ?>"> <span class="font-12">px</span>
+                                    <input type="hidden" id="co_padding_btm_shop" name="co_padding_btm_shop" value="<?php echo isset($rb_core['padding_btm_shop']) ? $rb_core['padding_btm_shop'] : ''; ?>">
+                                    <input type="hidden" id="co_padding_btm_sub_shop" name="co_padding_btm_sub_shop" value="<?php echo isset($rb_core['padding_btm_sub_shop']) ? $rb_core['padding_btm_sub_shop'] : ''; ?>">
+                                    <?php } ?>
+                                </li>
+
+                                <div class="cb"></div>
+                            </ul>
+
                         </div>
                     </ul>
-                    <?php } else { ?>
-                        <input type="hidden" name="co_main_padding_top_shop" id="co_main_padding_top_shop" value="<?php echo !empty($rb_core['padding_top_shop']) ? $rb_core['padding_top_shop'] : ''; ?>">
-                        <input type="hidden" name="co_main_padding_top" id="co_main_padding_top" value="<?php echo !empty($rb_core['padding_top']) ? $rb_core['padding_top'] : ''; ?>">
-                    <?php } ?>
+
 
 
 
@@ -1190,10 +1268,10 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     <ul class="rb_config_sec">
                         <h6 class="font-B">사이트맵(xml)생성</h6>
                         <h6 class="font-R rb_config_sub_txt">
-                        버튼을 클릭하시면 루트에 sitemap.xml 파일이 생성 됩니다.<br>
-                        생성 완료 시 사이트맵 다운로드 버튼이 활성화 되며,<br>
-                        빌더설정 > SEO관리 robots.txt 에 자동으로 등록 됩니다.
-                        <!--
+                            버튼을 클릭하시면 루트에 sitemap.xml 파일이 생성 됩니다.<br>
+                            생성 완료 시 사이트맵 다운로드 버튼이 활성화 되며,<br>
+                            빌더설정 > SEO관리 robots.txt 에 자동으로 등록 됩니다.
+                            <!--
                         만들어진 파일은 검색엔진에 제출할 수 있습니다.<br><br>
                         게시판, 게시물, 일반페이지, 상품분류, 상품이 대상이 됩니다.<br>
                         비밀글, 비공개상품 등은 포함되지 않습니다.<br><br>
@@ -1216,33 +1294,33 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
 
                             <script>
-                            $('#sitemap_gen_btn').on('click', function(){
-                                var $btn = $(this);
-                                var $txt = $('#sitemap_btn_text');
+                                $('#sitemap_gen_btn').on('click', function() {
+                                    var $btn = $(this);
+                                    var $txt = $('#sitemap_btn_text');
 
-                                // "생성중..." 상태로 표시 (비활성화)
-                                $btn.prop('disabled', true);
-                                $txt.text('생성중..');
+                                    // "생성중..." 상태로 표시 (비활성화)
+                                    $btn.prop('disabled', true);
+                                    $txt.text('생성중..');
 
-                                // AJAX로 sitemap 생성
-                                $.post('<?php echo G5_URL ?>/rb/sitemap.php', {}, function(res){
-                                    if(res.success){
-                                        // 버튼 숨기고 다운로드 링크로 교체
-                                        $btn.hide();
+                                    // AJAX로 sitemap 생성
+                                    $.post('<?php echo G5_URL ?>/rb/sitemap.php', {}, function(res) {
+                                        if (res.success) {
+                                            // 버튼 숨기고 다운로드 링크로 교체
+                                            $btn.hide();
 
-                                        $('#sitemap_download_link')
-                                            .attr('href', res.url)
-                                            .attr('download', 'sitemap.xml')
-                                            .css('display','inline-block')
-                                            .show()
+                                            $('#sitemap_download_link')
+                                                .attr('href', res.url)
+                                                .attr('download', 'sitemap.xml')
+                                                .css('display', 'inline-block')
+                                                .show()
 
-                                    }else{
-                                        $btn.prop('disabled', false);
-                                        $txt.text('사이트맵 생성');
-                                        alert('생성 실패: '+res.msg);
-                                    }
-                                }, 'json');
-                            });
+                                        } else {
+                                            $btn.prop('disabled', false);
+                                            $txt.text('사이트맵 생성');
+                                            alert('생성 실패: ' + res.msg);
+                                        }
+                                    }, 'json');
+                                });
                             </script>
 
                         </div>
@@ -1253,33 +1331,56 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
                         <button type="button" class="main_rb_bg" id="clear_cache_btn">캐시 삭제</button>
                         <script>
-                        document.getElementById('clear_cache_btn').addEventListener('click', function () {
-                            if (confirm('/data/cache/ 폴더의 모든 캐시파일이 제거되며,\n비로그인 접속시 메인 레이아웃 캐시가 재생성 됩니다.\n\n계속하시겠습니까?')) {
-                                fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.clear_cache.php', {
-                                    method: 'POST',
-                                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                                    body: 'act=clear'
-                                })
-                                .then(res => res.text())
-                                .then(res => {
-                                    if (res.trim() === 'ok') {
-                                        //alert('캐시 파일이 모두 삭제되었습니다.');
-                                        location.reload();
+                            document.getElementById('clear_cache_btn').addEventListener('click', function() {
+
+
+                                rb_confirm("/data/cache/ 폴더의 모든 캐시파일이 제거되며,\n비로그인 접속시 메인 레이아웃 캐시가 재생성 됩니다.\n\n계속하시겠습니까?").then(function(confirmed) {
+                                    if (confirmed) {
+                                        fetch('<?php echo G5_URL ?>/rb/rb.config/ajax.clear_cache.php', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/x-www-form-urlencoded'
+                                            },
+                                            body: 'act=clear'
+                                        })
+                                        .then(res => res.text())
+                                        .then(res => {
+                                            if (res.trim() === 'ok') {
+                                                //alert('캐시 파일이 모두 삭제되었습니다.');
+                                                location.reload();
+                                            } else {
+                                                alert('삭제 실패: ' + res);
+                                            }
+                                        })
+                                        .catch(err => {
+                                            alert('에러 발생: ' + err);
+                                        });
                                     } else {
-                                        alert('삭제 실패: ' + res);
+                                        // 취소 시 실행 코드
                                     }
-                                })
-                                .catch(err => {
-                                    alert('에러 발생: ' + err);
                                 });
-                            }
-                        });
+
+
+                            });
                         </script>
                         <div class="cb"></div>
-                        <button type="button" class="rb_config_reload mt-5 font-B" onclick="javascript:location.reload();">새로고침</button>
+                        <button type="button" class="rb_config_reload mt-5 font-B" id="btnReload">저장</button>
                         <button type="button" class="rb_config_close mt-5 font-B" onclick="toggleSideOptions_close()">닫기</button>
                         <div class="cb"></div>
                     </ul>
+
+                    <script>
+                        document.getElementById('btnReload').addEventListener('click', async (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            try {
+                                await executeAjax();
+                            } catch (e) {
+                                console.error(e);
+                            }
+                            //location.reload();
+                        });
+                    </script>
 
 
 
@@ -1295,6 +1396,22 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
 
 </div>
+
+
+<div class="rb-sh-side-css">
+    <div class="rb-sh-side-css-top-wrap">
+        <ul class="rb-sh-side-css-top-tit font-B">CSS 라이브 커스텀<br><span class="font-R">선택된 영역의 CSS를 오버라이드 합니다.</span></ul>
+        <ul class="rb-sh-side-css-top-btn">
+            <button type="button" id="css_save_btn" class="main_rb_bg">저장</button>
+            <button type="button" id="css_reset_btn">삭제</button>
+            <button type="button" id="css_close_btn" onclick="edit_css_close();">닫기</button>
+        </ul>
+    </div>
+    <div id="rb-css-fileinfo"></div>
+    <div id="rb-css-editor" contenteditable="true" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-gramm="false" data-gramm_editor="false" data-enable-grammarly="false" data-ms-editor="false" data-ginger="false">
+    </div>
+</div>
+
 
 <script type="text/javascript">
     Coloris({
@@ -1345,21 +1462,39 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
     });
 </script>
 
+
 <script type="text/javascript">
+    // === 전역 모드 플래그: html에 부착 ===
+    function rbSetMode(mode) { // 'mod' | 'sec' | null
+        document.documentElement.classList.toggle('rb-mode-mod', mode === 'mod');
+        document.documentElement.classList.toggle('rb-mode-sec', mode === 'sec');
+    }
+
+    function rbIsMod() {
+        return document.documentElement.classList.contains('rb-mode-mod');
+    }
+
+    function rbIsSec() {
+        return document.documentElement.classList.contains('rb-mode-sec');
+    }
+
+
     $(document).ready(function() {
         $('.rb_config_mod1').hide();
         $('.rb_config_mod2').hide();
+        $('.rb_config_mod3').hide();
         $("#saveOrderButton").hide();
     });
 
 
     //모듈설정 토글
+
     function toggleSideOptions() {
 
         // PHP에서 관리자만 스타일 삽입!
         <?php if($is_admin) { ?>
         // 토글 ON(열기)할 때만 스타일 삽입
-        if (!$('.content_box').hasClass('content_box_set')) {
+        if (!$('.rb_layout_box').hasClass('ui-sortable-handle')) {
             if (!document.getElementById('rb_layout_box_dynamic_style')) {
                 var style = document.createElement('style');
                 style.id = 'rb_layout_box_dynamic_style';
@@ -1402,29 +1537,252 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
             // 토글 OFF(닫기)할 때 style도 제거
             var dynStyle = document.getElementById('rb_layout_box_dynamic_style');
             if (dynStyle) dynStyle.remove();
+            var dynStyle = document.getElementById('rb_section_box_dynamic_style');
+            if (dynStyle) dynStyle.remove();
         }
         <?php } ?>
 
         //클래스로 확인한다.
-        if ($('.content_box').hasClass('content_box_set')) {
+        if (rbIsMod()) {
             toggleSideOptions_close_mod();
         } else {
             toggleSideOptions_open_mod();
         }
     }
 
+    //섹션설정 토글
+    function toggleSideSection() {
+
+        if (rbIsSec()) {
+            toggleSideOptions_close_sec();
+        } else {
+            toggleSideOptions_open_sec();
+        }
+
+    }
+
+    function hasSortable($el) {
+        if (!$el || !$el.length) return false;
+        try {
+            return !!$el.sortable('instance');
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function sortableSafe($el, method /*, ...args */ ) {
+        if (!hasSortable($el)) return false;
+        var args = Array.prototype.slice.call(arguments, 2);
+        $el.sortable.apply($el, [method].concat(args));
+        return true;
+    }
+
+
     // 모듈설정 오픈
     function toggleSideOptions_open_mod() {
 
+        // 섹션 모드 잔여물 정리
+        cleanupSecArtifacts();
+
         $('.rb_config_mod1').hide();
         $('.rb_config_mod2').show();
+        $('.rb_config_mod3').hide();
 
         // 모듈설정 활성
         $('.content_box').addClass('content_box_set');
         $('.rb_layout_box').addClass('bg_fff');
         $('.mobule_set_btn').addClass('open');
         $('.setting_set_btn').removeClass('open');
-        $('.add_module_wrap').show(); //2.1.4 추가
+        $('.section_set_btn').removeClass('open');
+        $('.add_module_wrap').show();
+        $('.add_section_wrap').hide();
+
+        rbSetMode('mod'); // 전역 플래그만 갱신
+
+        // 공통: 섹션 속성 전파 (섹션 내부 flex/모듈까지)
+        function recomputeSecUid(secKey, orderId) {
+            return secKey ? (secKey + '_' + orderId) : '';
+        }
+
+        function propagateSectionAttrs($sec) {
+            var secKey = String($sec.attr('data-sec-key') || '').trim();
+            var orderId = String($sec.attr('data-order-id') || '').trim();
+            var layout = String($sec.attr('data-layout') || '').trim();
+            var secUid = recomputeSecUid(secKey, orderId);
+
+            $sec.attr('data-sec-uid', secUid);
+
+            var $fx = $sec.children('.flex_box');
+            $fx.attr({
+                'data-layout': layout,
+                'data-order-id': orderId,
+                'data-sec-key': secKey,
+                'data-sec-uid': secUid
+            });
+
+            $fx.find('.rb_layout_box').each(function() {
+                $(this).attr({
+                    'data-layout': layout,
+                    'data-order-id': orderId,
+                    'data-sec-key': secKey,
+                    'data-sec-uid': secUid
+                });
+            });
+        }
+
+        function getFlexRows($flex) {
+            var rowsMap = new Map(); // key: roundedTop → array of elements
+            var order = []; // top 순서
+            var eps = 2; // 1~2px 허용
+
+            $flex.children('.rb_layout_box:visible').each(function() {
+                var $el = $(this);
+                var top = Math.round($el.position().top); // 부모(=flex_box) 기준 top
+                // 근사 매칭: 기존 key 중 ±eps 이내면 같은 key로 취급
+                var foundKey = null;
+                for (var k of rowsMap.keys()) {
+                    if (Math.abs(k - top) <= eps) {
+                        foundKey = k;
+                        break;
+                    }
+                }
+                var key = (foundKey !== null) ? foundKey : top;
+                if (!rowsMap.has(key)) {
+                    rowsMap.set(key, []);
+                    order.push(key);
+                }
+                rowsMap.get(key).push($el[0]);
+            });
+
+            order.sort(function(a, b) {
+                return a - b;
+            });
+            var rows = order.map(function(k) {
+                return rowsMap.get(k);
+            });
+            return rows; // [ [el, el, ...], [el, ...], ... ]
+        }
+
+        // ===== 행 핸들: 왼쪽에 Up/Down 버튼 붙임 =====
+        function renderRowHandles($flex) {
+
+            // 최상위 flex_box만 대상: flex_box_inner가 있으면 핸들 제거 후 종료
+            if (!isTopLevelFlex($flex)) {
+                $flex.find('> .rb-row-handle').remove();
+                return;
+
+            }
+
+            // 컨테이너를 기준으로 배치하므로 position:relative 보장
+            if ($flex.css('position') === 'static') $flex.css('position', 'relative');
+
+            // 기존 핸들 제거
+            $flex.find('> .rb-row-handle').remove();
+
+            var rows = getFlexRows($flex);
+
+            rows.forEach(function(rowEls, idx) {
+                var $first = $(rowEls[0]);
+                var top = Math.round($first.position().top);
+                var height = Math.max.apply(null, rowEls.map(function(el) {
+                    var $el = $(el);
+                    return Math.round($el.outerHeight(true));
+                }));
+
+                // 핸들 만들기
+                var $handle = $('<div class="rb-row-handle" data-row="' + idx + '" aria-label="행 이동"></div>');
+                var $up = $("<button type='button' class='rb-row-btn rb-row-up'  title='이 행을 위로'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none' fill-rule='evenodd'><path d='M24 0v24H0V0h24ZM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01-.184-.092Z'/><path fill='#FFFFFFFF' d='M11.293 8.293a1 1 0 0 1 1.414 0l5.657 5.657a1 1 0 0 1-1.414 1.414L12 10.414l-4.95 4.95a1 1 0 0 1-1.414-1.414l5.657-5.657Z'/></g></svg></button>");
+                var $dn = $("<button type='button' class='rb-row-btn rb-row-down' title='이 행을 아래로'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none' fill-rule='evenodd'><path d='M24 0v24H0V0h24ZM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01-.184-.092Z'/><path fill='#FFFFFFFF' d='M12.707 15.707a1 1 0 0 1-1.414 0L5.636 10.05A1 1 0 1 1 7.05 8.636l4.95 4.95 4.95-4.95a1 1 0 0 1 1.414 1.414l-5.657 5.657Z'/></g></svg></button>");
+                $handle.append($up, $dn);
+
+                // 위치: 행의 왼쪽 가장자리, 세로 중앙
+                $handle.css({
+                    position: 'absolute',
+                    left: '-12px', // 필요 시 조절
+                    top: (top + Math.max(0, (height - 24) / 2)) + 'px', // 버튼 24px 가정
+                    width: '24px',
+                    height: '24px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '4px',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 10000
+                });
+
+                $handle.attr({
+                    'aria-label': '',
+                    'title': '',
+                    'data-tooltip': '모듈의 행 전체를 이동할 수 있어요.',
+                    'data-tooltip-pos': 'right'
+                });
+
+                $flex.append($handle);
+            });
+
+            // 클릭 이벤트(중복 방지 후 바인딩)
+            $flex.off('click.rbRowHandle').on('click.rbRowHandle', '.rb-row-handle .rb-row-btn', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var $btn = $(this);
+                var $h = $btn.closest('.rb-row-handle');
+                var rowIdx = parseInt($h.attr('data-row'), 10);
+                if ($btn.hasClass('rb-row-up')) moveRow($flex, rowIdx, -1);
+                if ($btn.hasClass('rb-row-down')) moveRow($flex, rowIdx, +1);
+            });
+        }
+
+        window.renderRowHandles = renderRowHandles; // 전역 노출
+
+        // ===== 행 이동: 같은 행의 모든 .rb_layout_box 를 통째로 위/아래 행과 맞바꾸거나 끼워넣기 =====
+        function moveRow($flex, rowIdx, dir) {
+            var rows = getFlexRows($flex);
+            var srcIdx = rowIdx;
+            var dstIdx = rowIdx + dir;
+
+            if (dstIdx < 0 || dstIdx >= rows.length) return; // 바깥이면 무시
+
+            var src = rows[srcIdx]; // 배열(엘리먼트들)
+            var dst = rows[dstIdx];
+
+            // 이동 기준 앵커
+            var $dstFirst = $(dst[0]);
+            var $dstLast = $(dst[dst.length - 1]);
+
+            if (dir < 0) {
+                // 위로: src 행 전체를 dst 행 "앞"으로
+                // 순서 유지 위해 src의 첫 번째부터 차례대로 옮김
+                for (var i = 0; i < src.length; i++) {
+                    $(src[i]).insertBefore($dstFirst);
+                }
+            } else {
+                // 아래로: src 행 전체를 dst 행 "뒤"로
+                // 순서 유지 위해 끝에서부터 뒤로 붙이면 역순되니, 마지막부터 insertAfter를 거꾸로 하면 OK
+                for (var j = src.length - 1; j >= 0; j--) {
+                    $(src[j]).insertAfter($dstLast);
+                    $dstLast = $(src[j]); // 갱신(연달아 붙도록)
+                }
+            }
+
+            // 순서/속성 재정렬 (네 기존 update 로직과 맞춤)
+            $flex.children('.rb_layout_box').each(function(index) {
+                $(this).attr('data-order-id', index + 1);
+            });
+
+            // 저장 버튼 표시
+            $('#saveOrderButton').show();
+
+            // 행 핸들 다시 그리기
+            renderRowHandles($flex);
+        }
+
+        function isTopLevelFlex($flex) {
+            // ① .flex_box 바로 아래에 .rb_layout_box가 있고
+            // ② .flex_box 바로 아래에 .flex_box_inner는 없어야 함
+            return $flex.is('.flex_box') &&
+                $flex.find('> .rb_layout_box').length > 0 &&
+                $flex.find('> .flex_box_inner').length === 0;
+        }
 
         // 모듈이동
         $(function() {
@@ -1432,118 +1790,148 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 var $flexBox = $(this);
                 var originalWidth, originalHeight;
 
+                // 기존 sortable 파괴
+                try {
+                    if ($flexBox.data("ui-sortable")) $flexBox.sortable("destroy");
+                } catch (e) {}
+
+
+                function enforceToolbarRule($flexBox, $item) {
+                    var $toolbar = $flexBox.children(".add_module_wrap").first();
+                    if (!$toolbar.length) return;
+
+                    var tbIdx = $toolbar.index();
+                    var lastIdx = $flexBox.children().length - 1;
+                    var itIdx = $item.index();
+
+                    // 툴바가 맨 위(앞 금지) → 앞에 오면 after로 보정
+                    if (tbIdx === 0) {
+                        if (itIdx <= tbIdx) $toolbar.after($item);
+                        return;
+                    }
+
+                    // 툴바가 맨 아래(뒤 금지) → 뒤로 가면 before로 보정
+                    if (tbIdx === lastIdx) {
+                        if (itIdx > tbIdx) $toolbar.before($item);
+                        return;
+                    }
+
+                    // 툴바가 중간이면 보정하지 않음(드랍 위치 유지)
+                }
+
                 $flexBox.sortable({
-                    placeholder: "placeholders_box", // 드랍될 위치를 표시할 클래스 이름
-                    tolerance: "pointer", // pointer를 기준으로 tolerance 설정
-                    helper: "clone", // helper를 clone으로 설정
-                    items: "> .rb_layout_box", // .content_box만 드래그 가능
+                    items: "> .rb_layout_box",
+                    placeholder: "placeholders_box",
+                    tolerance: "pointer",
+                    helper: "clone",
+                    appendTo: "body",
+                    forceHelperSize: true,
+                    forcePlaceholderSize: true,
+                    scroll: true,
+                    containment: this,
+                    connectWith: false,
 
                     start: function(event, ui) {
-                        // 드래그 시작할 때 원래 크기 저장 (padding과 border 포함)
                         originalWidth = ui.item.outerWidth();
                         originalHeight = ui.item.outerHeight();
-                        ui.helper.addClass("dragging");
-                        ui.helper.css({
-                            width: originalWidth - 0.5,
-                            height: originalHeight - 0.5
+                        ui.helper.addClass("dragging").css({
+                            width: originalWidth,
+                            height: originalHeight,
+                            zIndex: 99999,
+                            pointerEvents: "none",
                         });
 
-
-                        var paddingLeft = parseInt(ui.helper.css('padding-left'), 10);
-                        var paddingRight = parseInt(ui.helper.css('padding-right'), 10);
-                        var paddingTop = parseInt(ui.helper.css('padding-top'), 10);
-                        var paddingBottom = parseInt(ui.helper.css('padding-bottom'), 10);
+                        var pl = parseInt(ui.item.css('padding-left')) || 0;
+                        var pr = parseInt(ui.item.css('padding-right')) || 0;
+                        var pt = parseInt(ui.item.css('padding-top')) || 0;
+                        var pb = parseInt(ui.item.css('padding-bottom')) || 0;
 
                         $(".placeholders_box").css({
-                            width: originalWidth - paddingLeft - paddingRight,
-                            height: originalHeight - paddingTop - paddingBottom,
-                            margin: paddingLeft
+                            width: originalWidth - pl - pr,
+                            height: originalHeight - pt - pb,
+                            marginLeft: ui.item.css('margin-left'),
+                            marginRight: ui.item.css('margin-right'),
+                            marginTop: ui.item.css('margin-top'),
+                            marginBottom: ui.item.css('margin-bottom')
                         });
                     },
-                    stop: function(event, ui) {
-                        // 드래그 멈출 때 원래 크기로 복원하고 그림자 제거
-                        ui.item.removeClass("dragging");
-                        ui.item.css({
-                            width: originalWidth - 0.5,
-                            height: originalHeight - 0.5
-                        });
 
-                        // .add_module_wrap 아래로 이동했는지 확인
-                        var addModuleWrapIndex = $flexBox.children(".add_module_wrap").index();
-                        var itemIndex = ui.item.index();
 
-                        if (itemIndex > addModuleWrapIndex) {
-                            // .add_module_wrap 아래로 이동한 경우 원래 위치로 되돌리기
-                            $flexBox.sortable("cancel");
+
+                    receive: function(event, ui) {
+                        var layout = String($flexBox.attr('data-layout') || '').trim();
+                        ui.item.attr('data-layout', layout).data('layout', layout);
+
+                        var $sec = $flexBox.closest('.rb_section_box');
+                        if ($sec.length) {
+                            var secKey = String($sec.attr('data-sec-key') || '').trim();
+                            var orderId = String($sec.attr('data-order-id') || '').trim();
+                            var secUid = recomputeSecUid(secKey, orderId);
+                            ui.item.attr({
+                                'data-sec-key': secKey,
+                                'data-sec-uid': secUid,
+                                'data-order-id': orderId
+                            }).data('sec-key', secKey).data('sec-uid', secUid).data('order-id', orderId);
+                        } else {
+                            ui.item.removeAttr('data-sec-key data-sec-uid');
+                            ui.item.removeData('sec-key').removeData('sec-uid');
                         }
 
-                        // data-order-id 업데이트
-                        $flexBox.find(".rb_layout_box").each(function(index) {
+                        // 랍 위치 보정
+                        enforceToolbarRule($flexBox, ui.item);
+                    },
+
+                    update: function(event, ui) {
+                        // 출발지 컨테이너 update 무시(되돌림 방지)
+                        if (!$.contains(this, ui.item[0])) return;
+
+                        // 같은 컨테이너 내 이동에서도 보정은 '필요할 때만'
+                        enforceToolbarRule($flexBox, ui.item);
+
+                        // data-order-id 재기입 (모듈만)
+                        $flexBox.children(".rb_layout_box").each(function(index) {
                             $(this).attr("data-order-id", index + 1);
                         });
+
+                        // 순서 미리보기
+                        window.currentOrder = $flexBox.children(".rb_layout_box").map(function() {
+                            return $(this).attr('data-id') || '';
+                        }).get();
 
                         $("#saveOrderButton").show();
+                        renderRowHandles($flexBox);
                     },
-                    update: function(event, ui) {
-                        // .add_module_wrap 아래로 이동했는지 확인
-                        var addModuleWrapIndex = $flexBox.children(".add_module_wrap").index();
-                        var itemIndex = ui.item.index();
-
-                        if (itemIndex > addModuleWrapIndex) {
-                            // .add_module_wrap 아래로 이동한 경우 원래 위치로 되돌리기
-                            $flexBox.sortable("cancel");
-                        }
-
-                        // data-order-id 업데이트
-                        $flexBox.find(".rb_layout_box").each(function(index) {
-                            $(this).attr("data-order-id", index + 1);
+                    stop: function(event, ui) {
+                        ui.item.removeClass("dragging");
+                        ui.item.css({
+                            width: originalWidth,
+                            height: originalHeight
                         });
 
-                        // 변경된 순서를 배열로 저장
-                        var order = $flexBox.sortable('toArray', {
-                            attribute: 'data-id'
-                        });
-                        console.log(order);
+                        var $sec = ui.item.closest('.rb_section_box');
+                        if ($sec.length) propagateSectionAttrs($sec);
 
-                        // order 값을 전역 변수로 저장
-                        window.currentOrder = order;
+                        $("#saveOrderButton").show();
+                        renderRowHandles($flexBox);
                     }
                 }).disableSelection();
+
+                renderRowHandles($flexBox);
             });
 
-            // 저장 버튼 클릭 이벤트 핸들러
-            $("#saveOrderButton").on("click", function() {
-                <?php if($is_admin) { ?>
-                <?php } else { ?>
-                alert('편집 권한이 없습니다.');
-                return false;
-                <?php } ?>
-
-                if (window.currentOrder) {
-                    saveOrder(window.currentOrder); // 순서를 저장하는 함수 호출
-                } else {
-                    console.log("순서저장에 문제가 있습니다.");
-                }
-            });
-
-            // content_box를 클릭할 때 원래 크기 저장
-
-            $(".rb_layout_box").on("mousedown", function(event) {
+            // 시각적 클릭 효과
+            $(".rb_layout_box").on("mousedown", function() {
                 $(".rb_layout_box").removeClass("dragging");
                 var $this = $(this);
                 originalWidth = $this.outerWidth();
                 originalHeight = $this.outerHeight();
                 $this.css({
-                    width: originalWidth,
-                    height: originalHeight
-                });
-
-                $this.addClass("clicked");
+                    width: originalWidth - 1,
+                    height: originalHeight - 1
+                }).addClass("clicked");
             });
 
-
-            // 마우스를 놓을 때 크기 초기화
-            $(".rb_layout_box").on("mouseup", function(event) {
+            $(".rb_layout_box").on("mouseup", function() {
                 var $this = $(this);
                 originalWidth = $this.outerWidth();
                 originalHeight = $this.outerHeight();
@@ -1553,106 +1941,672 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 });
             });
 
-            // 순서를 저장하는 함수
-            function saveOrder() {
-                var orderData = [];
-                $(".flex_box .rb_layout_box").each(function(index) {
-                    orderData.push({
-                        id: $(this).data('id'),
-                        order_id: index + 1
+            // 저장(모듈 모드에서는 기존 로직 유지)
+            $("#saveOrderButton").off("click").on("click", function() {
+                <?php if($is_admin) { ?><?php } else { ?>
+                alert('편집 권한이 없습니다.');
+                return false;
+                <?php } ?>
+
+                var modOrder = [];
+                var secOrder = [];
+                var idx = 1;
+
+                $(".flex_box").each(function() {
+                    $(this).children(".rb_layout_box, .rb_section_box").each(function() {
+                        var $it = $(this);
+                        var id = $it.data('id');
+                        if (!id) return;
+                        if ($it.hasClass("rb_layout_box")) {
+                            modOrder.push({
+                                id: id,
+                                order_id: idx
+                            });
+                        } else if ($it.hasClass("rb_section_box")) {
+                            secOrder.push({
+                                id: id,
+                                order_id: idx
+                            });
+                        }
+                        idx++;
                     });
                 });
 
-                $.ajax({
-                    url: '<?php echo G5_URL ?>/rb/rb.lib/ajax.res.php',
-                    method: 'POST',
+                var saveModules = function() {
+                    if (!modOrder.length) return $.Deferred().resolve().promise();
+                    return $.ajax({
+                        url: '<?php echo G5_URL ?>/rb/rb.lib/ajax.res.php',
+                        method: 'POST',
+                        data: {
+                            order: modOrder,
+                            mod_type: "mod_order",
+                            <?php if (defined('_SHOP_')) { ?>is_shop: "1"
+                            <?php } else { ?>is_shop: "0"
+                            <?php } ?>
+                        }
+                    });
+                };
 
-                    data: {
-                        order: orderData,
-                        mod_type: "mod_order",
-                        <?php if (defined('_SHOP_')) { ?>
-                        is_shop: "1"
-                        <?php } else { ?>
-                        is_shop: "0"
-                        <?php } ?>
-                    },
+                var saveSections = function() {
+                    if (!secOrder.length) return $.Deferred().resolve().promise();
+                    return $.ajax({
+                        url: '<?php echo G5_URL ?>/rb/rb.lib/ajax.res.php',
+                        method: 'POST',
+                        data: {
+                            order: secOrder,
+                            mod_type: "sec_order",
+                            <?php if (defined('_SHOP_')) { ?>is_shop: "1"
+                            <?php } else { ?>is_shop: "0"
+                            <?php } ?>
+                        }
+                    });
+                };
 
-                    success: function(response) {
-                        console.log('Order saved:', response);
+                $.when(saveModules()).then(saveSections)
+                    .done(function(resp) {
                         $("#saveOrderButton").hide();
-                        alert('모듈의 순서를 변경하였습니다.');
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error saving order:', error);
-                    }
-                });
-            }
+                        alert('모듈 순서를 변경하였습니다.');
+                    })
+                    .fail(function(xhr, status, err) {
+                        console.error('Error saving order:', err);
+                        alert('모듈 순서 저장 중 오류가 발생했습니다.');
+                    });
+            });
+
         });
 
+    }
+
+    function refreshTopLevelRowHandles() {
+        requestAnimationFrame(function() {
+            // 전역 또는 네임스페이스에 노출된 함수 포인터를 확보
+            var fn = window.renderRowHandles || (window.RBRow && window.RBRow.renderRowHandles);
+            if (typeof fn !== 'function') return; // 아직 로드 전이면 조용히 패스
+
+            $('.flex_box').not('.flex_box_inner').each(function() {
+                fn($(this));
+            });
+        });
+    }
+
+
+    function toggleSideOptions_open_sec() {
+
+        // 모듈 모드 잔여물 정리
+        cleanupModArtifacts();
+
+        $('.rb_config_mod1').hide();
+        $('.rb_config_mod2').hide();
+        $('.rb_config_mod3').show();
+
+        // 섹션설정 활성
+        $('.rb_section_box').addClass('rb_section_box_set');
+        $('.content_box').removeClass('content_box_set');
+        $('.rb_layout_box').removeClass('bg_fff');
+        $('.mobule_set_btn').removeClass('open');
+        $('.setting_set_btn').removeClass('open');
+        $('.section_set_btn').addClass('open');
+        $('.add_module_wrap').hide();
+        $('.rb-row-handle').hide();
+        $('.add_section_wrap').show();
+
+        rbSetMode('sec'); // 전역 플래그만 갱신
+
+
+        // 공통: 섹션 속성 전파
+        function recomputeSecUid(secKey, orderId) {
+            return secKey ? (secKey + '_' + orderId) : '';
+        }
+
+        function propagateSectionAttrs($sec) {
+            var secKey = String($sec.attr('data-sec-key') || '').trim();
+            var orderId = String($sec.attr('data-order-id') || '').trim();
+            var layout = String($sec.attr('data-layout') || '').trim();
+            var secUid = recomputeSecUid(secKey, orderId);
+
+            $sec.attr('data-sec-uid', secUid);
+
+            var $fx = $sec.children('.flex_box');
+            $fx.attr({
+                'data-layout': layout,
+                'data-order-id': orderId,
+                'data-sec-key': secKey,
+                'data-sec-uid': secUid
+            });
+
+            $fx.find('.rb_layout_box').each(function() {
+                $(this).attr({
+                    'data-layout': layout,
+                    'data-order-id': orderId,
+                    'data-sec-key': secKey,
+                    'data-sec-uid': secUid
+                });
+            });
+        }
+
+        // 컨테이너 내 공통 순번(섹션+모듈) 재기입
+        function syncUnifiedOrder($container) {
+            var idx = 1;
+            $container.children('.rb_layout_box, .rb_section_box').each(function() {
+                $(this).attr('data-order-id', idx).data('order-id', idx);
+                if ($(this).hasClass('rb_section_box')) propagateSectionAttrs($(this));
+                idx++;
+            });
+        }
+
+        // 섹션 이동
+        $(function() {
+            $(".flex_box").each(function() {
+                var $flexBox = $(this);
+
+                if ($flexBox.hasClass('flex_box_inner')) return;
+                if ($flexBox.closest(".rb_section_box").length > 0) return;
+
+                try {
+                    if ($flexBox.data("ui-sortable")) $flexBox.sortable("destroy");
+                } catch (e) {}
+
+                $flexBox.sortable({
+                    items: "> .rb_layout_box, > .rb_section_box",
+                    cancel: ".rb_layout_box, a, button, input, textarea, select, .no-drag",
+                    placeholder: "placeholders_section",
+                    tolerance: "pointer",
+                    appendTo: "body",
+                    //connectWith: ".flex_box", // 서로 다른 컨테이너 간 이동 허용
+                    connectWith: ".flex_box:not(.flex_box_inner)",
+
+                    helper: function(e, item) {
+                        var $it = $(item);
+                        if (!$it.hasClass('rb_section_box')) return item;
+
+                        // 클릭 오프셋 계산
+                        var off = $it.offset();
+                        var w = $it.outerWidth();
+                        var h = $it.outerHeight();
+                        var cx = e.pageX - off.left;
+                        var cy = e.pageY - off.top;
+                        var map = function(v, src, dst) {
+                            if (src <= 0) return Math.round(dst / 2);
+                            var m = Math.round(v * (dst / src));
+                            return Math.max(8, Math.min(dst - 8, m));
+                        };
+                        var left = map(cx, w, 100);
+                        var top = map(cy, h, 100);
+                        $it.parent().sortable("option", "cursorAt", {
+                            left: left,
+                            top: top
+                        });
+
+                        // 원본 비우고 data-title만 표시
+                        if (!$it.data('orig-html-saved')) {
+                            $it.data('orig-html', $it.html());
+                            $it.data('orig-html-saved', true);
+                        }
+                        var title = $it.attr('data-title') || '섹션';
+                        $it.html('<div class="rb-sec-ghost-title">' + title + '</div>');
+
+                        return $('<div class="ui-sortable-helper rb-sec-helper"/>')
+                            .css({
+                                width: 100,
+                                height: 100,
+                                margin: 0,
+                                boxSizing: 'border-box',
+                                zIndex: 99999,
+                                pointerEvents: 'none'
+                            })
+                            .append($('<div class="rb-sec-helper-inner"/>').text(title));
+                    },
+
+                    forceHelperSize: true,
+                    forcePlaceholderSize: true,
+                    scroll: true,
+                    containment: "document",
+
+                    start: function(event, ui) {
+                        ui.item.data('_fromFlex', $flexBox);
+                        $(".placeholders_section").css({
+                            width: 100,
+                            height: 100,
+                            margin: <?php echo $rb_core['gap_pc'] ?>,
+                            boxSizing: "border-box"
+                        });
+                        if (ui.item.hasClass('rb_section_box')) {
+                            ui.item.addClass('rb-sec-dragging');
+                            $flexBox.addClass('rb-sec-sorting');
+                        }
+                    },
+
+                    receive: function(event, ui) {
+
+                        // 도착 컨테이너에서 공통 순번
+                        syncUnifiedOrder($flexBox);
+                        // 섹션이면 내부까지 전파
+                        if (ui.item.hasClass('rb_section_box')) {
+                            // 부모 flex의 data-layout(문자열)을 섹션으로 복사
+                            var layout = String($flexBox.attr('data-layout') || '').trim();
+                            ui.item.attr('data-layout', layout).data('layout', layout);
+                            propagateSectionAttrs(ui.item);
+                        }
+                        $("#saveOrderButton").show();
+                        refreshTopLevelRowHandles();
+                    },
+
+                    update: function(event, ui) {
+                        // 섹션 아닌 아이템은 취소
+                        if (!ui.item.hasClass('rb_section_box')) {
+                            $flexBox.sortable("cancel");
+                            return;
+                        }
+
+                        // 공통 순번 재기입
+                        syncUnifiedOrder($flexBox);
+
+                        // 부모 flex의 data-layout(문자열)을 섹션 및 내부로 전파
+                        var layout = String($flexBox.attr('data-layout') || '').trim();
+                        ui.item.attr('data-layout', layout).data('layout', layout);
+                        propagateSectionAttrs(ui.item);
+
+                        // 미리보기용
+                        window.currentSectionOrder = $flexBox
+                            .children(".rb_section_box")
+                            .map(function() {
+                                return $(this).attr("data-id");
+                            })
+                            .get();
+
+                        $("#saveOrderButton").show();
+                        refreshTopLevelRowHandles();
+                    },
+
+                    stop: function(event, ui) {
+                        if (ui.item.hasClass('rb_section_box')) {
+                            if (ui.item.data('orig-html-saved')) {
+                                ui.item.html(ui.item.data('orig-html'));
+                                ui.item.removeData('orig-html-saved');
+                            }
+                            ui.item.removeClass('rb-sec-dragging');
+                            $flexBox.removeClass('rb-sec-sorting');
+                        }
+
+                        // 출발/도착 컨테이너 모두 공통 순번 재기입
+                        var $from = ui.item.data('_fromFlex');
+                        var $to = ui.item.closest('.flex_box');
+                        if ($from && $from.length) syncUnifiedOrder($from);
+                        if ($to && $to.length) syncUnifiedOrder($to);
+
+                        $("#saveOrderButton").show();
+                        refreshTopLevelRowHandles();
+                    }
+                }).disableSelection();
+            });
+
+            // 마우스 누르면 grabbing 클래스 추가/해제
+            $(document).on('mousedown', '.rb_section_box', function() {
+                $(this).addClass('rb-sec-grabbing');
+            });
+            $(document).on('mouseup', function() {
+                $('.rb_section_box').removeClass('rb-sec-grabbing');
+            });
+
+
+            // 저장 클릭 핸들러
+            $("#saveOrderButton").off("click").on("click", function() {
+                <?php if($is_admin) { ?><?php } else { ?>
+                alert('편집 권한이 없습니다.');
+                return false;
+                <?php } ?>
+
+                var modOrder = [];
+                var secOrder = [];
+                var idx = 1;
+
+                // 화면상의 공통 순서대로 수집
+                $(".flex_box").each(function() {
+                    $(this).children(".rb_layout_box, .rb_section_box").each(function() {
+                        var $it = $(this);
+                        var id = $it.data('id');
+                        if (!id) return;
+                        if ($it.hasClass("rb_layout_box")) {
+                            modOrder.push({
+                                id: id,
+                                order_id: idx
+                            });
+                        } else if ($it.hasClass("rb_section_box")) {
+                            secOrder.push({
+                                id: id,
+                                order_id: idx
+                            });
+                        }
+                        idx++;
+                    });
+                });
+
+                // 섹션의 현재 레이아웃(문자열) 수집
+                var secLayoutMaps = [];
+                $(".rb_section_box").each(function() {
+                    var $sec = $(this);
+                    var secId = parseInt($sec.data('id'), 10);
+                    var secLayout = String($sec.attr('data-layout') || '').trim();
+                    if (secId && secLayout) {
+                        secLayoutMaps.push({
+                            sec_id: secId,
+                            sec_layout: secLayout
+                        });
+                    }
+                });
+
+                // 섹션별 모듈 소속키/UID 수집
+                var modSecMaps = [];
+                $(".rb_section_box").each(function() {
+                    var $sec = $(this);
+                    var secKey = String($sec.attr('data-sec-key') || '').trim();
+                    var orderId = String($sec.attr('data-order-id') || '').trim();
+                    var secUid = recomputeSecUid(secKey, orderId);
+                    var ids = $sec.find('> .flex_box .rb_layout_box').map(function() {
+                        return parseInt($(this).data('id'), 10);
+                    }).get().filter(Boolean);
+                    if (secKey && secUid && ids.length) {
+                        modSecMaps.push({
+                            md_sec_key: secKey,
+                            md_sec_uid: secUid,
+                            mod_ids: ids
+                        });
+                    }
+                });
+
+                // 섹션 밖 모듈은 소속 해제(NULL)
+                var outside = $('.rb_layout_box').filter(function() {
+                    return $(this).closest('.rb_section_box').length === 0;
+                }).map(function() {
+                    return parseInt($(this).data('id'), 10);
+                }).get().filter(Boolean);
+                if (outside.length) {
+                    modSecMaps.push({
+                        md_sec_key: null,
+                        md_sec_uid: null,
+                        mod_ids: outside
+                    });
+                }
+
+                // 모듈 md_layout 동기화(섹션 레이아웃으로)
+                var modMoveMaps = [];
+                $(".rb_section_box").each(function() {
+                    var $sec = $(this);
+                    var secLayout = String($sec.attr("data-layout") || '').trim();
+                    var modIds = $sec.find("> .flex_box .rb_layout_box").map(function() {
+                        return parseInt($(this).data("id"), 10);
+                    }).get().filter(Boolean);
+                    if (secLayout && modIds.length) {
+                        modMoveMaps.push({
+                            sec_layout: secLayout,
+                            mod_ids: modIds
+                        });
+                    }
+                });
+
+                // 저장 순서:
+                // 1) 모듈 순서 → 2) 섹션 순서(sec_uid 자동 갱신됨, res.php) → 3) 섹션 레이아웃 → 4) 모듈 소속 → 5) 모듈 레이아웃
+                var saveModules = function() {
+                    if (!modOrder.length) return $.Deferred().resolve().promise();
+                    return $.ajax({
+                        url: '<?php echo G5_URL ?>/rb/rb.lib/ajax.res.php',
+                        method: 'POST',
+                        data: {
+                            order: modOrder,
+                            mod_type: "mod_order",
+                            <?php if (defined('_SHOP_')) { ?>is_shop: "1"
+                            <?php } else { ?>is_shop: "0"
+                            <?php } ?>
+                        }
+                    });
+                };
+
+                var saveSections = function() {
+                    if (!secOrder.length) return $.Deferred().resolve().promise();
+                    return $.ajax({
+                        url: '<?php echo G5_URL ?>/rb/rb.lib/ajax.res.php',
+                        method: 'POST',
+                        data: {
+                            order: secOrder,
+                            mod_type: "sec_order",
+                            <?php if (defined('_SHOP_')) { ?>is_shop: "1"
+                            <?php } else { ?>is_shop: "0"
+                            <?php } ?>
+                        }
+                    });
+                };
+
+                $.when(saveModules())
+                    .then(saveSections)
+                    .then(function() {
+                        // 섹션 레이아웃 반영
+                        if (!secLayoutMaps.length) return $.Deferred().resolve().promise();
+                        return $.ajax({
+                            url: '<?php echo G5_URL ?>/rb/rb.lib/ajax.res.php',
+                            method: 'POST',
+                            data: {
+                                mod_type: "sec_move_to_layout",
+                                maps: JSON.stringify(secLayoutMaps),
+                                <?php if (defined('_SHOP_')) { ?>is_shop: "1"
+                                <?php } else { ?>is_shop: "0"
+                                <?php } ?>
+                            }
+                        });
+                    }).then(function() {
+                        // 모듈 섹션 소속키/UID 반영
+                        if (!modSecMaps.length) return $.Deferred().resolve().promise();
+                        return $.ajax({
+                            url: '<?php echo G5_URL ?>/rb/rb.lib/ajax.res.php',
+                            method: 'POST',
+                            data: {
+                                mod_type: "mod_update_sec",
+                                maps: JSON.stringify(modSecMaps),
+                                <?php if (defined('_SHOP_')) { ?>is_shop: "1"
+                                <?php } else { ?>is_shop: "0"
+                                <?php } ?>
+                            }
+                        });
+                    }).then(function() {
+                        // 모듈 md_layout 반영
+                        if (!modMoveMaps.length) return $.Deferred().resolve().promise();
+                        return $.ajax({
+                            url: '<?php echo G5_URL ?>/rb/rb.lib/ajax.res.php',
+                            method: 'POST',
+                            data: {
+                                mod_type: "mod_move_to_layout",
+                                maps: JSON.stringify(modMoveMaps),
+                                <?php if (defined('_SHOP_')) { ?>is_shop: "1"
+                                <?php } else { ?>is_shop: "0"
+                                <?php } ?>
+                            }
+                        });
+                    }).done(function() {
+                        $("#saveOrderButton").hide();
+                        alert('순서를 변경하였습니다.');
+                        refreshTopLevelRowHandles();
+                    }).fail(function(xhr, status, err) {
+                        console.error('Error saving order/layout:', err);
+                        alert('순서/레이아웃 저장 중 오류가 발생했습니다.');
+                    });
+
+            });
+        });
+    }
+
+
+
+
+    function cleanupSecArtifacts() {
+        // 진행중 드래그 취소
+        $(".flex_box").each(function() {
+            sortableSafe($(this), 'cancel');
+        });
+
+        // 섹션 원본 HTML 복구
+        $(".rb_section_box").each(function() {
+            var $it = $(this);
+            if ($it.data("orig-html-saved")) {
+                $it.html($it.data("orig-html"));
+                $it.removeData("orig-html").removeData("orig-html-saved");
+            }
+            $it.removeClass("rb-sec-dragging rb-sec-grabbing");
+        });
+
+        // 컨테이너 및 전역 커서 원복
+        $(".flex_box").removeClass("rb-sec-sorting");
+        $("body").removeClass("sec-grabbing-cursor");
+
+        // 기존 sortable 파괴
+        $(".flex_box").each(function() {
+            var $c = $(this);
+            if (hasSortable($c)) $c.sortable('destroy');
+        });
+    }
+
+    function cleanupModArtifacts() {
+        try {
+            $(".flex_box").sortable("cancel");
+        } catch (e) {}
+        $(".rb_layout_box").removeClass("dragging clicked");
+        $(".flex_box").each(function() {
+            var $c = $(this);
+            try {
+                if ($c.data("ui-sortable")) $c.sortable("destroy");
+            } catch (e) {}
+        });
     }
 
 
     // 모듈설정 닫기
     function toggleSideOptions_close_mod() {
+
+        cleanupSecArtifacts();
+        cleanupModArtifacts();
+
         $('.rb_config_mod1').hide();
         $('.rb_config_mod2').hide();
+        $('.rb_config_mod3').hide();
 
         // 모듈설정 비활성
-        $(".flex_box").sortable("destroy");
+        //$(".flex_box").sortable("destroy");
         $('.content_box').removeClass('handles');
         $('.mobule_set_btn').removeClass('open');
         $('.setting_set_btn').removeClass('open');
-        $('.add_module_wrap').hide(); //2.1.4 추가
+        $('.section_set_btn').removeClass('open');
+        $('.add_module_wrap').hide();
+        $('.add_section_wrap').hide();
+        $('.rb-row-handle').hide();
 
+
+        var dynStyle = document.getElementById('rb_layout_box_dynamic_style');
+        if (dynStyle) dynStyle.remove();
+
+        rbSetMode(null);
         toggleSideOptions_close();
     }
 
 
+    // 섹션설정 닫기
+    function toggleSideOptions_close_sec() {
+
+        cleanupSecArtifacts();
+        cleanupModArtifacts();
+
+        $('.rb_config_mod1').hide();
+        $('.rb_config_mod2').hide();
+        $('.rb_config_mod3').hide();
+
+        // 섹션설정 비활성
+        //$(".rb_section_box").sortable("destroy");
+        $('.rb_section_box').removeClass('handles');
+        $('.rb_section_box').removeClass('rb_section_box_set');
+        $('.rb_section_box').removeClass('ui-sortable-handle');
+        $('.mobule_set_btn').removeClass('open');
+        $('.setting_set_btn').removeClass('open');
+        $('.section_set_btn').removeClass('open');
+        $('.add_module_wrap').hide();
+        $('.add_section_wrap').hide();
+        $('.rb-row-handle').hide();
+
+        rbSetMode(null);
+        toggleSideOptions_close();
+    }
+
 
     //환경설정 오픈
     function toggleSideOptions_open_set() {
-        toggleSideOptions_open()
+        toggleSideOptions_open();
+        cleanupModArtifacts();
 
         $('.rb_config_mod1').show();
         $('.rb_config_mod2').hide();
+        $('.rb_config_mod3').hide();
 
         //환경설정 활성
         $('.setting_set_btn').addClass('open');
         $('.mobule_set_btn').removeClass('open');
+        $('.section_set_btn').removeClass('open');
         $('.content_box').removeClass('content_box_set');
         $('.rb_layout_box').removeClass('bg_fff');
-        $('.add_module_wrap').hide(); //2.1.4 추가
+        $('.add_module_wrap').hide();
+        $('.add_section_wrap').hide();
+        $('.rb-row-handle').hide();
+        $('.flex_box').removeClass('ui-sortable');
+
+
     }
 
     //환경설정 열기
     function toggleSideOptions_open() {
         $('.sh-side-options').css('transition', 'all 600ms cubic-bezier(0.86, 0, 0.07, 1)');
         $('.sh-side-options').addClass('open');
+        rbSetMode(null);
     }
 
-    //환경설정 닫기
+    //설정 닫기
     function toggleSideOptions_close() {
         $('.sh-side-options').css('transition', 'all 600ms cubic-bezier(0.86, 0, 0.07, 1)');
         $('.sh-side-options').removeClass('open');
 
         $('.setting_set_btn').removeClass('open');
         $('.mobule_set_btn').removeClass('open');
+        $('.section_set_btn').removeClass('open');
         $('.content_box').removeClass('content_box_set');
         $('.rb_layout_box').removeClass('bg_fff');
-        $('.add_module_wrap').hide(); //2.1.4 추가
+        $('.rb_section_box').removeClass('bg_fff');
+        $('.add_module_wrap').hide();
+        $('.add_section_wrap').hide();
+        $('.rb-row-handle').hide();
+        $('.rb_layout_box').removeClass('ui-sortable-handle');
+        $('.rb_section_box').removeClass('ui-sortable-handle');
+        $('.flex_box').removeClass('ui-sortable');
+        $('.rb_section_box').removeClass('ui-sortable');
+
+
+        edit_css_close();
 
     }
 
-
-    //모듈설정
-    function set_module_send(element) {
+    //섹션설정
+    function set_section_send(element) {
 
         // 부모 요소의 값을 가져옴
-        var set_layout = $(element).closest('.flex_box').data('layout');
-        var set_title = $(element).closest('.rb_layout_box').data('title');
-        var set_id = $(element).closest('.rb_layout_box').data('id');
+        var set_layout = $(element).closest('.rb_section_box').data('layout');
+        var set_title = $(element).closest('.rb_section_box').data('title');
+        var set_id = $(element).closest('.rb_section_box').data('id');
         var theme_name = '<?php echo $rb_core['theme']; ?>';
-        var mod_type = '2';
+        var mod_type = '3';
+
+        //모듈의 데이터를 비운다
+        $('input[name="md_layout"]').val('');
+        $('input[name="md_theme"]').val('');
+        $('input[name="md_id"]').val('');
+        $('input[name="md_sec_key"]').val('');
+        $('input[name="md_sec_uid"]').val('');
+
+        if (!set_layout) {
+            var set_layout = $(element).closest('.flex_box').data('layout');
+        }
 
 
         $.ajax({
@@ -1671,8 +2625,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
             },
             success: function(response) {
-                $("#inq_res").html(response); //성공
-                toggleSideOptions_open_mod()
+                $("#inq_res_section").html(response); //성공
+                toggleSideOptions_open_sec()
                 toggleSideOptions_open()
 
             },
@@ -1681,9 +2635,64 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
             }
         });
 
-        // input 요소에 가져온 값을 설정
-        //$('input[name="aaa"]').val(title + ' - ' + id);
     }
+
+
+
+
+    //모듈설정
+    function set_module_send(element) {
+
+        // 부모 요소의 값을 가져옴
+        var $fx = $(element).closest('.flex_box');
+        var set_layout = String($fx.attr('data-layout') || '').trim();
+        var set_title = String($(element).closest('.rb_layout_box').attr('data-title') || '');
+        var set_id = String($(element).closest('.rb_layout_box').attr('data-id') || '');
+        var theme_name = '<?php echo $rb_core['theme']; ?>';
+        var mod_type = '2';
+
+        //섹션의 데이터를 비운다
+        $('input[name="sec_layout"]').val('');
+        $('input[name="sec_theme"]').val('');
+        $('input[name="sec_id"]').val('');
+
+        // 섹션 안에서 눌렀을 때 섹션 키 전달
+        var $sec = $(element).closest('.rb_section_box');
+        var md_sec_key = '';
+        var md_sec_uid = '';
+        if ($sec.length) {
+            // flex_box에 이미 복사돼 있으면 그 값을 우선 사용
+            md_sec_key = String(($fx.attr('data-sec-key') || $sec.attr('data-sec-key') || '')).trim();
+            md_sec_uid = String(($fx.attr('data-sec-uid') || $sec.attr('data-sec-uid') || '')).trim();
+        }
+
+        $.ajax({
+            url: '<?php echo G5_URL ?>/rb/rb.config/ajax.config_set.php',
+            method: 'POST',
+            dataType: 'html',
+            data: {
+                set_layout: set_layout,
+                set_id: set_id,
+                set_title: set_title,
+                theme_name: theme_name,
+                mod_type: mod_type,
+                <?php if (defined('_SHOP_')) { ?>is_shop: '1'
+                <?php } else { ?>is_shop: '0'
+                <?php } ?>,
+                md_sec_key: md_sec_key,
+                md_sec_uid: md_sec_uid
+            },
+            success: function(response) {
+                $("#inq_res").html(response);
+                toggleSideOptions_open_mod();
+                toggleSideOptions_open();
+            },
+            error: function() {
+                console.error('처리에 문제가 있습니다. 잠시 후 이용해주세요.');
+            }
+        });
+    }
+
 
     //모듈 삭제
     function set_module_del(element) {
@@ -1732,11 +2741,59 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
     }
 
 
+    //섹션 삭제
+    function set_section_del(element) {
+
+        // 부모 요소의 값을 가져옴
+        var set_layout = $(element).closest('.rb_section_box').data('layout');
+        var set_title = $(element).closest('.rb_section_box').data('title');
+        var set_id = $(element).closest('.rb_section_box').data('id');
+        var theme_name = '<?php echo $rb_core['theme']; ?>';
+        var mod_type = 'del_sec';
+
+        <?php if($is_admin) { ?>
+        <?php } else { ?>
+        alert('편집 권한이 없습니다.');
+        return false;
+        <?php } ?>
+
+
+        // Ajax를 사용하여 PHP로 값 전달
+        $.ajax({
+            url: '<?php echo G5_URL ?>/rb/rb.config/ajax.config_set.php', // PHP 파일 경로
+            method: 'POST', // POST 방식으로 전송
+            dataType: 'html',
+            data: {
+                "set_layout": set_layout,
+                "set_id": set_id,
+                "set_title": set_title,
+                "theme_name": theme_name,
+                "mod_type": mod_type,
+                <?php if (defined('_SHOP_')) { ?> "is_shop": "1",
+                <?php } else { ?> "is_shop": "0",
+                <?php } ?>
+
+            },
+            success: function(response) {
+                $("#inq_res_section").html(response); //성공
+                toggleSideOptions_open_sec()
+                toggleSideOptions_open()
+
+            },
+            error: function(xhr, status, error) {
+                console.error('처리에 문제가 있습니다. 잠시 후 이용해주세요.');
+            }
+        });
+
+    }
+
+
 
     //설정패널
     $(document).ready(function() {
 
         // 이벤트 핸들러 추가
+        /*
         $('.mod_co_color').on('change', function() {
             executeAjax();
         });
@@ -1744,10 +2801,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         $('.mod_co_header').on('change', function() {
             executeAjax();
         });
-
-        $('.mod_send').change(function() {
-            executeAjax();
-        });
+        */
 
     });
 
@@ -1828,7 +2882,7 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
 
     // Ajax 실행 함수 정의
-    function executeAjax() {
+    async function executeAjax() {
 
         var co_color = $('input[name="co_color"]').val();
         var co_header = $('input[name="co_header"]').val();
@@ -1848,13 +2902,16 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var co_main_width = $('select[name="co_main_width"]').val();
         var co_tb_width = $('select[name="co_tb_width"]').val();
 
-        <?php if (defined("_INDEX_")) { ?>
-        var co_main_padding_top = $('input[name="co_main_padding_top"]:checked').val();
-        var co_main_padding_top_shop = $('input[name="co_main_padding_top_shop"]:checked').val();
-        <?php } else { ?>
-        var co_main_padding_top = $('input[name="co_main_padding_top"]').val();
-        var co_main_padding_top_shop = $('input[name="co_main_padding_top_shop"]').val();
-        <?php } ?>
+
+        var co_padding_top = $('input[name="co_padding_top"]').val();
+        var co_padding_top_sub = $('input[name="co_padding_top_sub"]').val();
+        var co_padding_top_shop = $('input[name="co_padding_top_shop"]').val();
+        var co_padding_top_sub_shop = $('input[name="co_padding_top_sub_shop"]').val();
+
+        var co_padding_btm = $('input[name="co_padding_btm"]').val();
+        var co_padding_btm_sub = $('input[name="co_padding_btm_sub"]').val();
+        var co_padding_btm_shop = $('input[name="co_padding_btm_shop"]').val();
+        var co_padding_btm_sub_shop = $('input[name="co_padding_btm_sub_shop"]').val();
 
         <?php if(defined('_SHOP_')) { // 영카트?>
         var co_menu_shop = $('input[name="co_menu_shop"]:checked').val();
@@ -1941,7 +2998,6 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         return false;
         <?php } ?>
 
-
         // Ajax 요청 실행
         $.ajax({
             url: '<?php echo G5_URL ?>/rb/rb.config/ajax.config_set.php', // Ajax 요청을 보낼 엔드포인트 URL
@@ -1965,8 +3021,16 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 "co_sub_width": co_sub_width,
                 "co_main_width": co_main_width,
                 "co_tb_width": co_tb_width,
-                "co_main_padding_top": co_main_padding_top,
-                "co_main_padding_top_shop": co_main_padding_top_shop,
+
+                "co_padding_top": co_padding_top,
+                "co_padding_top_sub": co_padding_top_sub,
+                "co_padding_top_shop": co_padding_top_shop,
+                "co_padding_top_sub_shop": co_padding_top_sub_shop,
+
+                "co_padding_btm": co_padding_btm,
+                "co_padding_btm_sub": co_padding_btm_sub,
+                "co_padding_btm_shop": co_padding_btm_shop,
+                "co_padding_btm_sub_shop": co_padding_btm_sub_shop,
 
                 "co_menu_shop": co_menu_shop,
 
@@ -2000,13 +3064,13 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     var newHeaderSet = 'co_header_' + headerValues; // 예: co_6B4285
                     var newHeaderCode = data.co_header; // 원본 컬러 값 (#6b4285)
 
-                    if(data.co_sidemenu_hide == 1) {
+                    if (data.co_sidemenu_hide == 1) {
                         $('#rb_sidemenu').addClass('pc');
                     } else {
                         $('#rb_sidemenu').removeClass('pc');
                     }
 
-                    if(data.co_sidemenu_hide_shop == 1) {
+                    if (data.co_sidemenu_hide_shop == 1) {
                         $('#rb_sidemenu_shop').addClass('pc');
                     } else {
                         $('#rb_sidemenu_shop').removeClass('pc');
@@ -2163,12 +3227,12 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     $('.rb_topvisual').css('background-color', data.co_topvisual_bg_color);
 
                     $('.main_wording').css('color', data.co_topvisual_m_color);
-                    $('.main_wording').css('font-size', data.co_topvisual_m_size+'px');
+                    $('.main_wording').css('font-size', data.co_topvisual_m_size + 'px');
                     $('.main_wording').css('font-family', data.co_topvisual_m_font);
                     $('.main_wording').css('text-align', data.co_topvisual_m_align);
 
                     $('.sub_wording').css('color', data.co_topvisual_s_color);
-                    $('.sub_wording').css('font-size', data.co_topvisual_s_size+'px');
+                    $('.sub_wording').css('font-size', data.co_topvisual_s_size + 'px');
                     $('.sub_wording').css('font-family', data.co_topvisual_s_font);
                     $('.sub_wording').css('text-align', data.co_topvisual_s_align);
 
@@ -2185,6 +3249,197 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
     }
 
+    // Ajax 실행 함수 정의 (섹션저장)
+    function executeAjax_section() {
+
+        if ($('input[name="sec_id"]').val()) {
+            var sec_id = $('input[name="sec_id"]').val();
+        } else {
+            var sec_id = "new";
+        }
+
+
+        var sec_title = $('input[name="sec_title"]').val();
+        var sec_layout = $('input[name="sec_layout"]').val();
+        var sec_theme = $('input[name="sec_theme"]').val();
+
+        <?php if(defined('_SHOP_')) { // 영카트?>
+        var sec_layout_name = '<?php echo $rb_core['layout_shop'] ?>';
+        <?php } else { ?>
+        var sec_layout_name = '<?php echo $rb_core['layout'] ?>';
+        <?php } ?>
+
+        var sec_title_color = $('input[name="sec_title_color"]').val();
+        var sec_title_size = $('input[name="sec_title_size"]').val();
+        var sec_title_font = $('select[name="sec_title_font"]').val();
+        var sec_title_align = $('select[name="sec_title_align"]').val();
+        var sec_title_hide = $('input[name="sec_title_hide"]:checked').val();
+
+        var sec_sub_title = $('textarea[name="sec_sub_title"]').val();
+        var sec_sub_title_color = $('input[name="sec_sub_title_color"]').val();
+        var sec_sub_title_size = $('input[name="sec_sub_title_size"]').val();
+        var sec_sub_title_font = $('select[name="sec_sub_title_font"]').val();
+        var sec_sub_title_align = $('select[name="sec_sub_title_align"]').val();
+        var sec_sub_title_hide = $('input[name="sec_sub_title_hide"]:checked').val();
+
+        var sec_width = $('input[name="sec_width"]').val();
+        var sec_con_width = $('input[name="sec_con_width"]:checked').val();
+        var sec_padding_pc = $('input[name="sec_padding_pc"]').val();
+        var sec_padding_mo = $('input[name="sec_padding_mo"]').val();
+
+        var sec_margin_top_pc = $('input[name="sec_margin_top_pc"]').val();
+        var sec_margin_top_mo = $('input[name="sec_margin_top_mo"]').val();
+        var sec_margin_btm_pc = $('input[name="sec_margin_btm_pc"]').val();
+        var sec_margin_btm_mo = $('input[name="sec_margin_btm_mo"]').val();
+
+        var sec_bg = $('input[name="sec_bg"]').val();
+
+        if (sec_title == "") {
+            alert('섹션 타이틀을 입력해주세요.\n타이틀은 숨김처리 하실 수 있습니다.');
+            $('input[name="sec_title"]').focus();
+            return false;
+        } else if (sec_layout == "") {
+            alert('레이아웃 정보가 없습니다. 레이아웃 파일을 확인해주세요.');
+            return false;
+        } else if (sec_theme == "") {
+            alert('테마 정보가 없습니다. 테마 설정 후 이용해주세요.');
+            return false;
+        } else if (sec_layout_name == "") {
+            alert('레이아웃 정보가 없습니다. 레이아웃을 먼저 설정해주세요.');
+            return false;
+        } else {
+
+
+            <?php if($is_admin) { ?>
+            <?php } else { ?>
+            alert('편집 권한이 없습니다.');
+            return false;
+            <?php } ?>
+
+            // Ajax 요청 실행
+            $.ajax({
+                url: '<?php echo G5_URL ?>/rb/rb.config/ajax.section_set.php',
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    <?php if(defined('_SHOP_')) { // 영카트?> "is_shop": "1",
+                    <?php } else { ?> "is_shop": "0",
+                    <?php } ?>
+
+                    "sec_title": sec_title,
+                    "sec_layout": sec_layout,
+                    "sec_layout_name": sec_layout_name,
+                    "sec_theme": sec_theme,
+                    "sec_id": sec_id,
+
+                    "sec_title_color": sec_title_color,
+                    "sec_title_size": sec_title_size,
+                    "sec_title_font": sec_title_font,
+                    "sec_title_align": sec_title_align,
+                    "sec_title_hide": sec_title_hide,
+
+                    "sec_sub_title": sec_sub_title,
+                    "sec_sub_title_color": sec_sub_title_color,
+                    "sec_sub_title_size": sec_sub_title_size,
+                    "sec_sub_title_font": sec_sub_title_font,
+                    "sec_sub_title_align": sec_sub_title_align,
+                    "sec_sub_title_hide": sec_sub_title_hide,
+
+                    "sec_width": sec_width,
+                    "sec_con_width": sec_con_width,
+                    "sec_padding_pc": sec_padding_pc,
+                    "sec_padding_mo": sec_padding_mo,
+
+                    "sec_margin_top_pc": sec_margin_top_pc,
+                    "sec_margin_top_mo": sec_margin_top_mo,
+                    "sec_margin_btm_pc": sec_margin_btm_pc,
+                    "sec_margin_btm_mo": sec_margin_btm_mo,
+
+                    "sec_bg": sec_bg
+                },
+
+
+                success: function(data) {
+                    if (data.status == 'ok') {
+                        console.log('섹션저장:' + data.md_title);
+                        location.reload();
+
+                    } else {
+                        console.log('변경실패');
+                    }
+                },
+                error: function(err) {
+                    alert('문제가 발생 했습니다. 다시 시도해주세요.');
+                }
+
+            });
+
+        }
+    }
+
+
+    // Ajax 실행 함수 정의 (섹션삭제)
+    function executeAjax_section_del() {
+
+
+        var sec_id = $('input[name="sec_id"]').val();
+        var sec_layout = $('input[name="sec_layout"]').val();
+        var sec_theme = $('input[name="sec_theme"]').val();
+        <?php if(defined('_SHOP_')) { // 영카트?>
+        var sec_layout_name = '<?php echo $rb_core['layout_shop'] ?>';
+        <?php } else { ?>
+        var sec_layout_name = '<?php echo $rb_core['layout'] ?>';
+        <?php } ?>
+        var del = 'true';
+
+        // 현재 화면의 해당 섹션 엘리먼트에서 sec_uid 추출
+        var $secEl = $('.rb_section_box').filter(function() {
+            return String($(this).data('id')) === String(sec_id);
+        }).first();
+        var sec_uid = $secEl.data('sec-uid') || '';
+
+        if (sec_id == "") {
+            alert('섹션 ID정보가 없습니다. 다시 시도해주세요.');
+            return false;
+        } else {
+
+            <?php if($is_admin) { ?>
+            <?php } else { ?>
+            alert('편집 권한이 없습니다.');
+            return false;
+            <?php } ?>
+
+
+            // Ajax 요청 실행
+            $.ajax({
+                url: '<?php echo G5_URL ?>/rb/rb.config/ajax.section_set.php', // Ajax 요청을 보낼 엔드포인트 URL
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    "sec_id": sec_id,
+                    "sec_layout": sec_layout,
+                    "sec_theme": sec_theme,
+                    "sec_layout_name": sec_layout_name,
+                    "del": del,
+                    "sec_uid": sec_uid,
+                    <?php if(defined('_SHOP_')) { // 영카트?> "is_shop": "1",
+                    <?php } else { ?> "is_shop": "0",
+                    <?php } ?>
+                },
+                success: function(data) {
+                    if (data.status == 'ok') {
+                        location.reload();
+                    } else {
+                        console.log('변경실패');
+                    }
+                },
+                error: function(err) {
+                    alert('문제가 발생 했습니다. 다시 시도해주세요.');
+                }
+            });
+
+        }
+    }
 
 
     // Ajax 실행 함수 정의 (모듈저장)
@@ -2205,6 +3460,9 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
         var md_title_hide = $('input[name="md_title_hide"]:checked').val();
         var md_layout = $('input[name="md_layout"]').val();
         var md_theme = $('input[name="md_theme"]').val();
+
+        var md_sec_key = $('input[name="md_sec_key"]').val();
+        var md_sec_uid = $('input[name="md_sec_uid"]').val();
 
         if (md_type == "item") {
             var md_skin = $('#md_skin_shop').val();
@@ -2422,12 +3680,9 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                 method: 'POST',
                 dataType: 'json',
                 data: {
-                    <?php if(defined('_SHOP_')) { // 영카트?>
-                        "is_shop": "1",
-                    <?php } else { ?>
-                        "is_shop": "0",
-                    <?php } ?>
-                    "md_id": md_id,
+                    <?php if(defined('_SHOP_')) { // 영카트?> "is_shop": "1",
+                    <?php } else { ?> "is_shop": "0",
+                    <?php } ?> "md_id": md_id,
                     "md_title": md_title,
                     "md_title_color": md_title_color,
                     "md_title_size": md_title_size,
@@ -2453,6 +3708,8 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
                     "md_poll": md_poll,
                     "md_poll_id": md_poll_id,
                     "md_theme": md_theme,
+                    "md_sec_key": md_sec_key,
+                    "md_sec_uid": md_sec_uid,
                     "md_layout_name": layout_name,
                     "md_cnt": md_cnt,
                     "md_col": md_col,
@@ -2567,4 +3824,1020 @@ add_javascript('<script src="'.G5_URL.'/rb/rb.config/coloris/coloris.js"></scrip
 
         }
     }
+
+
+    const RB_FOLDER_RE_CREATE = /^(?!\.)(?!.*\.\.)[A-Za-z0-9_-]+$/; // 생성: 점 불가
+    const RB_FOLDER_RE_ANY = /^(?!\.)(?!.*\.\.)[A-Za-z0-9_.-]+$/; // 편집/읽기: 점 허용
+
+
+    // 엔터를 <br>로만 강제
+    $('#rb-css-editor').on('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            document.execCommand('insertHTML', false, '<br>\n');
+        }
+    });
+
+    // 붙여넣기: 항상 텍스트만, 줄바꿈은 <br>로
+    $('#rb-css-editor').on('paste', function(e) {
+        e.preventDefault();
+
+        // 1) 클립보드에서 순수 텍스트만 꺼내기
+        var text = '';
+        var clipboardData = (e.originalEvent && e.originalEvent.clipboardData) || window.clipboardData;
+        if (clipboardData) {
+            text = clipboardData.getData('text/plain') || '';
+        }
+
+        // 2) 개행 정규화 → \n
+        text = String(text).replace(/\r\n?/g, '\n');
+
+        // 3) HTML 이스케이프 (혹시라도 <, > 등 들어오면 태그로 안 보이게)
+        var safe = text
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+
+        // 4) \n → <br> 로 변환해서 현재 커서 위치에 삽입
+        var html = safe.replace(/\n/g, '<br>');
+
+        // execCommand는 여전히 contenteditable에서 잘 동작 (레인지 API로 바꿔도 OK)
+        document.execCommand('insertHTML', false, html);
+    });
+
+    // 혹시 드래그&드롭으로 HTML 던져넣는 경우도 텍스트만
+    $('#rb-css-editor').on('drop', function(e) {
+        e.preventDefault();
+        var dt = e.originalEvent && e.originalEvent.dataTransfer;
+        var text = (dt && (dt.getData('text/plain') || dt.getData('Text'))) || '';
+        text = String(text).replace(/\r\n?/g, '\n');
+        var safe = text
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+        var html = safe.replace(/\n/g, '<br>');
+        document.execCommand('insertHTML', false, html);
+    });
+
+    $(document).on('keydown', '#rb-css-editor[contenteditable="true"]', function(e) {
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            document.execCommand('insertText', false, '    ');
+        }
+    });
+
+
+    function escClass(c) {
+        if (window.CSS && CSS.escape) return '.' + CSS.escape(c);
+        return '.' + String(c).replace(/[^a-zA-Z0-9_-]/g, '\\$&');
+    }
+
+    function escId(id) {
+        if (window.CSS && CSS.escape) return '#' + CSS.escape(id);
+        return '#' + String(id).replace(/[^a-zA-Z0-9_-]/g, '\\$&');
+    }
+
+    function setEditorText($el, text) {
+        var node = $el.get(0);
+        if (!node) return;
+        if ((node.tagName || '').toLowerCase() === 'textarea') $el.val(text);
+        else node.textContent = text;
+    }
+
+
+
+
+
+    // 역슬래시 따옴표 정리 (혹시라도 섞여 들어왔을 때 보정)
+    function normalizeQuotes(str) {
+        return String(str).replace(/\\"/g, '"').replace(/\\'/g, "'");
+    }
+
+    // 저장된 CSS를 먼저 불러오되, 없으면 fallbackFn 실행
+    function tryLoadExistingCSS(opts, $editor, fallbackFn) {
+        var endpoint = g5_url + '/rb/rb.config/ajax.custom_css_load.php';
+        var expectedUrl = buildCssFileUrl(opts);
+
+        $.get(endpoint, {
+            sec_id: opts.sec_id || '',
+            sec_layout: opts.sec_layout || '',
+            md_id: opts.md_id || '',
+            md_layout: opts.md_layout || '',
+            <?php if (defined('_SHOP_')) { ?>is_shop: '1'
+            <?php } else { ?>is_shop: '0'
+            <?php } ?>
+        }).done(function(res) {
+            var data;
+            try {
+                data = (typeof res === 'string') ? JSON.parse(res) : res;
+            } catch (e) {
+                data = null;
+            }
+
+            if (data && data.status === 'ok' && data.css) {
+                setEditorFromCss(normalizeQuotes(data.css)); // 에디터 채움
+                fileInfoShow(expectedUrl); // 파일 라벨 표시
+            } else {
+                // 파일 없음 → 템플릿 생성 + 라벨 제거
+                fileInfoClear(); // 라벨 제거
+                fallbackFn();
+            }
+        }).fail(function() {
+            // 에러 → 템플릿 생성 + 라벨 제거
+            fileInfoClear(); // 라벨 제거
+            fallbackFn();
+        });
+    }
+
+    function isSwiperDynamic(el) {
+        var cls = (el.className || '').toString();
+        var id = (el.id || '').toString();
+        var tokens = cls.split(/\s+/).filter(Boolean).concat(id ? [id] : []);
+
+        var deny = new Set([
+            'swiper', 'swiper-container', 'swiper-container-initialized',
+            'swiper-wrapper', 'rb-swiper-wrapper', 'rb_swiper_inner',
+            'swiper-slide', 'rb-swiper-slide',
+            'swiper-button-prev', 'swiper-button-next',
+            'rb-swiper-prev', 'rb-swiper-next',
+            'swiper-pagination', 'swiper-scrollbar', 'swiper-notification',
+            'rb_swiper'
+        ]);
+        return tokens.some(function(t) {
+            t = String(t).toLowerCase();
+            if (deny.has(t)) return true;
+            return (
+                /^rb[-_]?swiper/i.test(t) ||
+                /^swiper(-(container|wrapper|slide|button|pagination|scrollbar))/i.test(t)
+            );
+        });
+    }
+
+    // 마지막 클래스만 사용해서 길이 줄이기
+    function buildOwnSelector(el) {
+        var tag = (el.tagName || '').toLowerCase();
+        if (!tag) return '';
+
+        if (el.id) return tag + escId(el.id);
+
+        var cls = (el.className && typeof el.className === 'string') ? el.className.trim() : '';
+        if (!cls) return tag;
+
+        var classes = cls.split(/\s+/).filter(Boolean);
+        if (classes.length) {
+            return tag + escClass(classes[classes.length - 1]); // 마지막 클래스만
+        }
+        return tag;
+    }
+
+    function buildParentSelector(el) {
+        var p = el.parentElement;
+        if (!p) return '';
+        var tag = (p.tagName || '').toLowerCase();
+        if (!tag) return '';
+
+        if (p.id) return tag + escId(p.id);
+
+        var cls = (p.className && typeof p.className === 'string') ? p.className.trim() : '';
+        if (!cls) return tag;
+
+        var classes = cls.split(/\s+/).filter(Boolean);
+        if (classes.length) {
+            return tag + escClass(classes[classes.length - 1]); // 마지막 클래스만
+        }
+        return tag;
+    }
+
+    function ensureFileInfo() {
+        var $fi = $('#rb-css-fileinfo');
+        if (!$fi.length) $fi = $('<div id="rb-css-fileinfo"></div>').appendTo('.rb-sh-side-css');
+        return $fi;
+    }
+
+    function showWidgetPath(folder) {
+        ensureFileInfo().html(
+            '파일위치 : /rb/rb.widget/' + folder + '/widget.php'
+        );
+    }
+
+    function clearWidgetPath() {
+        ensureFileInfo().empty();
+    }
+
+
+    // 전역 컨텍스트
+    window.rbCssCtx = {
+        kind: null,
+        layout: '',
+        id: '',
+        is_shop: '0'
+    };
+
+    // 공통: 컨텍스트 세팅
+    function setRbCssCtx(kind, layout, id, isShop) {
+        window.rbCssCtx = {
+            kind: String(kind || ''),
+            layout: String(layout || ''),
+            id: String(id || ''),
+            is_shop: String(isShop != null ? isShop : '0')
+        };
+    }
+
+
+    // ============================= 섹션 =============================
+    function edit_css_sec_open(arg1, arg2) {
+
+        rbRestoreCssSaveBtn(); // 복구
+        rbRestoreTopTit(); // 복구
+
+        var $reset = $('#css_reset_btn');
+        if ($reset.attr('data-hidden-by') === 'widget') {
+            $reset.removeAttr('data-hidden-by').show();
+        }
+
+        $('.rb-sh-side-css')
+            .css('transition', 'all 600ms cubic-bezier(0.86,0,0.07,1)')
+            .addClass('open');
+
+        var sec_layout, sec_id;
+
+        // 버튼 element로 받은 경우
+        if (arg1 && arg1.nodeType === 1) {
+            sec_layout = $(arg1).data('layout');
+            sec_id = $(arg1).data('id');
+        } else {
+            // 직접 값으로 받은 경우 (edit_css_sec_open('L1','S123'))
+            sec_layout = arg1 || $('input[name="sec_layout"]').val();
+            sec_id = arg2 || $('input[name="sec_id"]').val();
+        }
+
+        setRbCssCtx('sec', sec_layout, sec_id, isShop);
+
+        // is_shop 판별 (엘리먼트에 data-shop 있으면 우선, 없으면 PHP 상수로 주입)
+        var isShop = (arg1 && arg1.nodeType === 1 && $(arg1).attr('data-shop') != null) ?
+            String($(arg1).attr('data-shop')) :
+            (<?php if (defined('_SHOP_')) { ?> '1'
+                <?php } else { ?> '0'
+                <?php } ?>);
+
+        // 타깃 요소에 data-shop 보강(누락 대비)
+        $('.rb_section_box[data-layout="' + sec_layout + '"][data-id="' + sec_id + '"]').each(function() {
+            if (!this.hasAttribute('data-shop')) this.setAttribute('data-shop', isShop);
+        });
+
+        // data-shop 포함한 최종 루트 셀렉터
+        var rootSel = '.rb_section_box' +
+            '[data-layout="' + sec_layout + '"]' +
+            '[data-id="' + sec_id + '"]' +
+            '[data-shop="' + isShop + '"]';
+
+        var $rootScope = $(rootSel);
+        var $editor = $('#rb-css-editor, #rb-css-edit-wrap').first();
+
+        if (!$rootScope.length) {
+            setEditorText($editor, '섹션을 찾을 수 없습니다: ' + rootSel);
+            return;
+        }
+
+        // 불러오기에도 is_shop 같이 전송 (파일명 `_shop` 규칙과 일치)
+        tryLoadExistingCSS({
+            sec_layout: sec_layout,
+            sec_id: sec_id,
+            is_shop: isShop
+        }, $editor, function templateBuild() {
+            var seen = new Set();
+
+            $rootScope.find('*')
+                .not('.add_module_wrap, .add_module_wrap *')
+                .not('.add_section_wrap, .add_section_wrap *')
+                .not('br, script, style, noscript, link, meta, title, head')
+                .each(function() {
+                    if (isSwiperDynamic(this)) return;
+
+                    var own = buildOwnSelector(this);
+                    if (!own) return;
+
+                    var parentSel = buildParentSelector(this);
+                    var line = parentSel ?
+                        (rootSel + ' ' + parentSel + ' > ' + own + ' {}') :
+                        (rootSel + ' ' + own + ' {}');
+
+                    if (!seen.has(line)) seen.add(line);
+                });
+
+            var lines = Array.from(seen).sort();
+            var header = '';
+            setEditorText(
+                $editor,
+                lines.length ? header + lines.join('\n') + '\n' :
+                header + '/* 템플릿 생성: 요소 없음 */\n'
+            );
+
+            fileInfoClear(); // 파일 없으니 라벨 제거
+        });
+    }
+
+    // ============================= 모듈 =============================
+    function edit_css_mod_open(arg1, arg2) {
+
+        rbRestoreCssSaveBtn(); // 복구
+        rbRestoreTopTit(); // 복구
+
+        var $reset = $('#css_reset_btn');
+        if ($reset.attr('data-hidden-by') === 'widget') {
+            $reset.removeAttr('data-hidden-by').show();
+        }
+
+        $('.rb-sh-side-css').css('transition', 'all 600ms cubic-bezier(0.86,0,0.07,1)').addClass('open');
+
+        var md_layout, md_id;
+
+        if (arg1 && arg1.nodeType === 1) {
+            md_layout = $(arg1).data('layout');
+            md_id = $(arg1).data('id');
+        } else {
+            md_layout = arg1 || $('input[name="md_layout"]').val();
+            md_id = arg2 || $('input[name="md_id"]').val();
+        }
+
+        setRbCssCtx('mod', md_layout, md_id, isShop);
+
+        var isShop = (arg1 && arg1.nodeType === 1 && $(arg1).attr('data-shop') != null) ?
+            String($(arg1).attr('data-shop')) :
+            (<?php if (defined('_SHOP_')) { ?> '1'
+                <?php } else { ?> '0'
+                <?php } ?>);
+
+        $('.rb_layout_box[data-layout="' + md_layout + '"][data-id="' + md_id + '"]').each(function() {
+            if (!this.hasAttribute('data-shop')) this.setAttribute('data-shop', isShop);
+        });
+
+        var rootSel = '.rb_layout_box' +
+            '[data-layout="' + md_layout + '"]' +
+            '[data-id="' + md_id + '"]' +
+            '[data-shop="' + isShop + '"]' +
+            ' .content_box';
+        var $rootScope = $(rootSel);
+        var $editor = $('#rb-css-editor, #rb-css-edit-wrap').first();
+
+        if (!$rootScope.length) {
+            setEditorText($editor, '모듈을 찾을 수 없습니다: ' + rootSel);
+            return;
+        }
+
+        tryLoadExistingCSS({
+            md_layout,
+            md_id,
+            is_shop: isShop
+        }, $editor, function templateBuild() {
+            var seen = new Set();
+
+            $rootScope.find('*')
+                .not('.add_module_wrap, .add_module_wrap *')
+                .not('.add_section_wrap, .add_section_wrap *')
+                .not('br, script, style, noscript, link, meta, title, head')
+                .each(function() {
+                    if (isSwiperDynamic(this)) return;
+
+                    var own = buildOwnSelector(this);
+                    if (!own) return;
+
+                    var parentSel = buildParentSelector(this);
+                    var line = parentSel ?
+                        (rootSel + ' ' + parentSel + ' > ' + own + ' {}') :
+                        (rootSel + ' ' + own + ' {}');
+
+                    if (!seen.has(line)) seen.add(line);
+                });
+
+            var lines = Array.from(seen).sort();
+            var header = '';
+            setEditorText($editor, lines.length ? header + lines.join('\n') + '\n' :
+                header + '/* 템플릿 생성: 요소 없음 */\n');
+        });
+    }
+
+
+    //닫기
+    function edit_css_close() {
+        $('.rb-sh-side-css').css('transition', 'all 600ms cubic-bezier(0.86, 0, 0.07, 1)');
+        $('.rb-sh-side-css').removeClass('open');
+    }
+
+    function edit_css_close_none() {
+        $('.rb-sh-side-css').css('transition', 'all 600ms cubic-bezier(0.86, 0, 0.07, 1)');
+        $('.rb-sh-side-css').removeClass('open');
+    }
+
+    // HTML 특수문자 이스케이프
+    function escHTML(s) {
+        return String(s)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
+
+
+
+    function setEditorFromCss(cssText) {
+        cssText = String(cssText).replace(/\r\n?/g, '\n');
+        var html = escHTML(cssText).replace(/\n/g, '<br>');
+        $('#rb-css-editor').html(html);
+    }
+
+    // (B) 에디터(contenteditable)의 내용을 "순수 CSS 텍스트"로 회수 (줄바꿈 보존)
+    function getEditorCss() {
+        var $ed = $('#rb-css-editor');
+        var html = $ed.html() || '';
+
+        // 블록 경계/BR -> \n
+        html = html
+            .replace(/<br\s*\/?>/gi, '\n')
+            .replace(/<\/(p|div)>\s*<(p|div)[^>]*>/gi, '\n') // </div><div>
+            .replace(/<\/(p|div)>/gi, '\n') // 끝 블록 -> \n
+            .replace(/<(p|div)[^>]*>/gi, ''); // 여는 블록 제거
+
+        // 모든 태그 제거
+        html = html.replace(/<[^>]+>/g, '');
+
+        // HTML 엔티티 디코드
+        var ta = document.createElement('textarea');
+        ta.innerHTML = html;
+        var css = ta.value;
+
+        // 개행 정규화 + 마지막 개행 보장
+        css = css.replace(/\r\n?/g, '\n').replace(/\s+$/, '') + '\n';
+        return css;
+    }
+
+    function fileInfoShow(url) {
+        var $fi = ensureFileInfo().show();
+        if (!url) {
+            $fi.text('저장된 파일이 없습니다.');
+            return;
+        }
+        var path = String(url).replace(/^https?:\/\/[^/]+/i, '');
+        $fi.text('파일위치 : ' + path);
+    }
+
+    function fileInfoClear() {
+        ensureFileInfo().show().text('저장된 파일이 없습니다.');
+    }
+
+    // 페이지 진입 시 혹시 정적으로 박혀 있던거 있으면 제거
+    $(function() {
+        fileInfoClear();
+    });
+
+    function buildCssFileUrl(opts) {
+        var base = g5_url + '/data/rb_custom_css/';
+
+        function slug(s) {
+            return String(s).replace(/[^A-Za-z0-9_-]/g, '-');
+        }
+
+        var isShop =
+            (opts && typeof opts.is_shop !== 'undefined') ? String(opts.is_shop) :
+            (window.rbCssCtx && window.rbCssCtx.is_shop) ? String(window.rbCssCtx.is_shop) :
+            '0';
+        var suf = (isShop === '1') ? '_shop' : '';
+
+        if (opts && opts.md_layout && opts.md_id)
+            return base + 'mod' + suf + '_' + slug(opts.md_layout) + '_' + slug(opts.md_id) + '.css';
+        if (opts && opts.sec_layout && opts.sec_id)
+            return base + 'sec' + suf + '_' + slug(opts.sec_layout) + '_' + slug(opts.sec_id) + '.css';
+
+        return '';
+    }
+
+    function loadSavedCssToEditor(fileUrl) {
+        $.get(fileUrl + '?v=' + Date.now())
+            .done(function(text) {
+                var data;
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    data = null;
+                }
+
+                if (data && data.status === 'none') {
+                    fileInfoClear();
+                    setEditorFromCss('');
+                    return;
+                }
+                // 파일 있음
+                fileInfoShow(fileUrl);
+                setEditorFromCss(text);
+            })
+            .fail(function() {
+                fileInfoClear();
+            });
+    }
+
+    // 저장 클릭
+    $('#css_save_btn').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const cssCode = getEditorCss();
+        const ctx = window.rbCssCtx || {};
+
+        // 컨텍스트 우선, 없으면 기존 인풋 폴백
+        const sec_id = (ctx.kind === 'sec') ? ctx.id : ($('input[name="sec_id"]').val() || '');
+        const sec_layout = (ctx.kind === 'sec') ? ctx.layout : ($('input[name="sec_layout"]').val() || '');
+        const md_id = (ctx.kind === 'mod') ? ctx.id : ($('input[name="md_id"]').val() || '');
+        const md_layout = (ctx.kind === 'mod') ? ctx.layout : ($('input[name="md_layout"]').val() || '');
+
+        const endpoint = g5_url + '/rb/rb.config/ajax.custom_css_save.php';
+
+        $.post(endpoint, {
+                css_code: cssCode,
+                sec_id,
+                sec_layout,
+                md_id,
+                md_layout,
+                csrf: window.RB_WIDGET_CSRF,
+                <?php if (defined('_SHOP_')) { ?>is_shop: '1'
+                <?php } else { ?>is_shop: '0'
+                <?php } ?>
+            })
+            .done(function(res) {
+                let data = res;
+                if (typeof res === 'string') {
+                    try {
+                        data = JSON.parse(res);
+                    } catch (_) {}
+                }
+
+                if (data && data.status === 'ok') {
+                    if (data.file_url && data.link_id) {
+                        const id = data.link_id;
+                        const href = data.file_url + '?v=' + Date.now();
+                        const $lnk = $('#' + id);
+                        if ($lnk.length) $lnk.attr('href', href);
+                        else $('head').append('<link id="' + id + '" rel="stylesheet" href="' + href + '">');
+
+                        // 저장 직후 에디터에 최신 CSS 반영
+                        loadSavedCssToEditor(data.file_url);
+                    }
+                    alert('커스텀 CSS가 저장 및 반영 되었습니다');
+                } else {
+                    alert('저장 실패: ' + (data && data.message ? data.message : '응답 오류'));
+                }
+            })
+            .fail(function(xhr) {
+                alert('서버 오류: ' + xhr.status);
+            });
+
+        return false;
+    });
+
+
+    $('#css_reset_btn').on('click', function() {
+        rb_confirm("생성된 CSS파일이 있는경우 삭제되며 초기 내용으로 원복됩니다. 계속 하시겠습니까? ")
+            .then(function(confirmed) {
+                if (!confirmed) return;
+
+                const ctx = window.rbCssCtx || {};
+
+                const sec_id = (ctx.kind === 'sec') ? ctx.id : ($('input[name="sec_id"]').val() || '');
+                const sec_layout = (ctx.kind === 'sec') ? ctx.layout : ($('input[name="sec_layout"]').val() || '');
+                const md_id = (ctx.kind === 'mod') ? ctx.id : ($('input[name="md_id"]').val() || '');
+                const md_layout = (ctx.kind === 'mod') ? ctx.layout : ($('input[name="md_layout"]').val() || '');
+
+                $.post(g5_url + '/rb/rb.config/ajax.custom_css_delete.php', {
+                    sec_id,
+                    sec_layout,
+                    md_id,
+                    md_layout,
+                    <?php if (defined('_SHOP_')) { ?>is_shop: '1'
+                    <?php } else { ?>is_shop: '0'
+                    <?php } ?>
+                }).done(function(res) {
+                    let data = res;
+                    if (typeof res === 'string') {
+                        try {
+                            data = JSON.parse(res);
+                        } catch (_) {}
+                    }
+
+                    if (data && data.status === 'ok') {
+                        fileInfoClear(); // 라벨 제거
+
+                        if (data.existed === false) {
+                            alert('생성된 CSS파일이 없습니다.');
+                            return;
+                        }
+
+                        alert('CSS 파일이 삭제되고 초기화 되었습니다.');
+
+                        // 컨텍스트 기준으로 다시 열기 (버튼 없이도 값 전달 가능)
+                        if (ctx.kind === 'sec' && sec_id && sec_layout) {
+                            edit_css_sec_open(sec_layout, sec_id);
+                        } else if (ctx.kind === 'mod' && md_id && md_layout) {
+                            edit_css_mod_open(md_layout, md_id);
+                        }
+                    } else {
+                        alert('초기화 실패: ' + (data && data.message ? data.message : '응답 오류'));
+                    }
+                }).fail(function(xhr) {
+                    alert('서버 오류: ' + xhr.status);
+                });
+            });
+    });
+
+
+    function initCssSidebarResizer() {
+        var $panel = $('.rb-sh-side-css');
+        if (!$panel.length) return;
+
+        // 핸들 없으면 생성 (좌측 가장자리)
+        if (!$panel.children('.rb-css-resizer').length) {
+            $('<div class="rb-css-resizer" aria-hidden="true"></div>').prependTo($panel);
+        }
+
+        // 최소/최대 폭
+        var MIN_W = 450; // px
+        var MAX_W = 1280; // px
+
+        // 핸들/패널 스타일 주입
+        $panel.css({
+            position: 'fixed'
+        }); // 보통 right:0 로 쓰고 있을 것임(기존 CSS 유지)
+        $panel.find('.rb-css-resizer').css({
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            width: '4px',
+            height: '100%',
+            cursor: 'col-resize',
+            'z-index': '998',
+            'background': '#3b3e41'
+        });
+
+        var dragging = false;
+        var startX = 0;
+        var startW = 0;
+
+        function onMouseMove(e) {
+            if (!dragging) return;
+            // 좌측 가장자리를 끌기 때문에, 마우스를 왼쪽으로 이동하면 폭이 증가
+            var delta = startX - e.pageX;
+            var newW = Math.max(MIN_W, Math.min(MAX_W, startW + delta));
+            // 드래그 중에는 transition 비활성화 → 버벅임 방지
+            $panel.css({
+                transition: 'none',
+                width: newW + 'px'
+            });
+        }
+
+        function onMouseUp() {
+            if (!dragging) return;
+            dragging = false;
+            $(document).off('mousemove', onMouseMove).off('mouseup', onMouseUp);
+            $('body').css('user-select', '');
+            // 드래그 끝 → 원래 transition 복구 (필요 시)
+            $panel.css('transition', 'all 600ms cubic-bezier(0.86,0,0.07,1)');
+        }
+
+        $panel.on('mousedown', '.rb-css-resizer', function(e) {
+            e.preventDefault();
+            dragging = true;
+            startX = e.pageX;
+            startW = $panel.outerWidth(); // 현재 폭 기준
+            $('body').css('user-select', 'none');
+            // 드래그 중엔 트랜지션 해제
+            $panel.css('transition', 'none');
+            $(document).on('mousemove', onMouseMove).on('mouseup', onMouseUp);
+        });
+    }
+
+
+
+    // 저장 버튼 원본을 보관/복구하기 위한 변수
+    var __rb_savedCssBtn = null;
+
+    function rbSwitchToWidgetSaveBtn() {
+        var $old = $('#css_save_btn');
+        if (!$old.length) return $('<button type="button" id="widget_save_btn" class="main_rb_bg">생성</button>').appendTo('.rb-sh-side-css-top-btn');
+        __rb_savedCssBtn = $old.clone(true, true);
+        var $new = $('<button type="button" id="widget_save_btn" class="main_rb_bg">생성</button>');
+        $old.replaceWith($new);
+        return $new;
+    }
+
+    function rbRestoreCssSaveBtn() {
+        var $cur = $('#widget_save_btn');
+        if ($cur.length && __rb_savedCssBtn) $cur.replaceWith(__rb_savedCssBtn);
+        __rb_savedCssBtn = null;
+    }
+
+    function rbRestoreTopTit() {
+        var $tit = $('.rb-sh-side-css-top-tit');
+        var orig = $tit.data('orig-html');
+        if (orig != null) {
+            $tit.html(orig);
+            $tit.removeData('orig-html');
+        }
+    }
+
+
+    function rbGetEditorPlain() {
+        var $ed = $('#rb-css-editor');
+        if (!$ed.length) return '';
+        var html = ($ed.html() || '')
+            .replace(/\r\n?/g, '\n')
+            .replace(/<br\s*\/?>/gi, '\n')
+            .replace(/<\/(div|p|li|h[1-6])>/gi, '\n')
+            .replace(/<[^>]+>/g, '')
+            .replace(/&nbsp;/g, ' ');
+        var ta = document.createElement('textarea');
+        ta.innerHTML = html;
+        return ta.value.replace(/\u00a0/g, ' ');
+    }
+
+    function rbSetEditorPlain(text) {
+        $('#rb-css-editor').text(String(text || ''));
+    }
+
+
+    function rbEditorIsEmpty() {
+        const el = document.getElementById('rb-css-editor');
+        if (!el) return true;
+        // 공백/개행/<br>만 있는 경우도 비어있는 것으로 간주
+        const html = el.innerHTML.replace(/<br\s*\/?>/gi, '').replace(/\s+/g, '');
+        return html.length === 0;
+    }
+
+    function rbSetEditorPlaceholder(text) {
+        const $ed = $('#rb-css-editor');
+        if (!$ed.length) return;
+        $ed.attr('data-ph', text || '');
+        if (rbEditorIsEmpty()) $ed.empty(); // :empty 상태로 만들어 placeholder가 보이게
+    }
+
+    function rbClearEditorPlaceholder() {
+        $('#rb-css-editor').removeAttr('data-ph');
+    }
+
+    (function bindEditorPhEvents() {
+        const $ed = $('#rb-css-editor');
+        if (!$ed.length) return;
+        $ed.off('.ph') // 중복바인딩 방지
+            .on('input.ph keyup.ph paste.ph', function() {
+                // 비어있으면 :empty가 되도록 불필요한 <br> 제거
+                if (rbEditorIsEmpty()) $(this).empty();
+            })
+            .on('blur.ph', function() {
+                if (rbEditorIsEmpty()) $(this).empty(); // 블러 시 다시 비면 플레이스홀더 보이게
+            });
+    })();
+
+
+    function add_widget_mod_open(btn, selectedValue) {
+
+        rbRestoreCssSaveBtn(); // 복구
+        rbRestoreTopTit(); // 복구
+
+        var $reset = $('#css_reset_btn');
+        if ($reset.is(':visible')) $reset.attr('data-hidden-by', 'widget');
+        $reset.hide();
+
+        var $panel = $('.rb-sh-side-css');
+        $panel.css('transition', 'all 600ms cubic-bezier(0.86,0,0.07,1)').addClass('open');
+
+        // 선택값 파싱: "rb.widget/폴더명" → folder
+        var folderMatched = null;
+        if (selectedValue && typeof selectedValue === 'string') {
+            var m = selectedValue.match(/^rb\.widget\/([^\/]+)$/);
+            folderMatched = m ? m[1] : null;
+        }
+        var isEdit = !!folderMatched;
+
+        // Top 타이틀 영역 교체(ul 안에 li로)
+        var $tit = $panel.find('.rb-sh-side-css-top-tit');
+        if (!$tit.length) {
+            $tit = $('<ul class="rb-sh-side-css-top-tit"></ul>').prependTo($panel.find('.rb-sh-side-css-top-wrap'));
+        }
+        if (!$tit.data('orig-html')) $tit.data('orig-html', $tit.html());
+
+        if (!$('#rb-widget-ui').length) {
+            var ui =
+                '<li id="rb-widget-ui">' +
+                '  <div class="rb-widget-row">' +
+                '    <input type="text" id="rb-widget-folder" placeholder="폴더명 (영문, 숫자, -, _)" />' +
+                '  </div>' +
+                '</li>';
+            $tit.html(ui);
+        }
+
+        // 폴더 인풋 상태 설정
+        var $folder = $('#rb-widget-folder');
+        if (isEdit) {
+            rbClearEditorPlaceholder();
+            $folder.val(folderMatched).prop({
+                    readonly: true,
+                    disabled: true
+                })
+                .css({
+                    opacity: '0.4',
+                    cursor: 'not-allowed'
+                });
+            showWidgetPath(folderMatched);
+        } else {
+            rbSetEditorPlain('');
+            rbSetEditorPlaceholder(
+                "생성하실 위젯의 폴더명을 먼저 입력하신 후\n" +
+                "여기에 코드를 입력하세요."
+            );
+            $folder.val('').prop({
+                    readonly: false,
+                    disabled: false
+                })
+                .css({
+                    opacity: '1',
+                    cursor: 'text'
+                });
+            clearWidgetPath();
+        }
+
+
+        // 생성모드에서만 블러 체크 (점 허용 안 함)
+        $('#rb-widget-folder').off('blur.widget');
+        if (!isEdit) {
+            $('#rb-widget-folder').on('blur.widget', function() {
+                var $inp = $(this);
+                var folder = ($inp.val() || '').trim();
+
+                if (!folder) {
+                    clearWidgetPath();
+                    return;
+                }
+                if (!RB_FOLDER_RE_CREATE.test(folder)) { // ⬅️ 생성 규칙 적용
+                    alert('폴더명은 영문, 숫자, 하이픈(-), 언더스코어(_)만 허용됩니다.');
+                    $inp.val('').focus();
+                    clearWidgetPath();
+                    return;
+                }
+
+                $.getJSON(g5_url + '/rb/rb.config/ajax.widget_check.php', {
+                        folder
+                    })
+                    .done(function(res) {
+                        if (res && res.ok && res.exists) {
+                            alert('이미 같은 폴더가 존재합니다: ' + folder);
+                            $inp.val('').focus();
+                            clearWidgetPath();
+                        } else {
+                            showWidgetPath(folder);
+                        }
+                    });
+            });
+        }
+
+        // 버튼 교체 및 라벨
+        var $btn = rbSwitchToWidgetSaveBtn();
+        $btn.text(isEdit ? '저장' : '생성');
+
+        // 에디터 내용: 편집모드면 서버에서 로드, 생성모드는 비움
+        if (isEdit) {
+            $.ajax({
+                url: g5_url + '/rb/rb.config/ajax.widget_load.php',
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                data: {
+                    folder: folderMatched,
+                    csrf: window.RB_WIDGET_CSRF,
+                    <?php if (defined('_SHOP_')) { ?> is_shop: '1'
+                    <?php } else { ?> is_shop: '0'
+                    <?php } ?>
+                }
+            }).done(function(res) {
+                if (res && res.ok) {
+                    rbSetEditorPlain(res.code || '');
+                } else {
+                    rbSetEditorPlain('');
+                    alert('위젯 파일을 불러오지 못했습니다.');
+                }
+            }).fail(function() {
+                rbSetEditorPlain('');
+                alert('불러오기 오류');
+            });
+        } else {
+            rbSetEditorPlain('');
+        }
+
+        // 생성/저장 클릭
+        $btn.off('click.widget').on('click.widget', function(e) {
+            e.preventDefault();
+
+            // 현재 인풋이 disabled면 편집모드로 본다
+            var $folderInp = $('#rb-widget-folder');
+            var nowEdit = $folderInp.is(':disabled');
+
+            var folder = isEdit ? folderMatched : (($('#rb-widget-folder').val() || '').trim());
+            if (!folder) {
+                alert('폴더명을 입력하세요.');
+                return;
+            }
+
+            if (!isEdit && !RB_FOLDER_RE_CREATE.test(folder)) {
+                alert('폴더명은 영문, 숫자, 하이픈(-), 언더스코어(_)만 허용됩니다.');
+                return;
+            }
+
+            var code = rbGetEditorPlain();
+            if (!code) {
+                alert('코드가 비었습니다.');
+                return;
+            }
+
+            $.ajax({
+                url: g5_url + '/rb/rb.config/ajax.widget_save.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    folder: folder,
+                    overwrite: isEdit ? '1' : '0', // 편집=항상 덮어쓰기, 생성=신규만
+                    code: code,
+                    csrf: window.RB_WIDGET_CSRF,
+                    <?php if (defined('_SHOP_')) { ?> is_shop: '1'
+                    <?php } else { ?> is_shop: '0'
+                    <?php } ?>
+                }
+            }).done(function(res) {
+                if (res && res.ok) {
+                    alert((nowEdit ? '저장' : '생성') + '되었습니다.\n' + (res.path || ''));
+
+                    // 생성 직후 → 곧바로 편집모드로 전환
+                    if (!nowEdit) {
+                        // 셀렉트 갱신 및 선택
+                        refreshWidgetSelect('rb.widget/' + folder);
+
+                        // 폴더 인풋 잠금 + 버튼 텍스트 변경
+                        $folderInp.prop({
+                                readonly: true,
+                                disabled: true
+                            })
+                            .css({
+                                background: '#f3f3f3',
+                                cursor: 'not-allowed',
+                                color: '#666'
+                            });
+                        $btn.text('저장');
+                        showWidgetPath(folder);
+                    }
+                } else {
+                    alert('실패: ' + (res && res.msg ? res.msg : 'unknown'));
+                }
+            }).fail(function(xhr) {
+                alert('저장 중 오류가 발생했습니다.');
+                console.error(xhr && xhr.responseText);
+            });
+        });
+    }
+
+    function refreshWidgetSelect(selectedValue) {
+        var $sels = $('select[name="md_widget"]');
+        if (!$sels.length) return;
+
+        $.ajax({
+            url: g5_url + '/rb/rb.config/ajax.widget_list.php',
+            type: 'GET',
+            dataType: 'html',
+            cache: false,
+            data: {
+                md_widget: selectedValue || '',
+                _t: Date.now() // 캐시 방지
+            }
+        }).done(function(html) {
+            $sels.each(function() {
+                var $sel = $(this);
+                // 맨 앞 placeholder 보관
+                var firstOpt = $sel.find('option').first();
+                var placeholder = firstOpt.length ? firstOpt.prop('outerHTML') :
+                    '<option value="">출력할 위젯을 선택하세요.</option>';
+
+                // 옵션 교체 (placeholder + 서버에서 내려준 옵션)
+                $sel.html(placeholder + html);
+
+                // 선택값 강제 지정(선택값이 있으면)
+                if (selectedValue) {
+                    $sel.val(selectedValue);
+                }
+
+                // 의존 UI 갱신 필요 시
+                $sel.trigger('change');
+            });
+        }).fail(function(xhr) {
+            console.error('refreshWidgetSelect failed', xhr && xhr.responseText);
+        });
+    }
+
+
+    // 문서 로드 시 리사이저 초기화
+    $(function() {
+        initCssSidebarResizer();
+    });
 </script>

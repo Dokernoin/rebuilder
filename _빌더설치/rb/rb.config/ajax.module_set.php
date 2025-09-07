@@ -26,6 +26,8 @@ $md_banner_skin = isset($_POST['md_banner_skin']) ? $_POST['md_banner_skin'] : '
 $md_poll = isset($_POST['md_poll']) ? $_POST['md_poll'] : '';
 $md_poll_id = isset($_POST['md_poll_id']) ? $_POST['md_poll_id'] : '';
 $md_theme = isset($_POST['md_theme']) ? $_POST['md_theme'] : '';
+$md_sec_key = isset($_POST['md_sec_key']) ? $_POST['md_sec_key'] : '';
+$md_sec_uid = isset($_POST['md_sec_uid']) ? $_POST['md_sec_uid'] : '';
 $md_layout_name = isset($_POST['md_layout_name']) ? $_POST['md_layout_name'] : '';
 $md_cnt = isset($_POST['md_cnt']) ? $_POST['md_cnt'] : '1';
 $md_notice = isset($_POST['md_notice']) ? $_POST['md_notice'] : '0';
@@ -143,6 +145,8 @@ if(isset($is_shop) && $is_shop == 1) {
                 md_poll = '{$md_poll}',
                 md_poll_id = '{$md_poll_id}',
                 md_theme = '{$md_theme}', 
+                md_sec_key = '{$md_sec_key}',
+                md_sec_uid = '{$md_sec_uid}',
                 md_layout_name = '{$md_layout_name}', 
                 md_cnt = '{$md_cnt}', 
                 md_notice = '{$md_notice}',
@@ -220,6 +224,8 @@ if(isset($is_shop) && $is_shop == 1) {
                 md_poll = '{$md_poll}', 
                 md_poll_id = '{$md_poll_id}',
                 md_theme = '{$md_theme}', 
+                md_sec_key = '{$md_sec_key}',
+                md_sec_uid = '{$md_sec_uid}',
                 md_layout_name = '{$md_layout_name}', 
                 md_cnt = '{$md_cnt}', 
                 md_notice = '{$md_notice}',

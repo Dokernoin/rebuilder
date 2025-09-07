@@ -8,8 +8,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 //ini_set('display_startup_errors', 1);
 //error_reporting(E_ALL);
 
-define('RB_VER',  '2.2.2'); // 버전
-
+define('RB_VER',  '2.2.3'); // 버전
 
 /*********************************************/
 
@@ -54,6 +53,7 @@ $rb_page_urls = explode('?', $rb_page_urls)[0]; // 쿼리스트링 제거
 $rb_page_urls = preg_replace('/\.php$/', '', $rb_page_urls);
 $rb_page_urls = str_replace('/', '-', $rb_page_urls);
 $rb_page_urls = ltrim($rb_page_urls, '-');
+
 
 // 카테고리
 if (strpos($_SERVER['REQUEST_URI'], '/adm/') === false) {
@@ -235,12 +235,61 @@ $rb_v_info['topvisual_style_all'] = !empty($rb_v_info['co_topvisual_style_all'])
 
 /* } */
 
+/* 2.2.3 { */
+
+$rb_core['padding_top'] = isset($rb_config['co_padding_top']) ? $rb_config['co_padding_top'] : '';
+$rb_core['padding_top_sub'] = isset($rb_config['co_padding_top_sub']) ? $rb_config['co_padding_top_sub'] : '';
+$rb_core['padding_top_shop'] = isset($rb_config['co_padding_top_shop']) ? $rb_config['co_padding_top_shop'] : '';
+$rb_core['padding_top_sub_shop'] = isset($rb_config['co_padding_top_sub_shop']) ? $rb_config['co_padding_top_sub_shop'] : '';
+
+$rb_core['padding_btm'] = isset($rb_config['co_padding_btm']) ? $rb_config['co_padding_btm'] : '';
+$rb_core['padding_btm_sub'] = isset($rb_config['co_padding_btm_sub']) ? $rb_config['co_padding_btm_sub'] : '';
+$rb_core['padding_btm_shop'] = isset($rb_config['co_padding_btm_shop']) ? $rb_config['co_padding_btm_shop'] : '';
+$rb_core['padding_btm_sub_shop'] = isset($rb_config['co_padding_btm_sub_shop']) ? $rb_config['co_padding_btm_sub_shop'] : '';
+
+// 여백 인라인 스타일
+function rb_inline_padding($arr, $key, $prop = null) {
+    if (!is_array($arr) || !is_string($key) || $key === '') return '';
+
+    $v = array_key_exists($key, $arr) ? $arr[$key] : '';
+    if ($v === '' || $v === null || !is_scalar($v)) return '';
+
+    $v = trim((string)$v);
+    if ($v === '' || !is_numeric($v)) return '';
+
+    $n = (float)$v;
+    if ($n < 0) return '';
+
+    // 방향 결정
+    $css = '';
+    if ($prop !== null && $prop !== '') {
+        switch (strtolower(trim($prop))) {
+            case 'top':    $css = 'padding-top';    break;
+            case 'bottom': $css = 'padding-bottom'; break;
+            case 'left':   $css = 'padding-left';   break;
+            case 'right':  $css = 'padding-right';  break;
+            default: return ''; // 잘못된 값이면 출력 안 함
+        }
+    } else {
+        $tokens = preg_split('/[_\-]+/', strtolower($key)) ?: array(strtolower($key));
+        if     (in_array('bottom', $tokens, true) || in_array('btm', $tokens, true)) $css = 'padding-bottom';
+        elseif (in_array('left',   $tokens, true))                                   $css = 'padding-left';
+        elseif (in_array('right',  $tokens, true))                                   $css = 'padding-right';
+        elseif (in_array('top',    $tokens, true))                                   $css = 'padding-top';
+        else return ''; // 방향 못 찾으면 출력 안 함
+    }
+
+    return $css . ':' . (int)$n . 'px;';
+}
+
+/* } */
+
 
 //영카트 사용여부
 $rb_core['layout_shop'] = !empty($rb_config['co_layout_shop']) ? $rb_config['co_layout_shop'] : ''; // 레이아웃(메인)
 $rb_core['layout_hd_shop'] = !empty($rb_config['co_layout_hd_shop']) ? $rb_config['co_layout_hd_shop'] : ''; // 레이아웃(헤더)
 $rb_core['layout_ft_shop'] = !empty($rb_config['co_layout_ft_shop']) ? $rb_config['co_layout_ft_shop'] : ''; // 레이아웃(푸터)
-$rb_core['padding_top_shop'] = !empty($rb_config['co_main_padding_top_shop']) ? $rb_config['co_main_padding_top_shop'] : "0"; // 상단, 하단 가로사이즈
+//$rb_core['padding_top_shop'] = !empty($rb_config['co_main_padding_top_shop']) ? $rb_config['co_main_padding_top_shop'] : "0";
 
 $rb_core['color'] = str_replace('#', '', $rb_core['color']); // # 제거 2.1.4
 $rb_core['header'] = str_replace('#', '', $rb_core['header']); // # 제거 2.1.4

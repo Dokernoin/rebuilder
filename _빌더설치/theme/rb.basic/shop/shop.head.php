@@ -87,8 +87,18 @@ if (
             <?php include_once(G5_PATH.'/rb/rb.config/topvisual.shop.php'); ?>
         <?php } ?>
        
-        <!-- $rb_core['sub_width'] 는 반드시 포함해주세요 (환경설정 > 서브가로폭) -->
-        <section class="<?php if (defined("_INDEX_")) { ?>index co_inner_padding_pc_<?php echo $rb_core['inner_padding_pc'] ?> co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } else { ?>sub<?php } ?>" <?php if (!defined("_INDEX_")) { ?>style="width:<?php echo $rb_core['sub_width'] ?>px;"<?php } else { ?>style="width:<?php echo $rb_core['main_width'] ?>px;"<?php } ?>>
+        <section class="<?php if (defined("_INDEX_")) { ?>index co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } else { ?>sub co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } ?>"
+        style="
+        <?php if (!defined("_INDEX_")) { ?>
+        width:<?php echo $rb_core['sub_width'] ?>px;
+        <?php echo rb_inline_padding($rb_core, 'padding_top_sub_shop'); ?>
+        <?php echo rb_inline_padding($rb_core, 'padding_btm_sub_shop'); ?>
+        <?php } else { ?>
+        width:<?php echo $rb_core['main_width'] ?>px;
+        <?php echo rb_inline_padding($rb_core, 'padding_top_shop'); ?>
+        <?php echo rb_inline_padding($rb_core, 'padding_btm_shop'); ?>
+        <?php } ?>
+        ">
         
         <?php if (!defined("_INDEX_")) { ?>
 

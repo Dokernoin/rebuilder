@@ -84,7 +84,7 @@ header("Pragma: no-cache"); // HTTP/1.0
     ?>
     <meta property="og:title" content="<?php echo $views['wr_subject'] ?>"/>
     <meta property="og:description" content="<?php echo $meta_description; ?>" />
-    <meta property="og:image" content="<?php echo $meta_img ?>?ver=<?php echo G5_TIME_YMDHIS ?>"/>
+    <meta property="og:image" content="<?php echo $meta_img ?>?ver=<?php echo G5_SERVER_TIME ?>"/>
     
 <?php } else { ?>
    
@@ -99,7 +99,7 @@ header("Pragma: no-cache"); // HTTP/1.0
         <?php } ?>
     <?php } ?>
     <?php if(isset($seo['se_og_image']) && $seo['se_og_image']) { ?>
-        <meta property="og:image" content="<?php echo G5_URL ?>/data/seo/og_image?ver=<?php echo G5_TIME_YMDHIS ?>" />
+        <meta property="og:image" content="<?php echo G5_URL ?>/data/seo/og_image?ver=<?php echo G5_SERVER_TIME ?>" />
     <?php } ?>
 
 <?php } ?>
@@ -107,8 +107,8 @@ header("Pragma: no-cache"); // HTTP/1.0
 
 <!-- ICO { -->
 <?php if(isset($seo['se_favicon']) && $seo['se_favicon']) { ?>
-<link rel="shortcut icon" href="<?php echo G5_URL ?>/data/seo/favicon?ver=<?php echo G5_TIME_YMDHIS ?>" type="image/x-icon">
-<link rel="icon" href="<?php echo G5_URL ?>/data/seo/favicon?ver=<?php echo G5_TIME_YMDHIS ?>" type="image/x-icon">
+<link rel="shortcut icon" href="<?php echo G5_URL ?>/data/seo/favicon?ver=<?php echo G5_SERVER_TIME ?>" type="image/x-icon">
+<link rel="icon" href="<?php echo G5_URL ?>/data/seo/favicon?ver=<?php echo G5_SERVER_TIME ?>" type="image/x-icon">
 <?php } ?>
 <!-- } -->
 
@@ -158,6 +158,10 @@ const g5_shop_url = "<?php echo G5_SHOP_URL; ?>";
 <?php if(defined('G5_IS_ADMIN')) { ?>
 const g5_admin_url = "<?php echo G5_ADMIN_URL; ?>";
 <?php } ?>
+
+// 레이아웃 ajax 에 전달되는 인덱스 플래그
+const is_index = <?php echo defined('_INDEX_') ? 'true' : 'false'; ?>;
+const is_shop = <?php echo defined('_SHOP_') ? 'true' : 'false'; ?>;
 </script>
 
 <?php
@@ -172,11 +176,11 @@ add_javascript('<script src="'.G5_JS_URL.'/jquery-migrate-1.4.1.min.js"></script
     
 if(defined('_SHOP_')) {
     if (isset($rb_core['layout_shop'])) {
-        add_javascript('<script src="' . G5_THEME_URL . '/rb.js/rb.layout.shop.js?v=2.2.1"></script>', 0);
+        add_javascript('<script src="' . G5_THEME_URL . '/rb.js/rb.layout.shop.js?v=2.2.3"></script>', 0);
     }
 } else { 
     if (isset($rb_core['layout'])) {
-        add_javascript('<script src="' . G5_THEME_URL . '/rb.js/rb.layout.js?v=2.2.1"></script>', 0);
+        add_javascript('<script src="' . G5_THEME_URL . '/rb.js/rb.layout.js?v=2.2.3"></script>', 0);
     }
 }
 

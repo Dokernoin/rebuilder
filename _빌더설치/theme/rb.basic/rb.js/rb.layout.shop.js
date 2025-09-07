@@ -1,65 +1,97 @@
 $(document).ready(function () {
-    function processFlexBoxesOnce($scope, callback) {
-        var flexBoxes = $scope.find('.flex_box').addBack('.flex_box').filter(function () {
-            return !$(this).data('layout-loaded'); // 중복 방지
-        });
-
-        var layoutNumbers = [];
-
-        flexBoxes.each(function (index) {
-            var $box = $(this);
-            var layout = $box.attr('data-layout');
-
-            if (!layout) {
-                layout = layoutNumbers.length + 1;
-                $box.attr('data-layout', layout);
-            }
-
-            layoutNumbers.push(layout);
-            $box.data('layout-loaded', true);
-        });
-
-        if (!layoutNumbers.length) {
-            if (callback) callback();
-            return;
-        }
-
-        $.ajax({
-            url: g5_url + '/rb/rb.config/ajax.layout_set.shop.php',
-            method: 'POST',
-            dataType: 'json',
-            data: { layouts: layoutNumbers },
-            success: function (response) {
-                flexBoxes.each(function () {
-                    var $box = $(this);
-                    var layout = $box.attr('data-layout');
-                    var html = response[layout];
-
-                    if (html !== undefined) {
-                        $box.html(html);
-                    }
-                });
-
-                if (callback) callback();
-            },
-            error: function () {
-                console.error('레이아웃 로드 실패');
-                if (callback) callback();
-            }
-        });
-    }
-
-    // ✅ 1차 처리 → 2차로 전체 한 번 더 훑어서 놓친 거 있으면 추가 처리
-    processFlexBoxesOnce($('body'), function () {
-        processFlexBoxesOnce($('body'), function () {
-            setTimeout(function () {
-                if (typeof initializeAllSliders === "function") initializeAllSliders();
-                if (typeof initializeCalendar === "function") initializeCalendar();
-            }, 50);
-        });
+  function processFlexBoxesOnce($scope, callback) {
+    // 1) 로드 대상 수집: 섹션 내부는 제외
+    var flexBoxes = $scope.find('.flex_box').addBack('.flex_box').filter(function () {
+      var $box = $(this);
+      if ($box.data('layout-loaded')) return false;
+      if ($box.closest('.rb_section_box').length) return false; // 섹션 내부 제외
+      return true;
     });
-});
 
+    // 2) 레이아웃 목록 만들기 (없으면 자동 부여)
+    var layoutNumbers = [];
+    var seq = 0;
+    flexBoxes.each(function () {
+      var $box = $(this);
+      var lay = String($box.attr('data-layout') || '').trim();
+
+      if (!lay) {
+        // 최상위 컨테이너에만 임시 번호 부여 (1,2,3…)
+        seq += 1;
+        lay = String(seq);
+        $box.attr('data-layout', lay);
+      }
+
+      if (layoutNumbers.indexOf(lay) === -1) layoutNumbers.push(lay);
+      // ★ 여기서는 아직 layout-loaded 찍지 않음 (성공 후에 찍음)
+    });
+
+    if (!layoutNumbers.length) { if (callback) callback(); return; }
+
+    // 3) AJAX 로드
+    $.ajax({
+      url: g5_url + '/rb/rb.config/ajax.layout_set.shop.php',
+      method: 'POST',
+      dataType: 'json',
+      data: { layouts: layoutNumbers, is_index: is_index },
+      success: function (res) {
+        flexBoxes.each(function () {
+          var $box = $(this);
+          var lay = String($box.attr('data-layout') || '').trim();
+          if (res[lay] !== undefined) {
+            $box.html(res[lay]);
+            $box.data('layout-loaded', true); // 성공 후에 표시
+          }
+        });
+
+        // 로드 후: 키(sec_uid) 일치 모듈만 섹션으로 이동
+        packModulesIntoSectionsOnce();
+
+        if (callback) callback();
+      },
+      error: function () {
+        console.error('레이아웃 로드 실패');
+        if (callback) callback();
+      }
+    });
+  }
+
+  // 섹션으로 모듈을 '키 일치'할 때만 이동
+  function packModulesIntoSectionsOnce() {
+    $('.rb_section_box').each(function () {
+      var $sec = $(this);
+      var secUid = String($sec.attr('data-sec-uid') || '').trim();
+      if (!secUid) return;
+
+      var $inner = $sec.children('.flex_box').first();
+
+      // 현재 섹션 바깥에 있는 모듈 중 sec_uid가 같은 것만 흡수
+      var $cand = $('.rb_layout_box').filter(function () {
+        var $m = $(this);
+        var mUid = String($m.attr('data-sec-uid') || '').trim();
+        var outside = ($m.closest('.rb_section_box').length === 0);
+        return !!mUid && mUid === secUid && outside;
+      });
+
+      if ($cand.length) {
+        $inner.append($cand);
+        // 보너스: 표시용 layout도 섹션 layout로 맞춤
+        var layout = String($sec.attr('data-layout') || '').trim();
+        $cand.attr('data-layout', layout);
+      }
+    });
+  }
+
+  // 2회 로드 패턴 유지
+  processFlexBoxesOnce($('body'), function () {
+    processFlexBoxesOnce($('body'), function () {
+      setTimeout(function () {
+        if (typeof initializeAllSliders === "function") initializeAllSliders();
+        if (typeof initializeCalendar === "function") initializeCalendar();
+      }, 50);
+    });
+  });
+});
 
 
     function initializeAllSliders() {

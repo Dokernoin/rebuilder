@@ -42,13 +42,23 @@ include_once(G5_PATH.'/rb/rb.mod/alarm/alarm.php'); // 실시간 알림
 
     
     <script>
-        $(document).ready(function() {
+        function adjustContentPadding() {
             // header의 높이 구하기
             var height_header = $('#header').outerHeight();
             var sticky_header = $('#header').outerHeight() + 30;
             // contents_wrap 에 구해진 높이값 적용
             $('#contents_wrap').css('padding-top', height_header + 'px');
             $('#rb_sidemenu').css('top', sticky_header + 'px');
+        }
+
+        $(document).ready(function() {
+            // 처음 페이지 로드 시 호출
+            adjustContentPadding();
+
+            // 브라우저 리사이즈 시 호출
+            $(window).resize(function() {
+                adjustContentPadding();
+            });
         });
     </script>
     
@@ -66,7 +76,19 @@ include_once(G5_PATH.'/rb/rb.mod/alarm/alarm.php'); // 실시간 알림
         co_inner_padding_ : (0~30)
         co_gap_ : (0~30)
         -->
-        <section class="<?php if (defined("_INDEX_")) { ?>index co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } else { ?>sub co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } ?>" style="<?php if (!defined("_INDEX_")) { ?>width:<?php echo $rb_core['sub_width'] ?>px;<?php } else { ?>width:<?php echo $rb_core['main_width'] ?>px;<?php } ?>">
+
+        <section class="<?php if (defined("_INDEX_")) { ?>index co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } else { ?>sub co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } ?>"
+        style="
+        <?php if (!defined("_INDEX_")) { ?>
+        width:<?php echo $rb_core['sub_width'] ?>px;
+        <?php echo rb_inline_padding($rb_core, 'padding_top_sub'); ?>
+        <?php echo rb_inline_padding($rb_core, 'padding_btm_sub'); ?>
+        <?php } else { ?>
+        width:<?php echo $rb_core['main_width'] ?>px;
+        <?php echo rb_inline_padding($rb_core, 'padding_top'); ?>
+        <?php echo rb_inline_padding($rb_core, 'padding_btm'); ?>
+        <?php } ?>
+        ">
 
         <?php if (!defined("_INDEX_")) { ?>
 
@@ -92,10 +114,6 @@ include_once(G5_PATH.'/rb/rb.mod/alarm/alarm.php'); // 실시간 알림
                 <div class="rb_co_top flex_box" data-layout="rb_co_top_<?php echo $co_id ?>"></div>
             <?php } ?>
         <?php } ?>
-        
-        <?php if (isset($rb_core['padding_top']) && $rb_core['padding_top'] == 1) { ?>
-        <?php if (defined("_INDEX_")) { ?><span style="margin-top:-70px;" class="pc"></span><?php } ?>
-        <?php } ?>
-        
+
         <?php if (!defined("_INDEX_")) { ?><h2 id="container_title"><?php echo get_head_title($g5['title']); ?></h2><?php } ?>
 

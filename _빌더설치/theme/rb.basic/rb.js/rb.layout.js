@@ -1,163 +1,195 @@
 $(document).ready(function () {
-    function processFlexBoxesOnce($scope, callback) {
-        var flexBoxes = $scope.find('.flex_box').addBack('.flex_box').filter(function () {
-            return !$(this).data('layout-loaded'); // 중복 방지
-        });
-
-        var layoutNumbers = [];
-
-        flexBoxes.each(function (index) {
-            var $box = $(this);
-            var layout = $box.attr('data-layout');
-
-            if (!layout) {
-                layout = layoutNumbers.length + 1;
-                $box.attr('data-layout', layout);
-            }
-
-            layoutNumbers.push(layout);
-            $box.data('layout-loaded', true);
-        });
-
-        if (!layoutNumbers.length) {
-            if (callback) callback();
-            return;
-        }
-
-        $.ajax({
-            url: g5_url + '/rb/rb.config/ajax.layout_set.php',
-            method: 'POST',
-            dataType: 'json',
-            data: { layouts: layoutNumbers },
-            success: function (response) {
-                flexBoxes.each(function () {
-                    var $box = $(this);
-                    var layout = $box.attr('data-layout');
-                    var html = response[layout];
-
-                    if (html !== undefined) {
-                        $box.html(html);
-                    }
-                });
-
-                if (callback) callback();
-            },
-            error: function () {
-                console.error('레이아웃 로드 실패');
-                if (callback) callback();
-            }
-        });
-    }
-
-    // ✅ 1차 처리 → 2차로 전체 한 번 더 훑어서 놓친 거 있으면 추가 처리
-    processFlexBoxesOnce($('body'), function () {
-        processFlexBoxesOnce($('body'), function () {
-            setTimeout(function () {
-                if (typeof initializeAllSliders === "function") initializeAllSliders();
-                if (typeof initializeCalendar === "function") initializeCalendar();
-            }, 50);
-        });
+  function processFlexBoxesOnce($scope, callback) {
+    // 1) 로드 대상 수집: 섹션 내부는 제외
+    var flexBoxes = $scope.find('.flex_box').addBack('.flex_box').filter(function () {
+      var $box = $(this);
+      if ($box.data('layout-loaded')) return false;
+      if ($box.closest('.rb_section_box').length) return false; // 섹션 내부 제외
+      return true;
     });
+
+    // 2) 레이아웃 목록 만들기 (없으면 자동 부여)
+    var layoutNumbers = [];
+    var seq = 0;
+    flexBoxes.each(function () {
+      var $box = $(this);
+      var lay = String($box.attr('data-layout') || '').trim();
+
+      if (!lay) {
+        // 최상위 컨테이너에만 임시 번호 부여 (1,2,3…)
+        seq += 1;
+        lay = String(seq);
+        $box.attr('data-layout', lay);
+      }
+
+      if (layoutNumbers.indexOf(lay) === -1) layoutNumbers.push(lay);
+      // 여기서는 아직 layout-loaded 찍지 않음 (성공 후에 찍음)
+    });
+
+    if (!layoutNumbers.length) { if (callback) callback(); return; }
+
+    // 3) AJAX 로드
+    $.ajax({
+      url: g5_url + '/rb/rb.config/ajax.layout_set.php',
+      method: 'POST',
+      dataType: 'json',
+      data: { layouts: layoutNumbers, is_index: is_index },
+      success: function (res) {
+        flexBoxes.each(function () {
+          var $box = $(this);
+          var lay = String($box.attr('data-layout') || '').trim();
+          if (res[lay] !== undefined) {
+            $box.html(res[lay]);
+            $box.data('layout-loaded', true); // 성공 후에 표시
+          }
+        });
+
+        // 로드 후: 키(sec_uid) 일치 모듈만 섹션으로 이동
+        packModulesIntoSectionsOnce();
+
+        if (callback) callback();
+      },
+      error: function () {
+        console.error('레이아웃 로드 실패');
+        if (callback) callback();
+      }
+    });
+  }
+
+  // 섹션으로 모듈을 '키 일치'할 때만 이동
+  function packModulesIntoSectionsOnce() {
+    $('.rb_section_box').each(function () {
+      var $sec = $(this);
+      var secUid = String($sec.attr('data-sec-uid') || '').trim();
+      if (!secUid) return;
+
+      var $inner = $sec.children('.flex_box').first();
+
+      // 현재 섹션 바깥에 있는 모듈 중 sec_uid가 같은 것만 흡수
+      var $cand = $('.rb_layout_box').filter(function () {
+        var $m = $(this);
+        var mUid = String($m.attr('data-sec-uid') || '').trim();
+        var outside = ($m.closest('.rb_section_box').length === 0);
+        return !!mUid && mUid === secUid && outside;
+      });
+
+      if ($cand.length) {
+        $inner.append($cand);
+        // 보너스: 표시용 layout도 섹션 layout로 맞춤
+        var layout = String($sec.attr('data-layout') || '').trim();
+        $cand.attr('data-layout', layout);
+      }
+    });
+  }
+
+  // 2회 로드 패턴 유지
+  processFlexBoxesOnce($('body'), function () {
+    processFlexBoxesOnce($('body'), function () {
+      setTimeout(function () {
+        if (typeof initializeAllSliders === "function") initializeAllSliders();
+        if (typeof initializeCalendar === "function") initializeCalendar();
+      }, 50);
+    });
+  });
 });
 
 
+function initializeAllSliders() {
+    $('.rb_swiper').each(function () {
+        const $slider = $(this);
+        setupResponsiveSlider($slider);
+    });
+}
 
-    function initializeAllSliders() {
-        $('.rb_swiper').each(function () {
-            const $slider = $(this);
-            setupResponsiveSlider($slider);
+function setupResponsiveSlider($rb_slider) {
+    let swiperInstance = null; // Swiper 인스턴스 저장
+    let currentMode = ''; // 현재 모드 ('pc' 또는 'mo')
+
+    // 초기 설정
+    function initSlider(mode) {
+        const isMobile = mode === 'mo';
+        const rows = parseInt($rb_slider.data(isMobile ? 'mo-h' : 'pc-h'), 10) || 1;
+        const cols = parseInt($rb_slider.data(isMobile ? 'mo-w' : 'pc-w'), 10) || 1;
+        const gap = parseInt($rb_slider.data(isMobile ? 'mo-gap' : 'pc-gap'), 10) || 0;
+        const swap = $rb_slider.data(isMobile ? 'mo-swap' : 'pc-swap') == 1;
+        const slidesPerView = rows * cols;
+
+        // 슬라이드 재구성 및 간격 설정
+        configureSlides($rb_slider, slidesPerView, cols, gap);
+
+        // Swiper 초기화
+        if (swiperInstance) {
+            swiperInstance.destroy(true, true); // 기존 Swiper 삭제
+        }
+
+        swiperInstance = new Swiper($rb_slider.find('.rb_swiper_inner')[0], {
+            slidesPerView: 1,
+            initialSlide: 0,
+            spaceBetween: gap,
+            resistanceRatio: 0,
+            touchRatio: swap ? 1 : 0,
+            autoplay: $rb_slider.data('autoplay') == 1 ?
+                {
+                    delay: parseInt($rb_slider.data('autoplay-time'), 10) || 3000,
+                    disableOnInteraction: false,
+                } :
+                false,
+            navigation: {
+                nextEl: $rb_slider.find('.rb-swiper-next')[0],
+                prevEl: $rb_slider.find('.rb-swiper-prev')[0],
+            },
         });
     }
 
-    function setupResponsiveSlider($rb_slider) {
-        let swiperInstance = null; // Swiper 인스턴스 저장
-        let currentMode = ''; // 현재 모드 ('pc' 또는 'mo')
+    // 슬라이드 구성 및 재구성
+    function configureSlides($rb_slider, view, cols, gap) {
+        const widthPercentage = `calc(${100 / cols}% - ${(gap * (cols - 1)) / cols}px)`;
 
-        // 초기 설정
-        function initSlider(mode) {
-            const isMobile = mode === 'mo';
-            const rows = parseInt($rb_slider.data(isMobile ? 'mo-h' : 'pc-h'), 10) || 1;
-            const cols = parseInt($rb_slider.data(isMobile ? 'mo-w' : 'pc-w'), 10) || 1;
-            const gap = parseInt($rb_slider.data(isMobile ? 'mo-gap' : 'pc-gap'), 10) || 0;
-            const swap = $rb_slider.data(isMobile ? 'mo-swap' : 'pc-swap') == 1;
-            const slidesPerView = rows * cols;
+        $rb_slider.find('.rb_swiper_list').css('width', widthPercentage);
 
-            // 슬라이드 재구성 및 간격 설정
-            configureSlides($rb_slider, slidesPerView, cols, gap);
-
-            // Swiper 초기화
-            if (swiperInstance) {
-                swiperInstance.destroy(true, true); // 기존 Swiper 삭제
-            }
-
-            swiperInstance = new Swiper($rb_slider.find('.rb_swiper_inner')[0], {
-                slidesPerView: 1,
-                initialSlide: 0,
-                spaceBetween: gap,
-                resistanceRatio: 0,
-                touchRatio: swap ? 1 : 0,
-                autoplay: $rb_slider.data('autoplay') == 1
-                    ? {
-                        delay: parseInt($rb_slider.data('autoplay-time'), 10) || 3000,
-                        disableOnInteraction: false,
-                    }
-                    : false,
-                navigation: {
-                    nextEl: $rb_slider.find('.rb-swiper-next')[0],
-                    prevEl: $rb_slider.find('.rb-swiper-prev')[0],
-                },
-            });
+        // 기존 슬라이드 그룹화 제거
+        if ($rb_slider.find('.rb_swiper_list').parent().hasClass('rb-swiper-slide')) {
+            $rb_slider.find('.swiper-slide-duplicate').remove();
+            $rb_slider.find('.rb_swiper_list').unwrap('.rb-swiper-slide');
         }
 
-        // 슬라이드 구성 및 재구성
-        function configureSlides($rb_slider, view, cols, gap) {
-            const widthPercentage = `calc(${100 / cols}% - ${(gap * (cols - 1)) / cols}px)`;
-
-            $rb_slider.find('.rb_swiper_list').css('width', widthPercentage);
-
-            // 기존 슬라이드 그룹화 제거
-            if ($rb_slider.find('.rb_swiper_list').parent().hasClass('rb-swiper-slide')) {
-                $rb_slider.find('.swiper-slide-duplicate').remove();
-                $rb_slider.find('.rb_swiper_list').unwrap('.rb-swiper-slide');
+        // 슬라이드 그룹화
+        let groupIndex = 0;
+        $rb_slider.find('.rb_swiper_list').each(function (index) {
+            $(this).addClass('rb_swiper_group' + Math.floor(index / view));
+            groupIndex = Math.floor(index / view);
+        }).promise().done(function () {
+            for (let i = 0; i <= groupIndex; i++) {
+                $rb_slider.find('.rb_swiper_group' + i).wrapAll('<div class="rb-swiper-slide swiper-slide"></div>');
+                $rb_slider.find('.rb_swiper_group' + i).removeClass('rb_swiper_group' + i);
             }
+        });
 
-            // 슬라이드 그룹화
-            let groupIndex = 0;
-            $rb_slider.find('.rb_swiper_list').each(function (index) {
-                $(this).addClass('rb_swiper_group' + Math.floor(index / view));
-                groupIndex = Math.floor(index / view);
-            }).promise().done(function () {
-                for (let i = 0; i <= groupIndex; i++) {
-                    $rb_slider.find('.rb_swiper_group' + i).wrapAll('<div class="rb-swiper-slide swiper-slide"></div>');
-                    $rb_slider.find('.rb_swiper_group' + i).removeClass('rb_swiper_group' + i);
-                }
-            });
+        // 간격 설정
+        $rb_slider.find('.rb-swiper-slide').css({
+            'gap': `${gap}px`,
+        });
 
-            // 간격 설정
-            $rb_slider.find('.rb-swiper-slide').css({
-                'gap': `${gap}px`,
-            });
-
-            // 마지막 요소 오른쪽 간격 제거
-            $rb_slider.find('.rb_swiper_list').each(function (index) {
-                if ((index + 1) % cols === 0) {
-                    $(this).css('margin-right', '0');
-                }
-            });
-        }
-
-        // 반응형 설정
-        function checkModeAndInit() {
-            const winWidth = window.innerWidth;
-            const mode = winWidth <= 1024 ? 'mo' : 'pc';
-
-            if (currentMode !== mode) {
-                currentMode = mode;
-                initSlider(mode); // 모드 변경 시 재초기화
+        // 마지막 요소 오른쪽 간격 제거
+        $rb_slider.find('.rb_swiper_list').each(function (index) {
+            if ((index + 1) % cols === 0) {
+                $(this).css('margin-right', '0');
             }
-        }
-
-        // 초기 실행 및 이벤트 등록
-        $(window).on('load resize', checkModeAndInit);
-        checkModeAndInit(); // 첫 실행
+        });
     }
+
+    // 반응형 설정
+    function checkModeAndInit() {
+        const winWidth = window.innerWidth;
+        const mode = winWidth <= 1024 ? 'mo' : 'pc';
+
+        if (currentMode !== mode) {
+            currentMode = mode;
+            initSlider(mode); // 모드 변경 시 재초기화
+        }
+    }
+
+    // 초기 실행 및 이벤트 등록
+    $(window).on('load resize', checkModeAndInit);
+    checkModeAndInit(); // 첫 실행
+}

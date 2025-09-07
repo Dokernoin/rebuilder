@@ -8,8 +8,10 @@ $is_shop = !empty($_POST['is_shop']) ? $_POST['is_shop'] : '';
 
 if(isset($is_shop) && $is_shop == 1) {
     $rb_module_tables = "rb_module_shop";
+    $rb_section_tables = "rb_section_shop";
 } else { 
     $rb_module_tables = "rb_module";
+    $rb_section_tables = "rb_section";
 }
 
 if($mod_type == 1) { //환경설정
@@ -20,7 +22,7 @@ if($mod_type == 1) { //환경설정
     $co_layout_hd = !empty($_POST['co_layout_hd']) ? $_POST['co_layout_hd'] : 'basic';
     $co_layout_ft = !empty($_POST['co_layout_ft']) ? $_POST['co_layout_ft'] : 'basic';
     
-    $co_layout_shopp = !empty($_POST['co_layout_shop']) ? $_POST['co_layout_shop'] : 'basic';
+    $co_layout_shop = !empty($_POST['co_layout_shop']) ? $_POST['co_layout_shop'] : 'basic';
     $co_layout_hd_shop = !empty($_POST['co_layout_hd_shop']) ? $_POST['co_layout_hd_shop'] : 'basic_row';
     $co_layout_ft_shop = !empty($_POST['co_layout_ft_shop']) ? $_POST['co_layout_ft_shop'] : 'basic';
     
@@ -28,8 +30,16 @@ if($mod_type == 1) { //환경설정
     $co_sub_width = !empty($_POST['co_sub_width']) ? $_POST['co_sub_width'] : '1024';
     $co_main_width = !empty($_POST['co_main_width']) ? $_POST['co_main_width'] : '1400';
     $co_tb_width = !empty($_POST['co_tb_width']) ? $_POST['co_tb_width'] : '1400';
-    $co_main_padding_top = !empty($_POST['co_main_padding_top']) ? $_POST['co_main_padding_top'] : '0';
-    $co_main_padding_top_shop = !empty($_POST['co_main_padding_top_shop']) ? $_POST['co_main_padding_top_shop'] : '0';
+
+    $co_padding_top = isset($_POST['co_padding_top']) ? $_POST['co_padding_top'] : '';
+    $co_padding_top_sub = isset($_POST['co_padding_top_sub']) ? $_POST['co_padding_top_sub'] : '';
+    $co_padding_top_shop = isset($_POST['co_padding_top_shop']) ? $_POST['co_padding_top_shop'] : '';
+    $co_padding_top_sub_shop = isset($_POST['co_padding_top_sub_shop']) ? $_POST['co_padding_top_sub_shop'] : '';
+
+    $co_padding_btm = isset($_POST['co_padding_btm']) ? $_POST['co_padding_btm'] : '';
+    $co_padding_btm_sub = isset($_POST['co_padding_btm_sub']) ? $_POST['co_padding_btm_sub'] : '';
+    $co_padding_btm_shop = isset($_POST['co_padding_btm_shop']) ? $_POST['co_padding_btm_shop'] : '';
+    $co_padding_btm_sub_shop = isset($_POST['co_padding_btm_sub_shop']) ? $_POST['co_padding_btm_sub_shop'] : '';
     
     $co_menu_shop = !empty($_POST['co_menu_shop']) ? $_POST['co_menu_shop'] : '0';
 
@@ -56,7 +66,22 @@ if($mod_type == 2) { //모듈설정
     $theme_name = !empty($_POST['theme_name']) ? $_POST['theme_name'] : '';
 }
 
+if($mod_type == 3) { //섹션설정
+    $set_title = !empty($_POST['set_title']) ? $_POST['set_title'] : '';
+    $set_layout = !empty($_POST['set_layout']) ? $_POST['set_layout'] : '';
+    $set_id = !empty($_POST['set_id']) ? $_POST['set_id'] : '';
+    $set_type = !empty($_POST['set_type']) ? $_POST['set_type'] : '';
+    $theme_name = !empty($_POST['theme_name']) ? $_POST['theme_name'] : '';
+}
+
+
 if($mod_type == "del") { //모듈삭제
+    $set_layout = !empty($_POST['set_layout']) ? $_POST['set_layout'] : '';
+    $set_id = !empty($_POST['set_id']) ? $_POST['set_id'] : '';
+    $theme_name = !empty($_POST['theme_name']) ? $_POST['theme_name'] : '';
+}
+
+if($mod_type == "del_sec") { //섹션삭제
     $set_layout = !empty($_POST['set_layout']) ? $_POST['set_layout'] : '';
     $set_id = !empty($_POST['set_id']) ? $_POST['set_id'] : '';
     $theme_name = !empty($_POST['theme_name']) ? $_POST['theme_name'] : '';
@@ -64,12 +89,12 @@ if($mod_type == "del") { //모듈삭제
 
 ?>
 
-   
-    <?php if(isset($mod_type) && $mod_type == 1) { ?>
-        <?php
+
+<?php if(isset($mod_type) && $mod_type == 1) { ?>
+<?php
     
             if($is_admin) {
-            $sql = " update rb_config set co_layout = '{$co_layout}', co_layout_hd = '{$co_layout_hd}', co_layout_ft = '{$co_layout_ft}', co_layout_shop = '{$co_layout_shop}', co_layout_hd_shop = '{$co_layout_hd_shop}', co_layout_ft_shop = '{$co_layout_ft_shop}', co_color = '{$co_color}', co_header = '{$co_header}', co_font = '{$co_font}', co_gap_pc = '{$co_gap_pc}', co_inner_padding_pc = '{$co_inner_padding_pc}', co_sub_width = '{$co_sub_width}', co_main_width = '{$co_main_width}', co_tb_width = '{$co_tb_width}', co_main_padding_top = '{$co_main_padding_top}', co_main_padding_top_shop = '{$co_main_padding_top_shop}', co_menu_shop = '{$co_menu_shop}', co_sidemenu_padding = '{$co_sidemenu_padding}', co_sidemenu_padding_shop = '{$co_sidemenu_padding_shop}', co_sidemenu_hide = '{$co_sidemenu_hide}', co_sidemenu_hide_shop = '{$co_sidemenu_hide_shop}', co_side_skin = '{$co_side_skin}', co_side_skin_shop = '{$co_side_skin_shop}', co_sidemenu = '{$co_sidemenu}', co_sidemenu_shop = '{$co_sidemenu_shop}', co_sidemenu_width = '{$co_sidemenu_width}', co_sidemenu_width_shop = '{$co_sidemenu_width_shop}', co_datetime = '".G5_TIME_YMDHIS."', co_ip = '{$_SERVER['REMOTE_ADDR']}' ";
+            $sql = " update rb_config set co_layout = '{$co_layout}', co_layout_hd = '{$co_layout_hd}', co_layout_ft = '{$co_layout_ft}', co_layout_shop = '{$co_layout_shop}', co_layout_hd_shop = '{$co_layout_hd_shop}', co_layout_ft_shop = '{$co_layout_ft_shop}', co_color = '{$co_color}', co_header = '{$co_header}', co_font = '{$co_font}', co_gap_pc = '{$co_gap_pc}', co_inner_padding_pc = '{$co_inner_padding_pc}', co_sub_width = '{$co_sub_width}', co_main_width = '{$co_main_width}', co_tb_width = '{$co_tb_width}', co_padding_top = '{$co_padding_top}', co_padding_top_sub = '{$co_padding_top_sub}', co_padding_top_shop = '{$co_padding_top_shop}', co_padding_top_sub_shop = '{$co_padding_top_sub_shop}', co_padding_btm = '{$co_padding_btm}', co_padding_btm_sub = '{$co_padding_btm_sub}', co_padding_btm_shop = '{$co_padding_btm_shop}', co_padding_btm_sub_shop = '{$co_padding_btm_sub_shop}', co_menu_shop = '{$co_menu_shop}', co_sidemenu_padding = '{$co_sidemenu_padding}', co_sidemenu_padding_shop = '{$co_sidemenu_padding_shop}', co_sidemenu_hide = '{$co_sidemenu_hide}', co_sidemenu_hide_shop = '{$co_sidemenu_hide_shop}', co_side_skin = '{$co_side_skin}', co_side_skin_shop = '{$co_side_skin_shop}', co_sidemenu = '{$co_sidemenu}', co_sidemenu_shop = '{$co_sidemenu_shop}', co_sidemenu_width = '{$co_sidemenu_width}', co_sidemenu_width_shop = '{$co_sidemenu_width_shop}', co_datetime = '".G5_TIME_YMDHIS."', co_ip = '{$_SERVER['REMOTE_ADDR']}' ";
             sql_query($sql);
             }
 
@@ -88,46 +113,52 @@ if($mod_type == "del") { //모듈삭제
                 'co_sub_width' => $co_sub_width,
                 'co_main_width' => $co_main_width,
                 'co_tb_width' => $co_tb_width,
-                'co_main_padding_top' => $co_main_padding_top,
-                'co_main_padding_top_shop' => $co_main_padding_top_shop,
+                'co_padding_top' => $co_padding_top,
+                'co_padding_top_sub' => $co_padding_top_sub,
+                'co_padding_top_shop' => $co_padding_top_shop,
+                'co_padding_top_sub_shop' => $co_padding_top_sub_shop,
+                'co_padding_btm' => $co_padding_btm,
+                'co_padding_btm_sub' => $co_padding_btm_sub,
+                'co_padding_btm_shop' => $co_padding_btm_shop,
+                'co_padding_btm_sub_shop' => $co_padding_btm_sub_shop,
                 'co_menu_shop' => $co_menu_shop,
                 'co_side_skin' => $co_side_skin,
                 'co_side_skin_shop' => $co_side_skin_shop,
                 'co_sidemenu' => $co_sidemenu,
                 'co_sidemenu_shop' => $co_sidemenu_shop,
                 'co_sidemenu_width' => $co_sidemenu_width,
-                'co_sidemenu_width_shop ' => $co_sidemenu_width_shop,
+                'co_sidemenu_width_shop' => $co_sidemenu_width_shop,
                 'co_sidemenu_padding' => $co_sidemenu_padding,
-                'co_sidemenu_padding_shop ' => $co_sidemenu_padding_shop,
+                'co_sidemenu_padding_shop' => $co_sidemenu_padding_shop,
                 'co_sidemenu_hide' => $co_sidemenu_hide,
                 'co_sidemenu_hide_shop' => $co_sidemenu_hide_shop,
                 'status' => 'ok',
             );
             echo json_encode($data);
         ?>
-    <?php } ?>
-    
-    <?php if(isset($mod_type) && $mod_type == 2) { ?>
-    <h2 class="font-B"><?php if($set_title) { ?><span><?php echo $set_title ?></span> 모듈설정<?php } else { ?>모듈추가<?php } ?></h2>
-        
-    <h6 class="font-R rb_config_sub_txt">
+<?php } ?>
+
+<?php if(isset($mod_type) && $mod_type == 2) { ?>
+<h2 class="font-B"><?php if($set_title) { ?><span><?php echo $set_title ?></span> 모듈설정<?php } else { ?>모듈추가<?php } ?></h2>
+
+<h6 class="font-R rb_config_sub_txt">
     공식 배포되는 스킨 외에 커스텀 된 스킨의 경우<br>
     개수, 간격, 스와이프, 출력항목 등이 작동하지 않을 수 있습니다.
-    </h6>
+</h6>
 
-        <?php if($set_layout == "") { ?>
+<?php if($set_layout == "") { ?>
 
-        <div class="rb_config_sec">
-           <div class="no_data">
-            변경할 모듈을 선택해주세요.
-            </div>
-        </div>
+<div class="rb_config_sec">
+    <div class="no_data">
+        변경할 모듈을 선택해주세요.
+    </div>
+</div>
 
-        <?php } else { ?>
-        
-            <?php if($set_layout && $set_id && $theme_name) { ?>
-            
-                <?php
+<?php } else { ?>
+
+<?php if($set_layout && $set_id && $theme_name) { ?>
+
+<?php
 
                 $rb_module = sql_fetch(" select * from {$rb_module_tables} where md_theme = '{$theme_name}' and md_id = '{$set_id}' and md_layout = '{$set_layout}' ");
                 $rb_module_is = sql_fetch(" select COUNT(*) as cnt from {$rb_module_tables} where md_theme = '{$theme_name}' and md_id = '{$set_id}' and md_layout = '{$set_layout}' ");
@@ -194,25 +225,33 @@ if($mod_type == "del") { //모듈삭제
                 $md_margin_btm_mo = empty($rb_module['md_margin_btm_mo']) ? '' : $rb_module['md_margin_btm_mo'];
     
                 ?>
-            
-            <?php } else { ?>
-               
-               
-                
-            <?php } ?>
+
+<?php } else { ?>
 
 
-            <ul class="rb_config_sec">
-                <h6 class="font-B">모듈 타이틀 설정</h6>
-                <h6 class="font-R rb_config_sub_txt">모듈 타이틀의 워딩 및 스타일을 설정할 수 있습니다.</h6>
-                <div class="config_wrap">
-                    <ul>
-                        <input type="text" name="md_title" class="input w100" value="<?php echo !empty($md_title) ? $md_title : ''; ?>" placeholder="타이틀을 입력하세요." autocomplete="off">
-                        <input type="hidden" name="md_layout" value="<?php echo !empty($set_layout) ? $set_layout : ''; ?>">
-                        <input type="hidden" name="md_theme" value="<?php echo !empty($theme_name) ? $theme_name : ''; ?>">
-                        <input type="hidden" name="md_id" value="<?php echo !empty($md_id) ? $md_id : ''; ?>">
 
-                        <?php
+<?php } ?>
+
+
+<ul class="rb_config_sec">
+    <h6 class="font-B">모듈 타이틀 설정</h6>
+    <h6 class="font-R rb_config_sub_txt">모듈 타이틀의 워딩 및 스타일을 설정할 수 있습니다.</h6>
+    <div class="config_wrap">
+        <ul>
+            <input type="text" name="md_title" class="input w100" value="<?php echo !empty($md_title) ? $md_title : ''; ?>" placeholder="타이틀을 입력하세요." autocomplete="off">
+            <input type="hidden" name="md_layout" value="<?php echo !empty($set_layout) ? $set_layout : ''; ?>">
+            <input type="hidden" name="md_theme" value="<?php echo !empty($theme_name) ? $theme_name : ''; ?>">
+            <input type="hidden" name="md_id" value="<?php echo !empty($md_id) ? $md_id : ''; ?>">
+
+            <?php
+            // set_module_send 에서 넘어온 값 받기
+            $md_sec_key_in = $_POST['md_sec_key'] ?? '';
+            $md_sec_uid_in = $_POST['md_sec_uid'] ?? '';
+            ?>
+            <input type="hidden" name="md_sec_key" value="<?php echo htmlspecialchars($md_sec_key_in, ENT_QUOTES); ?>">
+            <input type="hidden" name="md_sec_uid" value="<?php echo htmlspecialchars($md_sec_uid_in, ENT_QUOTES); ?>">
+
+            <?php
                             // md_layout 컬럼의 타입을 255로 변경
                             $sql = "SHOW COLUMNS FROM rb_module LIKE 'md_layout'";
                             $row = sql_fetch($sql);
@@ -233,322 +272,326 @@ if($mod_type == "del") { //모듈삭제
 
                             }
                         ?>
-                    </ul>
+        </ul>
 
-                    <ul class="config_wrap_flex">
+        <ul class="config_wrap_flex">
 
-                                <div class="color_set_wrap square none_inp_cl" style="position: relative;">
-                                    <input type="text" class="coloris mod_md_title_color" name="md_title_color" value="<?php echo !empty($md_title_color) ? $md_title_color : '#25282B'; ?>" style="width:25px !important;">
-                                </div>컬러
+            <div class="color_set_wrap square none_inp_cl" style="position: relative;">
+                <input type="text" class="coloris mod_md_title_color" name="md_title_color" value="<?php echo !empty($md_title_color) ? $md_title_color : '#25282B'; ?>" style="width:25px !important;">
+            </div>컬러
 
-                                <script type="text/javascript">
-                                Coloris({el:'.coloris'});
-                                Coloris.setInstance('.coloris', {
-                                    parent: '.sh-side-demos-container',			// 상위 container
-                                    formatToggle: false,	// Hex, RGB, HSL 토글버튼 활성
-                                    format: 'hex',			// 색상 포맷지정
-                                    margin: 0,				// margin
-                                    swatchesOnly: false,	// 색상 견본만 표시여부
-                                    alpha: true,			// 알파(투명) 활성여부
-                                    theme: 'polaroid',		// default, large, polaroid, pill
-                                    themeMode: 'Light',		// dark, Light
-                                    focusInput: true,		// 색상코드 Input에 포커스 여부
-                                    selectInput: true,		// 선택기가 열릴때 색상값을 select 여부
-                                    autoClose: true,		// 자동닫기 - 확인 안됨
-                                    inline: false,			// color picker를 인라인 위젯으로 사용시 true
-                                    defaultColor: '#25282B',	// 기본 색상인 인라인 mode
-                                    // Clear Button 설정
-                                    clearButton: true,
-                                    //clearLabel: '초기화',
-                                    // Close Button 설정
-                                    closeButton: true,	// true, false
-                                    closeLabel: '닫기',	// 닫기버튼 텍스트
-                                    swatches: [
-                                        '#AA20FF',
-                                        '#FFC700',
-                                        '#00A3FF',
-                                        '#8ED100',
-                                        '#FF5A5A',
-                                        '#25282B'
-                                    ]
-                                });
-                                </script>
+            <script type="text/javascript">
+                Coloris({
+                    el: '.coloris'
+                });
+                Coloris.setInstance('.coloris', {
+                    parent: '.sh-side-demos-container', // 상위 container
+                    formatToggle: false, // Hex, RGB, HSL 토글버튼 활성
+                    format: 'hex', // 색상 포맷지정
+                    margin: 0, // margin
+                    swatchesOnly: false, // 색상 견본만 표시여부
+                    alpha: true, // 알파(투명) 활성여부
+                    theme: 'polaroid', // default, large, polaroid, pill
+                    themeMode: 'Light', // dark, Light
+                    focusInput: true, // 색상코드 Input에 포커스 여부
+                    selectInput: true, // 선택기가 열릴때 색상값을 select 여부
+                    autoClose: true, // 자동닫기 - 확인 안됨
+                    inline: false, // color picker를 인라인 위젯으로 사용시 true
+                    defaultColor: '#25282B', // 기본 색상인 인라인 mode
+                    // Clear Button 설정
+                    clearButton: true,
+                    //clearLabel: '초기화',
+                    // Close Button 설정
+                    closeButton: true, // true, false
+                    closeLabel: '닫기', // 닫기버튼 텍스트
+                    swatches: [
+                        '#AA20FF',
+                        '#FFC700',
+                        '#00A3FF',
+                        '#8ED100',
+                        '#FF5A5A',
+                        '#25282B'
+                    ]
+                });
+            </script>
 
-                                <input type="number" class="tiny_input" name="md_title_size" value="<?php echo !empty($md_title_size) ? $md_title_size : '20'; ?>"> px
+            <input type="number" class="tiny_input" name="md_title_size" value="<?php echo !empty($md_title_size) ? $md_title_size : '20'; ?>"> px
 
-                                <select class="select select_tiny" name="md_title_font" id="md_title_font">
-                                    <option value="">스타일</option>
-                                    <option value="font-R" <?php if (isset($md_title_font) && $md_title_font == "font-R") { ?>selected<?php } ?>>Regular</option>
-                                    <option value="font-B" <?php if (isset($md_title_font) && $md_title_font == "font-B") { ?>selected<?php } ?>>Bold</option>
-                                    <option value="font-H" <?php if (isset($md_title_font) && $md_title_font == "font-H") { ?>selected<?php } ?>>Heavy</option>
-                                </select>
+            <select class="select select_tiny" name="md_title_font" id="md_title_font">
+                <option value="">스타일</option>
+                <option value="font-R" <?php if (isset($md_title_font) && $md_title_font == "font-R") { ?>selected<?php } ?>>Regular</option>
+                <option value="font-B" <?php if (isset($md_title_font) && $md_title_font == "font-B") { ?>selected<?php } ?>>Bold</option>
+                <option value="font-H" <?php if (isset($md_title_font) && $md_title_font == "font-H") { ?>selected<?php } ?>>Heavy</option>
+            </select>
 
-                                <div style="margin-left:auto;">
-                                <input type="checkbox" name="md_title_hide" id="md_title_hide" class="magic-checkbox" value="1" <?php if (isset($md_title_hide) && $md_title_hide == "1") { ?>checked<?php } ?>><label for="md_title_hide">숨김</label>
-                                </div>
+            <div style="margin-left:auto;">
+                <input type="checkbox" name="md_title_hide" id="md_title_hide" class="magic-checkbox" value="1" <?php if (isset($md_title_hide) && $md_title_hide == "1") { ?>checked<?php } ?>><label for="md_title_hide">숨김</label>
+            </div>
 
-                    </ul>
+        </ul>
 
-                </div>
-                
-            </ul>
+    </div>
+
+</ul>
+
+
+
+<ul class="rb_config_sec">
+    <h6 class="font-B">출력 설정</h6>
+    <div class="config_wrap">
+
+        <ul>
+            <input type="radio" name="md_show" id="md_show_1" class="magic-radio" value="" <?php if (isset($md_show) && $md_show == "" || empty($md_show)) { ?>checked<?php } ?>><label for="md_show_1">공용</label>
+            <input type="radio" name="md_show" id="md_show_2" class="magic-radio" value="pc" <?php if (isset($md_show) && $md_show == "pc") { ?>checked<?php } ?>><label for="md_show_2">PC 전용</label>
+            <input type="radio" name="md_show" id="md_show_3" class="magic-radio" value="mobile" <?php if (isset($md_show) && $md_show == "mobile") { ?>checked<?php } ?>><label for="md_show_3">Mobile 전용</label>
+        </ul>
+
+
+        <ul class="mt-10">
+            <select class="select w100" name="md_type" id="md_type">
+                <option value="">출력 타입을 선택하세요.</option>
+                <option value="latest" <?php if (isset($md_type) && $md_type == "latest") { ?>selected<?php } ?>>최신글(단일)</option>
+                <option value="tab" <?php if (isset($md_type) && $md_type == "tab") { ?>selected<?php } ?>>최신글(탭)</option>
+                <option value="widget" <?php if (isset($md_type) && $md_type == "widget") { ?>selected<?php } ?>>위젯</option>
+                <option value="banner" <?php if (isset($md_type) && $md_type == "banner") { ?>selected<?php } ?>>배너</option>
+                <option value="poll" <?php if (isset($md_type) && $md_type == "poll") { ?>selected<?php } ?>>투표</option>
+                <?php if($is_shop == 1) { // 영카트?>
+                <option value="item" <?php if (isset($md_type) && $md_type == "item") { ?>selected<?php } ?>>상품</option>
+                <option value="item_tab" <?php if (isset($md_type) && $md_type == "item_tab") { ?>selected<?php } ?>>상품(탭)</option>
+                <?php } ?>
+            </select>
+        </ul>
+
+
+        <ul class="mt-5 selected_poll selected_select">
+            <select class="select w100" name="md_poll">
+                <option value="">출력 스킨을 선택하세요.</option>
+                <?php echo rb_skin_select('poll', $md_poll); ?>
+            </select>
+        </ul>
+
+        <ul class="mt-5 selected_poll selected_select">
+            <select class="select w100" name="md_poll_id">
+                <option value="">출력할 투표를 선택하세요.</option>
+                <?php echo rb_poll_list($md_poll_id); ?>
+            </select>
+        </ul>
+
+
+
+
+
+
+        <ul class="mt-5 selected_widget selected_select">
+            <select class="select w100" name="md_widget">
+                <option value="">출력할 위젯을 선택하세요.</option>
+                <?php echo rb_widget_select('rb.widget', $md_widget); ?>
+            </select>
             
+            <button type="button" class="main_rb_bg font-B" id="widget_add_btn" onclick="add_widget_mod_open(this, document.querySelector('select[name=md_widget]').value)">위젯 생성/관리</button>
+
+            <h6 class="font-R rb_config_sub_txt">
+                직접 추가하신 위젯을 선택/출력할 수 있어요.<br>
+                [위젯 생성/관리] 를 통해 위젯을 생성하거나 관리할 수 있어요.
+            </h6>
+
+        </ul>
 
 
-            <ul class="rb_config_sec">
-                <h6 class="font-B">출력 설정</h6>
-                <div class="config_wrap">
 
-                    <ul>
-                        <input type="radio" name="md_show" id="md_show_1" class="magic-radio" value="" <?php if (isset($md_show) && $md_show == "" || empty($md_show)) { ?>checked<?php } ?>><label for="md_show_1">공용</label>
-                        <input type="radio" name="md_show" id="md_show_2" class="magic-radio" value="pc" <?php if (isset($md_show) && $md_show == "pc") { ?>checked<?php } ?>><label for="md_show_2">PC 전용</label>
-                        <input type="radio" name="md_show" id="md_show_3" class="magic-radio" value="mobile" <?php if (isset($md_show) && $md_show == "mobile") { ?>checked<?php } ?>><label for="md_show_3">Mobile 전용</label>
-                    </ul>
+        <ul class="mt-5 selected_banner selected_select">
+            <select class="select w100" name="md_banner" id="md_banner">
+                <option value="">출력할 배너그룹을 선택하세요.</option>
+                <?php echo rb_banner_list($md_banner); ?>
+            </select>
+        </ul>
 
+        <ul class="mt-5 selected_banner2">
+            <select class="select w100" name="md_banner_id">
+                <option value="">출력할 배너를 선택하세요.</option>
+                <?php echo rb_banner_id_list($md_banner_id); ?>
+            </select>
+        </ul>
 
-                    <ul class="mt-10">
-                        <select class="select w100" name="md_type" id="md_type">
-                            <option value="">출력 타입을 선택하세요.</option>
-                            <option value="latest" <?php if (isset($md_type) && $md_type == "latest") { ?>selected<?php } ?>>최신글(단일)</option>
-                            <option value="tab" <?php if (isset($md_type) && $md_type == "tab") { ?>selected<?php } ?>>최신글(탭)</option>
-                            <option value="widget" <?php if (isset($md_type) && $md_type == "widget") { ?>selected<?php } ?>>위젯</option>
-                            <option value="banner" <?php if (isset($md_type) && $md_type == "banner") { ?>selected<?php } ?>>배너</option>
-                            <option value="poll" <?php if (isset($md_type) && $md_type == "poll") { ?>selected<?php } ?>>투표</option>
-                            <?php if($is_shop == 1) { // 영카트?>
-                            <option value="item" <?php if (isset($md_type) && $md_type == "item") { ?>selected<?php } ?>>상품</option>
-                            <option value="item_tab" <?php if (isset($md_type) && $md_type == "item_tab") { ?>selected<?php } ?>>상품(탭)</option>
-                            <?php } ?>
-                        </select>
-                    </ul>
-                     
-                     
-                    <ul class="mt-5 selected_poll selected_select">
-                        <select class="select w100" name="md_poll">
-                            <option value="">출력 스킨을 선택하세요.</option>
-                            <?php echo rb_skin_select('poll', $md_poll); ?>
-                        </select>
-                    </ul>
-                     
-                    <ul class="mt-5 selected_poll selected_select">
-                        <select class="select w100" name="md_poll_id">
-                            <option value="">출력할 투표를 선택하세요.</option>
-                            <?php echo rb_poll_list($md_poll_id); ?>
-                        </select>
-                    </ul>
-                    
-                    
-                     
-                     
-                      
+        <ul class="mt-5 selected_banner selected_select">
+            <select class="select w100" name="md_order_banner">
+                <option value="">출력 옵션을 선택하세요.</option>
+                <option value="bn_order, bn_id desc" <?php if (isset($md_order_banner) && $md_order_banner == "bn_order, bn_id desc") { ?>selected<?php } ?>>기본순</option>
+                <option value="rand()" <?php if (isset($md_order_banner) && $md_order_banner == "rand()") { ?>selected<?php } ?>>랜덤</option>
+            </select>
+        </ul>
 
-                    <ul class="mt-5 selected_widget selected_select">
-                        <select class="select w100" name="md_widget">
-                            <option value="">출력할 위젯을 선택하세요.</option>
-                            <?php echo rb_widget_select('rb.widget', $md_widget); ?>
-                        </select>
-                        
-                        <h6 class="font-R rb_config_sub_txt">
-                            신규 위젯 추가는 빌더가이드를 참고해주세요.<br>
-                            해당 파일의 경로를 참고하셔서 코드를 직접 수정해주세요.
-                        </h6>
-                        
-                    </ul>
-                    
+        <ul class="mt-5 selected_banner selected_select">
+            <select class="select w100" name="md_banner_skin">
+                <option value="">출력 스킨을 선택하세요.</option>
+                <?php echo rb_banner_skin_select('rb.mod/banner/skin', $md_banner_skin); ?>
+            </select>
 
-                    
-                    <ul class="mt-5 selected_banner selected_select">
-                        <select class="select w100" name="md_banner" id="md_banner">
-                            <option value="">출력할 배너그룹을 선택하세요.</option>
-                            <?php echo rb_banner_list($md_banner); ?>
-                        </select>
-                    </ul>
-                    
-                    <ul class="mt-5 selected_banner2">
-                        <select class="select w100" name="md_banner_id">
-                            <option value="">출력할 배너를 선택하세요.</option>
-                            <?php echo rb_banner_id_list($md_banner_id); ?>
-                        </select>
-                    </ul>
-                    
-                    <ul class="mt-5 selected_banner selected_select">
-                        <select class="select w100" name="md_order_banner">
-                            <option value="">출력 옵션을 선택하세요.</option>
-                            <option value="bn_order, bn_id desc" <?php if (isset($md_order_banner) && $md_order_banner == "bn_order, bn_id desc") { ?>selected<?php } ?>>기본순</option>
-                            <option value="rand()" <?php if (isset($md_order_banner) && $md_order_banner == "rand()") { ?>selected<?php } ?>>랜덤</option>
-                        </select>
-                    </ul>
-
-                    <ul class="mt-5 selected_banner selected_select">
-                        <select class="select w100" name="md_banner_skin">
-                            <option value="">출력 스킨을 선택하세요.</option>
-                            <?php echo rb_banner_skin_select('rb.mod/banner/skin', $md_banner_skin); ?>
-                        </select>
-                        
-                        <h6 class="font-R rb_config_sub_txt">
-                            배너를 먼저 등록해 주세요.<br>
-                            개별출력의 경우 출력할 배너를 선택해주세요.
-                        </h6>
-                    </ul>
-                    
-                    
+            <h6 class="font-R rb_config_sub_txt">
+                배너를 먼저 등록해 주세요.<br>
+                개별출력의 경우 출력할 배너를 선택해주세요.
+            </h6>
+        </ul>
 
 
-                    <!-- 탭 { -->
 
-                    <ul class="mt-5 selected_tab selected_select" id="tab_send">
-                        <select class="select w100" name="md_bo_table_tab">
-                            <option value="">연결할 게시판을 선택하세요.</option>
-                            <?php echo rb_board_list($md_bo_table); ?>
-                        </select>
-                    </ul>
 
-                    <div id="tab_cates">
-                        <ul class="mt-5 selected_tab selected_select">
-                            <select class="select w100" name="md_sca_tab" id="tab_sca">
-                                <option value="">카테고리를 선택하세요.</option>
-                                <?php echo rb_sca_list($md_bo_table, $md_sca); ?>
-                                <option value="">전체</option>
-                            </select>
-                        </ul>
-                    </div>
+        <!-- 탭 { -->
 
-                    <div id="tab_selects" class="selected_tags mt-3"></div>
-                    <input type="hidden" name="md_tab_list" id="md_tab_list" value='<?php echo htmlspecialchars($md_tab_list, ENT_QUOTES); ?>'>
+        <ul class="mt-5 selected_tab selected_select" id="tab_send">
+            <select class="select w100" name="md_bo_table_tab">
+                <option value="">연결할 게시판을 선택하세요.</option>
+                <?php echo rb_board_list($md_bo_table); ?>
+            </select>
+        </ul>
 
-                    <script>
-                    $(document).ready(function () {
-                        let selectedData = [];
+        <div id="tab_cates">
+            <ul class="mt-5 selected_tab selected_select">
+                <select class="select w100" name="md_sca_tab" id="tab_sca">
+                    <option value="">카테고리를 선택하세요.</option>
+                    <?php echo rb_sca_list($md_bo_table, $md_sca); ?>
+                    <option value="">전체</option>
+                </select>
+            </ul>
+        </div>
 
-                        // 복원: 저장된 md_tab_list 값을 읽어서 태그로 출력
-                        const savedList = $('#md_tab_list').val();
-                        if (savedList && savedList.startsWith('[')) {
-                            try {
-                                const parsed = JSON.parse(savedList);
-                                if (Array.isArray(parsed)) {
-                                    parsed.forEach(item => {
-                                        if (!selectedData.includes(item)) {
-                                            selectedData.push(item);
+        <div id="tab_selects" class="selected_tags mt-3"></div>
+        <input type="hidden" name="md_tab_list" id="md_tab_list" value='<?php echo htmlspecialchars($md_tab_list, ENT_QUOTES); ?>'>
 
-                                            const parts = item.split('||');
-                                            const bo_table = parts[0];
-                                            const ca_name = parts.length > 1 ? parts[1] : '';
+        <script>
+            $(document).ready(function() {
+                let selectedData = [];
 
-                                            // fallback 처리
-                                            let bo_text = bo_table;
-                                            const $boOption = $(`select[name="md_bo_table_tab"] option[value="${bo_table}"]`);
-                                            if ($boOption.length > 0) {
-                                                bo_text = $boOption.text().trim();
-                                            }
+                // 복원: 저장된 md_tab_list 값을 읽어서 태그로 출력
+                const savedList = $('#md_tab_list').val();
+                if (savedList && savedList.startsWith('[')) {
+                    try {
+                        const parsed = JSON.parse(savedList);
+                        if (Array.isArray(parsed)) {
+                            parsed.forEach(item => {
+                                if (!selectedData.includes(item)) {
+                                    selectedData.push(item);
 
-                                            const ca_text = ca_name ? ca_name : '전체';
-                                            const tagText = `${bo_text} / ${ca_text}`;
+                                    const parts = item.split('||');
+                                    const bo_table = parts[0];
+                                    const ca_name = parts.length > 1 ? parts[1] : '';
 
-                                            const tagHtml = `
+                                    // fallback 처리
+                                    let bo_text = bo_table;
+                                    const $boOption = $(`select[name="md_bo_table_tab"] option[value="${bo_table}"]`);
+                                    if ($boOption.length > 0) {
+                                        bo_text = $boOption.text().trim();
+                                    }
+
+                                    const ca_text = ca_name ? ca_name : '전체';
+                                    const tagText = `${bo_text} / ${ca_text}`;
+
+                                    const tagHtml = `
                                                 <span class="tag" data-key="${item}">
                                                     ${tagText}
                                                     <button type="button" class="tag-remove" title="삭제">×</button>
                                                 </span>
                                             `;
-                                            $('#tab_selects').append(tagHtml);
-                                        }
-                                    });
-                                    updateHiddenField();
+                                    $('#tab_selects').append(tagHtml);
                                 }
-                            } catch (e) {
-                                console.error('태그 복원 실패:', e, savedList);
-                            }
+                            });
+                            updateHiddenField();
                         }
+                    } catch (e) {
+                        console.error('태그 복원 실패:', e, savedList);
+                    }
+                }
 
-                        // 선택 시 태그 추가
-                        $(document).off('change', 'select[name="md_sca_tab"]').on('change', 'select[name="md_sca_tab"]', function () {
-                            const bo_table = $('select[name="md_bo_table_tab"]').val();
-                            const bo_text = $('select[name="md_bo_table_tab"] option:selected').text().trim();
-                            const ca_name = $(this).val();
-                            const ca_text = $(this).find('option:selected').text().trim();
+                // 선택 시 태그 추가
+                $(document).off('change', 'select[name="md_sca_tab"]').on('change', 'select[name="md_sca_tab"]', function() {
+                    const bo_table = $('select[name="md_bo_table_tab"]').val();
+                    const bo_text = $('select[name="md_bo_table_tab"] option:selected').text().trim();
+                    const ca_name = $(this).val();
+                    const ca_text = $(this).find('option:selected').text().trim();
 
-                            if (!bo_table) return;
+                    if (!bo_table) return;
 
-                            const isAll = ca_name === '';
-                            const uniqueKey = isAll ? bo_table : `${bo_table}||${ca_name}`;
-                            const tagText = isAll ? `${bo_text} / 전체` : `${bo_text} / ${ca_text}`;
+                    const isAll = ca_name === '';
+                    const uniqueKey = isAll ? bo_table : `${bo_table}||${ca_name}`;
+                    const tagText = isAll ? `${bo_text} / 전체` : `${bo_text} / ${ca_text}`;
 
-                            if (selectedData.includes(uniqueKey)) return;
+                    if (selectedData.includes(uniqueKey)) return;
 
-                            selectedData.push(uniqueKey);
+                    selectedData.push(uniqueKey);
 
-                            const tagHtml = `
+                    const tagHtml = `
                                 <span class="tag" data-key="${uniqueKey}">
                                     ${tagText}
                                     <button type="button" class="tag-remove" title="삭제">×</button>
                                 </span>
                             `;
-                            $('#tab_selects').append(tagHtml);
-                            updateHiddenField();
+                    $('#tab_selects').append(tagHtml);
+                    updateHiddenField();
+                });
+
+                // 태그 삭제
+                $('#tab_selects').on('click', '.tag-remove', function() {
+                    const $tag = $(this).closest('.tag');
+                    const key = $tag.data('key');
+                    selectedData = selectedData.filter(k => k !== key);
+                    $tag.remove();
+                    updateHiddenField();
+                });
+
+                // 드래그
+                $('#tab_selects').sortable({
+                    items: '.tag',
+                    update: function() {
+                        // 순서 변경 시 selectedData도 재구성
+                        selectedData = [];
+                        $('#tab_selects .tag').each(function() {
+                            const key = $(this).data('key');
+                            selectedData.push(key);
                         });
+                        updateHiddenField();
+                    }
+                });
 
-                        // 태그 삭제
-                        $('#tab_selects').on('click', '.tag-remove', function () {
-                            const $tag = $(this).closest('.tag');
-                            const key = $tag.data('key');
-                            selectedData = selectedData.filter(k => k !== key);
-                            $tag.remove();
-                            updateHiddenField();
-                        });
+                function updateHiddenField() {
+                    $('#md_tab_list').val(JSON.stringify(selectedData));
+                }
+            });
+        </script>
 
-                        // 드래그
-                        $('#tab_selects').sortable({
-                            items: '.tag',
-                            update: function () {
-                                // 순서 변경 시 selectedData도 재구성
-                                selectedData = [];
-                                $('#tab_selects .tag').each(function () {
-                                    const key = $(this).data('key');
-                                    selectedData.push(key);
-                                });
-                                updateHiddenField();
-                            }
-                        });
+        <!-- } -->
 
-                        function updateHiddenField() {
-                            $('#md_tab_list').val(JSON.stringify(selectedData));
-                        }
-                    });
-                    </script>
-
-                    <!-- } -->
-
-                    <ul class="mt-5 selected_tab selected_select">
-                        <select class="select w100" name="md_tab_skin" id="md_tab_skin">
-                            <option value="">출력 스킨을 선택하세요.</option>
-                            <?php echo rb_skin_select('latest_tabs', $md_tab_skin); ?>
-                        </select>
-                    </ul>
+        <ul class="mt-5 selected_tab selected_select">
+            <select class="select w100" name="md_tab_skin" id="md_tab_skin">
+                <option value="">출력 스킨을 선택하세요.</option>
+                <?php echo rb_skin_select('latest_tabs', $md_tab_skin); ?>
+            </select>
+        </ul>
 
 
-                    <ul class="mt-5 selected_latest selected_select" id="board_send">
-                        <select class="select w100" name="md_bo_table">
-                            <option value="">연결할 게시판을 선택하세요.</option>
-                            <?php echo rb_board_list($md_bo_table); ?>
-                        </select>
-                    </ul>
+        <ul class="mt-5 selected_latest selected_select" id="board_send">
+            <select class="select w100" name="md_bo_table">
+                <option value="">연결할 게시판을 선택하세요.</option>
+                <?php echo rb_board_list($md_bo_table); ?>
+            </select>
+        </ul>
 
-                    <div id="res_cates">
-                        <ul class="mt-5 selected_latest selected_select">
-                            <select class="select w100" name="md_sca" id="md_sca">
-                                <option value="">전체 카테고리</option>
-                                <?php echo rb_sca_list($md_bo_table, $md_sca); ?>
-                            </select>
-                        </ul>
-                    </div>
+        <div id="res_cates">
+            <ul class="mt-5 selected_latest selected_select">
+                <select class="select w100" name="md_sca" id="md_sca">
+                    <option value="">전체 카테고리</option>
+                    <?php echo rb_sca_list($md_bo_table, $md_sca); ?>
+                </select>
+            </ul>
+        </div>
 
-                    <ul class="mt-5 selected_latest selected_select">
-                        <select class="select w100" name="md_skin" id="md_skin">
-                            <option value="">출력 스킨을 선택하세요.</option>
-                            <?php echo rb_skin_select('latest', $md_skin); ?>
-                        </select>
-                    </ul>
+        <ul class="mt-5 selected_latest selected_select">
+            <select class="select w100" name="md_skin" id="md_skin">
+                <option value="">출력 스킨을 선택하세요.</option>
+                <?php echo rb_skin_select('latest', $md_skin); ?>
+            </select>
+        </ul>
 
-                    <?php 
+        <?php
                       if($is_shop == 1) {
                           // 분류리스트
                             $category_select = '';
@@ -568,1027 +611,1495 @@ if($mod_type == "del") { //모듈삭제
                                 $category_select .= "<option value=\"{$row['ca_id']}\">$nbsp{$row['ca_name']}</option>\n";
                             }
                     ?>
-                    
-                    
 
 
-                    <ul class="mt-5 selected_item selected_select">
-                        <select class="select w100" name="md_sca" id="md_sca_shop">
-                            <option value="">전체 카테고리</option>
-                            <?php echo conv_selected_option($category_select, $md_sca); ?>
-                        </select>
-                    </ul>
 
-                    <div id="item_tab_selects" class="selected_tags selected_item_tab mt-3"></div>
-                    <input type="hidden" name="md_item_tab_list" id="md_item_tab_list" class="selected_item_tab" value='<?php echo htmlspecialchars($md_item_tab_list, ENT_QUOTES); ?>'>
 
-                    <script>
-                    $(function () {
-                        let itemSelectedData = [];
+        <ul class="mt-5 selected_item selected_select">
+            <select class="select w100" name="md_sca" id="md_sca_shop">
+                <option value="">전체 카테고리</option>
+                <?php echo conv_selected_option($category_select, $md_sca); ?>
+            </select>
+        </ul>
 
-                        // --- 초기 복원 ---
-                        const savedList = $('#md_item_tab_list').val();
-                        if (savedList && savedList.startsWith('[')) {
-                            try {
-                                const parsed = JSON.parse(savedList);
-                                if (Array.isArray(parsed)) {
-                                    parsed.forEach((item, idx) => {
-                                        if (!itemSelectedData.includes(item)) {
-                                            itemSelectedData.push(item);
-                                            addItemTag(item);
-                                        }
-                                    });
-                                    // select는 마지막 값으로 설정
-                                    if (itemSelectedData.length)
-                                        $('#md_sca_shop').val(itemSelectedData[itemSelectedData.length - 1]);
-                                    updateItemHiddenField();
+        <div id="item_tab_selects" class="selected_tags selected_item_tab mt-3"></div>
+        <input type="hidden" name="md_item_tab_list" id="md_item_tab_list" class="selected_item_tab" value='<?php echo htmlspecialchars($md_item_tab_list, ENT_QUOTES); ?>'>
+
+        <script>
+            $(function() {
+                let itemSelectedData = [];
+
+                // --- 초기 복원 ---
+                const savedList = $('#md_item_tab_list').val();
+                if (savedList && savedList.startsWith('[')) {
+                    try {
+                        const parsed = JSON.parse(savedList);
+                        if (Array.isArray(parsed)) {
+                            parsed.forEach((item, idx) => {
+                                if (!itemSelectedData.includes(item)) {
+                                    itemSelectedData.push(item);
+                                    addItemTag(item);
                                 }
-                            } catch (e) {
-                                console.error('태그 복원 실패:', e, savedList);
-                            }
-                        }
-
-                        // --- 선택 시 ---
-                        $('#md_sca_shop').on('change', function () {
-                            const value = $(this).val();
-                            const text = $(this).find('option:selected').text().trim();
-
-                            if (!value) return;
-                            if (itemSelectedData.includes(value)) return;
-
-                            itemSelectedData.push(value);
-                            addItemTag(value, text);
-                            // 항상 select는 마지막 선택값을 유지
-                            $('#md_sca_shop').val(value);
-                            updateItemHiddenField();
-                        });
-
-                        // --- 태그 삭제 ---
-                        $('#item_tab_selects').on('click', '.item-tag-remove', function () {
-                            const $tag = $(this).closest('.item-tag');
-                            const key = $tag.data('key');
-                            // 태그 삭제
-                            itemSelectedData = itemSelectedData.filter(k => String(k) !== String(key));
-                            $tag.remove();
-
-                            // select는 마지막 값으로 설정 (남은게 있다면)
-                            if (itemSelectedData.length) {
+                            });
+                            // select는 마지막 값으로 설정
+                            if (itemSelectedData.length)
                                 $('#md_sca_shop').val(itemSelectedData[itemSelectedData.length - 1]);
-                            } else {
-                                $('#md_sca_shop').val('');
-                            }
                             updateItemHiddenField();
-                        });
+                        }
+                    } catch (e) {
+                        console.error('태그 복원 실패:', e, savedList);
+                    }
+                }
 
-                        // --- 드래그 정렬 ---
-                        $('#item_tab_selects').sortable({
-                            items: '.item-tag',
-                            update: function () {
-                                let newOrder = [];
-                                $('#item_tab_selects .item-tag').each(function () {
-                                    newOrder.push($(this).data('key'));
-                                });
-                                itemSelectedData = newOrder;
-                                // select는 마지막 값으로 설정
-                                if (itemSelectedData.length) {
-                                    $('#md_sca_shop').val(itemSelectedData[itemSelectedData.length - 1]);
-                                } else {
-                                    $('#md_sca_shop').val('');
-                                }
-                                updateItemHiddenField();
-                            }
-                        });
+                // --- 선택 시 ---
+                $('#md_sca_shop').on('change', function() {
+                    const value = $(this).val();
+                    const text = $(this).find('option:selected').text().trim();
 
-                        // --- 태그 추가 함수 ---
-                        function addItemTag(value, text) {
-                            text = text || $('#md_sca_shop option[value="' + value + '"]').text().trim() || value;
-                            const tagHtml = `
+                    if (!value) return;
+                    if (itemSelectedData.includes(value)) return;
+
+                    itemSelectedData.push(value);
+                    addItemTag(value, text);
+                    // 항상 select는 마지막 선택값을 유지
+                    $('#md_sca_shop').val(value);
+                    updateItemHiddenField();
+                });
+
+                // --- 태그 삭제 ---
+                $('#item_tab_selects').on('click', '.item-tag-remove', function() {
+                    const $tag = $(this).closest('.item-tag');
+                    const key = $tag.data('key');
+                    // 태그 삭제
+                    itemSelectedData = itemSelectedData.filter(k => String(k) !== String(key));
+                    $tag.remove();
+
+                    // select는 마지막 값으로 설정 (남은게 있다면)
+                    if (itemSelectedData.length) {
+                        $('#md_sca_shop').val(itemSelectedData[itemSelectedData.length - 1]);
+                    } else {
+                        $('#md_sca_shop').val('');
+                    }
+                    updateItemHiddenField();
+                });
+
+                // --- 드래그 정렬 ---
+                $('#item_tab_selects').sortable({
+                    items: '.item-tag',
+                    update: function() {
+                        let newOrder = [];
+                        $('#item_tab_selects .item-tag').each(function() {
+                            newOrder.push($(this).data('key'));
+                        });
+                        itemSelectedData = newOrder;
+                        // select는 마지막 값으로 설정
+                        if (itemSelectedData.length) {
+                            $('#md_sca_shop').val(itemSelectedData[itemSelectedData.length - 1]);
+                        } else {
+                            $('#md_sca_shop').val('');
+                        }
+                        updateItemHiddenField();
+                    }
+                });
+
+                // --- 태그 추가 함수 ---
+                function addItemTag(value, text) {
+                    text = text || $('#md_sca_shop option[value="' + value + '"]').text().trim() || value;
+                    const tagHtml = `
                                 <span class="item-tag" data-key="${value}">
                                     ${text}
                                     <button type="button" class="item-tag-remove" title="삭제">×</button>
                                 </span>
                             `;
-                            $('#item_tab_selects').append(tagHtml);
-                        }
+                    $('#item_tab_selects').append(tagHtml);
+                }
 
-                        // --- hidden 값 업데이트 ---
-                        function updateItemHiddenField() {
-                            // #md_type 값이 'item_tab'일 때만 값 입력
-                            if ($('#md_type').val() === 'item_tab' && itemSelectedData.length >= 2) {
-                                $('#md_item_tab_list').val(JSON.stringify(itemSelectedData));
-                            } else {
-                                $('#md_item_tab_list').val('');
-                            }
-                        }
-                    });
-                    </script>
+                // --- hidden 값 업데이트 ---
+                function updateItemHiddenField() {
+                    // #md_type 값이 'item_tab'일 때만 값 입력
+                    if ($('#md_type').val() === 'item_tab' && itemSelectedData.length >= 2) {
+                        $('#md_item_tab_list').val(JSON.stringify(itemSelectedData));
+                    } else {
+                        $('#md_item_tab_list').val('');
+                    }
+                }
+            });
+        </script>
 
-                    <ul class="mt-5 selected_item selected_select">
-                        <select class="select w100" name="md_module" id="md_module_shop">
-                            <option value="0" <?php if (isset($md_module) && $md_module == "0") { ?>selected<?php } ?>>전체상품</option>
-                            <option value="1" <?php if (isset($md_module) && $md_module == "1") { ?>selected<?php } ?>>히트상품</option>
-                            <option value="2" <?php if (isset($md_module) && $md_module == "2") { ?>selected<?php } ?>>추천상품</option>
-                            <option value="3" <?php if (isset($md_module) && $md_module == "3") { ?>selected<?php } ?>>최신상품</option>
-                            <option value="4" <?php if (isset($md_module) && $md_module == "4") { ?>selected<?php } ?>>인기상품</option>
-                            <option value="5" <?php if (isset($md_module) && $md_module == "5") { ?>selected<?php } ?>>할인상품</option>
-                        </select>
-                    </ul>
-                    
-
-
-                    
-                    <ul class="mt-5 selected_item selected_select">
-                        <select class="select w100" name="md_order" id="md_order_shop">
-                            <option value="">출력 옵션을 선택하세요.</option>
-                            <option value="it_id desc" <?php if (isset($md_order) && $md_order == "it_id desc") { ?>selected<?php } ?>>기본순</option>
-                            <option value="it_time desc" <?php if (isset($md_order) && $md_order == "it_time desc") { ?>selected<?php } ?>>최근등록순</option>
-                            <option value="it_hit desc" <?php if (isset($md_order) && $md_order == "it_hit desc") { ?>selected<?php } ?>>조회수높은순</option>
-                            <option value="it_stock_qty asc" <?php if (isset($md_order) && $md_order == "it_stock_qty asc") { ?>selected<?php } ?>>품절임박순</option>
-                            <option value="it_price desc" <?php if (isset($md_order) && $md_order == "it_price desc") { ?>selected<?php } ?>>판매가높은순</option>
-                            <option value="it_price asc" <?php if (isset($md_order) && $md_order == "it_price asc") { ?>selected<?php } ?>>판매가낮은순</option>
-                            <option value="it_use_avg desc" <?php if (isset($md_order) && $md_order == "it_use_avg desc") { ?>selected<?php } ?>>평점높은순</option>
-                            <option value="it_use_cnt desc" <?php if (isset($md_order) && $md_order == "it_use_cnt desc") { ?>selected<?php } ?>>리뷰많은순</option>
-                            <option value="rand()" <?php if (isset($md_order) && $md_order == "rand()") { ?>selected<?php } ?>>랜덤</option>
-                        </select>
-                    </ul>
+        <ul class="mt-5 selected_item selected_select">
+            <select class="select w100" name="md_module" id="md_module_shop">
+                <option value="0" <?php if (isset($md_module) && $md_module == "0") { ?>selected<?php } ?>>전체상품</option>
+                <option value="1" <?php if (isset($md_module) && $md_module == "1") { ?>selected<?php } ?>>히트상품</option>
+                <option value="2" <?php if (isset($md_module) && $md_module == "2") { ?>selected<?php } ?>>추천상품</option>
+                <option value="3" <?php if (isset($md_module) && $md_module == "3") { ?>selected<?php } ?>>최신상품</option>
+                <option value="4" <?php if (isset($md_module) && $md_module == "4") { ?>selected<?php } ?>>인기상품</option>
+                <option value="5" <?php if (isset($md_module) && $md_module == "5") { ?>selected<?php } ?>>할인상품</option>
+            </select>
+        </ul>
 
 
 
-                    <ul class="mt-5 selected_item_skin selected_select">
-                        <select class="select w100" name="md_skin" id="md_skin_shop">
-                            <?php echo rb_list_skin_options("^main.[0-9]+\.skin\.php", G5_SHOP_SKIN_PATH, $md_skin); ?>
-                        </select>
-                    </ul>
 
-                    <ul class="mt-5 selected_item_skin_tab selected_select">
-                        <select class="select w100" name="md_item_tab_skin" id="md_item_tab_skin">
-                            <?php echo rb_list_skin_options("^main.[0-9]+\.skin\.php", G5_SHOP_SKIN_PATH, $md_item_tab_skin); ?>
-                        </select>
-                    </ul>
+        <ul class="mt-5 selected_item selected_select">
+            <select class="select w100" name="md_order" id="md_order_shop">
+                <option value="">출력 옵션을 선택하세요.</option>
+                <option value="it_id desc" <?php if (isset($md_order) && $md_order == "it_id desc") { ?>selected<?php } ?>>기본순</option>
+                <option value="it_time desc" <?php if (isset($md_order) && $md_order == "it_time desc") { ?>selected<?php } ?>>최근등록순</option>
+                <option value="it_hit desc" <?php if (isset($md_order) && $md_order == "it_hit desc") { ?>selected<?php } ?>>조회수높은순</option>
+                <option value="it_stock_qty asc" <?php if (isset($md_order) && $md_order == "it_stock_qty asc") { ?>selected<?php } ?>>품절임박순</option>
+                <option value="it_price desc" <?php if (isset($md_order) && $md_order == "it_price desc") { ?>selected<?php } ?>>판매가높은순</option>
+                <option value="it_price asc" <?php if (isset($md_order) && $md_order == "it_price asc") { ?>selected<?php } ?>>판매가낮은순</option>
+                <option value="it_use_avg desc" <?php if (isset($md_order) && $md_order == "it_use_avg desc") { ?>selected<?php } ?>>평점높은순</option>
+                <option value="it_use_cnt desc" <?php if (isset($md_order) && $md_order == "it_use_cnt desc") { ?>selected<?php } ?>>리뷰많은순</option>
+                <option value="rand()" <?php if (isset($md_order) && $md_order == "rand()") { ?>selected<?php } ?>>랜덤</option>
+            </select>
+        </ul>
 
-                    <div>
-                        <ul class="mt-5 selected_item selected_select">
-                            <input type="checkbox" name="md_soldout_asc" id="md_soldout_asc" value="1" <?php if (isset($md_soldout_asc) && $md_soldout_asc == "1") { ?>checked<?php } ?>><label for="md_soldout_asc">품절상품 후순위 정렬</label>
-                            <input type="checkbox" name="md_soldout_hidden" id="md_soldout_hidden" value="1" <?php if (isset($md_soldout_hidden) && $md_soldout_hidden == "1") { ?>checked<?php } ?>><label for="md_soldout_hidden">품절상품 숨김</label>
-                        </ul>
+
+
+        <ul class="mt-5 selected_item_skin selected_select">
+            <select class="select w100" name="md_skin" id="md_skin_shop">
+                <?php echo rb_list_skin_options("^main.[0-9]+\.skin\.php", G5_SHOP_SKIN_PATH, $md_skin); ?>
+            </select>
+        </ul>
+
+        <ul class="mt-5 selected_item_skin_tab selected_select">
+            <select class="select w100" name="md_item_tab_skin" id="md_item_tab_skin">
+                <?php echo rb_list_skin_options("^main.[0-9]+\.skin\.php", G5_SHOP_SKIN_PATH, $md_item_tab_skin); ?>
+            </select>
+        </ul>
+
+        <div>
+            <ul class="mt-5 selected_item selected_select">
+                <input type="checkbox" name="md_soldout_asc" id="md_soldout_asc" value="1" <?php if (isset($md_soldout_asc) && $md_soldout_asc == "1") { ?>checked<?php } ?>><label for="md_soldout_asc">품절상품 후순위 정렬</label>
+                <input type="checkbox" name="md_soldout_hidden" id="md_soldout_hidden" value="1" <?php if (isset($md_soldout_hidden) && $md_soldout_hidden == "1") { ?>checked<?php } ?>><label for="md_soldout_hidden">품절상품 숨김</label>
+            </ul>
+        </div>
+
+        <?php } ?>
+
+        <div>
+            <ul class="mt-5 selected_latest_tab selected_select">
+                <select class="select w100" name="md_order_latest" id="md_order_latest">
+                    <option value="">출력 옵션을 선택하세요.</option>
+                    <option value="wr_num" <?php if (isset($md_order_latest) && $md_order_latest == "wr_num") { ?>selected<?php } ?>>기본순</option>
+                    <option value="wr_hit desc" <?php if (isset($md_order_latest) && $md_order_latest == "wr_hit desc") { ?>selected<?php } ?>>조회 높은순</option>
+                    <option value="wr_good desc" <?php if (isset($md_order_latest) && $md_order_latest == "wr_good desc") { ?>selected<?php } ?>>추천 많은순</option>
+                    <option value="wr_comment desc" <?php if (isset($md_order_latest) && $md_order_latest == "wr_comment desc") { ?>selected<?php } ?>>댓글 많은순</option>
+                    <option value="rand()" <?php if (isset($md_order_latest) && $md_order_latest == "rand()") { ?>selected<?php } ?>>랜덤</option>
+                </select>
+            </ul>
+        </div>
+
+        <script>
+            $('#board_send').change(function() {
+                scaAjax();
+            });
+
+            // 해당게시판의 카테고리를 얻는다
+            function scaAjax() {
+
+                var md_bo_table = $('select[name="md_bo_table"]').val();
+                var mod_type = 'ca_name';
+
+                $.ajax({
+                    url: '<?php echo G5_URL ?>/rb/rb.lib/ajax.res.php',
+                    method: 'POST', // POST 방식으로 전송
+                    dataType: 'html',
+                    data: {
+                        "md_bo_table": md_bo_table,
+                        "mod_type": mod_type,
+                    },
+                    success: function(response) {
+                        $("#res_cates").html(response); //성공
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('처리에 문제가 있습니다. 잠시 후 이용해주세요.');
+                    }
+
+                });
+            }
+
+
+
+            $('#tab_send').change(function() {
+                tabscaAjax();
+            });
+
+            // 해당게시판의 카테고리를 얻는다
+            function tabscaAjax() {
+
+                var md_bo_table = $('select[name="md_bo_table_tab"]').val();
+                var mod_type = 'ca_name_tab';
+
+                $.ajax({
+                    url: '<?php echo G5_URL ?>/rb/rb.lib/ajax.res.php',
+                    method: 'POST', // POST 방식으로 전송
+                    dataType: 'html',
+                    data: {
+                        "md_bo_table": md_bo_table,
+                        "mod_type": mod_type,
+                    },
+                    success: function(response) {
+                        $("#tab_cates").html(response); //성공
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('처리에 문제가 있습니다. 잠시 후 이용해주세요.');
+                    }
+
+                });
+            }
+
+
+
+
+            $(document).ready(function() {
+
+                var md_type = $('select[name="md_type"]').val();
+                $('.selected_select').hide();
+                $('.selected_all').hide();
+                $('.selected_style').hide();
+
+                $('.selected_latest_tab').hide();
+                $('.selected_cnt').hide();
+                $('.selected_tab').hide();
+                $('.selected_item').hide();
+                $('.selected_item_skin').hide();
+                $('.selected_item_skin_tab').hide();
+                $('.selected_item_tab').hide();
+                $('.selected_banner').hide();
+                $('.selected_poll').hide();
+                $('.selected_widget').hide();
+                $('.selected_latest').hide();
+
+                if (md_type == "latest") {
+                    $('.selected_latest').show();
+                    $('.selected_all').show();
+                    $('.selected_latest_tab').show();
+                    $('.selected_cnt').show();
+                    $('.selected_style').show();
+                } else if (md_type == "tab") {
+                    $('.selected_tab').show();
+                    $('.selected_all').show();
+                    $('.selected_latest_tab').show();
+                    $('.selected_cnt').show();
+                    $('.selected_style').show();
+                } else if (md_type == "item_tab") {
+                    $('.selected_item').show();
+                    $('.selected_item_tab').show();
+                    $('.selected_all').show();
+                    $('.selected_style').show();
+                    $('.selected_item_skin_tab').show();
+                } else if (md_type == "widget") {
+                    $('.selected_widget').show();
+                    $('.selected_all').show();
+                    $('.selected_style').show();
+                } else if (md_type == "banner") {
+                    $('.selected_banner').show();
+                    $('.selected_all').show();
+                    $('.selected_style').show();
+                    $('.selected_cnt').show();
+                } else if (md_type == "poll") {
+                    $('.selected_poll').show();
+                    $('.selected_all').show();
+                    $('.selected_style').show();
+                } else if (md_type == "item") {
+                    $('.selected_item').show();
+                    $('.selected_all').show();
+                    $('.selected_style').show();
+                    $('.selected_item_skin').show();
+                }
+
+                $('#md_type').change(function() {
+                    var selectedValue = $(this).val();
+
+
+                    $('input[name="md_radius"]').val('0');
+                    $('input[name="md_radius_shop"]').val('0');
+                    $("#md_radius_shop").val('0');
+                    $("#md_radius").val('0');
+                    $("#md_radius_range .ui-slider-handle").html("0");
+                    $("#md_radius_range .ui-slider-handle").css("left", "0");
+                    $("#md_radius_range .ui-slider-range").css("width", "0");
+
+                    $('input[name="md_padding"]').val('0');
+                    $('input[name="md_padding_shop"]').val('0');
+                    $("#md_padding_shop").val('0');
+                    $("#md_padding").val('0');
+                    $("#md_padding_range .ui-slider-handle").html("0");
+                    $("#md_padding_range .ui-slider-handle").css("left", "0");
+                    $("#md_padding_range .ui-slider-range").css("width", "0");
+
+                    $('input[name="md_margin_top_pc"]').val('');
+                    $('input[name="md_margin_top_mo"]').val('');
+                    $('input[name="md_margin_top_pc_shop"]').val('');
+                    $('input[name="md_margin_top_mo_shop"]').val('');
+
+                    $('input[name="md_margin_btm_pc"]').val('');
+                    $('input[name="md_margin_btm_mo"]').val('');
+                    $('input[name="md_margin_btm_pc_shop"]').val('');
+                    $('input[name="md_margin_btm_mo_shop"]').val('');
+
+                    $('select[name="md_sca"]').val('');
+                    $('select[name="md_module"]').val('0');
+                    $('select[name="md_order"]').val('');
+                    $('select[name="md_skin"]').val('');
+                    $('select[name="md_order_latest"]').val('');
+
+                    $("#md_tab_list").val('');
+                    $('#tab_selects .tag').remove();
+
+                    $("#md_item_tab_list").val('');
+                    $('#item_tab_selects .item-tag').remove();
+
+
+                    $('.selected_select').hide();
+                    $('.selected_all').hide();
+                    $('.selected_style').hide();
+
+                    if (selectedValue == "latest" || selectedValue == "tab") {
+                        $('.selected_latest_tab').show();
+                        $('.selected_cnt').show();
+                    } else if (selectedValue == "widget") {
+                        $('.selected_widget').show();
+                    } else if (selectedValue == "poll") {
+                        $('.selected_poll').show();
+                    } else if (selectedValue == "item_tab") {
+                        $('.selected_item').show();
+                        $('.selected_item_tab').show();
+                        $('.selected_item_skin_tab').show();
+                    } else if (selectedValue == "item") {
+                        $('.selected_item').show();
+                        $('.selected_item_skin').show();
+                    } else if (selectedValue == "banner") {
+                        $('.selected_banner').show();
+                        $('.selected_cnt').show();
+                    } else {
+                        $('.selected_latest_tab').hide();
+                        $('.selected_item_tab').hide();
+                        $('.selected_cnt').hide();
+                        $('.selected_item').hide();
+                        $('.selected_widget').hide();
+                        $('.selected_poll').hide();
+                        $('.selected_banner').hide();
+                        $('.selected_item_skin_tab').hide();
+                        $('.selected_item_skin').hide();
+                    }
+
+                    $('.selected_style').show();
+
+                    if (selectedValue !== "none") {
+                        $('.selected_' + selectedValue).show();
+                        $('.selected_all').show();
+                    }
+                });
+            });
+
+
+            $(document).ready(function() {
+                $('.selected_banner2').hide();
+
+                var md_banner = $('select[name="md_banner"]').val();
+
+                if (md_banner == "개별출력") {
+                    $('.selected_banner2').show();
+                } else {
+                    $('.selected_banner2').hide();
+                }
+
+                $('#md_banner').change(function() {
+                    var selectedValue = $(this).val();
+                    if (selectedValue == "개별출력") {
+                        $('.selected_banner2').show();
+                    } else {
+                        $('.selected_banner2').hide();
+                    }
+                });
+
+            });
+        </script>
+
+        <div>
+            <ul class="mt-5 selected_latest_tab selected_select">
+                <input type="checkbox" name="md_notice" id="md_notice" value="1" <?php if (isset($md_notice) && $md_notice == "1") { ?>checked<?php } ?>><label for="md_notice">공지 상단고정</label>
+            </ul>
+        </div>
+
+        <?php if(isset($md_skin) && $md_skin && isset($md_type) && $md_type == "latest") { ?>
+
+        <ul class="skin_path_url mt-5">
+            <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
+            <li class="skin_path_url_txt">
+                <?php echo str_replace('theme','/theme/'.$theme_name.'/skin/latest',$md_skin); ?>/
+            </li>
+            <div class="cb"></div>
+        </ul>
+
+        <?php } ?>
+
+        <?php if(isset($md_tab_skin) && $md_tab_skin && isset($md_type) && $md_type == "tab") { ?>
+
+        <ul class="skin_path_url mt-5">
+            <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
+            <li class="skin_path_url_txt">
+                <?php echo str_replace('theme','/theme/'.$theme_name.'/skin/latest_tab',$md_tab_skin); ?>/
+            </li>
+            <div class="cb"></div>
+        </ul>
+
+        <?php } ?>
+
+        <?php if(isset($md_widget) && $md_widget && isset($md_type) && $md_type == "widget") { ?>
+        <ul class="skin_path_url mt-5">
+            <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
+            <li class="skin_path_url_txt">
+                <?php echo str_replace('rb.widget','/rb/rb.widget',$md_widget); ?>/
+            </li>
+            <div class="cb"></div>
+        </ul>
+        <?php } ?>
+
+        <?php if(isset($md_poll) && $md_poll && isset($md_type) && $md_type == "poll") { ?>
+        <ul class="skin_path_url mt-5">
+            <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
+            <li class="skin_path_url_txt">
+                <?php echo str_replace('theme','/theme/'.$theme_name.'/skin/poll',$md_poll); ?>/
+            </li>
+            <div class="cb"></div>
+        </ul>
+        <?php } ?>
+
+        <?php if(isset($md_banner) && $md_banner && isset($md_type) && $md_type == "banner") { ?>
+        <ul class="skin_path_url mt-5">
+            <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
+            <li class="skin_path_url_txt">
+                <?php echo str_replace('rb.mod','/rb/rb.mod',$md_banner_skin); ?>/
+            </li>
+            <div class="cb"></div>
+        </ul>
+        <?php } ?>
+
+        <?php if(isset($md_skin) && $md_skin && isset($md_type) && $md_type == "item") { ?>
+        <ul class="skin_path_url mt-5">
+            <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
+            <li class="skin_path_url_txt">
+                <?php echo '/theme/'.$theme_name.'/skin/shop/',$md_skin; ?>
+            </li>
+            <div class="cb"></div>
+        </ul>
+        <?php } ?>
+
+        <?php if(isset($md_item_tab_skin) && $md_item_tab_skin && isset($md_type) && $md_type == "item_tab") { ?>
+        <ul class="skin_path_url mt-5">
+            <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
+            <li class="skin_path_url_txt">
+                <?php echo '/theme/'.$theme_name.'/skin/shop/',$md_item_tab_skin; ?>
+            </li>
+            <div class="cb"></div>
+        </ul>
+        <?php } ?>
+
+
+
+
+        <ul class="rb_config_sec selected_banner selected_select">
+            <h6 class="font-B">백그라운드 컬러 설정</h6>
+            <h6 class="font-R rb_config_sub_txt">
+                배너영역의 백그라운드 컬러를 설정할 수 있습니다.
+            </h6>
+            <div class="config_wrap">
+                <ul class="flex_left">
+                    <input type="text" name="md_banner_bg" class="input w50 h40 text-center" value="<?php echo !empty($md_banner_bg) ? $md_banner_bg : ''; ?>" placeholder="컬러코드(16진수)" autocomplete="off">
+                    <span class="bn_bg_color_label" style="background-color:<?php echo $md_banner_bg?>"></span>
+                    <span>예) #FFFFFF</span>
+                </ul>
+            </div>
+        </ul>
+
+        <ul class="rb_config_sec selected_style selected_select">
+            <h6 class="font-B">
+            모듈 스타일 설정
+            </h6>
+            <h6 class="font-R rb_config_sub_txt">모듈 박스의 스타일을 설정할 수 있습니다.<br>와이드 옵션은 가로 1열인 모듈에만 사용해주시고<br>간격은 마이너스(-)를 입력할 수 있습니다.</h6>
+            <div class="config_wrap">
+
+                <ul class="rows_inp_lr mt-10">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">와이드</span><br>
+                        wide
+                    </li>
+                    <li class="rows_inp_r mt-5">
+                        <?php if($is_shop == 1) { // 영카트?>
+                        <input type="radio" name="md_wide_is_shop" id="md_wide_is_shop_1" class="magic-radio" value="" <?php if (isset($md_wide_is) && $md_wide_is == "" || empty($md_wide_is)) { ?>checked<?php } ?>><label for="md_wide_is_shop_1">기본</label>
+                        <input type="radio" name="md_wide_is_shop" id="md_wide_is_shop_2" class="magic-radio" value="1" <?php if (isset($md_wide_is) && $md_wide_is == "1") { ?>checked<?php } ?>><label for="md_wide_is_shop_2">100%</label>
+                        <!--
+                        <input type="radio" name="md_wide_is_shop" id="md_wide_is_shop_3" class="magic-radio" value="2" <?php if (isset($md_wide_is) && $md_wide_is == "2") { ?>checked<?php } ?>><label for="md_wide_is_shop_3">1920px</label>
+                        -->
+                        <?php } else { ?>
+                        <input type="radio" name="md_wide_is" id="md_wide_is_1" class="magic-radio" value="" <?php if (isset($md_wide_is) && $md_wide_is == "" || empty($md_wide_is)) { ?>checked<?php } ?>><label for="md_wide_is_1">기본</label>
+                        <input type="radio" name="md_wide_is" id="md_wide_is_2" class="magic-radio" value="1" <?php if (isset($md_wide_is) && $md_wide_is == "1") { ?>checked<?php } ?>><label for="md_wide_is_2">100%</label>
+                        <!--
+                        <input type="radio" name="md_wide_is" id="md_wide_is_3" class="magic-radio" value="2" <?php if (isset($md_wide_is) && $md_wide_is == "2") { ?>checked<?php } ?>><label for="md_wide_is_3">1920px</label>
+                        -->
+                        <?php } ?>
+                    </li>
+
+                    <div class="cb"></div>
+
+                    <div class="rb-help" data-open="false">
+                        <button type="button" class="rb-help-btn"
+                            data-img=""
+                            data-txt="모듈의 가로 크기를 설정된 가로폭을 무시하고 브라우저 기준으로 100% 로 채울 수 있어요. 와이드 옵션은 가로 1열인 모듈에만 사용해주셔야 되요."
+                            data-title="와이드(100%) 란?"
+                            data-alt="미리보기"
+                            aria-expanded="false">
+                            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
+                        </button>
+                        <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
                     </div>
+                </ul>
 
-                    <?php } ?>
+                <ul class="rows_inp_lr mt-10">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">테두리</span><br>
+                        border
+                    </li>
+                    <li class="rows_inp_r mt-5">
+                        <?php if($is_shop == 1) { // 영카트?>
+                        <input type="radio" name="md_border_shop" id="md_border_shop_1" class="magic-radio" value="" <?php if (isset($md_border) && $md_border == "" || empty($md_border)) { ?>checked<?php } ?>><label for="md_border_shop_1">없음</label>
+                        <input type="radio" name="md_border_shop" id="md_border_shop_2" class="magic-radio" value="solid" <?php if (isset($md_border) && $md_border == "solid") { ?>checked<?php } ?>><label for="md_border_shop_2">실선</label>
+                        <input type="radio" name="md_border_shop" id="md_border_shop_3" class="magic-radio" value="dashed" <?php if (isset($md_border) && $md_border == "dashed") { ?>checked<?php } ?>><label for="md_border_shop_3">점선</label>
+                        <?php } else { ?>
+                        <input type="radio" name="md_border" id="md_border_1" class="magic-radio" value="" <?php if (isset($md_border) && $md_border == "" || empty($md_border)) { ?>checked<?php } ?>><label for="md_border_1">없음</label>
+                        <input type="radio" name="md_border" id="md_border_2" class="magic-radio" value="solid" <?php if (isset($md_border) && $md_border == "solid") { ?>checked<?php } ?>><label for="md_border_2">실선</label>
+                        <input type="radio" name="md_border" id="md_border_3" class="magic-radio" value="dashed" <?php if (isset($md_border) && $md_border == "dashed") { ?>checked<?php } ?>><label for="md_border_3">점선</label>
+                        <?php } ?>
+                    </li>
 
-                    <div>
-                        <ul class="mt-5 selected_latest_tab selected_select">
-                            <select class="select w100" name="md_order_latest" id="md_order_latest">
-                                <option value="">출력 옵션을 선택하세요.</option>
-                                <option value="wr_num" <?php if (isset($md_order_latest) && $md_order_latest == "wr_num") { ?>selected<?php } ?>>기본순</option>
-                                <option value="wr_hit desc" <?php if (isset($md_order_latest) && $md_order_latest == "wr_hit desc") { ?>selected<?php } ?>>조회 높은순</option>
-                                <option value="wr_good desc" <?php if (isset($md_order_latest) && $md_order_latest == "wr_good desc") { ?>selected<?php } ?>>추천 많은순</option>
-                                <option value="wr_comment desc" <?php if (isset($md_order_latest) && $md_order_latest == "wr_comment desc") { ?>selected<?php } ?>>댓글 많은순</option>
-                                <option value="rand()" <?php if (isset($md_order_latest) && $md_order_latest == "rand()") { ?>selected<?php } ?>>랜덤</option>
-                            </select>
-                        </ul>
-                    </div>
-
-                    <script>
-                        
-                        $('#board_send').change(function() {
-                            scaAjax();
-                        });
-                        
-                        // 해당게시판의 카테고리를 얻는다
-                        function scaAjax() {
-                            
-                            var md_bo_table = $('select[name="md_bo_table"]').val();
-                            var mod_type = 'ca_name';
-                            
-                            $.ajax({
-                                url: '<?php echo G5_URL ?>/rb/rb.lib/ajax.res.php',
-                                method: 'POST', // POST 방식으로 전송
-                                dataType: 'html',
-                                data: { 
-                                    "md_bo_table":md_bo_table,
-                                    "mod_type":mod_type,
-                                },
-                                success: function(response) {
-                                    $("#res_cates").html(response); //성공
-                                },
-                                error: function(xhr, status, error) {
-                                    console.error('처리에 문제가 있습니다. 잠시 후 이용해주세요.');
-                                }
-                
-                            });
-                        }
-                        
-
-
-                        $('#tab_send').change(function() {
-                            tabscaAjax();
-                        });
-
-                        // 해당게시판의 카테고리를 얻는다
-                        function tabscaAjax() {
-
-                            var md_bo_table = $('select[name="md_bo_table_tab"]').val();
-                            var mod_type = 'ca_name_tab';
-
-                            $.ajax({
-                                url: '<?php echo G5_URL ?>/rb/rb.lib/ajax.res.php',
-                                method: 'POST', // POST 방식으로 전송
-                                dataType: 'html',
-                                data: {
-                                    "md_bo_table":md_bo_table,
-                                    "mod_type":mod_type,
-                                },
-                                success: function(response) {
-                                    $("#tab_cates").html(response); //성공
-                                },
-                                error: function(xhr, status, error) {
-                                    console.error('처리에 문제가 있습니다. 잠시 후 이용해주세요.');
-                                }
-
-                            });
-                        }
+                    <div class="cb"></div>
+                </ul>
 
 
 
+                <ul class="rows_inp_lr mt-10">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">상단 간격</span><br>
+                        margin-top
+                    </li>
+                    <li class="rows_inp_r mt-5">
+                        <?php if($is_shop == 1) { // 영카트?>
+                        <input type="number" id="md_margin_top_pc_shop" class="tiny_input w25 ml-0" name="md_margin_top_pc_shop" placeholder="PC" value="<?php echo !empty($md_margin_top_pc) ? $md_margin_top_pc : ''; ?>"> <span class="font-12">px　</span>
+                        <input type="number" id="md_margin_top_mo_shop" class="tiny_input w25 ml-0" name="md_margin_top_mo_shop" placeholder="Mobile" value="<?php echo !empty($md_margin_top_mo) ? $md_margin_top_mo : ''; ?>"> <span class="font-12">px</span>
+                        <?php } else { ?>
+                        <input type="number" id="md_margin_top_pc" class="tiny_input w25 ml-0" name="md_margin_top_pc" placeholder="PC" value="<?php echo !empty($md_margin_top_pc) ? $md_margin_top_pc : ''; ?>"> <span class="font-12">px　</span>
+                        <input type="number" id="md_margin_top_mo" class="tiny_input w25 ml-0" name="md_margin_top_mo" placeholder="Mobile" value="<?php echo !empty($md_margin_top_mo) ? $md_margin_top_mo : ''; ?>"> <span class="font-12">px</span>
+                        <?php } ?>
+                    </li>
 
-                        $(document).ready(function() {
-                            
-                            var md_type = $('select[name="md_type"]').val();
-                            $('.selected_select').hide();
-                            $('.selected_all').hide();
-                            $('.selected_style').hide();
-                            
-                                $('.selected_latest_tab').hide();
-                                $('.selected_cnt').hide();
-                                $('.selected_tab').hide();
-                                $('.selected_item').hide();
-                                $('.selected_item_skin').hide();
-                                $('.selected_item_skin_tab').hide();
-                                $('.selected_item_tab').hide();
-                                $('.selected_banner').hide();
-                                $('.selected_poll').hide();
-                                $('.selected_widget').hide();
-                                $('.selected_latest').hide();
-
-                            if(md_type == "latest") {
-                                $('.selected_latest').show();
-                                $('.selected_all').show();
-                                $('.selected_latest_tab').show();
-                                $('.selected_cnt').show();
-                                $('.selected_style').show();
-                            } else if(md_type == "tab") {
-                                $('.selected_tab').show();
-                                $('.selected_all').show();
-                                $('.selected_latest_tab').show();
-                                $('.selected_cnt').show();
-                                $('.selected_style').show();
-                            } else if(md_type == "item_tab") {
-                                $('.selected_item').show();
-                                $('.selected_item_tab').show();
-                                $('.selected_all').show();
-                                $('.selected_style').show();
-                                $('.selected_item_skin_tab').show();
-                            } else if(md_type == "widget") {
-                                $('.selected_widget').show();
-                                $('.selected_all').show();
-                                $('.selected_style').show();
-                            } else if(md_type == "banner") {
-                                $('.selected_banner').show();
-                                $('.selected_all').show();
-                                $('.selected_style').show();
-                                $('.selected_cnt').show();
-                            } else if(md_type == "poll") {
-                                $('.selected_poll').show();
-                                $('.selected_all').show();
-                                $('.selected_style').show();
-                            } else if(md_type == "item") {
-                                $('.selected_item').show();
-                                $('.selected_all').show();
-                                $('.selected_style').show();
-                                $('.selected_item_skin').show();
-                            }
-
-                            $('#md_type').change(function() {
-                                var selectedValue = $(this).val();
-
-                                
-                                $('input[name="md_radius"]').val('0');
-                                $('input[name="md_radius_shop"]').val('0');
-                                $("#md_radius_shop").val('0');
-                                $("#md_radius").val('0');
-                                $("#md_radius_range .ui-slider-handle").html("0");
-                                $("#md_radius_range .ui-slider-handle").css("left", "0");
-                                $("#md_radius_range .ui-slider-range").css("width", "0");
-                                
-                                $('input[name="md_padding"]').val('0');
-                                $('input[name="md_padding_shop"]').val('0');
-                                $("#md_padding_shop").val('0');
-                                $("#md_padding").val('0');
-                                $("#md_padding_range .ui-slider-handle").html("0");
-                                $("#md_padding_range .ui-slider-handle").css("left", "0");
-                                $("#md_padding_range .ui-slider-range").css("width", "0");
-                                
-                                $('input[name="md_margin_top_pc"]').val('');
-                                $('input[name="md_margin_top_mo"]').val('');
-                                $('input[name="md_margin_top_pc_shop"]').val('');
-                                $('input[name="md_margin_top_mo_shop"]').val('');
-
-                                $('input[name="md_margin_btm_pc"]').val('');
-                                $('input[name="md_margin_btm_mo"]').val('');
-                                $('input[name="md_margin_btm_pc_shop"]').val('');
-                                $('input[name="md_margin_btm_mo_shop"]').val('');
-
-                                $('select[name="md_sca"]').val('');
-                                $('select[name="md_module"]').val('0');
-                                $('select[name="md_order"]').val('');
-                                $('select[name="md_skin"]').val('');
-                                $('select[name="md_order_latest"]').val('');
-
-                                $("#md_tab_list").val('');
-                                $('#tab_selects .tag').remove();
-
-                                $("#md_item_tab_list").val('');
-                                $('#item_tab_selects .item-tag').remove();
-
-
-                                $('.selected_select').hide();
-                                $('.selected_all').hide();
-                                $('.selected_style').hide();
-                                
-                                if (selectedValue == "latest" || selectedValue == "tab") {
-                                    $('.selected_latest_tab').show();
-                                    $('.selected_cnt').show();
-                                } else if (selectedValue == "widget") {
-                                    $('.selected_widget').show();
-                                } else if (selectedValue == "poll") {
-                                    $('.selected_poll').show();
-                                } else if (selectedValue == "item_tab") {
-                                    $('.selected_item').show();
-                                    $('.selected_item_tab').show();
-                                    $('.selected_item_skin_tab').show();
-                                } else if (selectedValue == "item") {
-                                    $('.selected_item').show();
-                                    $('.selected_item_skin').show();
-                                } else if (selectedValue == "banner") {
-                                    $('.selected_banner').show();
-                                    $('.selected_cnt').show();
-                                } else {
-                                    $('.selected_latest_tab').hide();
-                                    $('.selected_item_tab').hide();
-                                    $('.selected_cnt').hide();
-                                    $('.selected_item').hide();
-                                    $('.selected_widget').hide();
-                                    $('.selected_poll').hide();
-                                    $('.selected_banner').hide();
-                                    $('.selected_item_skin_tab').hide();
-                                    $('.selected_item_skin').hide();
-                                }
-
-                                $('.selected_style').show();
-                                
-                                if (selectedValue !== "none") {
-                                    $('.selected_' + selectedValue).show();
-                                    $('.selected_all').show();
-                                }
-                            });
-                        });
-                        
-                        
-                        $(document).ready(function() {
-                            $('.selected_banner2').hide();
-                            
-                            var md_banner = $('select[name="md_banner"]').val();
-
-                            if(md_banner == "개별출력") {
-                                $('.selected_banner2').show();
-                            } else { 
-                                $('.selected_banner2').hide();
-                            }
-
-                            $('#md_banner').change(function() {
-                                var selectedValue = $(this).val();
-                                if (selectedValue == "개별출력") {
-                                    $('.selected_banner2').show();
-                                } else { 
-                                    $('.selected_banner2').hide();
-                                }
-                            });
-                            
-                        });
-                    </script>
-
-                    <div>
-                        <ul class="mt-5 selected_latest_tab selected_select">
-                            <input type="checkbox" name="md_notice" id="md_notice" value="1" <?php if (isset($md_notice) && $md_notice == "1") { ?>checked<?php } ?>><label for="md_notice">공지 상단고정</label>
-                        </ul>
-                    </div>
-                   
-                    <?php if(isset($md_skin) && $md_skin && isset($md_type) && $md_type == "latest") { ?>
-
-                        <ul class="skin_path_url mt-5">
-                            <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
-                            <li class="skin_path_url_txt">
-                            <?php echo str_replace('theme','/theme/'.$theme_name.'/skin/latest',$md_skin); ?>/
-                            </li>
-                            <div class="cb"></div>
-                        </ul>
-
-                    <?php } ?>
+                    <div class="cb"></div>
                     
-                    <?php if(isset($md_tab_skin) && $md_tab_skin && isset($md_type) && $md_type == "tab") { ?>
-
-                        <ul class="skin_path_url mt-5">
-                            <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
-                            <li class="skin_path_url_txt">
-                            <?php echo str_replace('theme','/theme/'.$theme_name.'/skin/latest_tab',$md_tab_skin); ?>/
-                            </li>
-                            <div class="cb"></div>
-                        </ul>
-
-                    <?php } ?>
-
-                    <?php if(isset($md_widget) && $md_widget && isset($md_type) && $md_type == "widget") { ?>
-                    <ul class="skin_path_url mt-5">
-                        <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
-                        <li class="skin_path_url_txt">
-                        <?php echo str_replace('rb.widget','/rb/rb.widget',$md_widget); ?>/
-                        </li>
-                        <div class="cb"></div>
-                    </ul>
-                    <?php } ?>
-                    
-                    <?php if(isset($md_poll) && $md_poll && isset($md_type) && $md_type == "poll") { ?>
-                    <ul class="skin_path_url mt-5">
-                        <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
-                        <li class="skin_path_url_txt">
-                        <?php echo str_replace('theme','/theme/'.$theme_name.'/skin/poll',$md_poll); ?>/
-                        </li>
-                        <div class="cb"></div>
-                    </ul>
-                    <?php } ?>
-                    
-                    <?php if(isset($md_banner) && $md_banner && isset($md_type) && $md_type == "banner") { ?>
-                    <ul class="skin_path_url mt-5">
-                        <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
-                        <li class="skin_path_url_txt">
-                        <?php echo str_replace('rb.mod','/rb/rb.mod',$md_banner_skin); ?>/
-                        </li>
-                        <div class="cb"></div>
-                    </ul>
-                    <?php } ?>
-
-                    <?php if(isset($md_skin) && $md_skin && isset($md_type) && $md_type == "item") { ?>
-                    <ul class="skin_path_url mt-5">
-                        <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
-                        <li class="skin_path_url_txt">
-                        <?php echo '/theme/'.$theme_name.'/skin/shop/',$md_skin; ?>
-                        </li>
-                        <div class="cb"></div>
-                    </ul>
-                    <?php } ?>
-
-                    <?php if(isset($md_item_tab_skin) && $md_item_tab_skin && isset($md_type) && $md_type == "item_tab") { ?>
-                    <ul class="skin_path_url mt-5">
-                        <li class="skin_path_url_img"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_fd.svg"></li>
-                        <li class="skin_path_url_txt">
-                        <?php echo '/theme/'.$theme_name.'/skin/shop/',$md_item_tab_skin; ?>
-                        </li>
-                        <div class="cb"></div>
-                    </ul>
-                    <?php } ?>
-
-
-
-                    
-                    <ul class="rb_config_sec selected_banner selected_select">
-                        <h6 class="font-B">백그라운드 컬러 설정</h6>
-                        <h6 class="font-R rb_config_sub_txt">
-                        배너영역의 백그라운드 컬러를 설정할 수 있습니다. 
-                        </h6>
-                        <div class="config_wrap">
-                            <ul class="flex_left">
-                                <input type="text" name="md_banner_bg" class="input w50 h40 text-center" value="<?php echo !empty($md_banner_bg) ? $md_banner_bg : ''; ?>" placeholder="컬러코드(16진수)" autocomplete="off">
-                                <span class="bn_bg_color_label" style="background-color:<?php echo $md_banner_bg?>"></span>
-                                <span>예) #FFFFFF</span>
-                            </ul>
+                        <div class="rb-help" data-open="false">
+                            <button type="button" class="rb-help-btn"
+                                data-img=""
+                                data-txt="모듈 위쪽으로 Margin(간격) 값이 들어가요. 마이너스(-)도 입력이 가능하고 모바일 간격의 경우 모바일기기로 접속시에만 반영되요."
+                                data-title="상단 간격이란?"
+                                data-alt="미리보기"
+                                aria-expanded="false">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
+                            </button>
+                            <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
                         </div>
-                    </ul>
+                </ul>
+
+
+                <ul class="rows_inp_lr mt-10">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">하단 간격</span><br>
+                        margin-bottom
+                    </li>
+                    <li class="rows_inp_r mt-5">
+                        <?php if($is_shop == 1) { // 영카트?>
+                        <input type="number" id="md_margin_btm_pc_shop" class="tiny_input w25 ml-0" name="md_margin_btm_pc_shop" placeholder="PC" value="<?php echo !empty($md_margin_btm_pc) ? $md_margin_btm_pc : ''; ?>"> <span class="font-12">px　</span>
+                        <input type="number" id="md_margin_btm_mo_shop" class="tiny_input w25 ml-0" name="md_margin_btm_mo_shop" placeholder="Mobile" value="<?php echo !empty($md_margin_btm_mo) ? $md_margin_btm_mo : ''; ?>"> <span class="font-12">px</span>
+                        <?php } else { ?>
+                        <input type="number" id="md_margin_btm_pc" class="tiny_input w25 ml-0" name="md_margin_btm_pc" placeholder="PC" value="<?php echo !empty($md_margin_btm_pc) ? $md_margin_btm_pc : ''; ?>"> <span class="font-12">px　</span>
+                        <input type="number" id="md_margin_btm_mo" class="tiny_input w25 ml-0" name="md_margin_btm_mo" placeholder="Mobile" value="<?php echo !empty($md_margin_btm_mo) ? $md_margin_btm_mo : ''; ?>"> <span class="font-12">px</span>
+                        <?php } ?>
+                    </li>
+
+                    <div class="cb"></div>
                     
-                    <ul class="rb_config_sec selected_style selected_select">
-                        <h6 class="font-B">모듈 스타일 설정</h6>
-                        <h6 class="font-R rb_config_sub_txt">모듈 박스의 스타일을 설정할 수 있습니다.<br>와이드 옵션은 가로 1열인 모듈에만 사용해주세요.</h6>
-                        <div class="config_wrap">
-
-                           <ul class="rows_inp_lr mt-10">
-                                <li class="rows_inp_l rows_inp_l_span">
-                                    <span class="font-B">와이드</span><br>
-                                    wide
-                                </li>
-                                <li class="rows_inp_r mt-5">
-                                    <?php if($is_shop == 1) { // 영카트?>
-                                    <input type="radio" name="md_wide_is_shop" id="md_wide_is_shop_1" class="magic-radio" value="" <?php if (isset($md_wide_is) && $md_wide_is == "" || empty($md_wide_is)) { ?>checked<?php } ?>><label for="md_wide_is_shop_1">기본</label>
-                                    <input type="radio" name="md_wide_is_shop" id="md_wide_is_shop_2" class="magic-radio" value="1" <?php if (isset($md_wide_is) && $md_wide_is == "1") { ?>checked<?php } ?>><label for="md_wide_is_shop_2">100%</label>
-                                    <input type="radio" name="md_wide_is_shop" id="md_wide_is_shop_3" class="magic-radio" value="2" <?php if (isset($md_wide_is) && $md_wide_is == "2") { ?>checked<?php } ?>><label for="md_wide_is_shop_3">1920px</label>
-                                    <?php } else { ?>
-                                    <input type="radio" name="md_wide_is" id="md_wide_is_1" class="magic-radio" value="" <?php if (isset($md_wide_is) && $md_wide_is == "" || empty($md_wide_is)) { ?>checked<?php } ?>><label for="md_wide_is_1">기본</label>
-                                    <input type="radio" name="md_wide_is" id="md_wide_is_2" class="magic-radio" value="1" <?php if (isset($md_wide_is) && $md_wide_is == "1") { ?>checked<?php } ?>><label for="md_wide_is_2">100%</label>
-                                    <input type="radio" name="md_wide_is" id="md_wide_is_3" class="magic-radio" value="2" <?php if (isset($md_wide_is) && $md_wide_is == "2") { ?>checked<?php } ?>><label for="md_wide_is_3">1920px</label>
-                                    <?php } ?>
-                                </li>
-
-                                <div class="cb"></div>
-                            </ul>
-                        
-                           <ul class="rows_inp_lr mt-10">
-                                <li class="rows_inp_l rows_inp_l_span">
-                                    <span class="font-B">테두리</span><br>
-                                    border
-                                </li>
-                                <li class="rows_inp_r mt-5">
-                                    <?php if($is_shop == 1) { // 영카트?>
-                                    <input type="radio" name="md_border_shop" id="md_border_shop_1" class="magic-radio" value="" <?php if (isset($md_border) && $md_border == "" || empty($md_border)) { ?>checked<?php } ?>><label for="md_border_shop_1">없음</label>
-                                    <input type="radio" name="md_border_shop" id="md_border_shop_2" class="magic-radio" value="solid" <?php if (isset($md_border) && $md_border == "solid") { ?>checked<?php } ?>><label for="md_border_shop_2">실선</label>　
-                                    <input type="radio" name="md_border_shop" id="md_border_shop_3" class="magic-radio" value="dashed" <?php if (isset($md_border) && $md_border == "dashed") { ?>checked<?php } ?>><label for="md_border_shop_3">점선</label>
-                                    <?php } else { ?>
-                                    <input type="radio" name="md_border" id="md_border_1" class="magic-radio" value="" <?php if (isset($md_border) && $md_border == "" || empty($md_border)) { ?>checked<?php } ?>><label for="md_border_1">없음</label>
-                                    <input type="radio" name="md_border" id="md_border_2" class="magic-radio" value="solid" <?php if (isset($md_border) && $md_border == "solid") { ?>checked<?php } ?>><label for="md_border_2">실선</label>　
-                                    <input type="radio" name="md_border" id="md_border_3" class="magic-radio" value="dashed" <?php if (isset($md_border) && $md_border == "dashed") { ?>checked<?php } ?>><label for="md_border_3">점선</label>
-                                    <?php } ?>
-                                </li>
-
-                                <div class="cb"></div>
-                            </ul>
+                        <div class="rb-help" data-open="false">
+                            <button type="button" class="rb-help-btn"
+                                data-img=""
+                                data-txt="모듈 아래쪽으로 Margin(간격) 값이 들어가요. 마이너스(-)도 입력이 가능하고 모바일 간격의 경우 모바일기기로 접속시에만 반영되요."
+                                data-title="하단 간격이란?"
+                                data-alt="미리보기"
+                                aria-expanded="false">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
+                            </button>
+                            <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                        </div>
+                </ul>
 
 
+                <ul class="rows_inp_lr mt-10">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">모서리 라운드</span><br>
+                        border-radius
+                    </li>
+                    <li class="rows_inp_r mt-15">
+                        <div id="md_radius_range" class="rb_range_item"></div>
+                        <?php if($is_shop == 1) { // 영카트?>
+                        <input type="hidden" id="md_radius_shop" class="co_range_send" name="md_radius_shop" value="<?php echo !empty($md_radius) ? $md_radius : '0'; ?>">
+                        <?php } else { ?>
+                        <input type="hidden" id="md_radius" class="co_range_send" name="md_radius" value="<?php echo !empty($md_radius) ? $md_radius : '0'; ?>">
+                        <?php } ?>
+                    </li>
 
-                            <ul class="rows_inp_lr mt-10">
-                                <li class="rows_inp_l rows_inp_l_span">
-                                    <span class="font-B">상단 간격</span><br>
-                                    margin-top
-                                </li>
-                                <li class="rows_inp_r mt-5">
-                                    <?php if($is_shop == 1) { // 영카트?>
-                                    <input type="number" id="md_margin_top_pc_shop" class="tiny_input w25 ml-0" name="md_margin_top_pc_shop" placeholder="PC" value="<?php echo !empty($md_margin_top_pc) ? $md_margin_top_pc : ''; ?>"> <span class="font-12">px　</span>
-                                    <input type="number" id="md_margin_top_mo_shop" class="tiny_input w25 ml-0" name="md_margin_top_mo_shop" placeholder="Mobile" value="<?php echo !empty($md_margin_top_mo) ? $md_margin_top_mo : ''; ?>"> <span class="font-12">px</span>
-                                    <?php } else { ?>
-                                    <input type="number" id="md_margin_top_pc" class="tiny_input w25 ml-0" name="md_margin_top_pc" placeholder="PC" value="<?php echo !empty($md_margin_top_pc) ? $md_margin_top_pc : ''; ?>"> <span class="font-12">px　</span>
-                                    <input type="number" id="md_margin_top_mo" class="tiny_input w25 ml-0" name="md_margin_top_mo" placeholder="Mobile" value="<?php echo !empty($md_margin_top_mo) ? $md_margin_top_mo : ''; ?>"> <span class="font-12">px</span>
-                                    <?php } ?>
-                                </li>
+                    <script type="text/javascript">
+                        $("#md_radius_range").slider({
+                            range: "min",
+                            min: 0,
+                            max: 30,
+                            value: <?php echo !empty($md_radius) ? $md_radius : '0'; ?>,
+                            step: 5,
+                            slide: function(e, ui) {
+                                $("#md_radius_range .ui-slider-handle").html(ui.value);
 
-                                <div class="cb"></div>
-                            </ul>
-
-
-                            <ul class="rows_inp_lr mt-10">
-                                <li class="rows_inp_l rows_inp_l_span">
-                                    <span class="font-B">하단 간격</span><br>
-                                    margin-bottom
-                                </li>
-                                <li class="rows_inp_r mt-5">
-                                    <?php if($is_shop == 1) { // 영카트?>
-                                    <input type="number" id="md_margin_btm_pc_shop" class="tiny_input w25 ml-0" name="md_margin_btm_pc_shop" placeholder="PC" value="<?php echo !empty($md_margin_btm_pc) ? $md_margin_btm_pc : ''; ?>"> <span class="font-12">px　</span>
-                                    <input type="number" id="md_margin_btm_mo_shop" class="tiny_input w25 ml-0" name="md_margin_btm_mo_shop" placeholder="Mobile" value="<?php echo !empty($md_margin_btm_mo) ? $md_margin_btm_mo : ''; ?>"> <span class="font-12">px</span>
-                                    <?php } else { ?>
-                                    <input type="number" id="md_margin_btm_pc" class="tiny_input w25 ml-0" name="md_margin_btm_pc" placeholder="PC" value="<?php echo !empty($md_margin_btm_pc) ? $md_margin_btm_pc : ''; ?>"> <span class="font-12">px　</span>
-                                    <input type="number" id="md_margin_btm_mo" class="tiny_input w25 ml-0" name="md_margin_btm_mo" placeholder="Mobile" value="<?php echo !empty($md_margin_btm_mo) ? $md_margin_btm_mo : ''; ?>"> <span class="font-12">px</span>
-                                    <?php } ?>
-                                </li>
-
-                                <div class="cb"></div>
-                            </ul>
-
-                            
-                            <ul class="rows_inp_lr mt-10">
-                                <li class="rows_inp_l rows_inp_l_span">
-                                    <span class="font-B">모서리 라운드</span><br>
-                                    border-radius
-                                </li>
-                                <li class="rows_inp_r mt-15">
-                                    <div id="md_radius_range" class="rb_range_item"></div>
-                                    <?php if($is_shop == 1) { // 영카트?>
-                                    <input type="hidden" id="md_radius_shop" class="co_range_send" name="md_radius_shop" value="<?php echo !empty($md_radius) ? $md_radius : '0'; ?>">
-                                    <?php } else { ?>
-                                    <input type="hidden" id="md_radius" class="co_range_send" name="md_radius" value="<?php echo !empty($md_radius) ? $md_radius : '0'; ?>">
-                                    <?php } ?>
-                                </li>
-                                
-                                <script type="text/javascript">
-
-                                $("#md_radius_range").slider({
-                                  range: "min",
-                                  min: 0,
-                                  max: 30,
-                                  value: <?php echo !empty($md_radius) ? $md_radius : '0'; ?>,
-                                  step: 5,
-                                  slide: function(e, ui) {
-                                    $("#md_radius_range .ui-slider-handle").html(ui.value);
-                                    
-                                    <?php if($is_shop == 1) { // 영카트?>
-                                        $("#md_radius_shop").val(ui.value); // hidden input에 값 업데이트
-                                    <?php } else { ?>
-                                        $("#md_radius").val(ui.value); // hidden input에 값 업데이트
-                                    <?php } ?>
-                                    
-                                  }
-                                });
-
-                                $("#md_radius_range .ui-slider-handle").html("<?php echo !empty($md_radius) ? $md_radius : '0'; ?>");
                                 <?php if($is_shop == 1) { // 영카트?>
-                                $("#md_radius_shop").val("<?php echo !empty($md_radius) ? $md_radius : '0'; ?>"); // 초기값 설정
+                                $("#md_radius_shop").val(ui.value); // hidden input에 값 업데이트
                                 <?php } else { ?>
-                                $("#md_radius").val("<?php echo !empty($md_radius) ? $md_radius : '0'; ?>"); // 초기값 설정
-                                <?php } ?>
-                                </script>
-
-                                <div class="cb"></div>
-                            </ul>
-                            
-                            
-                            <ul class="rows_inp_lr mt-10">
-                                <li class="rows_inp_l rows_inp_l_span">
-                                    <span class="font-B">내부 여백</span><br>
-                                    padding
-                                </li>
-                                <li class="rows_inp_r mt-15">
-                                    <div id="md_padding_range" class="rb_range_item"></div>
-                                    <?php if($is_shop == 1) { // 영카트?>
-                                    <input type="hidden" id="md_padding_shop" class="co_range_send" name="md_padding_shop" value="<?php echo !empty($md_padding) ? $md_padding : '0'; ?>">
-                                    <?php } else { ?>
-                                    <input type="hidden" id="md_padding" class="co_range_send" name="md_padding" value="<?php echo !empty($md_padding) ? $md_padding : '0'; ?>">
-                                    <?php } ?>
-                                </li>
-                                
-                                <script type="text/javascript">
-
-                                $("#md_padding_range").slider({
-                                  range: "min",
-                                  min: 0,
-                                  max: 30,
-                                  value: <?php echo !empty($md_padding) ? $md_padding : '0'; ?>,
-                                  step: 5,
-                                  slide: function(e, ui) {
-                                    $("#md_padding_range .ui-slider-handle").html(ui.value);
-                                    
-                                    <?php if($is_shop == 1) { // 영카트?>
-                                        $("#md_padding_shop").val(ui.value); // hidden input에 값 업데이트
-                                    <?php } else { ?>
-                                        $("#md_padding").val(ui.value); // hidden input에 값 업데이트
-                                    <?php } ?>
-                                  }
-                                });
-
-                                $("#md_padding_range .ui-slider-handle").html("<?php echo !empty($md_padding) ? $md_padding : '0'; ?>");
-                                <?php if($is_shop == 1) { // 영카트?>
-                                $("#md_padding_shop").val("<?php echo !empty($md_padding) ? $md_padding : '0'; ?>"); // 초기값 설정
-                                <?php } else { ?>
-                                $("#md_padding").val("<?php echo !empty($md_padding) ? $md_padding : '0'; ?>"); // 초기값 설정
+                                $("#md_radius").val(ui.value); // hidden input에 값 업데이트
                                 <?php } ?>
 
-                                </script>
-                                <div class="cb"></div>
-                            </ul>
+                            }
+                        });
+
+                        $("#md_radius_range .ui-slider-handle").html("<?php echo !empty($md_radius) ? $md_radius : '0'; ?>");
+                        <?php if($is_shop == 1) { // 영카트?>
+                        $("#md_radius_shop").val("<?php echo !empty($md_radius) ? $md_radius : '0'; ?>"); // 초기값 설정
+                        <?php } else { ?>
+                        $("#md_radius").val("<?php echo !empty($md_radius) ? $md_radius : '0'; ?>"); // 초기값 설정
+                        <?php } ?>
+                    </script>
+
+                    <div class="cb"></div>
+                </ul>
 
 
+                <ul class="rows_inp_lr mt-10">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">내부 여백(전체)</span><br>
+                        padding
+                    </li>
+                    <li class="rows_inp_r mt-15">
+                        <div id="md_padding_range" class="rb_range_item"></div>
+                        <?php if($is_shop == 1) { // 영카트?>
+                        <input type="hidden" id="md_padding_shop" class="co_range_send" name="md_padding_shop" value="<?php echo !empty($md_padding) ? $md_padding : '0'; ?>">
+                        <?php } else { ?>
+                        <input type="hidden" id="md_padding" class="co_range_send" name="md_padding" value="<?php echo !empty($md_padding) ? $md_padding : '0'; ?>">
+                        <?php } ?>
+                    </li>
+
+                    <script type="text/javascript">
+                        $("#md_padding_range").slider({
+                            range: "min",
+                            min: 0,
+                            max: 30,
+                            value: <?php echo !empty($md_padding) ? $md_padding : '0'; ?>,
+                            step: 5,
+                            slide: function(e, ui) {
+                                $("#md_padding_range .ui-slider-handle").html(ui.value);
+
+                                <?php if($is_shop == 1) { // 영카트?>
+                                $("#md_padding_shop").val(ui.value); // hidden input에 값 업데이트
+                                <?php } else { ?>
+                                $("#md_padding").val(ui.value); // hidden input에 값 업데이트
+                                <?php } ?>
+                            }
+                        });
+
+                        $("#md_padding_range .ui-slider-handle").html("<?php echo !empty($md_padding) ? $md_padding : '0'; ?>");
+                        <?php if($is_shop == 1) { // 영카트?>
+                        $("#md_padding_shop").val("<?php echo !empty($md_padding) ? $md_padding : '0'; ?>"); // 초기값 설정
+                        <?php } else { ?>
+                        $("#md_padding").val("<?php echo !empty($md_padding) ? $md_padding : '0'; ?>"); // 초기값 설정
+                        <?php } ?>
+                    </script>
+                    <div class="cb"></div>
+
+                        <div class="rb-help" data-open="false">
+                            <button type="button" class="rb-help-btn"
+                                data-img=""
+                                data-txt="모듈 내부에 4방향으로 padding(여백) 값이 들어가요. 테두리 옵션을 사용할때 같이 사용하면 좋아요. 모바일 여백의 경우 모바일기기로 접속시에만 반영되요."
+                                data-title="내부 여백 이란?"
+                                data-alt="미리보기"
+                                aria-expanded="false">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
+                            </button>
+                            <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
                         </div>
-                    </ul>
-                    
-                    
-                    
-                    <?php
+                </ul>
+
+
+            </div>
+        </ul>
+
+
+
+        <?php
                         if($is_shop == 1) {
                     ?>
 
-                    <ul class="rb_config_sec selected_item selected_select">
-                        <h6 class="font-B">출력개수 설정</h6>
-                        <h6 class="font-R rb_config_sub_txt">
-                            열(가로)X행(세로) 출력개수를 설정할 수 있습니다.
-                        </h6>
-                        <div class="config_wrap">
-                            <ul class="rows_inp_lr">
-                                <li class="rows_inp_l">
-                                    <input type="number" name="md_cnt" id="md_cnt_shop" class="input w60 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="개수" autocomplete="off" autocomplete="off">　<span>개</span>
-                                </li>
-                                <li class="rows_inp_r">
-                                    <input type="number" name="md_col" id="md_col_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_col) ? $md_col : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
-                                    <input type="number" name="md_row" id="md_row_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_row) ? $md_row : ''; ?>" placeholder="행" autocomplete="off">
-                                </li>
-                                <div class="cb"></div>
-                            </ul>
-                            <ul class="rows_inp_lr mt-10">
-                                <li class="rows_inp_l rows_inp_l_span">
-                                    <span class="font-B">Mobile 버전</span><br>
-                                    1024px 이하
-                                </li>
-                                <li class="rows_inp_r">
-                                    <input type="number" name="md_col_mo" id="md_col_mo_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_col_mo) ? $md_col_mo : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
-                                    <input type="number" name="md_row_mo" id="md_row_mo_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_row_mo) ? $md_row_mo : ''; ?>" placeholder="행" autocomplete="off">
-                                </li>
-                                <div class="cb"></div>
-                            </ul>
+        <ul class="rb_config_sec selected_item selected_select">
+            <h6 class="font-B">
+            출력개수 설정
+                        <div class="rb-help" data-open="false">
+                            <button type="button" class="rb-help-btn"
+                                data-img="<?php echo G5_URL ?>/rb/rb.config/image/guide/help-img-4.png"
+                                data-txt="게시물, 배너, 상품 등의 출력 가능한 개수를 말해요. 가로[열], 세로[행] 을 자유롭게 설정할 수 있어요. 1열X3행의 경우 가로 1개X세로 3개 로 설정되요. 열, 행을 설정하기 전에 개수(전체출력수) 설정을 해주셔야 해요."
+                                data-title="출력개수란?"
+                                data-alt="미리보기"
+                                aria-expanded="false">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
+                            </button>
+                            <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
                         </div>
-                    </ul>
-                    
-                    
-                    <ul class="rb_config_sec selected_item selected_select">
-                        <h6 class="font-B">간격 설정</h6>
-                        <h6 class="font-R rb_config_sub_txt">
-                            상품간의 간격(여백)을 설정할 수 있습니다.
-                        </h6>
-                        
-                        <div class="config_wrap">
-                            <ul class="rows_inp_lr mt-10">
-                                <li class="rows_inp_l rows_inp_l_span">
-                                    <span class="font-B">PC 버전</span><br>
-                                    1024px 이상
-                                </li>
-                                <li class="rows_inp_r">
-                                    <input type="number" name="md_gap" id="md_gap_shop" class="input w40 h40 text-center" value="<?php echo !empty($md_gap) ? $md_gap : ''; ?>" placeholder="간격(px)" autocomplete="off">　<span>px (PC)</span>
-                                </li>
-                                <div class="cb"></div>
-                            </ul>
-                            <ul class="rows_inp_lr mt-10">
-                                <li class="rows_inp_l rows_inp_l_span">
-                                    <span class="font-B">Mobile 버전</span><br>
-                                    1024px 이하
-                                </li>
-                                <li class="rows_inp_r">
-                                    <input type="number" name="md_gap_mo" id="md_gap_mo_shop" class="input w40 h40 text-center" value="<?php echo !empty($md_gap_mo) ? $md_gap_mo : ''; ?>" placeholder="간격(px)" autocomplete="off">　<span>px (Mobile)</span>
-                                </li>
-                                <div class="cb"></div>
-                            </ul>
-
-                        </div>
-                    </ul>
-                    
-                    <ul class="rb_config_sec selected_item selected_select">
-                        <h6 class="font-B">스와이프 설정</h6>
-                        <h6 class="font-R rb_config_sub_txt">
-                            행X열 보다 출력개수가 많을 경우<br>
-                            스와이프 및 자동롤링 처리 유무를 설정할 수 있습니다.
-                        </h6>
-                        <div class="config_wrap">
-                            <input type="checkbox" name="md_swiper_is" class="md_swiper_is_shop" id="md_swiper_is_shop" class="magic-checkbox" value="1" <?php if (isset($md_swiper_is) && $md_swiper_is == 1) { ?>checked<?php } ?>><label for="md_swiper_is_shop">스와이프 사용</label>
-                        </div>
-
-                        <div class="config_wrap">
-                            <input type="radio" name="md_arrow_type_shop" id="md_arrow_type_shop_0" class="magic-radio" value="" <?php if (isset($md_arrow_type) && $md_arrow_type == "" || empty($md_arrow_type)) { ?>checked<?php } ?>><label for="md_arrow_type_shop_0">기본버튼</label>
-                            <input type="radio" name="md_arrow_type_shop" id="md_arrow_type_shop_1" class="magic-radio" value="1" <?php if (isset($md_arrow_type) && $md_arrow_type == "1") { ?>checked<?php } ?>><label for="md_arrow_type_shop_1">원형버튼(오버)</label>
-                            <input type="radio" name="md_arrow_type_shop" id="md_arrow_type_shop_2" class="magic-radio" value="2" <?php if (isset($md_arrow_type) && $md_arrow_type == "2") { ?>checked<?php } ?>><label for="md_arrow_type_shop_2">버튼숨김</label>
-                        </div>
-
-                        <div class="config_wrap">
-                            <input type="checkbox" name="md_auto_is" id="md_auto_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_auto_is) && $md_auto_is == 1) { ?>checked<?php } ?>><label for="md_auto_is_shop">자동롤링 사용</label>　
-                            <input type="number" name="md_auto_time" id="md_auto_time_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_auto_time) ? $md_auto_time : ''; ?>" placeholder="밀리초" autocomplete="off">　<span>3000=3초</span>
-                        </div>
-
-
-                    </ul>
-
-
-
-
-                    
-                    <ul class="rb_config_sec selected_item selected_select">
-                        <h6 class="font-B">출력항목 설정</h6>
-                        <h6 class="font-R rb_config_sub_txt">
-                            선택하신 항목이 출력됩니다.
-                        </h6>
-                        <div class="config_wrap">
-                            <ul>
-                                <input type="checkbox" name="md_ca_is" id="md_ca_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_ca_is) && $md_ca_is == 1) { ?>checked<?php } ?>><label for="md_ca_is_shop">카테고리</label>　
-                                <input type="checkbox" name="md_thumb_is" id="md_thumb_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_thumb_is) && $md_thumb_is == 1) { ?>checked<?php } ?>><label for="md_thumb_is_shop">상품이미지</label>　
-                                <input type="checkbox" name="md_subject_is" id="md_subject_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_subject_is) && $md_subject_is == 1) { ?>checked<?php } ?>><label for="md_subject_is_shop">상품명</label><br>
-                                <input type="checkbox" name="md_content_is" id="md_content_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_content_is) && $md_content_is == 1) { ?>checked<?php } ?>><label for="md_content_is_shop">상품설명</label>　
-                                <input type="checkbox" name="md_date_is" id="md_date_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_date_is) && $md_date_is == 1) { ?>checked<?php } ?>><label for="md_date_is_shop">등록일</label>　
-                                <input type="checkbox" name="md_comment_is" id="md_comment_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_comment_is) && $md_comment_is == 1) { ?>checked<?php } ?>><label for="md_comment_is_shop">찜개수</label>
-                                <input type="checkbox" name="md_icon_is" id="md_icon_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_icon_is) && $md_icon_is == 1) { ?>checked<?php } ?>><label for="md_icon_is_shop">아이콘</label>
-                            </ul>
-                        </div>
-                    </ul>
-                    
-                    
-                    <?php } ?>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                </div>
-            </ul>
-            
-            
-            <ul class="rb_config_sec selected_cnt selected_select">
-                <h6 class="font-B">출력개수 설정</h6>
-                <h6 class="font-R rb_config_sub_txt">
-                    열(가로)X행(세로) 출력개수를 설정할 수 있습니다.
-                    <span class="main_color selected_banner selected_select"><br>배너모듈의 경우 전체개수는 배너관리의 설정에 따릅니다.</span>
-                </h6>
-                <div class="config_wrap">
-                    <ul class="rows_inp_lr">
-
-                        <li class="rows_inp_l rows_inp_l_span selected_banner selected_select">
-                            <span class="font-B">PC 버전</span><br>
-                            1024px 이상
-                        </li>
-
-                        <li class="rows_inp_l selected_latest_tab selected_select">
-                            <input type="number" name="md_cnt" id="md_cnt" class="input w60 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="개수" autocomplete="off" autocomplete="off">　<span>개</span>
-                        </li>
-
-                        <li class="rows_inp_r">
-                            <input type="number" name="md_col" id="md_col" class="input w30 h40 text-center" value="<?php echo !empty($md_col) ? $md_col : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
-                            <input type="number" name="md_row" id="md_row" class="input w30 h40 text-center" value="<?php echo !empty($md_row) ? $md_row : ''; ?>" placeholder="행" autocomplete="off">
-                        </li>
-                        <div class="cb"></div>
-                    </ul>
-                    <ul class="rows_inp_lr mt-10">
-                        <li class="rows_inp_l rows_inp_l_span">
-                            <span class="font-B">Mobile 버전</span><br>
-                            1024px 이하
-                        </li>
-                        <li class="rows_inp_r">
-                            <input type="number" name="md_col_mo" id="md_col_mo" class="input w30 h40 text-center" value="<?php echo !empty($md_col_mo) ? $md_col_mo : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
-                            <input type="number" name="md_row_mo" id="md_row_mo" class="input w30 h40 text-center" value="<?php echo !empty($md_row_mo) ? $md_row_mo : ''; ?>" placeholder="행" autocomplete="off">
-                        </li>
-                        <div class="cb"></div>
-                    </ul>
-                </div>
-            </ul>
-            
-            <ul class="rb_config_sec selected_cnt selected_select">
-                <h6 class="font-B">간격 설정</h6>
-                <h6 class="font-R rb_config_sub_txt">
-                    오브젝트의 간격(여백)을 설정할 수 있습니다.
-                </h6>
-                <div class="config_wrap">
-                    <ul class="rows_inp_lr mt-10">
-                        <li class="rows_inp_l rows_inp_l_span">
-                            <span class="font-B">PC 버전</span><br>
-                            1024px 이상
-                        </li>
-                        <li class="rows_inp_r">
-                            <input type="number" name="md_gap" id="md_gap" class="input w40 h40 text-center" value="<?php echo $md_gap ?>" placeholder="간격(px)" autocomplete="off">　<span>px (PC)</span>
-                        </li>
-                        <div class="cb"></div>
-                    </ul>
-                    <ul class="rows_inp_lr mt-10">
-                        <li class="rows_inp_l rows_inp_l_span">
-                            <span class="font-B">Mobile 버전</span><br>
-                            1024px 이하
-                        </li>
-                        <li class="rows_inp_r">
-                            <input type="number" name="md_gap_mo" id="md_gap_mo" class="input w40 h40 text-center" value="<?php echo $md_gap_mo ?>" placeholder="간격(px)" autocomplete="off">　<span>px (Mobile)</span>
-                        </li>
-                        <div class="cb"></div>
-                    </ul>
-                    
-                </div>
-            </ul>
-            
-            <ul class="rb_config_sec selected_cnt selected_select">
-                <h6 class="font-B">스와이프 설정</h6>
-                <h6 class="font-R rb_config_sub_txt">
-                    행X열 보다 출력개수가 많을 경우<br>
-                    스와이프 및 자동롤링 처리 유무를 설정할 수 있습니다.
-                </h6>
-                <div class="config_wrap">
-                    <input type="checkbox" name="md_swiper_is" class="md_swiper_is" id="md_swiper_is" class="magic-checkbox" value="1" <?php if (isset($md_swiper_is) && $md_swiper_is == 1) { ?>checked<?php } ?>><label for="md_swiper_is">스와이프 사용</label>
-                </div>
-
-                <div class="config_wrap">
-                    <input type="radio" name="md_arrow_type" id="md_arrow_type_0" class="magic-radio" value="" <?php if (isset($md_arrow_type) && $md_arrow_type == "" || empty($md_arrow_type)) { ?>checked<?php } ?>><label for="md_arrow_type_0">기본버튼</label>
-                    <input type="radio" name="md_arrow_type" id="md_arrow_type_1" class="magic-radio" value="1" <?php if (isset($md_arrow_type) && $md_arrow_type == "1") { ?>checked<?php } ?>><label for="md_arrow_type_1">원형버튼(오버)</label>
-                    <input type="radio" name="md_arrow_type" id="md_arrow_type_2" class="magic-radio" value="2" <?php if (isset($md_arrow_type) && $md_arrow_type == "2") { ?>checked<?php } ?>><label for="md_arrow_type_2">버튼숨김</label>
-                </div>
-
-                <div class="config_wrap">
-                    <input type="checkbox" name="md_auto_is" id="md_auto_is" class="magic-checkbox" value="1" <?php if(isset($md_auto_is) && $md_auto_is == 1) { ?>checked<?php } ?>><label for="md_auto_is">자동롤링 사용</label>　
-                    <input type="number" name="md_auto_time" id="md_auto_time" class="input w30 h40 text-center" value="<?php echo !empty($md_auto_time) ? $md_auto_time : ''; ?>" placeholder="밀리초" autocomplete="off">　<span>3000=3초</span>
-                </div>
-            </ul>
-
-
-
-            
-            <ul class="rb_config_sec selected_all">
-                <h6 class="font-B">사이즈 설정</h6>
-                <h6 class="font-R rb_config_sub_txt">
-                    모듈의 가로, 세로 사이즈를 설정할 수 있습니다.<br>
-                    숫자로만 입력해주세요.
-                </h6>
-                <div class="config_wrap">
-
-                    <ul class="rows_inp_lr mt-10">
-                        <li class="rows_inp_l rows_inp_l_span">
-                            <span class="font-B">단위설정</span><br>
-                            %, PX
-                        </li>
-                        <li class="rows_inp_r">
-                            <input type="radio" name="md_size" id="md_size_1" class="magic-radio" value="%" <?php if (isset($md_size) && $md_size == "" || isset($md_size) && $md_size == "%" || empty($md_size)) { ?>checked<?php } ?>><label for="md_size_1">%</label>
-                            <input type="radio" name="md_size" id="md_size_2" class="magic-radio" value="px" <?php if (isset($md_size) && $md_size == "px") { ?>checked<?php } ?>><label for="md_size_2">px</label>
-                        </li>
-
-                        <div class="cb"></div>
-                    </ul>
-
-                    <ul class="rows_inp_lr mt-10">
-                        <li class="rows_inp_l rows_inp_l_span">
-                            <span class="font-B">가로사이즈</span><br>
-                            %, PX
-                        </li>
-                        <li class="rows_inp_r">
-                            <input type="number" name="md_width" class="input w40 h40 text-center" value="<?php echo !empty($md_width) ? $md_width : '100'; ?>" placeholder="숫자" autocomplete="off">　<span class="md_size_set">%</span>
-                        </li>
-
-                        <div class="cb"></div>
-                    </ul>
-
-                    <ul class="rows_inp_lr mt-10">
-                        <li class="rows_inp_l rows_inp_l_span">
-                            <span class="font-B">세로사이즈</span><br>
-                            %, PX
-                        </li>
-                        <li class="rows_inp_r">
-                            <input type="text" name="md_height" class="input w40 h40 text-center" value="auto" placeholder="auto" readonly autocomplete="off">　<span class="md_size_set">%</span>
-                        </li>
-
-                        <div class="cb"></div>
-                    </ul>
-
-                    <script>
-                    function updateUnitSpan() {
-                        var unit = $("input[name='md_size']:checked").val();
-                        $(".md_size_set").text(unit);
-                    }
-
-                    // 라디오 변경 시 적용
-                    $(document).on('change', "input[name='md_size']", updateUnitSpan);
-
-                    // 페이지 로드시 적용
-                    $(document).ready(updateUnitSpan);
-                    </script>
-
-
-
-                </div>
-
-            </ul>
-            
-            <ul class="rb_config_sec selected_latest_tab selected_select">
-                <h6 class="font-B">출력항목 설정</h6>
-                <h6 class="font-R rb_config_sub_txt">
-                    선택하신 항목이 출력됩니다.
-                </h6>
-                <div class="config_wrap">
-                    <ul>
-                        <input type="checkbox" name="md_subject_is" id="md_subject_is" class="magic-checkbox" value="1" <?php if(isset($md_subject_is) && $md_subject_is == 1) { ?>checked<?php } ?>><label for="md_subject_is">제목</label>　
-                        <input type="checkbox" name="md_thumb_is" id="md_thumb_is" class="magic-checkbox" value="1" <?php if(isset($md_thumb_is) && $md_thumb_is == 1) { ?>checked<?php } ?>><label for="md_thumb_is">썸네일</label>　
-                        <input type="checkbox" name="md_nick_is" id="md_nick_is" class="magic-checkbox" value="1" <?php if(isset($md_nick_is) && $md_nick_is == 1) { ?>checked<?php } ?>><label for="md_nick_is">닉네임</label>　
-                        <input type="checkbox" name="md_date_is" id="md_date_is" class="magic-checkbox" value="1" <?php if(isset($md_date_is) && $md_date_is == 1) { ?>checked<?php } ?>><label for="md_date_is">작성일</label>　
-                        <input type="checkbox" name="md_ca_is" id="md_ca_is" class="magic-checkbox" value="1" <?php if(isset($md_ca_is) && $md_ca_is == 1) { ?>checked<?php } ?>><label for="md_ca_is">카테고리</label>　
-                        <input type="checkbox" name="md_comment_is" id="md_comment_is" class="magic-checkbox" value="1" <?php if(isset($md_comment_is) && $md_comment_is == 1) { ?>checked<?php } ?>><label for="md_comment_is">댓글</label>　
-                        <input type="checkbox" name="md_content_is" id="md_content_is" class="magic-checkbox" value="1" <?php if(isset($md_content_is) && $md_content_is == 1) { ?>checked<?php } ?>><label for="md_content_is">본문내용</label>　
-                        <input type="checkbox" name="md_icon_is" id="md_icon_is" class="magic-checkbox" value="1" <?php if(isset($md_icon_is) && $md_icon_is == 1) { ?>checked<?php } ?>><label for="md_icon_is">아이콘</label>　
-                    </ul>
-                </div>
-            </ul>
-            
-            
-            <ul class="rb_config_sec">
-                <button type="button" class="rb_config_save font-B" onclick="executeAjax_module()">저장하기</button>
-                <button type="button" class="rb_config_close font-B" onclick="toggleSideOptions_close()">취소</button>
-                <div class="cb"></div>
-            </ul>
-        
-        <?php } ?>
-        
-    <?php } ?>
-    
-    
-    <?php if(isset($mod_type) && $mod_type == "del") { ?>
-    <h2 class="font-B"><span><?php echo !empty($set_title) ? $set_title : ''; ?></span> 모듈삭제</h2>
-    <input type="hidden" name="md_layout" value="<?php echo !empty($set_layout) ? $set_layout : ''; ?>">
-    <input type="hidden" name="md_theme" value="<?php echo !empty($theme_name) ? $theme_name : ''; ?>">
-    <input type="hidden" name="md_id" value="<?php echo !empty($set_id) ? $set_id : ''; ?>">
-                        
-        <ul class="rb_config_sec">
-           <div class="no_data">
-            모듈을 삭제합니다.<br>
-            삭제하신 모듈은 복구할 수 없습니다.
+            </h6>
+            <h6 class="font-R rb_config_sub_txt">
+                열(가로)X행(세로) 출력개수를 설정할 수 있습니다.
+            </h6>
+            <div class="config_wrap">
+                <ul class="rows_inp_lr">
+                    <li class="rows_inp_l">
+                        <input type="number" name="md_cnt" id="md_cnt_shop" class="input w60 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="개수" autocomplete="off" autocomplete="off">　<span>개</span>
+                    </li>
+                    <li class="rows_inp_r">
+                        <input type="number" name="md_col" id="md_col_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_col) ? $md_col : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
+                        <input type="number" name="md_row" id="md_row_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_row) ? $md_row : ''; ?>" placeholder="행" autocomplete="off">
+                    </li>
+                    <div class="cb"></div>
+                </ul>
+                <ul class="rows_inp_lr mt-10">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">Mobile 버전</span><br>
+                        1024px 이하
+                    </li>
+                    <li class="rows_inp_r">
+                        <input type="number" name="md_col_mo" id="md_col_mo_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_col_mo) ? $md_col_mo : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
+                        <input type="number" name="md_row_mo" id="md_row_mo_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_row_mo) ? $md_row_mo : ''; ?>" placeholder="행" autocomplete="off">
+                    </li>
+                    <div class="cb"></div>
+                </ul>
             </div>
         </ul>
-        
-        <ul class="rb_config_sec">
-            <button type="button" class="rb_config_save font-B" onclick="executeAjax_module_del()">삭제하기</button>
-            <button type="button" class="rb_config_close font-B" onclick="toggleSideOptions_close()">취소</button>
+
+
+        <ul class="rb_config_sec selected_item selected_select">
+            <h6 class="font-B">
+            간격 설정
+            <div class="rb-help" data-open="false">
+                <button type="button" class="rb-help-btn"
+                    data-img="<?php echo G5_URL ?>/rb/rb.config/image/guide/help-img-1.png"
+                    data-txt="글이나 상품, 배너 등 출력되는 목록 사이의 간격을 조정할 수 있어요."
+                    data-title="간격설정 이란?"
+                    data-alt="미리보기"
+                    aria-expanded="false">
+                    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
+                </button>
+                <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+            </div>
+            </h6>
+            <h6 class="font-R rb_config_sub_txt">
+                출력되는 모듈 내부 각 오프젝트 사이의<br>
+                간격을 설정할 수 있습니다.
+            </h6>
+
+            <div class="config_wrap">
+                <ul class="rows_inp_lr mt-10">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">PC 버전</span><br>
+                        1024px 이상
+                    </li>
+                    <li class="rows_inp_r">
+                        <input type="number" name="md_gap" id="md_gap_shop" class="input w40 h40 text-center" value="<?php echo !empty($md_gap) ? $md_gap : ''; ?>" placeholder="간격(px)" autocomplete="off">　<span>px (PC)</span>
+                    </li>
+                    <div class="cb"></div>
+                </ul>
+                <ul class="rows_inp_lr mt-10">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">Mobile 버전</span><br>
+                        1024px 이하
+                    </li>
+                    <li class="rows_inp_r">
+                        <input type="number" name="md_gap_mo" id="md_gap_mo_shop" class="input w40 h40 text-center" value="<?php echo !empty($md_gap_mo) ? $md_gap_mo : ''; ?>" placeholder="간격(px)" autocomplete="off">　<span>px (Mobile)</span>
+                    </li>
+                    <div class="cb"></div>
+                </ul>
+
+            </div>
+        </ul>
+
+        <ul class="rb_config_sec selected_item selected_select">
+            <h6 class="font-B">스와이프 설정</h6>
+            <h6 class="font-R rb_config_sub_txt">
+                행X열 보다 출력개수가 많을 경우<br>
+                스와이프 및 자동롤링 처리 유무를 설정할 수 있습니다.
+            </h6>
+            <div class="config_wrap">
+                <input type="checkbox" name="md_swiper_is" class="md_swiper_is_shop" id="md_swiper_is_shop" class="magic-checkbox" value="1" <?php if (isset($md_swiper_is) && $md_swiper_is == 1) { ?>checked<?php } ?>><label for="md_swiper_is_shop">스와이프 사용</label>
+            </div>
+
+            <div class="config_wrap">
+                <input type="radio" name="md_arrow_type_shop" id="md_arrow_type_shop_0" class="magic-radio" value="" <?php if (isset($md_arrow_type) && $md_arrow_type == "" || empty($md_arrow_type)) { ?>checked<?php } ?>><label for="md_arrow_type_shop_0">기본버튼</label>
+                <input type="radio" name="md_arrow_type_shop" id="md_arrow_type_shop_1" class="magic-radio" value="1" <?php if (isset($md_arrow_type) && $md_arrow_type == "1") { ?>checked<?php } ?>><label for="md_arrow_type_shop_1">원형버튼(오버)</label>
+                <input type="radio" name="md_arrow_type_shop" id="md_arrow_type_shop_2" class="magic-radio" value="2" <?php if (isset($md_arrow_type) && $md_arrow_type == "2") { ?>checked<?php } ?>><label for="md_arrow_type_shop_2">버튼숨김</label>
+            </div>
+
+            <div class="config_wrap">
+                <input type="checkbox" name="md_auto_is" id="md_auto_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_auto_is) && $md_auto_is == 1) { ?>checked<?php } ?>><label for="md_auto_is_shop">자동롤링 사용</label>
+                <input type="number" name="md_auto_time" id="md_auto_time_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_auto_time) ? $md_auto_time : ''; ?>" placeholder="밀리초" autocomplete="off">　<span>3000=3초</span>
+            </div>
+
+
+        </ul>
+
+
+
+
+
+        <ul class="rb_config_sec selected_item selected_select">
+            <h6 class="font-B">출력항목 설정</h6>
+            <h6 class="font-R rb_config_sub_txt">
+                선택하신 항목이 출력됩니다.
+            </h6>
+            <div class="config_wrap">
+                <ul>
+                    <input type="checkbox" name="md_ca_is" id="md_ca_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_ca_is) && $md_ca_is == 1) { ?>checked<?php } ?>><label for="md_ca_is_shop">카테고리</label>
+                    <input type="checkbox" name="md_thumb_is" id="md_thumb_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_thumb_is) && $md_thumb_is == 1) { ?>checked<?php } ?>><label for="md_thumb_is_shop">상품이미지</label>
+                    <input type="checkbox" name="md_subject_is" id="md_subject_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_subject_is) && $md_subject_is == 1) { ?>checked<?php } ?>><label for="md_subject_is_shop">상품명</label><br>
+                    <input type="checkbox" name="md_content_is" id="md_content_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_content_is) && $md_content_is == 1) { ?>checked<?php } ?>><label for="md_content_is_shop">상품설명</label>
+                    <input type="checkbox" name="md_date_is" id="md_date_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_date_is) && $md_date_is == 1) { ?>checked<?php } ?>><label for="md_date_is_shop">등록일</label>
+                    <input type="checkbox" name="md_comment_is" id="md_comment_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_comment_is) && $md_comment_is == 1) { ?>checked<?php } ?>><label for="md_comment_is_shop">찜개수</label>
+                    <input type="checkbox" name="md_icon_is" id="md_icon_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_icon_is) && $md_icon_is == 1) { ?>checked<?php } ?>><label for="md_icon_is_shop">아이콘</label>
+                </ul>
+            </div>
+        </ul>
+
+
+        <?php } ?>
+
+
+
+
+
+
+
+
+    </div>
+</ul>
+
+
+<ul class="rb_config_sec selected_cnt selected_select">
+    <h6 class="font-B">
+    출력개수 설정
+                        <div class="rb-help" data-open="false">
+                            <button type="button" class="rb-help-btn"
+                                data-img="<?php echo G5_URL ?>/rb/rb.config/image/guide/help-img-4.png"
+                                data-txt="게시물, 배너, 상품 등의 출력 가능한 개수를 말해요. 가로[열], 세로[행] 을 자유롭게 설정할 수 있어요. 1열X3행의 경우 가로 1개X세로 3개 로 설정되요. 열, 행을 설정하기 전에 개수(전체출력수) 설정을 해주셔야 해요."
+                                data-title="출력개수란?"
+                                data-alt="미리보기"
+                                aria-expanded="false">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
+                            </button>
+                            <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                        </div>
+    </h6>
+    <h6 class="font-R rb_config_sub_txt">
+        열(가로)X행(세로) 출력개수를 설정할 수 있습니다.
+        <span class="main_color selected_banner selected_select"><br>배너모듈의 경우 전체개수는 배너관리의 설정에 따릅니다.</span>
+    </h6>
+    <div class="config_wrap">
+        <ul class="rows_inp_lr">
+
+            <li class="rows_inp_l rows_inp_l_span selected_banner selected_select">
+                <span class="font-B">PC 버전</span><br>
+                1024px 이상
+            </li>
+
+            <li class="rows_inp_l selected_latest_tab selected_select">
+                <input type="number" name="md_cnt" id="md_cnt" class="input w60 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="개수" autocomplete="off" autocomplete="off">　<span>개</span>
+            </li>
+
+            <li class="rows_inp_r">
+                <input type="number" name="md_col" id="md_col" class="input w30 h40 text-center" value="<?php echo !empty($md_col) ? $md_col : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
+                <input type="number" name="md_row" id="md_row" class="input w30 h40 text-center" value="<?php echo !empty($md_row) ? $md_row : ''; ?>" placeholder="행" autocomplete="off">
+            </li>
             <div class="cb"></div>
         </ul>
+        <ul class="rows_inp_lr mt-10">
+            <li class="rows_inp_l rows_inp_l_span">
+                <span class="font-B">Mobile 버전</span><br>
+                1024px 이하
+            </li>
+            <li class="rows_inp_r">
+                <input type="number" name="md_col_mo" id="md_col_mo" class="input w30 h40 text-center" value="<?php echo !empty($md_col_mo) ? $md_col_mo : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
+                <input type="number" name="md_row_mo" id="md_row_mo" class="input w30 h40 text-center" value="<?php echo !empty($md_row_mo) ? $md_row_mo : ''; ?>" placeholder="행" autocomplete="off">
+            </li>
+            <div class="cb"></div>
+        </ul>
+    </div>
+</ul>
+
+<ul class="rb_config_sec selected_cnt selected_select">
+    <h6 class="font-B">
+    간격 설정
+    <div class="rb-help" data-open="false">
+        <button type="button" class="rb-help-btn"
+            data-img="<?php echo G5_URL ?>/rb/rb.config/image/guide/help-img-1.png"
+            data-txt="글이나 상품, 배너 등 출력되는 목록 사이의 간격을 조정할 수 있어요."
+            data-title="간격설정 이란?"
+            data-alt="미리보기"
+            aria-expanded="false">
+            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
+        </button>
+        <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+    </div>
+    </h6>
+    <h6 class="font-R rb_config_sub_txt">
+        출력되는 모듈 내부 각 오프젝트 사이의<br>
+        간격을 설정할 수 있습니다.
+    </h6>
+    <div class="config_wrap">
+        <ul class="rows_inp_lr mt-10">
+            <li class="rows_inp_l rows_inp_l_span">
+                <span class="font-B">PC 버전</span><br>
+                1024px 이상
+            </li>
+            <li class="rows_inp_r">
+                <input type="number" name="md_gap" id="md_gap" class="input w40 h40 text-center" value="<?php echo $md_gap ?>" placeholder="간격(px)" autocomplete="off">　<span>px (PC)</span>
+            </li>
+            <div class="cb"></div>
+        </ul>
+        <ul class="rows_inp_lr mt-10">
+            <li class="rows_inp_l rows_inp_l_span">
+                <span class="font-B">Mobile 버전</span><br>
+                1024px 이하
+            </li>
+            <li class="rows_inp_r">
+                <input type="number" name="md_gap_mo" id="md_gap_mo" class="input w40 h40 text-center" value="<?php echo $md_gap_mo ?>" placeholder="간격(px)" autocomplete="off">　<span>px (Mobile)</span>
+            </li>
+            <div class="cb"></div>
+        </ul>
+
+    </div>
+</ul>
+
+<ul class="rb_config_sec selected_cnt selected_select">
+    <h6 class="font-B">스와이프 설정</h6>
+    <h6 class="font-R rb_config_sub_txt">
+        행X열 보다 출력개수가 많을 경우<br>
+        스와이프 및 자동롤링 처리 유무를 설정할 수 있습니다.
+    </h6>
+    <div class="config_wrap">
+        <input type="checkbox" name="md_swiper_is" class="md_swiper_is" id="md_swiper_is" class="magic-checkbox" value="1" <?php if (isset($md_swiper_is) && $md_swiper_is == 1) { ?>checked<?php } ?>><label for="md_swiper_is">스와이프 사용</label>
+    </div>
+
+    <div class="config_wrap">
+        <input type="radio" name="md_arrow_type" id="md_arrow_type_0" class="magic-radio" value="" <?php if (isset($md_arrow_type) && $md_arrow_type == "" || empty($md_arrow_type)) { ?>checked<?php } ?>><label for="md_arrow_type_0">기본버튼</label>
+        <input type="radio" name="md_arrow_type" id="md_arrow_type_1" class="magic-radio" value="1" <?php if (isset($md_arrow_type) && $md_arrow_type == "1") { ?>checked<?php } ?>><label for="md_arrow_type_1">원형버튼(오버)</label>
+        <input type="radio" name="md_arrow_type" id="md_arrow_type_2" class="magic-radio" value="2" <?php if (isset($md_arrow_type) && $md_arrow_type == "2") { ?>checked<?php } ?>><label for="md_arrow_type_2">버튼숨김</label>
+    </div>
+
+    <div class="config_wrap">
+        <input type="checkbox" name="md_auto_is" id="md_auto_is" class="magic-checkbox" value="1" <?php if(isset($md_auto_is) && $md_auto_is == 1) { ?>checked<?php } ?>><label for="md_auto_is">자동롤링 사용</label>
+        <input type="number" name="md_auto_time" id="md_auto_time" class="input w30 h40 text-center" value="<?php echo !empty($md_auto_time) ? $md_auto_time : ''; ?>" placeholder="밀리초" autocomplete="off">　<span>3000=3초</span>
+    </div>
+</ul>
+
+
+
+
+<ul class="rb_config_sec selected_all">
+    <h6 class="font-B">사이즈 설정</h6>
+    <h6 class="font-R rb_config_sub_txt">
+        모듈의 가로, 세로 사이즈를 설정할 수 있습니다.<br>
+        숫자로만 입력해주세요.
+    </h6>
+    <div class="config_wrap">
+
+        <ul class="rows_inp_lr mt-10">
+            <li class="rows_inp_l rows_inp_l_span">
+                <span class="font-B">단위설정</span><br>
+                %, PX
+            </li>
+            <li class="rows_inp_r">
+                <input type="radio" name="md_size" id="md_size_1" class="magic-radio" value="%" <?php if (isset($md_size) && $md_size == "" || isset($md_size) && $md_size == "%" || empty($md_size)) { ?>checked<?php } ?>><label for="md_size_1">%</label>
+                <input type="radio" name="md_size" id="md_size_2" class="magic-radio" value="px" <?php if (isset($md_size) && $md_size == "px") { ?>checked<?php } ?>><label for="md_size_2">px</label>
+            </li>
+
+            <div class="cb"></div>
+        </ul>
+
+        <ul class="rows_inp_lr mt-10">
+            <li class="rows_inp_l rows_inp_l_span">
+                <span class="font-B">가로사이즈</span><br>
+                %, PX
+            </li>
+            <li class="rows_inp_r">
+                <input type="number" name="md_width" class="input w40 h40 text-center" value="<?php echo !empty($md_width) ? $md_width : '100'; ?>" placeholder="숫자" autocomplete="off">　<span class="md_size_set">%</span>
+            </li>
+
+            <div class="cb"></div>
+        </ul>
+
+        <ul class="rows_inp_lr mt-10">
+            <li class="rows_inp_l rows_inp_l_span">
+                <span class="font-B">세로사이즈</span><br>
+                %, PX
+            </li>
+            <li class="rows_inp_r">
+                <input type="text" name="md_height" class="input w40 h40 text-center" value="auto" placeholder="auto" readonly autocomplete="off">　<span class="md_size_set">%</span>
+            </li>
+
+            <div class="cb"></div>
+        </ul>
+
+        <script>
+            function updateUnitSpan() {
+                var unit = $("input[name='md_size']:checked").val();
+                $(".md_size_set").text(unit);
+            }
+
+            // 라디오 변경 시 적용
+            $(document).on('change', "input[name='md_size']", updateUnitSpan);
+
+            // 페이지 로드시 적용
+            $(document).ready(updateUnitSpan);
+        </script>
+
+
+
+    </div>
+
+</ul>
+
+<ul class="rb_config_sec selected_latest_tab selected_select">
+    <h6 class="font-B">출력항목 설정</h6>
+    <h6 class="font-R rb_config_sub_txt">
+        선택하신 항목이 출력됩니다.
+    </h6>
+    <div class="config_wrap">
+        <ul>
+            <input type="checkbox" name="md_subject_is" id="md_subject_is" class="magic-checkbox" value="1" <?php if(isset($md_subject_is) && $md_subject_is == 1) { ?>checked<?php } ?>><label for="md_subject_is">제목</label>
+            <input type="checkbox" name="md_thumb_is" id="md_thumb_is" class="magic-checkbox" value="1" <?php if(isset($md_thumb_is) && $md_thumb_is == 1) { ?>checked<?php } ?>><label for="md_thumb_is">썸네일</label>
+            <input type="checkbox" name="md_nick_is" id="md_nick_is" class="magic-checkbox" value="1" <?php if(isset($md_nick_is) && $md_nick_is == 1) { ?>checked<?php } ?>><label for="md_nick_is">닉네임</label>
+            <input type="checkbox" name="md_date_is" id="md_date_is" class="magic-checkbox" value="1" <?php if(isset($md_date_is) && $md_date_is == 1) { ?>checked<?php } ?>><label for="md_date_is">작성일</label>
+            <input type="checkbox" name="md_ca_is" id="md_ca_is" class="magic-checkbox" value="1" <?php if(isset($md_ca_is) && $md_ca_is == 1) { ?>checked<?php } ?>><label for="md_ca_is">카테고리</label>
+            <input type="checkbox" name="md_comment_is" id="md_comment_is" class="magic-checkbox" value="1" <?php if(isset($md_comment_is) && $md_comment_is == 1) { ?>checked<?php } ?>><label for="md_comment_is">댓글</label>
+            <input type="checkbox" name="md_content_is" id="md_content_is" class="magic-checkbox" value="1" <?php if(isset($md_content_is) && $md_content_is == 1) { ?>checked<?php } ?>><label for="md_content_is">본문내용</label>
+            <input type="checkbox" name="md_icon_is" id="md_icon_is" class="magic-checkbox" value="1" <?php if(isset($md_icon_is) && $md_icon_is == 1) { ?>checked<?php } ?>><label for="md_icon_is">아이콘</label>
+        </ul>
+    </div>
+</ul>
+
+
+<ul class="rb_config_sec">
+    <?php if(isset($set_id) && $set_id != '') { ?>
+    <button type="button" class="main_rb_bg font-B" id="edit_css_btn" onclick="edit_css_mod_open(this)" data-layout="<?php echo $set_layout ?>" data-id="<?php echo $set_id ?>">CSS 라이브 커스텀</button>
+    <div class="cb"></div>
     <?php } ?>
-    
-    
+    <button type="button" class="rb_config_save mt-5 font-B" onclick="executeAjax_module()">저장하기</button>
+    <button type="button" class="rb_config_close mt-5 font-B" onclick="toggleSideOptions_close()">취소</button>
+    <div class="cb"></div>
+</ul>
+
+<?php } ?>
+
+<?php } ?>
 
 
+<?php if(isset($mod_type) && $mod_type == "del") { ?>
+<h2 class="font-B"><span><?php echo !empty($set_title) ? $set_title : ''; ?></span> 모듈삭제</h2>
+<input type="hidden" name="md_layout" value="<?php echo !empty($set_layout) ? $set_layout : ''; ?>">
+<input type="hidden" name="md_theme" value="<?php echo !empty($theme_name) ? $theme_name : ''; ?>">
+<input type="hidden" name="md_id" value="<?php echo !empty($set_id) ? $set_id : ''; ?>">
+
+<ul class="rb_config_sec">
+    <div class="no_data">
+        모듈을 삭제합니다.<br>
+        삭제하신 모듈은 복구할 수 없습니다.
+    </div>
+</ul>
+
+<ul class="rb_config_sec">
+    <button type="button" class="rb_config_save font-B" onclick="executeAjax_module_del()">삭제하기</button>
+    <button type="button" class="rb_config_close font-B" onclick="toggleSideOptions_close()">취소</button>
+    <div class="cb"></div>
+</ul>
+<?php } ?>
+
+
+
+
+<?php if(isset($mod_type) && $mod_type == 3) { ?>
+<h2 class="font-B"><?php if($set_title) { ?><span><?php echo $set_title ?></span> 섹션설정<?php } else { ?>섹션추가<?php } ?></h2>
+
+<h6 class="font-R rb_config_sub_txt">
+    메인 레이아웃에 섹션을 추가 합니다.<br>
+    추가된 섹션은 드래그&드랍으로 섹션끼리 위치 변경이 가능합니다.<br>
+    섹션 내부에 모듈을 추가할 수 있습니다.
+</h6>
+
+
+
+
+<?php if($set_layout && $set_id && $theme_name) { ?>
+
+<?php
+
+                $rb_section = sql_fetch(" select * from {$rb_section_tables} where sec_theme = '{$theme_name}' and sec_id = '{$set_id}' and sec_layout = '{$set_layout}' ");
+                $rb_section_is = sql_fetch(" select COUNT(*) as cnt from {$rb_section_tables} where sec_theme = '{$theme_name}' and sec_id = '{$set_id}' and sec_layout = '{$set_layout}' ");
+
+
+                $sec_id = !empty($rb_section['sec_id']) ? $rb_section['sec_id'] : '';
+    
+                $sec_title = !empty($rb_section['sec_title']) ? $rb_section['sec_title'] : '';
+                $sec_layout = !empty($rb_section['sec_layout']) ? $rb_section['sec_layout'] : '';
+                $sec_layout_name = !empty($rb_section['sec_layout_name']) ? $rb_section['sec_layout_name'] : '';
+                $sec_theme = !empty($rb_section['sec_theme']) ? $rb_section['sec_theme'] : '';
+
+
+                $sec_title_color = !empty($rb_section['sec_title_color']) ? $rb_section['sec_title_color'] : '#25282b';
+                $sec_title_size = !empty($rb_section['sec_title_size']) ? $rb_section['sec_title_size'] : '26';
+                $sec_title_font = !empty($rb_section['sec_title_font']) ? $rb_section['sec_title_font'] : 'font-B';
+                $sec_title_align = !empty($rb_section['sec_title_align']) ? $rb_section['sec_title_align'] : 'center';
+                $sec_title_hide = !empty($rb_section['sec_title_hide']) ? $rb_section['sec_title_hide'] : '0';
+
+                $sec_sub_title = !empty($rb_section['sec_sub_title']) ? $rb_section['sec_sub_title'] : '';
+                $sec_sub_title_color = !empty($rb_section['sec_sub_title_color']) ? $rb_section['sec_sub_title_color'] : '#25282b';
+                $sec_sub_title_size = !empty($rb_section['sec_sub_title_size']) ? $rb_section['sec_sub_title_size'] : '18';
+                $sec_sub_title_font = !empty($rb_section['sec_sub_title_font']) ? $rb_section['sec_sub_title_font'] : 'font-R';
+                $sec_sub_title_align = !empty($rb_section['sec_sub_title_align']) ? $rb_section['sec_sub_title_align'] : 'center';
+                $sec_sub_title_hide = !empty($rb_section['sec_sub_title_hide']) ? $rb_section['sec_sub_title_hide'] : '0';
+
+                $sec_width = !empty($rb_section['sec_width']) ? $rb_section['sec_width'] : '0';
+                $sec_con_width = !empty($rb_section['sec_con_width']) ? $rb_section['sec_con_width'] : '0';
+                $sec_padding_pc = !empty($rb_section['sec_padding_pc']) ? $rb_section['sec_padding_pc'] : '0';
+                $sec_padding_mo = !empty($rb_section['sec_padding_mo']) ? $rb_section['sec_padding_mo'] : '0';
+
+                $sec_margin_top_pc = !empty($rb_section['sec_margin_top_pc']) ? $rb_section['sec_margin_top_pc'] : '0';
+                $sec_margin_top_mo = !empty($rb_section['sec_margin_top_mo']) ? $rb_section['sec_margin_top_mo'] : '0';
+                $sec_margin_btm_pc = !empty($rb_section['sec_margin_btm_pc']) ? $rb_section['sec_margin_btm_pc'] : '0';
+                $sec_margin_btm_mo = !empty($rb_section['sec_margin_btm_mo']) ? $rb_section['sec_margin_btm_mo'] : '0';
+
+                $sec_bg = !empty($rb_section['sec_bg']) ? $rb_section['sec_bg'] : '#FFFFFF';
+    
+                ?>
+
+<?php } else { ?>
+
+
+
+<?php } ?>
+
+
+<ul class="rb_config_sec">
+    <h6 class="font-B">섹션 타이틀 설정</h6>
+    <h6 class="font-R rb_config_sub_txt">타이틀의 워딩 및 스타일을 설정할 수 있습니다.</h6>
+    <div class="config_wrap">
+        <ul>
+
+            <input type="text" name="sec_title" class="input w100" value="<?php echo !empty($sec_title) ? $sec_title : ''; ?>" placeholder="타이틀을 입력하세요." autocomplete="off">
+            <input type="hidden" name="sec_layout" value="<?php echo !empty($set_layout) ? $set_layout : ''; ?>">
+            <input type="hidden" name="sec_theme" value="<?php echo !empty($theme_name) ? $theme_name : ''; ?>">
+            <input type="hidden" name="sec_id" value="<?php echo !empty($sec_id) ? $sec_id : ''; ?>">
+
+        </ul>
+
+        <ul class="config_wrap_flex">
+
+            <div class="color_set_wrap square none_inp_cl" style="position: relative;">
+                <input type="text" class="coloris mod_sec_title_color" name="sec_title_color" value="<?php echo !empty($sec_title_color) ? $sec_title_color : '#25282B'; ?>" style="width:25px !important;">
+            </div>컬러
+
+
+            <input type="number" class="tiny_input" name="sec_title_size" value="<?php echo !empty($sec_title_size) ? $sec_title_size : '26'; ?>"> px
+
+            <select class="select select_tiny" name="sec_title_font" id="sec_title_font">
+                <option value="">스타일</option>
+                <option value="font-R" <?php if (isset($sec_title_font) && $sec_title_font == "font-R") { ?>selected<?php } ?>>Regular</option>
+                <option value="font-B" <?php if (isset($sec_title_font) && $sec_title_font == "font-B") { ?>selected<?php } ?>>Bold</option>
+                <option value="font-H" <?php if (isset($sec_title_font) && $sec_title_font == "font-H") { ?>selected<?php } ?>>Heavy</option>
+            </select>
+
+            <select class="select select_tiny" name="sec_title_align" id="sec_title_align">
+                <option value="">정렬</option>
+                <option value="center" <?php if (isset($sec_title_align) && $sec_title_align == "center") { ?>selected<?php } ?>>Center</option>
+                <option value="left" <?php if (isset($sec_title_align) && $sec_title_align == "left") { ?>selected<?php } ?>>Left</option>
+                <option value="right" <?php if (isset($sec_title_align) && $sec_title_align == "right") { ?>selected<?php } ?>>Right</option>
+            </select>
+
+            <div style="position: absolute; top:22px; right:0px;">
+                <input type="checkbox" name="sec_title_hide" id="sec_title_hide" class="magic-checkbox" value="1" <?php if (isset($sec_title_hide) && $sec_title_hide == "1") { ?>checked<?php } ?>><label for="sec_title_hide">숨김</label>
+            </div>
+
+        </ul>
+
+    </div>
+
+</ul>
+
+
+
+<ul class="rb_config_sec">
+    <h6 class="font-B">섹션 서브워딩 설정</h6>
+    <h6 class="font-R rb_config_sub_txt">서브워딩 및 스타일을 설정할 수 있습니다.<br>서브워딩은 타이틀 아래에 출력되며 엔터로 줄바꿈이 가능합니다.</h6>
+    <div class="config_wrap">
+        <ul>
+            <textarea name="sec_sub_title" class="input w100 h100" placeholder="서브워딩을 입력하세요."><?php echo !empty($sec_sub_title) ? $sec_sub_title : ''; ?></textarea>
+        </ul>
+
+        <ul class="config_wrap_flex">
+
+            <div class="color_set_wrap square none_inp_cl" style="position: relative;">
+                <input type="text" class="coloris mod_sec_sub_title_color" name="sec_sub_title_color" value="<?php echo !empty($sec_sub_title_color) ? $sec_sub_title_color : '#25282B'; ?>" style="width:25px !important;">
+            </div>컬러
+
+            <input type="number" class="tiny_input" name="sec_sub_title_size" value="<?php echo !empty($sec_sub_title_size) ? $sec_sub_title_size : '18'; ?>"> px
+
+            <select class="select select_tiny" name="sec_sub_title_font" id="sec_sub_title_font">
+                <option value="">스타일</option>
+                <option value="font-R" <?php if (isset($sec_sub_title_font) && $sec_sub_title_font == "font-R") { ?>selected<?php } ?>>Regular</option>
+                <option value="font-B" <?php if (isset($sec_sub_title_font) && $sec_sub_title_font == "font-B") { ?>selected<?php } ?>>Bold</option>
+                <option value="font-H" <?php if (isset($sec_sub_title_font) && $sec_sub_title_font == "font-H") { ?>selected<?php } ?>>Heavy</option>
+            </select>
+
+            <select class="select select_tiny" name="sec_sub_title_align" id="sec_sub_title_align">
+                <option value="">정렬</option>
+                <option value="center" <?php if (isset($sec_sub_title_align) && $sec_sub_title_align == "center") { ?>selected<?php } ?>>Center</option>
+                <option value="left" <?php if (isset($sec_sub_title_align) && $sec_sub_title_align == "left") { ?>selected<?php } ?>>Left</option>
+                <option value="right" <?php if (isset($sec_sub_title_align) && $sec_sub_title_align == "right") { ?>selected<?php } ?>>Right</option>
+            </select>
+
+            <div style="position: absolute; top:22px; right:0px;">
+                <input type="checkbox" name="sec_sub_title_hide" id="sec_sub_title_hide" class="magic-checkbox" value="1" <?php if (isset($sec_sub_title_hide) && $sec_sub_title_hide == "1") { ?>checked<?php } ?>><label for="sec_sub_title_hide">숨김</label>
+            </div>
+
+        </ul>
+
+    </div>
+
+</ul>
+
+
+
+
+<ul class="rb_config_sec selected_style selected_select">
+    <h6 class="font-B">
+    섹션 및 컨테이너 설정
+            <div class="rb-help" data-open="false">
+                <button type="button" class="rb-help-btn"
+                    data-img="<?php echo G5_URL ?>/rb/rb.config/image/guide/help-img-3.png"
+                    data-txt="섹션은 브라우저를 기준으로 가로 100% 크기를 가진 DIV 에요. 섹션에는 내부에 컨테이너(DIV)가 존재해요."
+                    data-title="섹션 및 컨테이너란?"
+                    data-alt="미리보기"
+                    aria-expanded="false">
+                    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
+                </button>
+                <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+            </div>
+    </h6>
+    <h6 class="font-R rb_config_sub_txt">섹션 및 섹션 내부 컨테이너의 스타일을 설정할 수 있습니다.<br>섹션은 가로 100% 로 생성 됩니다.</h6>
+    <div class="config_wrap">
+    <input type="hidden" name="sec_width" value="1">
+
+
+        <ul class="rows_inp_lr mt-10">
+            <li class="rows_inp_l rows_inp_l_span">
+                <span class="font-B">컨테이너 사이즈</span><br>
+                container width
+            </li>
+            <li class="rows_inp_r mt-5">
+                <input type="radio" name="sec_con_width" id="sec_con_width_1" class="magic-radio" value="" <?php if (isset($sec_con_width) && $sec_con_width == "" || empty($sec_con_width)) { ?>checked<?php } ?>><label for="sec_con_width_1">기본</label>
+                <input type="radio" name="sec_con_width" id="sec_con_width_2" class="magic-radio" value="1" <?php if (isset($sec_con_width) && $sec_con_width == "1") { ?>checked<?php } ?>><label for="sec_con_width_2">100%</label>
+            </li>
+
+            <div class="cb"></div>
+
+            <div class="rb-help" data-open="false">
+                <button type="button" class="rb-help-btn"
+                    data-img=""
+                    data-txt="생성된 섹션에는 내부에 컨테이너(DIV)가 존재하고, 해당 DIV의 가로 크기를 말해요. [기본] 인 경우 100% 섹션 중앙에 1024(설정값) 크기의 컨테이너가 들어가요."
+                    data-title="컨테이너 사이즈란?"
+                    data-alt="미리보기"
+                    aria-expanded="false">
+                    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
+                </button>
+                <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+            </div>
+
+        </ul>
+        
+                <ul class="rows_inp_lr mt-10">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">상단 간격</span><br>
+                        margin-top
+                    </li>
+                    <li class="rows_inp_r mt-5">
+                        <input type="number" id="sec_margin_top_pc" class="tiny_input w25 ml-0" name="sec_margin_top_pc" placeholder="PC" value="<?php echo !empty($sec_margin_top_pc) ? $sec_margin_top_pc : ''; ?>"> <span class="font-12">px　</span>
+                        <input type="number" id="sec_margin_top_mo" class="tiny_input w25 ml-0" name="sec_margin_top_mo" placeholder="Mobile" value="<?php echo !empty($sec_margin_top_mo) ? $sec_margin_top_mo : ''; ?>"> <span class="font-12">px</span>
+                    </li>
+
+                    <div class="cb"></div>
+
+                        <div class="rb-help" data-open="false">
+                            <button type="button" class="rb-help-btn"
+                                data-img=""
+                                data-txt="섹션 위쪽으로 Margin(간격) 값이 들어가요. 마이너스(-)도 입력이 가능하고 모바일 간격의 경우 모바일기기로 접속시에만 반영되요."
+                                data-title="상단 간격이란?"
+                                data-alt="미리보기"
+                                aria-expanded="false">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
+                            </button>
+                            <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                        </div>
+                </ul>
+
+
+                <ul class="rows_inp_lr mt-10">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">하단 간격</span><br>
+                        margin-bottom
+                    </li>
+                    <li class="rows_inp_r mt-5">
+                        <input type="number" id="sec_margin_btm_pc" class="tiny_input w25 ml-0" name="sec_margin_btm_pc" placeholder="PC" value="<?php echo !empty($sec_margin_btm_pc) ? $sec_margin_btm_pc : ''; ?>"> <span class="font-12">px　</span>
+                        <input type="number" id="sec_margin_btm_mo" class="tiny_input w25 ml-0" name="sec_margin_btm_mo" placeholder="Mobile" value="<?php echo !empty($sec_margin_btm_mo) ? $sec_margin_btm_mo : ''; ?>"> <span class="font-12">px</span>
+                    </li>
+
+                    <div class="cb"></div>
+
+                        <div class="rb-help" data-open="false">
+                            <button type="button" class="rb-help-btn"
+                                data-img=""
+                                data-txt="섹션 아래쪽으로 Margin(간격) 값이 들어가요. 마이너스(-)도 입력이 가능하고 모바일 간격의 경우 모바일기기로 접속시에만 반영되요."
+                                data-title="하단 간격이란?"
+                                data-alt="미리보기"
+                                aria-expanded="false">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
+                            </button>
+                            <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                        </div>
+                </ul>
+
+
+
+        <ul class="rows_inp_lr mt-10">
+            <li class="rows_inp_l rows_inp_l_span">
+                <span class="font-B">여백</span><br>
+                padding
+            </li>
+            <li class="rows_inp_r mt-5">
+                <input type="number" id="sec_padding_pc" class="tiny_input w25 ml-0" name="sec_padding_pc" placeholder="PC" value="<?php echo !empty($sec_padding_pc) ? $sec_padding_pc : ''; ?>"> <span class="font-12">px　</span>
+                <input type="number" id="sec_padding_mo" class="tiny_input w25 ml-0" name="sec_padding_mo" placeholder="Mobile" value="<?php echo !empty($sec_padding_mo) ? $sec_padding_mo : ''; ?>"> <span class="font-12">px</span>
+            </li>
+
+            <div class="cb"></div>
+
+                        <div class="rb-help" data-open="false">
+                            <button type="button" class="rb-help-btn"
+                                data-img=""
+                                data-txt="섹션 내부에 4방향으로 padding(여백) 값이 들어가요. 모바일 여백의 경우 모바일기기로 접속시에만 반영되요."
+                                data-title="여백 이란?"
+                                data-alt="미리보기"
+                                aria-expanded="false">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
+                            </button>
+                            <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                        </div>
+        </ul>
+
+        <ul class="rows_inp_lr mt-10">
+            <li class="rows_inp_l rows_inp_l_span">
+                <span class="font-B">백그라운드</span><br>
+                bg color
+            </li>
+            <li class="rows_inp_r mt-5">
+                <div class="color_set_wrap square none_inp_cl" style="position: relative;">
+                    <input type="text" class="coloris" name="sec_bg" value="<?php echo !empty($sec_bg) ? $sec_bg : '#FFFFFF'; ?>" style="width:25px !important;"> 컬러
+                </div>
+            </li>
+
+            <div class="cb"></div>
+        </ul>
+
+
+    </div>
+</ul>
+
+            <script type="text/javascript">
+                Coloris({
+                    el: '.coloris'
+                });
+                Coloris.setInstance('.coloris', {
+                    parent: '.sh-side-demos-container', // 상위 container
+                    formatToggle: false, // Hex, RGB, HSL 토글버튼 활성
+                    format: 'hex', // 색상 포맷지정
+                    margin: 0, // margin
+                    swatchesOnly: false, // 색상 견본만 표시여부
+                    alpha: true, // 알파(투명) 활성여부
+                    theme: 'polaroid', // default, large, polaroid, pill
+                    themeMode: 'Light', // dark, Light
+                    focusInput: true, // 색상코드 Input에 포커스 여부
+                    selectInput: true, // 선택기가 열릴때 색상값을 select 여부
+                    autoClose: true, // 자동닫기 - 확인 안됨
+                    inline: false, // color picker를 인라인 위젯으로 사용시 true
+                    defaultColor: '#25282B', // 기본 색상인 인라인 mode
+                    // Clear Button 설정
+                    clearButton: true,
+                    //clearLabel: '초기화',
+                    // Close Button 설정
+                    closeButton: true, // true, false
+                    closeLabel: '닫기', // 닫기버튼 텍스트
+                    swatches: [
+                        '#AA20FF',
+                        '#FFC700',
+                        '#00A3FF',
+                        '#8ED100',
+                        '#FF5A5A',
+                        '#25282B'
+                    ]
+                });
+            </script>
+
+<ul class="rb_config_sec">
+    <button type="button" class="main_rb_bg font-B" id="edit_css_btn" onclick="edit_css_sec_open(this)" data-layout="<?php echo $set_layout ?>" data-id="<?php echo $set_id ?>">CSS 라이브 커스텀</button>
+    <div class="cb"></div>
+    <button type="button" class="rb_config_reload mt-5 font-B" onclick="executeAjax_section();">저장</button>
+    <button type="button" class="rb_config_close mt-5 font-B" onclick="toggleSideOptions_close()">닫기</button>
+    <div class="cb"></div>
+</ul>
+
+
+<?php } ?>
+
+<?php if(isset($mod_type) && $mod_type == "del_sec") { ?>
+<h2 class="font-B"><span><?php echo !empty($set_title) ? $set_title : ''; ?></span> 섹션삭제</h2>
+<input type="hidden" name="sec_layout" value="<?php echo !empty($set_layout) ? $set_layout : ''; ?>">
+<input type="hidden" name="sec_theme" value="<?php echo !empty($theme_name) ? $theme_name : ''; ?>">
+<input type="hidden" name="sec_id" value="<?php echo !empty($set_id) ? $set_id : ''; ?>">
+
+<ul class="rb_config_sec">
+    <div class="no_data">
+        섹션을 삭제합니다. 삭제하신 섹션은 복구할 수 없으며<br>
+        내부에 생성된 모듈도 함께 삭제 됩니다.
+    </div>
+</ul>
+
+<ul class="rb_config_sec">
+    <button type="button" class="rb_config_save font-B" onclick="executeAjax_section_del()">삭제하기</button>
+    <button type="button" class="rb_config_close font-B" onclick="toggleSideOptions_close()">취소</button>
+    <div class="cb"></div>
+</ul>
+<?php } ?>
