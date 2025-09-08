@@ -277,7 +277,7 @@ function captcha_html($class="captcha")
     $html .= "\n".'#captcha.m_captcha #captcha_key:focus {border:1px solid #000 !important; box-shadow:none;}';
     $html .= "\n".'#captcha.m_captcha {border:1px solid #ddd; width: 100%; padding: 10px; box-sizing: border-box; border-radius: 6px; text-align:center}';
     $html .= "\n".'</style>';
-    return $html;
+    return run_replace('kcaptcha_captcha_html', $html, $class);
 }
 
 

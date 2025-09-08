@@ -37,6 +37,12 @@
 #fregister_private table th {background:#f7f7f9;width:33.33%;color:#000;padding:10px;border:1px solid #d8dbdf}
 #fregister_private table td {border:1px solid #e7e9ec;padding:10px;border-top:0}
 
+.fregister_terms div {padding:20px;background:#fff}
+.fregister_terms table {width:100%;border-collapse:collapse;font-size:1em;}
+.fregister_terms table caption {position:absolute;font-size:0;line-height:0;overflow:hidden}
+.fregister_terms table th {background:#f7f7f9;width:33.33%;color:#000;padding:10px;border:1px solid #d8dbdf}
+.fregister_terms table td {border:1px solid #e7e9ec;padding:10px;border-top:0}
+
 .fregister_agree {position:absolute;top:0;right:0}
 .fregister_agree input[type="checkbox"] + label {color:#676e70}
 .fregister_agree input[type="checkbox"] + label:hover {color:#2172f8}
@@ -69,6 +75,12 @@
 #fregisterform .captcha {display:block;margin:5px 0 0}
 #fregisterform .reg_mb_img_file img {max-width:100%;height:auto}
 #reg_mb_icon, #reg_mb_img {float:right}
+
+#fregisterform .consent-line {display: flex; margin: 0 !important;}
+#fregisterform .consent-line .chk_li {padding-left: 0;}
+#fregisterform .consent-date { margin: 5px 0 0 20px !important; }
+#fregisterform .consent-group .sub-consents {padding: 0 20px 0px}
+#fregisterform .js-open-consent {display: block; margin-left: 10px; font-size: 12px; color: #3f51b5; background: none; border: none; cursor: pointer; text-decoration: underline; }
 
 /* 회원가입 완료 */
 #reg_result {padding:40px 30px;text-align:center;background:#edf3fc;border:1px solid #d6e2f4;border-radius:5px}
