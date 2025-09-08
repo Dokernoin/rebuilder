@@ -1,7 +1,13 @@
 <?php
 $sub_menu = '400400';
 include_once('./_common.php');
-include_once(G5_KAKAO5_PATH.'/kakao5.lib.php');
+
+if (defined('G5_KAKAO5_PATH')) {
+    $path = rtrim(G5_KAKAO5_PATH, '/').'/kakao5.lib.php';
+    if (is_file($path)) {
+        include_once $path;
+    }
+}
 
 auth_check_menu($auth, $sub_menu, "w");
 
@@ -454,11 +460,15 @@ if($pg_cancel == 1 && $pg_res_cd && $pg_res_msg) {
         $status_code = $alimtalk_map[$_POST['ct_status']];
 
         // 고객 발송 (준비, 완료, 취소, 반품, 품절 공통)
-        $cu_atk = send_alimtalk_preset('CU-' . $status_code, ['rcv' => $order['od_hp'] ?: $order['od_tel'], 'rcvnm' => $order['od_name']], $conditions); // 회원
+        if (function_exists('send_alimtalk_preset')) {
+            $cu_atk = send_alimtalk_preset('CU-' . $status_code, ['rcv' => $order['od_hp'] ?: $order['od_tel'], 'rcvnm' => $order['od_name']], $conditions); // 회원
+        }
 
         // 관리자 발송 (취소만)
         if ($_POST['ct_status'] === '취소') {
-            $ad_atk = send_admin_alimtalk('AD-' . $status_code, 'super', $conditions); // 관리자
+             if (function_exists('send_admin_alimtalk')) {
+                $ad_atk = send_admin_alimtalk('AD-' . $status_code, 'super', $conditions); // 관리자
+             }
         }
     }
     // 알림톡 발송 END   -------------------------------------------------------------------------------------------------------------------

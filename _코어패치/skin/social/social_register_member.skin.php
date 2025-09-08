@@ -63,12 +63,11 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
             </li>
 
             <!-- 회원가입 약관 동의에 광고성 정보 수신 동의 표시 여부가 사용시에만 -->
-		    <?php if($config['cf_use_promotion'] == 1) { ?>
+		    <?php if(isset($config['cf_use_promotion']) && $config['cf_use_promotion'] == 1) { ?>
 
             <li>
                 <span>수신설정</span>
                 <div class="mt-10">
-                    <?php if($config['cf_use_promotion'] == 1) { ?>
                     <div class="tbl_frm01 tbl_wrap register_form_inner">
                         <h2>수신설정</h2>
                         <!-- 수신설정만 팝업 및 체크박스 관련 class 적용 -->
@@ -163,10 +162,10 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
                             <?php } ?>
                         </ul>
                     </div>
-                    <?php } ?>
+
                 </div>
             </li>
-
+            <?php } ?>
 
 
             <li>
@@ -314,7 +313,12 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 
 -->
 
-<?php include_once(__DIR__ . '/consent_modal.inc.php'); ?>
+<?php
+$path = __DIR__ . '/consent_modal.inc.php';
+if (is_file($path)) {
+    include_once $path;
+}
+?>
 
 <script>
     $(function() {

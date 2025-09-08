@@ -194,8 +194,10 @@ include "./ordersms.inc.php";
 
 // 알림톡 전송 문자전송
 define("_ORDERALIMTALK_", true);
-include "./orderalimtalk.inc.php";
-
+$path = './orderalimtalk.inc.php';
+if (is_file($path)) {
+    include $path;
+}
 
 // 에스크로 배송처리
 if($posts['od_tno'] && $posts['od_escrow'] == 1)

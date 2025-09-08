@@ -457,7 +457,7 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
                 <?php }  ?>
 
 
-                <?php if($config['cf_kakaotalk_use'] != "") { ?>
+                <?php if(isset($config['cf_kakaotalk_use']) && $config['cf_kakaotalk_use'] != "") { ?>
                 <div class="tbl_frm01 tbl_wrap register_form_inner">
                     <h2>
                         게시판 알림설정
@@ -505,7 +505,7 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
                 <?php }  ?>
 
                 <!-- 회원가입 약관 동의에 광고성 정보 수신 동의 표시 여부가 사용시에만 -->
-                <?php if($config['cf_use_promotion'] == 1) { ?>
+                <?php if(isset($config['cf_use_promotion']) && $config['cf_use_promotion'] == 1) { ?>
                 <div class="tbl_frm01 tbl_wrap register_form_inner">
                     <h2>수신설정</h2>
                     <!-- 수신설정만 팝업 및 체크박스 관련 class 적용 -->
@@ -572,16 +572,16 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
                         <!-- (선택) 개인정보 제3자 제공 동의 -->
                         <!-- SMS 및 카카오톡 사용시에만 -->
                         <?php
-					$configKeys = ['cf_sms_use', 'cf_kakaotalk_use'];
-					$companies = ['icode' => '아이코드', 'popbill' => '팝빌'];
+                            $configKeys = ['cf_sms_use', 'cf_kakaotalk_use'];
+                            $companies = ['icode' => '아이코드', 'popbill' => '팝빌'];
 
-					$usedCompanies = [];
-					foreach ($configKeys as $key) {
-						if (!empty($config[$key]) && isset($companies[$config[$key]])) {
-							$usedCompanies[] = $companies[$config[$key]];
-						}
-					}
-				?>
+                            $usedCompanies = [];
+                            foreach ($configKeys as $key) {
+                                if (!empty($config[$key]) && isset($companies[$config[$key]])) {
+                                    $usedCompanies[] = $companies[$config[$key]];
+                                }
+                            }
+                        ?>
                         <?php if (!empty($usedCompanies)) { ?>
                         <li class="chk_box">
                             <div class="consent-line">
@@ -647,7 +647,13 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
     </div>
 </div>
 
-<?php include_once(__DIR__ . '/consent_modal.inc.php'); ?>
+<?php
+$path = __DIR__ . '/consent_modal.inc.php';
+if (is_file($path)) {
+    include_once $path;
+}
+?>
+
 
 <script>
     $(function() {
