@@ -412,8 +412,8 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                 box.appendChild(s);
             }
             if (txt) {
-                var p = document.createElement('p');
-                p.className = 'rb-help-pop-desc';
+                var p = document.createElement('div');
+                p.className = 'rb-help-pop-desc font-R';
                 p.textContent = txt;
                 box.appendChild(p);
             }

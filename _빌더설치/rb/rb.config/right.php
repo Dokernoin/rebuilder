@@ -197,7 +197,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                             $("#co_gap_pc_range .ui-slider-handle").html(ui.value);
                                             $("#co_gap_pc").val(ui.value); // hidden input에 값 업데이트
 
-                                            executeAjax();
+                                            //executeAjax();
 
                                             // 기존 클래스 제거 후 새로운 클래스 추가
                                             $('.contents_wrap section.index').removeClass(function(index, className) {
@@ -483,7 +483,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                             $("#co_sidemenu_width_shop_range .ui-slider-handle").html(ui.value);
                                             $("#co_sidemenu_width_shop").val(ui.value); // hidden input에 값 업데이트
 
-                                            executeAjax();
+                                            //executeAjax();
 
                                             // 가로사이즈 반영
                                             $('#rb_sidemenu_shop').css('width', ui.value);
@@ -523,7 +523,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                             $("#co_sidemenu_padding_shop_range .ui-slider-handle").html(ui.value);
                                             $("#co_sidemenu_padding_shop").val(ui.value); // hidden input에 값 업데이트
 
-                                            executeAjax();
+                                            //executeAjax();
 
                                             var co_sidemenu_shop = $('input[name="co_sidemenu_shop"]:checked').val();
 
@@ -604,7 +604,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                             $("#co_sidemenu_width_range .ui-slider-handle").html(ui.value);
                                             $("#co_sidemenu_width").val(ui.value); // hidden input에 값 업데이트
 
-                                            executeAjax();
+                                            //executeAjax();
 
                                             // 가로사이즈 반영
                                             $('#rb_sidemenu').css('width', ui.value);
@@ -643,7 +643,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                             $("#co_sidemenu_padding_range .ui-slider-handle").html(ui.value);
                                             $("#co_sidemenu_padding").val(ui.value); // hidden input에 값 업데이트
 
-                                            executeAjax();
+                                            //executeAjax();
 
                                             var co_sidemenu = $('input[name="co_sidemenu"]:checked').val();
 
@@ -918,7 +918,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                                 $("#co_topvisual_height_range .ui-slider-handle").html(ui.value);
                                                 $("#co_topvisual_height").val(ui.value); // hidden input에 값 업데이트
 
-                                                executeAjax();
+                                                //executeAjax();
 
                                                 // 세로사이즈 반영
                                                 $('#rb_topvisual').css('height', ui.value);
@@ -958,7 +958,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                                 $("#co_topvisual_bl_range .ui-slider-handle").html(ui.value);
                                                 $("#co_topvisual_bl").val(ui.value); // hidden input에 값 업데이트
 
-                                                executeAjax();
+                                                //executeAjax();
 
                                                 // 블라인드 반영
                                                 $('#rb_topvisual_bl').css('background-color', 'rgba(0,0,0,' + (ui.value / 100) + ')')
@@ -998,7 +998,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                                 $("#co_topvisual_radius_range .ui-slider-handle").html(ui.value);
                                                 $("#co_topvisual_radius").val(ui.value); // hidden input에 값 업데이트
 
-                                                executeAjax();
+                                                //executeAjax();
 
                                                 // 반영
                                                 $('#rb_topvisual').css('border-radius', ui.value);
@@ -1414,26 +1414,10 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                             });
                         </script>
                         <div class="cb"></div>
-                        <button type="button" class="rb_config_reload mt-5 font-B" id="btnReload">저장</button>
+                        <button type="button" class="rb_config_reload mt-5 font-B" onclick="executeAjax()">저장</button>
                         <button type="button" class="rb_config_close mt-5 font-B" onclick="toggleSideOptions_close()">닫기</button>
                         <div class="cb"></div>
                     </ul>
-
-                    <script>
-                        document.getElementById('btnReload').addEventListener('click', async (e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            try {
-                                await executeAjax();
-                            } catch (e) {
-                                console.error(e);
-                            }
-                            location.reload();
-                        });
-                    </script>
-
-
-
 
 
                 </div>
@@ -2838,23 +2822,6 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
     }
 
 
-
-    //설정패널
-    $(document).ready(function() {
-
-        // 이벤트 핸들러 추가
-        /*
-        $('.mod_co_color').on('change', function() {
-            executeAjax();
-        });
-
-        $('.mod_co_header').on('change', function() {
-            executeAjax();
-        });
-        */
-
-    });
-
     document.addEventListener('DOMContentLoaded', function() {
 
         //페이지 로드후 컬러감지 자동적용
@@ -3195,8 +3162,6 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                     $('#sourceLarge').attr('srcset', newSrcset2);
                     $('#fallbackImage').attr('src', newSrcset2);
 
-
-
                     //console.log('강조컬러 설정:#'+ data.co_color);
                     //console.log('헤더 설정:header'+ data.co_header);
                     //console.log('메인 레이아웃 설정:'+ data.co_layout);
@@ -3207,9 +3172,9 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                     //console.log('메인 가로폭 설정:'+ data.co_main_width);
                     //console.log('상단/하단 가로폭 설정:'+ data.co_tb_width);
 
-
+                    location.reload();
                 } else {
-                    console.log('변경실패');
+                    console.log('문제가 발생 했습니다. 다시 시도해주세요.');
                 }
             },
             error: function(err) {

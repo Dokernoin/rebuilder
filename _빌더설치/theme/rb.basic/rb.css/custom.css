@@ -617,7 +617,7 @@ select#ct_send_cost {width: 150px;}
   border: 0; background: transparent; cursor: pointer;
 }
 
-.rb-help-btn:hover svg g path:nth-child(2) {fill:#ddddd}
+.rb-help-btn:hover svg g path:nth-child(2) {fill:#ccc}
 
 .rb-help-pop {
   position: absolute;
