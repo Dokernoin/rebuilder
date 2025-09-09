@@ -429,8 +429,9 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
         $s_receipt_way .= "+포인트";
     ?>
 
+    <strong class="sodr_nonpay">미수금 <?php echo display_price($od['od_misu']); ?></strong>
     <div class="tbl_head01 tbl_wrap">
-        <strong class="sodr_nonpay">미수금 <?php echo display_price($od['od_misu']); ?></strong>
+
 
         <table>
         <caption>주문결제 내역</caption>
