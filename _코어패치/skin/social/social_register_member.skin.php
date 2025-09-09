@@ -62,118 +62,107 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
                 </div>
             </li>
 
-            <!-- 회원가입 약관 동의에 광고성 정보 수신 동의 표시 여부가 사용시에만 -->
-		    <?php if(isset($config['cf_use_promotion']) && $config['cf_use_promotion'] == 1) { ?>
-
-            <li>
-                <span>수신설정</span>
-                <div class="mt-10">
-                    <div class="tbl_frm01 tbl_wrap register_form_inner">
-                        <h2>수신설정</h2>
-                        <!-- 수신설정만 팝업 및 체크박스 관련 class 적용 -->
-                        <ul>
-                            <!-- (선택) 마케팅 목적의 개인정보 수집 및 이용 -->
-                            <li class="chk_box">
-                            <div class="consent-line">
-                                <input type="checkbox" name="mb_marketing_agree" value="1" id="reg_mb_marketing_agree" aria-describedby="desc_marketing" <?php echo $member['mb_marketing_agree'] ? 'checked' : ''; ?> class="selec_chk marketing-sync">
-                                <label for="reg_mb_marketing_agree"><span></span><b class="sound_only">(선택) 마케팅 목적의 개인정보 수집 및 이용</b></label>
-                                <span class="chk_li">(선택) 마케팅 목적의 개인정보 수집 및 이용</span>
-                                <button type="button" class="js-open-consent" data-title="마케팅 목적의 개인정보 수집 및 이용" data-template="#tpl_marketing" data-check="#reg_mb_marketing_agree" aria-controls="consentDialog">자세히보기</button>
-                            </div>
-                            <input type="hidden" name="mb_marketing_agree_default" value="<?php echo $member['mb_marketing_agree'] ?>">
-                            <div id="desc_marketing" class="sound_only">마케팅 목적의 개인정보 수집·이용에 대한 안내입니다. 자세히보기를 눌러 전문을 확인할 수 있습니다.</div>
-
-                            <template id="tpl_marketing">
-                                * 목적: 서비스 마케팅 및 프로모션<br>
-                                * 항목: 이름, 이메일<?php echo ($config['cf_use_hp'] || ($config["cf_cert_use"] && ($config['cf_cert_hp'] || $config['cf_cert_simple']))) ? ", 휴대폰 번호" : "";?><br>
-                                * 보유기간: 회원 탈퇴 시까지<br>
-                                동의를 거부하셔도 서비스 기본 이용은 가능하나, 맞춤형 혜택 제공은 제한될 수 있습니다.
-                            </template>
-                            </li>
-
-                            <!-- (선택) 광고성 정보 수신 동의 (상위) -->
-                            <li class="chk_box consent-group">
-                            <div class="consent-line">
-                                <input type="checkbox" name="mb_promotion_agree" value="1" id="reg_mb_promotion_agree" aria-describedby="desc_promotion" class="selec_chk marketing-sync parent-promo">
-                                <label for="reg_mb_promotion_agree"><span></span><b class="sound_only">(선택) 광고성 정보 수신 동의</b></label>
-                                <span class="chk_li">(선택) 광고성 정보 수신 동의</span>
-                                <button type="button" class="js-open-consent" data-title="광고성 정보 수신 동의" data-template="#tpl_promotion" data-check="#reg_mb_promotion_agree" data-check-group=".child-promo" aria-controls="consentDialog">자세히보기</button>
-                            </div>
-
-                            <div id="desc_promotion" class="sound_only">광고성 정보(이메일/SMS·카카오톡) 수신 동의의 상위 항목입니다. 자세히보기를 눌러 전문을 확인할 수 있습니다.</div>
-
-                            <!-- 하위 채널(이메일/SMS) -->
-                            <ul class="sub-consents">
-                                <li class="chk_box is-inline">
-                                    <input type="checkbox" name="mb_mailling" value="1" id="reg_mb_mailling" <?php echo $member['mb_mailling'] ? 'checked' : ''; ?> class="selec_chk child-promo">
-                                    <label for="reg_mb_mailling"><span></span><b class="sound_only">광고성 이메일 수신 동의</b></label>
-                                    <span class="chk_li">광고성 이메일 수신 동의</span>
-                                    <input type="hidden" name="mb_mailling_default" value="<?php echo $member['mb_mailling']; ?>">
-                                </li>
-
-                                <!-- 휴대폰번호 입력 보이기 or 필수입력일 경우에만 -->
-                                <?php if ($config['cf_use_hp'] || $config['cf_req_hp']) { ?>
-                                <li class="chk_box is-inline">
-                                    <input type="checkbox" name="mb_sms" value="1" id="reg_mb_sms" <?php echo $member['mb_sms'] ? 'checked' : ''; ?> class="selec_chk child-promo">
-                                    <label for="reg_mb_sms"><span></span><b class="sound_only">광고성 SMS/카카오톡 수신 동의</b></label>
-                                    <span class="chk_li">광고성 SMS/카카오톡 수신 동의</span>
-                                    <input type="hidden" name="mb_sms_default" value="<?php echo $member['mb_sms']; ?>">
-                                </li>
-                                <?php } ?>
-                            </ul>
-
-                            <template id="tpl_promotion">
-                                수집·이용에 동의한 개인정보를 이용하여 이메일/SMS/카카오톡 등으로 오전 8시~오후 9시에 광고성 정보를 전송할 수 있습니다.<br>
-                                동의는 언제든지 마이페이지에서 철회할 수 있습니다.
-                            </template>
-                            </li>
-
-                            <!-- (선택) 개인정보 제3자 제공 동의 -->
-                            <!-- SMS 및 카카오톡 사용시에만 -->
-                            <?php
-                                $configKeys = ['cf_sms_use', 'cf_kakaotalk_use'];
-                                $companies = ['icode' => '아이코드', 'popbill' => '팝빌'];
-
-                                $usedCompanies = [];
-                                foreach ($configKeys as $key) {
-                                    if (!empty($config[$key]) && isset($companies[$config[$key]])) {
-                                        $usedCompanies[] = $companies[$config[$key]];
-                                    }
-                                }
-                            ?>
-                            <?php if (!empty($usedCompanies)) { ?>
-                            <li class="chk_box">
-                            <div class="consent-line">
-                                <input type="checkbox" name="mb_thirdparty_agree" value="1" id="reg_mb_thirdparty_agree" aria-describedby="desc_thirdparty" <?php echo $member['mb_thirdparty_agree'] ? 'checked' : ''; ?> class="selec_chk marketing-sync">
-                                <label for="reg_mb_thirdparty_agree"><span></span><b class="sound_only">(선택) 개인정보 제3자 제공 동의</b></label>
-                                <span class="chk_li">(선택) 개인정보 제3자 제공 동의</span>
-                                <button type="button" class="js-open-consent" data-title="개인정보 제3자 제공 동의" data-template="#tpl_thirdparty" data-check="#reg_mb_thirdparty_agree" aria-controls="consentDialog">자세히보기</button>
-                            </div>
-                            <input type="hidden" name="mb_thirdparty_agree_default" value="<?php echo $member['mb_thirdparty_agree'] ?>">
-                            <div id="desc_thirdparty" class="sound_only">개인정보 제3자 제공 동의에 대한 안내입니다. 자세히보기를 눌러 전문을 확인할 수 있습니다.</div>
-
-                            <template id="tpl_thirdparty">
-                                * 목적: 상품/서비스, 사은/판촉행사, 이벤트 등의 마케팅 안내(카카오톡 등)<br>
-                                * 항목: 이름, 휴대폰 번호<br>
-                                * 제공받는 자: <?php echo implode(', ', $usedCompanies);?><br>
-                                * 보유기간: 제공 목적 서비스 기간 또는 동의 철회 시까지
-                            </template>
-                            </li>
-                            <?php } ?>
-                        </ul>
-                    </div>
-
-                </div>
-            </li>
-            <?php } ?>
-
-
             <li>
                 <div id="fregister_chkall" class="chk_all">
                     <input type="checkbox" name="chk_all" id="chk_all">
                     <label for="chk_all">회원가입 약관에 모두 동의합니다</label>
                 </div>
             </li>
+
+
+            <?php if (isset($config['cf_use_promotion']) && (int)$config['cf_use_promotion'] === 1) { ?>
+
+                <li>
+                    <span>수신설정</span>
+
+
+                        <!-- (선택) 마케팅 목적의 개인정보 수집 및 이용 -->
+                        <div class="alt_boxs">
+
+                                <!-- (선택) 광고성 정보 수신 동의 (상위) -->
+                                <ul class="">
+                                        <input type="checkbox" name="mb_marketing_agree" value="1" id="reg_mb_marketing_agree" aria-describedby="desc_marketing" <?php echo !empty($member['mb_marketing_agree']) ? 'checked' : ''; ?> class="selec_chk marketing-sync">
+                                        <label for="reg_mb_marketing_agree">(선택) 마케팅 목적의 개인정보 수집 및 이용</label>
+                                        <button type="button" class="js-open-consent" data-title="마케팅 목적의 개인정보 수집 및 이용" data-template="#tpl_marketing" data-check="#reg_mb_marketing_agree" aria-controls="consentDialog">자세히보기</button>
+                                </ul>
+                                <input type="hidden" name="mb_marketing_agree_default" value="<?php echo isset($member['mb_marketing_agree']) ? htmlspecialchars((string)$member['mb_marketing_agree'], ENT_QUOTES, 'UTF-8') : ''; ?>">
+                                <div id="desc_marketing" class="sound_only">마케팅 목적의 개인정보 수집·이용에 대한 안내입니다. 자세히보기를 눌러 전문을 확인할 수 있습니다.</div>
+
+
+                                <template id="tpl_marketing">
+                                    * 목적: 서비스 마케팅 및 프로모션<br>
+                                    * 항목: 이름, 이메일<?php echo (!empty($config['cf_use_hp']) || (!empty($config["cf_cert_use"]) && (!empty($config['cf_cert_hp']) || !empty($config['cf_cert_simple'])))) ? ", 휴대폰 번호" : ""; ?><br>
+                                    * 보유기간: 회원 탈퇴 시까지<br>
+                                    동의를 거부하셔도 서비스 기본 이용은 가능하나, 맞춤형 혜택 제공은 제한될 수 있습니다.
+                                </template>
+
+                                <ul class="">
+                                    <input type="checkbox" name="mb_promotion_agree" value="1" id="reg_mb_promotion_agree" aria-describedby="desc_promotion" class="selec_chk marketing-sync parent-promo">
+                                    <label for="reg_mb_promotion_agree">(선택) 광고성 정보 수신 동의</label>
+                                    <button type="button" class="js-open-consent" data-title="광고성 정보 수신 동의" data-template="#tpl_promotion" data-check="#reg_mb_promotion_agree" data-check-group=".child-promo" aria-controls="consentDialog">자세히보기</button>
+                                </ul>
+                                <div id="desc_promotion" class="sound_only">광고성 정보(이메일/SMS·카카오톡) 수신 동의의 상위 항목입니다. 자세히보기를 눌러 전문을 확인할 수 있습니다.</div>
+
+                                <!-- 하위 채널(이메일/SMS) -->
+                                <ul class="desc_sub">
+                                    <input type="checkbox" name="mb_mailling" value="1" id="reg_mb_mailling" <?php echo !empty($member['mb_mailling']) ? 'checked' : ''; ?> class="selec_chk child-promo">
+                                    <label for="reg_mb_mailling">광고성 이메일 수신 동의</label>
+                                </ul>
+                                <input type="hidden" name="mb_mailling_default" value="<?php echo isset($member['mb_mailling']) ? htmlspecialchars((string)$member['mb_mailling'], ENT_QUOTES, 'UTF-8') : ''; ?>">
+
+
+                                <!-- 휴대폰번호 입력 보이기 or 필수입력일 경우에만 -->
+                                <?php if (!empty($config['cf_use_hp']) || !empty($config['cf_req_hp']) || !empty($app['ap_title']) && !empty($app['ap_key']) && !empty($app['ap_pid'])) { ?>
+                                <ul class="desc_sub">
+                                    <input type="checkbox" name="mb_sms" value="1" id="reg_mb_sms" <?php echo !empty($member['mb_sms']) ? 'checked' : ''; ?> class="selec_chk child-promo">
+                                    <label for="reg_mb_sms">광고성 SMS / 알림톡 <?php if (!empty($app['ap_title']) && !empty($app['ap_key']) && !empty($app['ap_pid'])) { ?><?php if($config['cf_use_hp']) { ?>/ <?php } ?>Push 알림 <?php } ?>수신동의</label>
+                                </ul>
+                                <input type="hidden" name="mb_sms_default" value="<?php echo isset($member['mb_sms']) ? htmlspecialchars((string)$member['mb_sms'], ENT_QUOTES, 'UTF-8') : ''; ?>">
+                                <?php } ?>
+                                <template id="tpl_promotion">
+                                    수집·이용에 동의한 개인정보를 이용하여 이메일/SMS/카카오톡 등으로 오전 8시~오후 9시에 광고성 정보를 전송할 수 있습니다.<br>
+                                    동의는 언제든지 마이페이지에서 철회할 수 있습니다.
+                                </template>
+
+                                <!-- (선택) 개인정보 제3자 제공 동의 -->
+                                <!-- SMS 및 카카오톡 사용시에만 -->
+                                <?php
+                                    $configKeys = array('cf_sms_use', 'cf_kakaotalk_use');
+                                    $companies  = array('icode' => '아이코드', 'popbill' => '팝빌');
+
+                                    $usedCompanies = array();
+                                    foreach ($configKeys as $key) {
+                                        if (!empty($config[$key]) && isset($companies[$config[$key]])) {
+                                            $usedCompanies[] = $companies[$config[$key]];
+                                        }
+                                    }
+                                ?>
+
+                                <?php if (!empty($usedCompanies)) { ?>
+                                <ul class="">
+                                    <input type="checkbox" name="mb_thirdparty_agree" value="1" id="reg_mb_thirdparty_agree" aria-describedby="desc_thirdparty" <?php echo !empty($member['mb_thirdparty_agree']) ? 'checked' : ''; ?> class="selec_chk marketing-sync">
+                                    <label for="reg_mb_thirdparty_agree">(선택) 개인정보 제3자 제공 동의</label>
+                                    <button type="button" class="js-open-consent" data-title="개인정보 제3자 제공 동의" data-template="#tpl_thirdparty" data-check="#reg_mb_thirdparty_agree" aria-controls="consentDialog">자세히보기</button>
+                                </ul>
+
+                                <input type="hidden" name="mb_thirdparty_agree_default" value="<?php echo isset($member['mb_thirdparty_agree']) ? htmlspecialchars((string)$member['mb_thirdparty_agree'], ENT_QUOTES, 'UTF-8') : ''; ?>">
+                                <div id="desc_thirdparty" class="sound_only">개인정보 제3자 제공 동의에 대한 안내입니다. 자세히보기를 눌러 전문을 확인할 수 있습니다.</div>
+
+                                <template id="tpl_thirdparty">
+                                    * 목적: 상품/서비스, 사은/판촉행사, 이벤트 등의 마케팅 안내(카카오톡 등)<br>
+                                    * 항목: 이름, 휴대폰 번호<br>
+                                    * 제공받는 자: <?php echo implode(', ', $usedCompanies); ?><br>
+                                    * 보유기간: 제공 목적 서비스 기간 또는 동의 철회 시까지
+                                </template>
+                                <?php } ?>
+
+                        </div>
+
+
+
+                </li>
+
+                <?php } ?>
 
 
 
@@ -231,12 +220,6 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
                     <?php if ($w=='u') { echo "<span class='help_text'>이메일을 변경하시면 다시 인증하셔야 합니다.</span>"; }  ?>
                 <?php } ?>
             </li>
-
-
-
-
-
-
 
 
 

@@ -669,6 +669,13 @@ margin-bottom: 15px;
   border: 8px solid transparent; border-right-color: var(--rb-bg);
 }
 
+.alt_boxs {background: #f9f9f9; border-radius: 10px; padding: 15px; margin-bottom: 10px;}
+.alt_boxs ul {position:relative;}
+.alt_boxs .js-open-consent {position: absolute; top:8px; right:0px;}
+.alt_boxs .desc_sub {padding-left: 20px;}
+.rb_member .rb_login .rb_login_box > li > span {position: relative;}
+.rb_member .rb_login .rb_login_box > li > span > .rb-help {top:-13px;}
+
 /* } */
 
 /* 전역 툴팁 { */
