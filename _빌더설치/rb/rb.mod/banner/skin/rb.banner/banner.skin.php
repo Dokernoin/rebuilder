@@ -24,7 +24,7 @@ while ($row = sql_fetch_array($result)) {
         $banner = '';
         $size = getimagesize($bimg);
         echo '<div class="swiper-slide swiper-slide-slide_bn swiper-slide-slide_bn_'.$row_mod['md_id'].' slide_item '.$bn_border.$bn_radius.'">'.PHP_EOL;
-        if ($row['bn_url'][0] == '#')
+        if (isset($row['bn_url'][0]) && $row['bn_url'][0] == '#')
             $banner .= '<a href="'.$row['bn_url'].'">';
         else if ($row['bn_url'] && $row['bn_url'] != 'http://') {
             $banner .= '<a href="'.G5_URL.'/rb/rb.mod/banner/bannerhit.php?bn_id='.$row['bn_id'].'"'.$bn_new_win.'>';

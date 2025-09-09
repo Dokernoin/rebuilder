@@ -743,6 +743,7 @@ input#md_title_hide + label:after {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    margin-top: 0px;
 }
 
 .rb_section_box .add_section_wrap .del_section_btns {
