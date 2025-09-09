@@ -725,6 +725,7 @@ input#md_title_hide + label:after {
     height: 47px;
     border-radius: 10px;
     width: 100%;
+    margin-top: 20px;
 }
 
 .rb_section_box_set.ui-sortable-handle{border: 1px dashed #00d6ee !important;}
@@ -830,6 +831,7 @@ input#md_title_hide + label:after {
     background-color: #00d6ee;
     color: #fff;
     border-radius: 10px;
+    margin-top: 20px;
 }
 
 .rb_section_box .add_module_wrap .add_module_btns {
