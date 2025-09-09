@@ -641,6 +641,7 @@ input#md_title_hide + label:after {
 
 .ui-sortable-handle .content_box {
     border: 1px dashed #00d6ee;
+    min-height: 75px;
 }
 
 .rb-row-handle {
