@@ -1373,7 +1373,7 @@ if($mod_type == "del_sec") { //섹션삭제
             <div class="config_wrap">
                 <ul class="rows_inp_lr">
                     <li class="rows_inp_l">
-                        <input type="number" name="md_cnt" id="md_cnt_shop" class="input w60 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="개수" autocomplete="off" autocomplete="off">　<span>개</span>
+                        <input type="number" name="md_cnt" id="md_cnt_shop" class="input w70 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="개수" autocomplete="off" autocomplete="off">　<span>개</span>
                     </li>
                     <li class="rows_inp_r">
                         <input type="number" name="md_col" id="md_col_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_col) ? $md_col : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
@@ -1478,7 +1478,7 @@ if($mod_type == "del_sec") { //섹션삭제
                 <ul>
                     <input type="checkbox" name="md_ca_is" id="md_ca_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_ca_is) && $md_ca_is == 1) { ?>checked<?php } ?>><label for="md_ca_is_shop">카테고리</label>
                     <input type="checkbox" name="md_thumb_is" id="md_thumb_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_thumb_is) && $md_thumb_is == 1) { ?>checked<?php } ?>><label for="md_thumb_is_shop">상품이미지</label>
-                    <input type="checkbox" name="md_subject_is" id="md_subject_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_subject_is) && $md_subject_is == 1) { ?>checked<?php } ?>><label for="md_subject_is_shop">상품명</label><br>
+                    <input type="checkbox" name="md_subject_is" id="md_subject_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_subject_is) && $md_subject_is == 1) { ?>checked<?php } ?>><label for="md_subject_is_shop">상품명</label>　<br>
                     <input type="checkbox" name="md_content_is" id="md_content_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_content_is) && $md_content_is == 1) { ?>checked<?php } ?>><label for="md_content_is_shop">상품설명</label>
                     <input type="checkbox" name="md_date_is" id="md_date_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_date_is) && $md_date_is == 1) { ?>checked<?php } ?>><label for="md_date_is_shop">등록일</label>
                     <input type="checkbox" name="md_comment_is" id="md_comment_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_comment_is) && $md_comment_is == 1) { ?>checked<?php } ?>><label for="md_comment_is_shop">찜개수</label>
@@ -1529,7 +1529,7 @@ if($mod_type == "del_sec") { //섹션삭제
             </li>
 
             <li class="rows_inp_l selected_latest_tab selected_select">
-                <input type="number" name="md_cnt" id="md_cnt" class="input w60 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="개수" autocomplete="off" autocomplete="off">　<span>개</span>
+                <input type="number" name="md_cnt" id="md_cnt" class="input w70 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="개수" autocomplete="off" autocomplete="off">　<span>개</span>
             </li>
 
             <li class="rows_inp_r">
