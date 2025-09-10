@@ -112,7 +112,8 @@ $result = sql_query($sql);
         <th scope="col"><?php echo subject_sort_link("md_title"); ?>모듈명</a></th>
         <th scope="col"><?php echo subject_sort_link("md_theme"); ?>테마</a></th>
         <th scope="col"><?php echo subject_sort_link("md_layout_name"); ?>레이아웃</a></th>
-        <th scope="col"><?php echo subject_sort_link("md_layout"); ?>섹션</a></th>
+        <th scope="col"><?php echo subject_sort_link("md_layout"); ?>영역</a></th>
+        <th scope="col"><?php echo subject_sort_link("md_sec_uid"); ?>부모섹션</a></th>
         <th scope="col"><?php echo subject_sort_link("md_type"); ?>타입</a></th>
         <th scope="col"><?php echo subject_sort_link("md_order_id"); ?>진열순서</a></th>
         <th scope="col"><?php echo subject_sort_link("md_datetime"); ?>생성일시</a></th>
@@ -170,10 +171,15 @@ $result = sql_query($sql);
         </td>
         
         <td>
-            <label for="md_layout<?php echo $i; ?>" class="sound_only">섹션</label>
+            <label for="md_layout<?php echo $i; ?>" class="sound_only">영역</label>
             <input type="text" name="md_layout[<?php echo $i; ?>]" value="<?php echo get_text($row['md_layout']); ?>" id="md_layout<?php echo $i; ?>" class="tbl_input">
         </td>
         
+        <td>
+            <label for="md_layout<?php echo $i; ?>" class="sound_only">부모섹션</label>
+            <?php echo $row['md_sec_uid'] ?>
+        </td>
+
         <td>
             <label for="md_type<?php echo $i; ?>" class="sound_only">타입</label>
             <?php echo $md_type ?>
@@ -196,7 +202,7 @@ $result = sql_query($sql);
     
     
     <?php }
-    if ($i == 0) echo "<tr><td colspan=\"9\" class=\"empty_table\">데이터가 없습니다.</td></tr>\n";
+    if ($i == 0) echo "<tr><td colspan=\"10\" class=\"empty_table\">데이터가 없습니다.</td></tr>\n";
     ?>
     </tbody>
     </table>
