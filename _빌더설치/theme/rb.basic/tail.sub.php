@@ -528,6 +528,77 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     })();
 </script>
 
+<script>
+    // 섹션 추가 버튼 상태 갱신
+    function updateSectionButtons(root) {
+        var $scope = root ? $(root) : $(document);
+        $scope = $scope.addBack ? $scope : $(document); // 안전장치
+
+        $scope.find('.add_section_wrap').addBack('.add_section_wrap').each(function() {
+            var $wrap = $(this);
+            var $btn = $wrap.children('button.add_section_btns');
+            if (!$btn.length) return;
+
+            var inNoneSection = $wrap.closest('.rb-none-section').length > 0;
+
+            if (inNoneSection) {
+                // 비활성 모드: 반투명 + 클릭 시 경고
+                $btn
+                    .css('opacity', 0.3)
+                    .attr('onclick', "javascript:alert('섹션은 100% 크기를 가지므로 부모영역이 100% 이어야만 사용할 수 있어요.');");
+            } else {
+                // 정상 모드: 불투명 + 원래 핸들러
+                $btn
+                    .css('opacity', '')
+                    .attr('onclick', 'set_section_send(this);');
+            }
+        });
+    }
+
+    // 초기 1회 실행
+    $(function() {
+        updateSectionButtons(document);
+
+        // DOM 변화(추가/이동/클래스 변경)에도 자동 반영
+        var observer = new MutationObserver(function(mutations) {
+            var need = false;
+            for (var i = 0; i < mutations.length; i++) {
+                var m = mutations[i];
+                if (m.type === 'childList') {
+                    // .add_section_wrap가 추가/이동되면
+                    if ([].some.call(m.addedNodes || [], function(n) {
+                            return n.nodeType === 1 && (n.matches?.('.add_section_wrap') || n.querySelector?.('.add_section_wrap'));
+                        })) {
+                        need = true;
+                        break;
+                    }
+                } else if (m.type === 'attributes' && m.attributeName === 'class') {
+                    // 조상/자신의 클래스 변동 (rb-none-section 토글 등)
+                    need = true;
+                    break;
+                }
+            }
+            if (need) updateSectionButtons(document);
+        });
+
+        observer.observe(document.body, {
+            subtree: true,
+            childList: true,
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        // 필요하면 전역으로 노출
+        window.updateSectionButtons = updateSectionButtons;
+    });
+
+    // 이미 있는 토글 함수들 끝부분에서도 한 번 호출해 주면 더 안전
+    // 예) toggleSideOptions_open_mod() 마지막에:
+    try {
+        updateSectionButtons(document);
+    } catch (e) {}
+</script>
+
 
 
 <?php
