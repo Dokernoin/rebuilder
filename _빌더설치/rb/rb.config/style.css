@@ -688,7 +688,7 @@ input#md_title_hide + label:after {
 }
 
 .flex_box_inner .add_module_wrap {
-    z-index: 1000;
+    z-index: 101;
 }
 .rb_layout_box .add_module_wrap .add_module_btns {
     width: auto;
@@ -716,7 +716,7 @@ input#md_title_hide + label:after {
     width: 100%;
     margin-top: 20px;
     margin-bottom: 20px;
-    z-index: 1000;
+    z-index: 101;
 }
 
 .add_section_wrap .add_section_btns {
@@ -822,7 +822,7 @@ input#md_title_hide + label:after {
     margin-top: 20px; margin-bottom: 20px;
     width: 100%;
     text-align: center;
-    z-index: 1000;
+    z-index: 101;
 }
 
 
@@ -843,7 +843,7 @@ input#md_title_hide + label:after {
 
 
 .flex_box_inner {
-    z-index: 999;
+    z-index: 101;
 }
 
 .content_box .admin_ov {
@@ -876,6 +876,22 @@ html.rb-mode-sec .flex_box_inner .ui-sortable-handle .content_box {
     border: 0px !important;
 }
 
+.flex_box > .rb-row-break,
+.flex_box > .rb-row-break-end{
+  display:block;
+  flex:0 0 100%;
+  width:100%;
+  height:0;
+  margin:0;
+  padding:0;
+  pointer-events:none;
+  visibility:hidden;
+}
+
+.flex_box > .rb-row-break::before,
+.flex_box > .rb-row-break-end::before {
+  content: none;
+}
 
 #widget_add_btn {
     width: 100%;
@@ -1190,6 +1206,7 @@ html.rb-mode-sec .flex_box_inner .ui-sortable-handle .content_box {
     content: '';
 }
 
+#header {z-index: 102;}
 
 @media all and (max-width: 1024px) {
 

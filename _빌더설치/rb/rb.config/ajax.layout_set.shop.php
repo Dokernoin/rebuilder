@@ -470,7 +470,7 @@ foreach ($layouts as $layout_no) {
                 </div>
 
                 <div class="flex_box" style="
-                   <?php if (isset($row_sec['sec_con_width']) && $row_sec['sec_con_width'] == 1) { ?><?php } else { ?>width: calc(<?php if($is_index) { ?><?php echo $rb_core['main_width'] ?>px<?php } else { ?><?php echo $rb_core['sub_width'] ?>px<?php } ?> + <?php echo $rb_core['gap_pc']*2 ?>px);<?php } ?>"
+                   <?php if (isset($row_sec['sec_con_width']) && $row_sec['sec_con_width'] == 1) { ?><?php } else { ?>width: calc(<?php if($is_index) { ?><?php echo $rb_core['main_width'] ?>px<?php } else { ?><?php echo $rb_core['sub_width'] ?>px<?php } ?> + <?php echo $rb_core['gap_pc']*2 ?>px); transform: translateX(0px);<?php } ?>"
                     data-layout="<?php echo $row_sec['sec_layout']; ?>"
                     data-order-id="<?php echo (int)$row_sec['sec_order_id']; ?>"
                     data-sec-key="<?php echo $row_sec['sec_key']; ?>"
