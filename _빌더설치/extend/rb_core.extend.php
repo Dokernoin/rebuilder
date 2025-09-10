@@ -8,7 +8,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 //ini_set('display_startup_errors', 1);
 //error_reporting(E_ALL);
 
-define('RB_VER',  '2.2.3'); // 버전
+define('RB_VER',  '2.2.3.1'); // 버전
 
 /*********************************************/
 
