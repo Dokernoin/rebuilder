@@ -745,6 +745,10 @@ margin-bottom: 15px;
 /* } */
 /* } */
 
+/* 2.2.3.1 { */
+.rb_section_box {min-height: 75px;}
+/* } */
+
 @media all and (max-width:1024px){
 
     /* 1.1.4 { */
