@@ -552,7 +552,7 @@ select#ct_send_cost {width: 150px;}
 .contents_wrap > .sub{justify-self:center;}
 .index {margin: inherit; padding-top: 40px; padding-bottom: 40px;}
 .sub {padding-top: 50px; padding-bottom: 50px;}
-.flex_box {position: relative; left: 50%; transform: translateX(-50%); margin-left: 0px !important; margin-right: 0px !important;}
+.flex_box {position: relative; margin-left: 0px !important; margin-right: 0px !important;}
 
 .rb_section_box {display:grid;}
 .rb_section_box .flex_box{justify-self:center; left: auto; transform: none;}
