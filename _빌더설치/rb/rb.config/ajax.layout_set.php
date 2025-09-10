@@ -247,10 +247,12 @@ foreach ($layouts as $layout_no) {
                  data-shop="0"
                  >
 
-                <div class="rb_section_title" style="display:<?php echo (isset($row_sec['sec_title_hide']) && $row_sec['sec_title_hide'] == '1') ? 'none' : 'block'; ?>;">
-                    <h2 class="<?php echo !empty($row_sec['sec_title_font']) ? $row_sec['sec_title_font'] : 'font-B'; ?>" style="color:<?php echo !empty($row_sec['sec_title_color']) ? $row_sec['sec_title_color'] : '#25282b'; ?>; font-size:<?php echo !empty($row_sec['sec_title_size']) ? $row_sec['sec_title_size'] : '26'; ?>px; text-align:<?php echo !empty($row_sec['sec_title_align']) ? $row_sec['sec_title_align'] : 'center'; ?>;"><?php echo $row_sec['sec_title'] ?></h2>
-                    <h6 class="<?php echo !empty($row_sec['sec_sub_title_font']) ? $row_sec['sec_sub_title_font'] : 'font-R'; ?>" style="color:<?php echo !empty($row_sec['sec_sub_title_color']) ? $row_sec['sec_sub_title_color'] : '#25282b'; ?>; font-size:<?php echo !empty($row_sec['sec_sub_title_size']) ? $row_sec['sec_sub_title_size'] : '26'; ?>px;  text-align:<?php echo !empty($row_sec['sec_sub_title_align']) ? $row_sec['sec_sub_title_align'] : 'center'; ?>;"><?php echo nl2br($row_sec['sec_sub_title']); ?></h6>
+
+                <div class="rb_section_title">
+                    <h2 class="<?php echo !empty($row_sec['sec_title_font']) ? $row_sec['sec_title_font'] : 'font-B'; ?>" style="color:<?php echo !empty($row_sec['sec_title_color']) ? $row_sec['sec_title_color'] : '#25282b'; ?>; font-size:<?php echo !empty($row_sec['sec_title_size']) ? $row_sec['sec_title_size'] : '26'; ?>px; text-align:<?php echo !empty($row_sec['sec_title_align']) ? $row_sec['sec_title_align'] : 'center'; ?>; display:<?php echo (isset($row_sec['sec_title_hide']) && $row_sec['sec_title_hide'] == '1') ? 'none' : 'block'; ?>;"><?php echo $row_sec['sec_title'] ?></h2>
+                    <h6 class="<?php echo !empty($row_sec['sec_sub_title_font']) ? $row_sec['sec_sub_title_font'] : 'font-R'; ?>" style="color:<?php echo !empty($row_sec['sec_sub_title_color']) ? $row_sec['sec_sub_title_color'] : '#25282b'; ?>; font-size:<?php echo !empty($row_sec['sec_sub_title_size']) ? $row_sec['sec_sub_title_size'] : '26'; ?>px;  text-align:<?php echo !empty($row_sec['sec_sub_title_align']) ? $row_sec['sec_sub_title_align'] : 'center'; ?>; display:<?php echo (isset($row_sec['sec_sub_title_hide']) && $row_sec['sec_sub_title_hide'] == '1') ? 'none' : 'block'; ?>;"><?php echo nl2br($row_sec['sec_sub_title']); ?></h6>
                 </div>
+
 
                 <div class="flex_box" style="
                    <?php if (isset($row_sec['sec_con_width']) && $row_sec['sec_con_width'] == 1) { ?><?php } else { ?>width: calc(<?php if($is_index) { ?><?php echo $rb_core['main_width'] ?>px<?php } else { ?><?php echo $rb_core['sub_width'] ?>px<?php } ?> + <?php echo $rb_core['gap_pc']*2 ?>px);<?php } ?>"
