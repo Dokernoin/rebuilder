@@ -46,6 +46,7 @@ if ($i > 0) echo '</ul>';
 
 if(isset($rb_skin['md_swiper_is']) && $rb_skin['md_swiper_is'] == 1) echo '
 </div>
+<div class="rb_swiper_paging_btn">
 <div class="swiper-button-next swiper-button-next-slide_bn swiper-button-next-slide_bn_'.$row_mod['md_id'].'">
 <svg width="24" height="46" viewBox="0 0 24 46" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 45L22.3333 23L1 1" stroke="#09244B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -55,6 +56,7 @@ if(isset($rb_skin['md_swiper_is']) && $rb_skin['md_swiper_is'] == 1) echo '
 <svg width="24" height="46" viewBox="0 0 24 46" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M23 0.999999L1.66667 23L23 45" stroke="#09244B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
+</div>
 </div>'.PHP_EOL;
 
 if ($i > 0) echo '</div>';

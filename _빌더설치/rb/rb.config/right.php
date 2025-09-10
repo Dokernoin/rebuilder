@@ -200,6 +200,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                             //executeAjax();
 
                                             // 기존 클래스 제거 후 새로운 클래스 추가
+                                            /*
                                             $('.contents_wrap section.index').removeClass(function(index, className) {
                                                 return (className.match(/co_gap_pc_\d+/g) || []).join(' ');
                                             }).addClass('co_gap_pc_' + ui.value);
@@ -211,6 +212,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                             $('.add_module_wrap').removeClass(function(index, className) {
                                                 return (className.match(/adm_co_gap_pc_\d+/g) || []).join(' ');
                                             }).addClass('adm_co_gap_pc_' + ui.value);
+                                            */
 
                                         }
                                     });

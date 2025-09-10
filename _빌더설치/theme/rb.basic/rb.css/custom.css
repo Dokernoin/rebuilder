@@ -747,6 +747,17 @@ margin-bottom: 15px;
 
 /* 2.2.3.1 { */
 .rb_section_box {min-height: 75px;}
+.mod_bn_wrap {position: relative;}
+.mod_bn_wrap .rb_swiper_paging_btn {
+    position: absolute;
+    right: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 101;
+    width: 100%;
+}
+.mod_bn_wrap .swiper-button-next {right: 10px;}
+.mod_bn_wrap .swiper-button-prev {left: 10px;}
 /* } */
 
 @media all and (max-width:1024px){
