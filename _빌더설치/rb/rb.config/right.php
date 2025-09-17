@@ -28,7 +28,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         <div class="sh-side-options-item-container"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_mod.svg"></div>
     </a>
 
-    <?php if (defined("_INDEX_")) { ?>
+    <?php if (defined("_INDEX_") || !empty($_GET['gr_id']) || !empty($_GET['co_id'])) { ?>
     <a class="sh-side-options-item sh-accent-color section_set_btn" title="섹션설정" onclick="toggleSideSection();">
         <div class="sh-side-options-item-container"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_sec.svg"></div>
     </a>
@@ -1632,6 +1632,8 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         $('.section_set_btn').removeClass('open');
         $('.add_module_wrap').show();
         $('.add_section_wrap').hide();
+        $('.rb-mod-label').show();
+        $('.rb-sec-label').hide();
 
         rbSetMode('mod'); // 전역 플래그만 갱신
 
@@ -1942,22 +1944,22 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                     n = n && n.nextSibling;
                 }
 
-                // 모듈이 하나도 없는 행은 핸들 안 붙임
-                if (!currFirstEl || !currLayouts.length) continue;
-
                 // 위치 계산: 문서기준 offset → 컨테이너 기준 top
                 var top = Math.round($(currFirstEl).offset().top - $flex.offset().top + ($flex.scrollTop() || 0));
                 var height = Math.max.apply(null, currLayouts.map(function(el) {
                     return Math.round($(el).outerHeight(true));
                 }));
 
-                // 핸들 생성 (★ 마커 인덱스를 저장)
+                // 모듈이 하나도 없는 행은 핸들 안 붙임
+                if (!currFirstEl || !currLayouts.length) continue;
+
+                // 핸들 생성 (마커 인덱스를 저장)
                 var $handle = $('<div class="rb-row-handle" data-marker="' + i + '" aria-label="행 이동"></div>');
                 var $up = $("<button type='button' class='rb-row-btn rb-row-up'  title='이 행을 위로'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none' fill-rule='evenodd'><path d='M24 0v24H0V0h24ZM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01-.184-.092Z'/><path fill='#FFFFFFFF' d='M11.293 8.293a1 1 0 0 1 1.414 0l5.657 5.657a1 1 0 0 1-1.414 1.414L12 10.414l-4.95 4.95a1 1 0 0 1-1.414-1.414l5.657-5.657Z'/></g></svg></button>");
                 var $dn = $("<button type='button' class='rb-row-btn rb-row-down' title='이 행을 아래로'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none' fill-rule='evenodd'><path d='M24 0v24H0V0h24ZM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01-.184-.092Z'/><path fill='#FFFFFFFF' d='M12.707 15.707a1 1 0 0 1-1.414 0L5.636 10.05A1 1 0 1 1 7.05 8.636l4.95 4.95 4.95-4.95a1 1 0 0 1 1.414 1.414l-5.657 5.657Z'/></g></svg></button>");
                 $handle.append($up, $dn).css({
                     position: 'absolute',
-                    left: '-12px',
+                    left: '12px',
                     top: (top + Math.max(0, (height - 24) / 2)) + 'px',
                     width: '24px',
                     height: '24px',
@@ -1973,6 +1975,8 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                 });
 
                 $flex.append($handle);
+
+
             }
 
             // 클릭 이벤트(중복 방지 후 바인딩) — ★ 마커 인덱스로 moveRowByMarker 호출
@@ -2455,6 +2459,8 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         $('.add_module_wrap').hide();
         $('.rb-row-handle').hide();
         $('.add_section_wrap').show();
+        $('.rb-mod-label').hide();
+        $('.rb-sec-label').show();
 
         rbSetMode('sec'); // 전역 플래그만 갱신
 
@@ -2902,6 +2908,8 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         $('.add_module_wrap').hide();
         $('.add_section_wrap').hide();
         $('.rb-row-handle').hide();
+        $('.rb-mod-label').hide();
+        $('.rb-sec-label').hide();
 
 
         var dynStyle = document.getElementById('rb_layout_box_dynamic_style');
@@ -2933,6 +2941,8 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         $('.add_module_wrap').hide();
         $('.add_section_wrap').hide();
         $('.rb-row-handle').hide();
+        $('.rb-mod-label').hide();
+        $('.rb-sec-label').hide();
 
         rbSetMode(null);
         toggleSideOptions_close();
@@ -2958,6 +2968,8 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         $('.add_section_wrap').hide();
         $('.rb-row-handle').hide();
         $('.flex_box').removeClass('ui-sortable');
+        $('.rb-mod-label').hide();
+        $('.rb-sec-label').hide();
 
 
     }

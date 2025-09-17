@@ -125,11 +125,14 @@ foreach ($layouts as $layout_no) {
               data-title="<?php echo $row_mod['md_title']; ?>"
               data-shop="0"
             >
+
                 <ul class="content_box rb_module_<?php echo $row_mod['md_id']; ?> rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_radius_<?php echo $row_mod['md_radius']; ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?> <?php echo isset($row_mod['md_show']) ? $row_mod['md_show'] : ''; ?> <?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 1) { ?>rb_module_wide<?php } ?> <?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 2) { ?>rb_module_mid<?php } ?>"
 
                     style="<?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 1) { ?>
                     min-width:<?php if($is_index) { ?><?php echo $rb_core['main_width'] ?>px<?php } else { ?><?php echo $rb_core['sub_width'] ?>px<?php } ?>;
                     <?php } ?>">
+
+
 
                     <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'latest') { ?>
                         <div class="module_latest_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>">
@@ -185,6 +188,9 @@ foreach ($layouts as $layout_no) {
 
                     <?php if ($is_admin) { ?>
                         <span class="admin_ov">
+                            <?php if ($is_admin) { ?>
+                                <span class="rb-mod-label">모듈 <?php echo $row_mod['md_id']; ?> / <?php echo cut_str($row_mod['md_title'], 15); ?> (<?php echo $row_mod['md_width']; ?><?php echo !empty($row_mod['md_size']) ? $row_mod['md_size'] : '%'; ?>)</span>
+                            <?php } ?>
                             <div class="mod_edit">
                                 <ul class="middle_y text-center">
                                     <!--
@@ -247,6 +253,10 @@ foreach ($layouts as $layout_no) {
                  data-shop="0"
                  >
 
+                 <?php if ($is_admin) { ?>
+                   <span class="rb-sec-label">섹션 <?php echo $row_sec['sec_id']; ?> / <?php echo cut_str($row_sec['sec_title'], 15); ?></span>
+                   <?php } ?>
+
 
                 <div class="rb_section_title">
                     <h2 class="<?php echo !empty($row_sec['sec_title_font']) ? $row_sec['sec_title_font'] : 'font-B'; ?>" style="color:<?php echo !empty($row_sec['sec_title_color']) ? $row_sec['sec_title_color'] : '#25282b'; ?>; font-size:<?php echo !empty($row_sec['sec_title_size']) ? $row_sec['sec_title_size'] : '26'; ?>px; text-align:<?php echo !empty($row_sec['sec_title_align']) ? $row_sec['sec_title_align'] : 'center'; ?>; display:<?php echo (isset($row_sec['sec_title_hide']) && $row_sec['sec_title_hide'] == '1') ? 'none' : 'block'; ?>;"><?php echo $row_sec['sec_title'] ?></h2>
@@ -263,6 +273,7 @@ foreach ($layouts as $layout_no) {
                     data-sec-uid="<?php echo $row_sec['sec_uid']; ?>"
                     data-shop="0"
                     >
+
 
                     <?php if ($is_admin) { ?>
                       <div class="add_module_wrap add_module_wrap_sec">
@@ -295,9 +306,8 @@ foreach ($layouts as $layout_no) {
         }
         $output .= '<div class="add_module_wrap adm_co_gap_pc_' . $rb_core['gap_pc'] . '"><button type="button" class="add_module_btns font-B" onclick="set_module_send(this);" data-tooltip="자유롭게 이동이 가능한 모듈을 추가할 수 있어요." data-tooltip-pos="bottom">모듈추가</button></div>';
 
-        if($is_index) {
-            $output .= '<div class="add_section_wrap adm_co_gap_pc_' . $rb_core['gap_pc'] . '"><button type="button" class="add_section_btns font-B" onclick="set_section_send(this);" data-tooltip="가로 100% 섹션을 추가할 수 있어요. 섹션 내부에는 모듈을 추가할 수 있어요." data-tooltip-pos="bottom">섹션추가</button></div>';
-        }
+        $output .= '<div class="add_section_wrap adm_co_gap_pc_' . $rb_core['gap_pc'] . '"><button type="button" class="add_section_btns font-B" onclick="set_section_send(this);" data-tooltip="가로 100% 섹션을 추가할 수 있어요. 섹션 내부에는 모듈을 추가할 수 있어요." data-tooltip-pos="bottom">섹션추가</button></div>';
+
     }
 
     // finalize buffer return

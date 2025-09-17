@@ -762,6 +762,7 @@ margin-bottom: 15px;
 
 /* 2.2.3.2 { */
 .rb_section_box.rb_sec_wide {display: block !important;}
+.swiper-slide img {box-sizing: border-box;}
 /* } */
 
 

@@ -693,16 +693,15 @@ input#md_title_hide + label:after {
 .rb_layout_box .add_module_wrap .add_module_btns {
     width: auto;
     position: absolute;
-    bottom: -15px;
-    left: 50%;
+    bottom: 12px;
+    right:-2px;
     transform: translateX(-50%);
-    padding-left: 7px;
-    padding-right: 7px;
-    border-radius: 4px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 6px !important;
     background-color: #fff;
-    height: 30px;
-    width: 30px;
-    border-radius: 4px;
+    height: 25px;
+    width: 25px;
     font-size: 12px;
     margin-top: 0px !important;
 }
@@ -852,10 +851,10 @@ input#md_title_hide + label:after {
 
 .content_box .admin_ov .middle_y button {
     border: 0px;
-    width: 35px;
-    height: 35px !important;
-    border-radius: 10px;
-    padding: 0px 8px !important;
+    width: 30px;
+    height: 30px !important;
+    border-radius: 6px;
+    padding: 7px 7px !important;
     margin-top: 0px;
     background-color: #00d6ee;
     display: inline-flex;
@@ -866,7 +865,7 @@ input#md_title_hide + label:after {
 .content_box .admin_ov .middle_y button svg g path:nth-child(2) {fill:#ffffff;}
 
 .content_box .admin_ov .middle_y button:hover {
-    opacity: .6;
+    opacity: .8;
 }
 
 html.rb-mode-sec .rb_layout_box.ui-sortable-handle .content_box {
@@ -1065,6 +1064,19 @@ html.rb-mode-sec .flex_box_inner .ui-sortable-handle .content_box {
     opacity: 0.2;
 }
 
+
+.rb_section_box .rb-sec-label {display: none; background-color: #ff64b5; color:#fff; font-size: 11px; padding: 3px 7px; position: absolute; top:0px; left: 0px; z-index: 101;}
+.rb_layout_box .rb-mod-label {display: none; background-color: #00d6ee; color:#fff; font-size: 11px; padding: 3px 7px; position: absolute; top:0px; left: 0px; z-index: 101;}
+
+.rb_section_box_set.ui-sortable-handle {border:2px dashed #ff64b5 !important;}
+.rb_section_box .add_section_wrap .add_section_btns {background-color: #ff64b5;}
+.rb_section_box .add_section_wrap .del_section_btns {background-color: #ff64b5;}
+.add_section_wrap .add_section_btns {background-color: #ff64b5;}
+
+.dss {opacity: 0.3}
+.rb_layout_box.ui-sortable-handle {opacity: 1;}
+.rb_section_box.ui-sortable-handle {opacity: 1;}
+
 /* 스크롤바 테마 변수 (원하면 색만 바꿔서 재사용) */
 :root {
     --rb-sb-thumb: rgba(120, 120, 130, 0.65);
@@ -1207,6 +1219,24 @@ html.rb-mode-sec .flex_box_inner .ui-sortable-handle .content_box {
 }
 
 #header {z-index: 102;}
+.content_box .admin_ov {background-color: rgba(0, 214, 238, 0.1); border-radius: 0px;}
+.flex_box_inner .ui-sortable-handle .content_box {border-top:0px !important;}
+
+
+.flex_box_inner .rb_layout_box.ui-sortable-handle::before{
+  content:'';
+  position:absolute;
+  left:50%;
+  top:0;
+  transform: translate(-50%, -50%);
+  width:7px; height:15px;
+  border-radius:7px;
+  background:#fff;
+  border:1px solid #00d6ee;
+  pointer-events:none;
+    z-index: 101
+}
+
 
 @media all and (max-width: 1024px) {
 

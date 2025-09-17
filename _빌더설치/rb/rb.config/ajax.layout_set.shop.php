@@ -403,6 +403,11 @@ foreach ($layouts as $layout_no) {
 
                     <?php if ($is_admin) { ?>
                         <span class="admin_ov">
+
+                            <?php if ($is_admin) { ?>
+                                <span class="rb-mod-label">모듈 <?php echo $row_mod['md_id']; ?> / <?php echo cut_str($row_mod['md_title'], 15); ?> (<?php echo $row_mod['md_width']; ?><?php echo !empty($row_mod['md_size']) ? $row_mod['md_size'] : '%'; ?>)</span>
+                            <?php } ?>
+
                             <div class="mod_edit">
                                 <ul class="middle_y text-center">
                                     <!--
@@ -463,6 +468,10 @@ foreach ($layouts as $layout_no) {
                  data-sec-key="<?php echo $row_sec['sec_key']; ?>"
                  data-sec-uid="<?php echo $row_sec['sec_uid']; ?>"
                  data-shop="1" >
+
+                <?php if ($is_admin) { ?>
+                   <span class="rb-sec-label">섹션 <?php echo $row_sec['sec_id']; ?> / <?php echo cut_str($row_sec['sec_title'], 15); ?></span>
+                <?php } ?>
 
                 <div class="rb_section_title">
                     <h2 class="<?php echo !empty($row_sec['sec_title_font']) ? $row_sec['sec_title_font'] : 'font-B'; ?>" style="color:<?php echo !empty($row_sec['sec_title_color']) ? $row_sec['sec_title_color'] : '#25282b'; ?>; font-size:<?php echo !empty($row_sec['sec_title_size']) ? $row_sec['sec_title_size'] : '26'; ?>px; text-align:<?php echo !empty($row_sec['sec_title_align']) ? $row_sec['sec_title_align'] : 'center'; ?>; display:<?php echo (isset($row_sec['sec_title_hide']) && $row_sec['sec_title_hide'] == '1') ? 'none' : 'block'; ?>;"><?php echo $row_sec['sec_title'] ?></h2>

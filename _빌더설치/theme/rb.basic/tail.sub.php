@@ -125,7 +125,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                     $btn.attr({
                         'aria-label': '',
                         'title': '',
-                        'data-tooltip': '모듈 내부(아래)에 모듈을 추가할 수 있어요. 모듈 내부에 추가한 모듈은 영역내에서 상하 이동만 가능해요.',
+                        'data-tooltip': '현재 모듈에 하위 모듈을 추가할 수 있어요. 하위 모듈은 서로 상하 이동이 가능해요.',
                         'data-tooltip-pos': 'bottom'
                     });
                     $btn.css({
