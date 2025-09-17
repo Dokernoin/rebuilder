@@ -760,6 +760,11 @@ margin-bottom: 15px;
 .mod_bn_wrap .swiper-button-prev {left: 10px;}
 /* } */
 
+/* 2.2.3.2 { */
+.rb_section_box.rb_sec_wide {display: block !important;}
+/* } */
+
+
 @media all and (max-width:1024px){
 
     /* 1.1.4 { */
