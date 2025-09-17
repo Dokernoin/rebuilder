@@ -1705,103 +1705,131 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
         // 행 경계 마커 재구성
         function ensureRowBreaks($flex, forceVisual) {
-  var insideSection = $flex.closest('.rb_section_box').length > 0;
+            var insideSection = $flex.closest('.rb_section_box').length > 0;
 
-  function applyLineBreaker($el) {
-    var isFlex = ($flex.css('display') || '').indexOf('flex') !== -1;
-    var common = {
-      width:'100%', minHeight:'1px', height:'1px',
-      margin:0, padding:0, border:0, overflow:'hidden',
-      visibility:'hidden', pointerEvents:'none', display:'block'
-    };
-    if (isFlex) $el.css(Object.assign({}, common, { flex:'0 0 100%', WebkitFlex:'0 0 100%', msFlex:'0 0 100%' }));
-    else $el.css(common);
-  }
+            function applyLineBreaker($el) {
+                var isFlex = ($flex.css('display') || '').indexOf('flex') !== -1;
+                var common = {
+                    width: '100%',
+                    minHeight: '1px',
+                    height: '1px',
+                    margin: 0,
+                    padding: 0,
+                    border: 0,
+                    overflow: 'hidden',
+                    visibility: 'hidden',
+                    pointerEvents: 'none',
+                    display: 'block'
+                };
+                if (isFlex) $el.css(Object.assign({}, common, {
+                    flex: '0 0 100%',
+                    WebkitFlex: '0 0 100%',
+                    msFlex: '0 0 100%'
+                }));
+                else $el.css(common);
+            }
 
-  // ★ forceVisual===true 이면 기존 마커 무시하고 새로 계산
-  var hasExistingBreak = !forceVisual && $flex.children('.rb-row-break, .rb-row-break-end').length > 0;
+            // ★ forceVisual===true 이면 기존 마커 무시하고 새로 계산
+            var hasExistingBreak = !forceVisual && $flex.children('.rb-row-break, .rb-row-break-end').length > 0;
 
-  var groups = [];
-  if (hasExistingBreak) {
-    var markers = Array.prototype.slice.call($flex.children('.rb-row-break, .rb-row-break-end'));
-    var last = markers[markers.length - 1];
-    var lastIsEnd = last && last.classList && last.classList.contains('rb-row-break-end');
-    if (!lastIsEnd) markers = markers.concat([null]); // null = 끝
+            var groups = [];
+            if (hasExistingBreak) {
+                var markers = Array.prototype.slice.call($flex.children('.rb-row-break, .rb-row-break-end'));
+                var last = markers[markers.length - 1];
+                var lastIsEnd = last && last.classList && last.classList.contains('rb-row-break-end');
+                if (!lastIsEnd) markers = markers.concat([null]); // null = 끝
 
-    for (var i = 0; i < markers.length - 1; i++) {
-      var start = markers[i];
-      var end = markers[i + 1];
-      var row = [], n = start.nextSibling;
-      while (n && n !== end) {
-        if (n.nodeType === 1 && $(n).is(':visible') &&
-            (n.classList.contains('rb_layout_box') || n.classList.contains('rb_section_box'))) {
-          row.push(n);
+                for (var i = 0; i < markers.length - 1; i++) {
+                    var start = markers[i];
+                    var end = markers[i + 1];
+                    var row = [],
+                        n = start.nextSibling;
+                    while (n && n !== end) {
+                        if (n.nodeType === 1 && $(n).is(':visible') &&
+                            (n.classList.contains('rb_layout_box') || n.classList.contains('rb_section_box'))) {
+                            row.push(n);
+                        }
+                        n = n.nextSibling;
+                    }
+                    if (row.length) groups.push(row);
+                }
+            } else {
+                // 시각적 top 기반 그룹핑
+                var eps = 3,
+                    tops = [],
+                    topMap = new Map();
+                var baseTop = $flex[0].getBoundingClientRect().top;
+                var $cands = $flex.children('.rb_layout_box:visible, .rb_section_box:visible');
+                if (!$cands.length) return;
+
+                $cands.each(function() {
+                    var t = Math.round(this.getBoundingClientRect().top - baseTop);
+                    var key = null;
+                    for (var k of topMap.keys()) {
+                        if (Math.abs(k - t) <= eps) {
+                            key = k;
+                            break;
+                        }
+                    }
+                    key = (key !== null) ? key : t;
+                    if (!topMap.has(key)) {
+                        topMap.set(key, []);
+                        tops.push(key);
+                    }
+                    topMap.get(key).push(this);
+                });
+
+                tops.sort(function(a, b) {
+                    return a - b;
+                });
+                groups = tops.map(function(k) {
+                    var arr = topMap.get(k);
+                    arr.sort(function(a, b) {
+                        return a.getBoundingClientRect().left - b.getBoundingClientRect().left;
+                    });
+                    return arr;
+                });
+            }
+
+            // 기존 마커 제거 후 재생성
+            $flex.children('.rb-row-break, .rb-row-break-end').remove();
+            if (!groups.length) return;
+
+            groups.forEach(function(rowArr) {
+                var first = rowArr[0];
+                var $br = $('<i class="rb-row-break" aria-hidden="true"></i>');
+                applyLineBreaker($br);
+                $(first).before($br);
+            });
+
+            if (insideSection) return;
+
+            var $end = $('<i class="rb-row-break-end" aria-hidden="true"></i>');
+            applyLineBreaker($end);
+            var $tb = $flex.children('.add_module_wrap, .add_section_wrap').first();
+            if ($tb.length) $end.insertBefore($tb[0]);
+            else $flex.append($end);
         }
-        n = n.nextSibling;
-      }
-      if (row.length) groups.push(row);
-    }
-  } else {
-    // 시각적 top 기반 그룹핑
-    var eps = 3, tops = [], topMap = new Map();
-    var baseTop = $flex[0].getBoundingClientRect().top;
-    var $cands = $flex.children('.rb_layout_box:visible, .rb_section_box:visible');
-    if (!$cands.length) return;
-
-    $cands.each(function() {
-      var t = Math.round(this.getBoundingClientRect().top - baseTop);
-      var key = null;
-      for (var k of topMap.keys()) { if (Math.abs(k - t) <= eps) { key = k; break; } }
-      key = (key !== null) ? key : t;
-      if (!topMap.has(key)) { topMap.set(key, []); tops.push(key); }
-      topMap.get(key).push(this);
-    });
-
-    tops.sort(function(a,b){return a-b;});
-    groups = tops.map(function(k){
-      var arr = topMap.get(k);
-      arr.sort(function(a,b){ return a.getBoundingClientRect().left - b.getBoundingClientRect().left; });
-      return arr;
-    });
-  }
-
-  // 기존 마커 제거 후 재생성
-  $flex.children('.rb-row-break, .rb-row-break-end').remove();
-  if (!groups.length) return;
-
-  groups.forEach(function(rowArr){
-    var first = rowArr[0];
-    var $br = $('<i class="rb-row-break" aria-hidden="true"></i>');
-    applyLineBreaker($br);
-    $(first).before($br);
-  });
-
-  if (insideSection) return;
-
-  var $end = $('<i class="rb-row-break-end" aria-hidden="true"></i>');
-  applyLineBreaker($end);
-  var $tb = $flex.children('.add_module_wrap, .add_section_wrap').first();
-  if ($tb.length) $end.insertBefore($tb[0]); else $flex.append($end);
-}
 
         function queueRowHandleRefresh($flex) {
-  if (!$flex || !$flex.length) return;
+            if (!$flex || !$flex.length) return;
 
-  var raf1 = $flex.data('rbRaf1'), raf2 = $flex.data('rbRaf2');
-  if (raf1) cancelAnimationFrame(raf1);
-  if (raf2) cancelAnimationFrame(raf2);
+            var raf1 = $flex.data('rbRaf1'),
+                raf2 = $flex.data('rbRaf2');
+            if (raf1) cancelAnimationFrame(raf1);
+            if (raf2) cancelAnimationFrame(raf2);
 
-  var id1 = requestAnimationFrame(function () {
-    // ★ 1프레임: 마커를 시각적 기준으로 강제 재계산
-    ensureRowBreaks($flex, true);
-    var id2 = requestAnimationFrame(function () {
-      // ★ 2프레임: 핸들 위치 렌더
-      renderRowHandles($flex);
-    });
-    $flex.data('rbRaf2', id2);
-  });
-  $flex.data('rbRaf1', id1);
-}
+            var id1 = requestAnimationFrame(function() {
+                // ★ 1프레임: 마커를 시각적 기준으로 강제 재계산
+                ensureRowBreaks($flex, true);
+                var id2 = requestAnimationFrame(function() {
+                    // ★ 2프레임: 핸들 위치 렌더
+                    renderRowHandles($flex);
+                });
+                $flex.data('rbRaf2', id2);
+            });
+            $flex.data('rbRaf1', id1);
+        }
 
 
         function getRowsByMarkers($flex) {
@@ -1872,92 +1900,92 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
         // ===== 행 핸들: 왼쪽에 Up/Down 버튼 붙임 =====
         function renderRowHandles($flex) {
-  // 최상위 flex만 대상
-  if (!isTopLevelFlex($flex)) {
-    $flex.find('> .rb-row-handle').remove();
-    return;
-  }
+            // 최상위 flex만 대상
+            if (!isTopLevelFlex($flex)) {
+                $flex.find('> .rb-row-handle').remove();
+                return;
+            }
 
-  // 마커 최신화
-  ensureRowBreaks($flex);
+            // 마커 최신화
+            ensureRowBreaks($flex);
 
-  // 컨테이너 기준 배치
-  if ($flex.css('position') === 'static') $flex.css('position', 'relative');
+            // 컨테이너 기준 배치
+            if ($flex.css('position') === 'static') $flex.css('position', 'relative');
 
-  // 기존 핸들 제거
-  $flex.find('> .rb-row-handle').remove();
+            // 기존 핸들 제거
+            $flex.find('> .rb-row-handle').remove();
 
-  // 마커 기준으로 "행 구간"을 만든다
-  var markers = Array.prototype.slice.call($flex.children('.rb-row-break, .rb-row-break-end'));
-  if (!markers.length) return;
+            // 마커 기준으로 "행 구간"을 만든다
+            var markers = Array.prototype.slice.call($flex.children('.rb-row-break, .rb-row-break-end'));
+            if (!markers.length) return;
 
-  var last = markers[markers.length - 1];
-  var hasEnd = last && last.classList && last.classList.contains('rb-row-break-end');
-  var virtEnd = !hasEnd; // 섹션 내부 등 end가 없을 때 마지막 구간을 위해 +1
+            var last = markers[markers.length - 1];
+            var hasEnd = last && last.classList && last.classList.contains('rb-row-break-end');
+            var virtEnd = !hasEnd; // 섹션 내부 등 end가 없을 때 마지막 구간을 위해 +1
 
-  for (var i = 0; i < markers.length - 1 + (virtEnd ? 1 : 0); i++) {
-    var start = markers[i];
-    var end   = (i + 1 < markers.length) ? markers[i + 1] : null; // null = 컨테이너 끝
+            for (var i = 0; i < markers.length - 1 + (virtEnd ? 1 : 0); i++) {
+                var start = markers[i];
+                var end = (i + 1 < markers.length) ? markers[i + 1] : null; // null = 컨테이너 끝
 
-    // 이 구간의 첫 요소(섹션/모듈)과 모듈 목록 수집
-    var currFirstEl = null;
-    var currLayouts = [];
-    var n = start.nextSibling;
+                // 이 구간의 첫 요소(섹션/모듈)과 모듈 목록 수집
+                var currFirstEl = null;
+                var currLayouts = [];
+                var n = start.nextSibling;
 
-    while (n && n !== end) {
-      if (n.nodeType === 1 && $(n).is(':visible')) {
-        if (!currFirstEl && (n.classList.contains('rb_layout_box') || n.classList.contains('rb_section_box'))) {
-          currFirstEl = n; // 행의 앵커(섹션 or 모듈)
+                while (n && n !== end) {
+                    if (n.nodeType === 1 && $(n).is(':visible')) {
+                        if (!currFirstEl && (n.classList.contains('rb_layout_box') || n.classList.contains('rb_section_box'))) {
+                            currFirstEl = n; // 행의 앵커(섹션 or 모듈)
+                        }
+                        if (n.classList.contains('rb_layout_box')) currLayouts.push(n); // 모듈만 카운트
+                    }
+                    n = n && n.nextSibling;
+                }
+
+                // 모듈이 하나도 없는 행은 핸들 안 붙임
+                if (!currFirstEl || !currLayouts.length) continue;
+
+                // 위치 계산: 문서기준 offset → 컨테이너 기준 top
+                var top = Math.round($(currFirstEl).offset().top - $flex.offset().top + ($flex.scrollTop() || 0));
+                var height = Math.max.apply(null, currLayouts.map(function(el) {
+                    return Math.round($(el).outerHeight(true));
+                }));
+
+                // 핸들 생성 (★ 마커 인덱스를 저장)
+                var $handle = $('<div class="rb-row-handle" data-marker="' + i + '" aria-label="행 이동"></div>');
+                var $up = $("<button type='button' class='rb-row-btn rb-row-up'  title='이 행을 위로'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none' fill-rule='evenodd'><path d='M24 0v24H0V0h24ZM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01-.184-.092Z'/><path fill='#FFFFFFFF' d='M11.293 8.293a1 1 0 0 1 1.414 0l5.657 5.657a1 1 0 0 1-1.414 1.414L12 10.414l-4.95 4.95a1 1 0 0 1-1.414-1.414l5.657-5.657Z'/></g></svg></button>");
+                var $dn = $("<button type='button' class='rb-row-btn rb-row-down' title='이 행을 아래로'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none' fill-rule='evenodd'><path d='M24 0v24H0V0h24ZM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01-.184-.092Z'/><path fill='#FFFFFFFF' d='M12.707 15.707a1 1 0 0 1-1.414 0L5.636 10.05A1 1 0 1 1 7.05 8.636l4.95 4.95 4.95-4.95a1 1 0 0 1 1.414 1.414l-5.657 5.657Z'/></g></svg></button>");
+                $handle.append($up, $dn).css({
+                    position: 'absolute',
+                    left: '-12px',
+                    top: (top + Math.max(0, (height - 24) / 2)) + 'px',
+                    width: '24px',
+                    height: '24px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '4px',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 10000
+                }).attr({
+                    'data-tooltip': '모듈의 행 전체를 이동할 수 있어요.',
+                    'data-tooltip-pos': 'right'
+                });
+
+                $flex.append($handle);
+            }
+
+            // 클릭 이벤트(중복 방지 후 바인딩) — ★ 마커 인덱스로 moveRowByMarker 호출
+            $flex.off('click.rbRowHandle').on('click.rbRowHandle', '.rb-row-handle .rb-row-btn', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var $btn = $(this);
+                var $h = $btn.closest('.rb-row-handle');
+                var markerIdx = parseInt($h.attr('data-marker'), 10);
+                if ($btn.hasClass('rb-row-up')) moveRowByMarker($flex, markerIdx, -1);
+                if ($btn.hasClass('rb-row-down')) moveRowByMarker($flex, markerIdx, +1);
+            });
         }
-        if (n.classList.contains('rb_layout_box')) currLayouts.push(n); // 모듈만 카운트
-      }
-      n = n && n.nextSibling;
-    }
-
-    // 모듈이 하나도 없는 행은 핸들 안 붙임
-    if (!currFirstEl || !currLayouts.length) continue;
-
-    // 위치 계산: 문서기준 offset → 컨테이너 기준 top
-    var top = Math.round($(currFirstEl).offset().top - $flex.offset().top + ($flex.scrollTop() || 0));
-    var height = Math.max.apply(null, currLayouts.map(function (el) {
-      return Math.round($(el).outerHeight(true));
-    }));
-
-    // 핸들 생성 (★ 마커 인덱스를 저장)
-    var $handle = $('<div class="rb-row-handle" data-marker="' + i + '" aria-label="행 이동"></div>');
-    var $up = $("<button type='button' class='rb-row-btn rb-row-up'  title='이 행을 위로'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none' fill-rule='evenodd'><path d='M24 0v24H0V0h24ZM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01-.184-.092Z'/><path fill='#FFFFFFFF' d='M11.293 8.293a1 1 0 0 1 1.414 0l5.657 5.657a1 1 0 0 1-1.414 1.414L12 10.414l-4.95 4.95a1 1 0 0 1-1.414-1.414l5.657-5.657Z'/></g></svg></button>");
-    var $dn = $("<button type='button' class='rb-row-btn rb-row-down' title='이 행을 아래로'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none' fill-rule='evenodd'><path d='M24 0v24H0V0h24ZM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01-.184-.092Z'/><path fill='#FFFFFFFF' d='M12.707 15.707a1 1 0 0 1-1.414 0L5.636 10.05A1 1 0 1 1 7.05 8.636l4.95 4.95 4.95-4.95a1 1 0 0 1 1.414 1.414l-5.657 5.657Z'/></g></svg></button>");
-    $handle.append($up, $dn).css({
-      position: 'absolute',
-      left: '-12px',
-      top: (top + Math.max(0, (height - 24) / 2)) + 'px',
-      width: '24px',
-      height: '24px',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '4px',
-      alignItems: 'center',
-      justifyContent: 'center',
-      zIndex: 10000
-    }).attr({
-      'data-tooltip': '모듈의 행 전체를 이동할 수 있어요.',
-      'data-tooltip-pos': 'right'
-    });
-
-    $flex.append($handle);
-  }
-
-  // 클릭 이벤트(중복 방지 후 바인딩) — ★ 마커 인덱스로 moveRowByMarker 호출
-  $flex.off('click.rbRowHandle').on('click.rbRowHandle', '.rb-row-handle .rb-row-btn', function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    var $btn = $(this);
-    var $h = $btn.closest('.rb-row-handle');
-    var markerIdx = parseInt($h.attr('data-marker'), 10);
-    if ($btn.hasClass('rb-row-up'))  moveRowByMarker($flex, markerIdx, -1);
-    if ($btn.hasClass('rb-row-down')) moveRowByMarker($flex, markerIdx, +1);
-  });
-}
 
         function moveRowByMarker($flex, markerIdx, dir) {
             ensureRowBreaks($flex);
@@ -2212,6 +2240,9 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                     connectWith: false,
 
                     start: function(event, ui) {
+
+                        ui.helper.addClass("dragging");
+
                         originalWidth = ui.item.outerWidth();
                         originalHeight = ui.item.outerHeight();
                         ui.helper.addClass("dragging").css({
@@ -2221,14 +2252,9 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                             pointerEvents: "none",
                         });
 
-                        var pl = parseInt(ui.item.css('padding-left')) || 0;
-                        var pr = parseInt(ui.item.css('padding-right')) || 0;
-                        var pt = parseInt(ui.item.css('padding-top')) || 0;
-                        var pb = parseInt(ui.item.css('padding-bottom')) || 0;
-
                         $(".placeholders_box").css({
-                            width: originalWidth - pl - pr,
-                            height: originalHeight - pt - pb,
+                            width: originalWidth - 1,
+                            height: originalHeight,
                             marginLeft: ui.item.css('margin-left'),
                             marginRight: ui.item.css('margin-right'),
                             marginTop: ui.item.css('margin-top'),
@@ -2261,8 +2287,8 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
                         // 위치 보정
                         enforceToolbarRule($flexBox, ui.item);
-                        queueRowHandleRefresh($flexBox);                 // 타겟 컨테이너
-  if (ui.sender) queueRowHandleRefresh($(ui.sender)); // 출발지 컨테이너도 갱신
+                        queueRowHandleRefresh($flexBox); // 타겟 컨테이너
+                        if (ui.sender) queueRowHandleRefresh($(ui.sender)); // 출발지 컨테이너도 갱신
                     },
 
                     update: function(event, ui) {
@@ -2287,19 +2313,17 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                     },
                     stop: function(event, ui) {
                         ui.item.removeClass("dragging");
-                        ui.item.css({
-                            width: originalWidth,
-                            height: originalHeight
-                        });
 
                         var $sec = ui.item.closest('.rb_section_box');
                         if ($sec.length) propagateSectionAttrs($sec);
 
                         $("#saveOrderButton").show();
                         enforceToolbarRule($flexBox, ui.item);
-                        queueRowHandleRefresh($flexBox);                 // 현재 컨테이너
-  // 크롬 레이아웃 늦게 반영되는 케이스 보강
-  setTimeout(function(){ queueRowHandleRefresh($flexBox); }, 0);
+                        queueRowHandleRefresh($flexBox); // 현재 컨테이너
+                        // 크롬 레이아웃 늦게 반영되는 케이스 보강
+                        setTimeout(function() {
+                            queueRowHandleRefresh($flexBox);
+                        }, 0);
                     },
                     deactivate: function(event, ui) {
                         refreshRowHandlesAfterDrop($flexBox); // 현재 컨테이너
@@ -2318,27 +2342,9 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
             // 시각적 클릭 효과
             $(".rb_layout_box").on("mousedown", function() {
                 $(".rb_layout_box").removeClass("dragging");
-
-                var $this = $(this);
-                originalWidth = $this.outerWidth();
-                originalHeight = $this.outerHeight();
-
-                $this.css({
-                    width: originalWidth - 1,
-                    height: originalHeight - 1
-                }).addClass("clicked");
-
-                $this.find(".rb_layout_box").css("margin-right", "-1px");
             });
 
             $(".rb_layout_box").on("mouseup", function() {
-                var $this = $(this);
-                originalWidth = $this.outerWidth();
-                originalHeight = $this.outerHeight();
-                $this.css({
-                    width: originalWidth - 1,
-                    height: originalHeight - 1
-                });
             });
 
             // 저장(모듈 모드에서는 기존 로직 유지)
