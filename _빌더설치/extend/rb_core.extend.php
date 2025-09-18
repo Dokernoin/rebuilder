@@ -8,7 +8,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 //ini_set('display_startup_errors', 1);
 //error_reporting(E_ALL);
 
-define('RB_VER',  '2.2.3.1'); // 버전
+define('RB_VER',  '2.2.3.2'); // 버전
 
 /*********************************************/
 
@@ -990,7 +990,6 @@ function rb_banner_dir($skin, $skin_path = G5_SKIN_PATH)
     return $result_array;
 }
 
-
 // 쪽지발송 (쪽지타입, 제목, 링크주소, 수신ID, 발신ID)
 if (isset($app['ap_title'], $app['ap_key'], $app['ap_pid']) && $app['ap_title'] && $app['ap_key'] && $app['ap_pid']) { //푸시사용시
 
@@ -1019,9 +1018,10 @@ if (isset($app['ap_title'], $app['ap_key'], $app['ap_pid']) && $app['ap_title'] 
 
                 $sql_al = "UPDATE {$g5['member_table']} SET mb_memo_call = 'system-msg', mb_memo_cnt = '".get_memo_not_read($recv)."' WHERE mb_id = '{$recv}'";
                 sql_query($sql_al);
-                
+
             }
             
+
         } else { 
 
             $sql_msg = "INSERT INTO {$g5['memo_table']} SET me_id = '{$me_id}', me_recv_mb_id = '{$recv}', me_send_mb_id = '{$send}', me_send_datetime = '".G5_TIME_YMDHIS."', me_memo = '".addslashes($memo)."', me_type = 'recv'";
@@ -1032,7 +1032,16 @@ if (isset($app['ap_title'], $app['ap_key'], $app['ap_pid']) && $app['ap_title'] 
             
         }
 
-        send_push_if_needed($recv, $memo_push, $app['ap_key']);
+        // PWA 푸시
+        if (function_exists('send_pwa_if_needed')) {
+            send_pwa_if_needed($recv, $send, '시스템 알림', $link_url, $memo_push);
+        }
+
+        // 웹앱 푸시
+        if (function_exists('send_push_if_needed')) {
+            send_push_if_needed($recv, $memo_push, $ap_key);
+        }
+
     }
 
     function send_push_if_needed($recv, $body, $api_key) {
@@ -1108,7 +1117,7 @@ if (isset($app['ap_title'], $app['ap_key'], $app['ap_pid']) && $app['ap_title'] 
 
                 $sql_al = "UPDATE {$g5['member_table']} SET mb_memo_call = 'system-msg', mb_memo_cnt = '".get_memo_not_read($recv)."' WHERE mb_id = '{$recv}'";
                 sql_query($sql_al);
-                
+
             }
             
         } else { 
@@ -1121,6 +1130,10 @@ if (isset($app['ap_title'], $app['ap_key'], $app['ap_pid']) && $app['ap_title'] 
             
         }
         
+        // PWA 푸시
+        if (function_exists('send_pwa_if_needed')) {
+            send_pwa_if_needed($recv, $send, '시스템 알림', $link_url, $memo_push);
+        }
 
     }
 }
