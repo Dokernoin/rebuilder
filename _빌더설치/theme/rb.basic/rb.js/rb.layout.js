@@ -1,96 +1,205 @@
 $(document).ready(function () {
-  function processFlexBoxesOnce($scope, callback) {
-    // 1) 로드 대상 수집: 섹션 내부는 제외
-    var flexBoxes = $scope.find('.flex_box').addBack('.flex_box').filter(function () {
-      var $box = $(this);
-      if ($box.data('layout-loaded')) return false;
-      if ($box.closest('.rb_section_box').length) return false; // 섹션 내부 제외
-      return true;
-    });
 
-    // 2) 레이아웃 목록 만들기 (없으면 자동 부여)
-    var layoutNumbers = [];
-    var seq = 0;
-    flexBoxes.each(function () {
-      var $box = $(this);
-      var lay = String($box.attr('data-layout') || '').trim();
+    function getBasePathFromG5() {
+        try {
+            var u = new URL(typeof g5_url === 'string' ? g5_url : '/', window.location.origin);
+            return (u.pathname || '/').replace(/\/+$/, '');
+        } catch (e) {
+            return '';
+        }
+    }
 
-      if (!lay) {
-        // 최상위 컨테이너에만 임시 번호 부여 (1,2,3…)
-        seq += 1;
-        lay = String(seq);
-        $box.attr('data-layout', lay);
-      }
+    function getPathRelativeToBase() {
+        var base = getBasePathFromG5();
+        var cur = window.location.pathname || '/';
+        if (base && cur.indexOf(base) === 0) {
+            cur = cur.slice(base.length);
+            if (!cur.startsWith('/')) cur = '/' + cur;
+        }
+        return cur.replace(/^\/+/, '').replace(/\/{2,}/g, '/');
+    }
 
-      if (layoutNumbers.indexOf(lay) === -1) layoutNumbers.push(lay);
-      // 여기서는 아직 layout-loaded 찍지 않음 (성공 후에 찍음)
-    });
+    function getGETFromRewrite() {
+        var path = getPathRelativeToBase();
+        var qsParams = new URLSearchParams(window.location.search);
+        var qsObj = Object.fromEntries(qsParams.entries());
 
-    if (!layoutNumbers.length) { if (callback) callback(); return; }
+        var rules = [
+            {
+                re: /^content\/([0-9a-zA-Z_]+)\/?$/,
+                map: m => ({
+                    co_id: m[1],
+                    rewrite: '1'
+                })
+            },
+            {
+                re: /^content\/([^\/]+)\/$/,
+                map: m => ({
+                    co_seo_title: m[1],
+                    rewrite: '1'
+                })
+            },
+            {
+                re: /^rss\/([0-9a-zA-Z_]+)\/?$/,
+                map: m => ({
+                    bo_table: m[1]
+                })
+            },
+            {
+                re: /^([0-9a-zA-Z_]+)\/write$/,
+                map: m => ({
+                    bo_table: m[1],
+                    rewrite: '1'
+                })
+            },
+            {
+                re: /^([0-9a-zA-Z_]+)\/([0-9]+)\/?$/,
+                map: m => ({
+                    bo_table: m[1],
+                    wr_id: m[2],
+                    rewrite: '1'
+                })
+            },
+            {
+                re: /^([0-9a-zA-Z_]+)\/([^\/]+)\/$/,
+                map: m => ({
+                    bo_table: m[1],
+                    wr_seo_title: m[2],
+                    rewrite: '1'
+                })
+            },
+            {
+                re: /^([0-9a-zA-Z_]+)\/?$/,
+                map: m => ({
+                    bo_table: m[1],
+                    rewrite: '1'
+                })
+            },
+        ];
 
-    // 3) AJAX 로드
-    $.ajax({
-      url: g5_url + '/rb/rb.config/ajax.layout_set.php',
-      method: 'POST',
-      dataType: 'json',
-      data: { layouts: layoutNumbers, is_index: is_index },
-      success: function (res) {
-        flexBoxes.each(function () {
-          var $box = $(this);
-          var lay = String($box.attr('data-layout') || '').trim();
-          if (res[lay] !== undefined) {
-            $box.html(res[lay]);
-            $box.data('layout-loaded', true); // 성공 후에 표시
-          }
+        var fromPath = {};
+        for (var i = 0; i < rules.length; i++) {
+            var m = path.match(rules[i].re);
+            if (m) {
+                fromPath = rules[i].map(m);
+                break;
+            }
+        }
+        return Object.assign({}, fromPath, qsObj);
+    }
+
+    function toQueryString(obj) {
+        var usp = new URLSearchParams();
+        Object.keys(obj || {}).forEach(function (k) {
+            if (obj[k] !== undefined && obj[k] !== null) usp.append(k, obj[k]);
+        });
+        var s = usp.toString();
+        return s ? ('?' + s) : '';
+    }
+
+
+    window._GET = getGETFromRewrite();
+
+    function processFlexBoxesOnce($scope, callback) {
+        // 1) 로드 대상 수집: 섹션 내부는 제외
+        var flexBoxes = $scope.find('.flex_box').addBack('.flex_box').filter(function () {
+            var $box = $(this);
+            if ($box.data('layout-loaded')) return false;
+            if ($box.closest('.rb_section_box').length) return false; // 섹션 내부 제외
+            return true;
         });
 
-        // 로드 후: 키(sec_uid) 일치 모듈만 섹션으로 이동
-        packModulesIntoSectionsOnce();
+        // 2) 레이아웃 목록 만들기 (없으면 자동 부여)
+        var layoutNumbers = [];
+        var seq = 0;
+        flexBoxes.each(function () {
+            var $box = $(this);
+            var lay = String($box.attr('data-layout') || '').trim();
 
-        if (callback) callback();
-      },
-      error: function () {
-        console.error('레이아웃 로드 실패');
-        if (callback) callback();
-      }
-    });
-  }
+            if (!lay) {
+                // 최상위 컨테이너에만 임시 번호 부여 (1,2,3…)
+                seq += 1;
+                lay = String(seq);
+                $box.attr('data-layout', lay);
+            }
 
-  // 섹션으로 모듈을 '키 일치'할 때만 이동
-  function packModulesIntoSectionsOnce() {
-    $('.rb_section_box').each(function () {
-      var $sec = $(this);
-      var secUid = String($sec.attr('data-sec-uid') || '').trim();
-      if (!secUid) return;
+            if (layoutNumbers.indexOf(lay) === -1) layoutNumbers.push(lay);
+            // 여기서는 아직 layout-loaded 찍지 않음 (성공 후에 찍음)
+        });
 
-      var $inner = $sec.children('.flex_box').first();
+        if (!layoutNumbers.length) {
+            if (callback) callback();
+            return;
+        }
 
-      // 현재 섹션 바깥에 있는 모듈 중 sec_uid가 같은 것만 흡수
-      var $cand = $('.rb_layout_box').filter(function () {
-        var $m = $(this);
-        var mUid = String($m.attr('data-sec-uid') || '').trim();
-        var outside = ($m.closest('.rb_section_box').length === 0);
-        return !!mUid && mUid === secUid && outside;
-      });
+        var qs = toQueryString(getGETFromRewrite());
 
-      if ($cand.length) {
-        $inner.append($cand);
-        // 보너스: 표시용 layout도 섹션 layout로 맞춤
-        var layout = String($sec.attr('data-layout') || '').trim();
-        $cand.attr('data-layout', layout);
-      }
-    });
-  }
+        // 3) AJAX 로드
+        $.ajax({
+            url: g5_url + '/rb/rb.config/ajax.layout_set.php' + qs,
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                layouts: layoutNumbers,
+                is_index: is_index
+            },
+            success: function (res) {
+                flexBoxes.each(function () {
+                    var $box = $(this);
+                    var lay = String($box.attr('data-layout') || '').trim();
+                    if (res[lay] !== undefined) {
+                        $box.html(res[lay]);
+                        $box.data('layout-loaded', true); // 성공 후에 표시
+                    }
+                });
 
-  // 2회 로드 패턴 유지
-  processFlexBoxesOnce($('body'), function () {
+                // 로드 후: 키(sec_uid) 일치 모듈만 섹션으로 이동
+                packModulesIntoSectionsOnce();
+
+                if (callback) callback();
+            },
+            error: function () {
+                console.error('레이아웃 로드 실패');
+                if (callback) callback();
+            }
+        });
+    }
+
+    // 섹션으로 모듈을 '키 일치'할 때만 이동
+    function packModulesIntoSectionsOnce() {
+        $('.rb_section_box').each(function () {
+            var $sec = $(this);
+            var secUid = String($sec.attr('data-sec-uid') || '').trim();
+            if (!secUid) return;
+
+            var $inner = $sec.children('.flex_box').first();
+
+            // 현재 섹션 바깥에 있는 모듈 중 sec_uid가 같은 것만 흡수
+            var $cand = $('.rb_layout_box').filter(function () {
+                var $m = $(this);
+                var mUid = String($m.attr('data-sec-uid') || '').trim();
+                var outside = ($m.closest('.rb_section_box').length === 0);
+                return !!mUid && mUid === secUid && outside;
+            });
+
+            if ($cand.length) {
+                $inner.append($cand);
+                // 보너스: 표시용 layout도 섹션 layout로 맞춤
+                var layout = String($sec.attr('data-layout') || '').trim();
+                $cand.attr('data-layout', layout);
+            }
+        });
+    }
+
+    // 2회 로드 패턴 유지
     processFlexBoxesOnce($('body'), function () {
-      setTimeout(function () {
-        if (typeof initializeAllSliders === "function") initializeAllSliders();
-        if (typeof initializeCalendar === "function") initializeCalendar();
-      }, 50);
+        processFlexBoxesOnce($('body'), function () {
+            setTimeout(function () {
+                if (typeof initializeAllSliders === "function") initializeAllSliders();
+                if (typeof initializeCalendar === "function") initializeCalendar();
+            }, 50);
+        });
     });
-  });
 });
 
 
@@ -128,12 +237,10 @@ function setupResponsiveSlider($rb_slider) {
             spaceBetween: gap,
             resistanceRatio: 0,
             touchRatio: swap ? 1 : 0,
-            autoplay: $rb_slider.data('autoplay') == 1 ?
-                {
-                    delay: parseInt($rb_slider.data('autoplay-time'), 10) || 3000,
-                    disableOnInteraction: false,
-                } :
-                false,
+            autoplay: $rb_slider.data('autoplay') == 1 ? {
+                delay: parseInt($rb_slider.data('autoplay-time'), 10) || 3000,
+                disableOnInteraction: false,
+            } : false,
             navigation: {
                 nextEl: $rb_slider.find('.rb-swiper-next')[0],
                 prevEl: $rb_slider.find('.rb-swiper-prev')[0],
