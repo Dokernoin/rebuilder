@@ -3,6 +3,9 @@
 include_once('../../common.php');
 header('Content-Type: application/json; charset=utf-8');
 
+@ini_set('display_errors','0');
+@error_reporting(E_ALL);
+
 /* ---------- 공통 보안: 슈퍼관리자, CSRF, Origin/Referer ---------- */
 
 // 1) 슈퍼관리자만
@@ -55,22 +58,21 @@ if (!mb_detect_encoding($code, 'UTF-8', true)) {
 }
 
 /* ---------- 감사 로그 (위젯 폴더별) ---------- */
-
-$log_dir  = $target_dir . '/log';
+$log_dir  = G5_DATA_PATH . '/rb_log/custom_widget/' . $folder;
 if (!is_dir($log_dir) && !@mkdir($log_dir, 0755, true)) {
-  echo json_encode(['ok'=>false,'msg'=>'로그 디렉터리 생성 실패: '.$log_dir]); exit;
+    echo json_encode(['ok'=>false,'msg'=>'로그 디렉터리 생성 실패: '.$log_dir]); exit;
 }
-$log_file = $log_dir . '/widget.log.txt';
+$log_file = $log_dir . '/load.log.txt';
 
 $now  = date('Y-m-d H:i:s');
 $ip   = $_SERVER['REMOTE_ADDR'] ?? '-';
 $mb   = isset($member['mb_id']) ? $member['mb_id'] : '-';
 $line = sprintf("[%s] %s %s LOAD folder=%s size=%d\n",
-  $now, $ip, $mb, $folder, strlen($code));
+    $now, $ip, $mb, $folder, strlen($code));
 
-$written = file_put_contents($log_file, $line, FILE_APPEND | LOCK_EX);
+$written = @file_put_contents($log_file, $line, FILE_APPEND | LOCK_EX);
 if ($written === false) {
-  echo json_encode(['ok'=>false,'msg'=>'로그 기록 실패: '.$log_file]); exit;
+    echo json_encode(['ok'=>false,'msg'=>'로그 기록 실패: '.$log_file]); exit;
 }
 @chmod($log_file, 0644);
 

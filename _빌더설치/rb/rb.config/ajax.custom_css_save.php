@@ -4,7 +4,7 @@ if (!defined('_GNUBOARD_')) exit;
 
 header('Content-Type: application/json; charset=utf-8');
 
-
+// 권한
 if ($is_admin !== 'super') {
   echo json_encode(['status'=>'fail','message'=>'권한이 없습니다.']); exit;
 }
@@ -30,7 +30,7 @@ $is_shop = (isset($_POST['is_shop']) && $_POST['is_shop'] === '1') ? '1' : '0';
 $shop_suffix = ($is_shop === '1') ? '_shop' : '';
 $shop_attr   = $is_shop; // "0" or "1"
 
-// trim()은 쓰지 말 것: 개행 보존
+// trim() 사용 금지: 개행 보존
 $css_code   = isset($_POST['css_code']) ? $_POST['css_code'] : '';
 $sec_id     = $_POST['sec_id'] ?? '';
 $sec_layout = $_POST['sec_layout'] ?? '';
@@ -41,12 +41,12 @@ if ($css_code === '') {
   echo json_encode(['status'=>'fail','message'=>'CSS 내용이 비어있습니다.']); exit;
 }
 
-// 잠재적 위험: javascript: URL, expression(), -moz-binding, 외부 @import 등
+// 위험 CSS 패턴 차단
 $deny = '/(?:
-    url\s*\(\s*(["\'])?\s*javascript:         # url("javascript:")
-  | expression\s*\(                           # expression( ... )
+    url\s*\(\s*(["\'])?\s*javascript:
+  | expression\s*\(
   | -moz-binding\s*:
-  | @import\s+(?:url\s*\()?\s*["\']?\s*(?:https?:)?\/\/ # 원격 import
+  | @import\s+(?:url\s*\()?\s*["\']?\s*(?:https?:)?\/\/
 )/ix';
 if (preg_match($deny, $css_code)) {
   echo json_encode(['status'=>'fail','message'=>'위험한 CSS 패턴이 감지되어 차단되었습니다.']); exit;
@@ -62,7 +62,7 @@ function slug($s){
   return preg_replace('~[^A-Za-z0-9_\-]~', '-', $s);
 }
 
-// 어떤 타겟인지 결정(파일명은 _shop 규칙 유지, 셀렉터는 data-shop으로 통일)
+// 타겟 결정
 $mode = '';
 $selector = '';
 if ($md_layout !== '' && $md_id !== '') {
@@ -97,9 +97,34 @@ $payload = rtrim($css_code) . "\n";
 if (file_put_contents($path, $payload, LOCK_EX) === false) {
   echo json_encode(['status'=>'fail','message'=>'파일 저장 실패']); exit;
 }
-
-$link_id = 'rb-css-'.pathinfo($fname, PATHINFO_FILENAME);
 @chmod($path, 0644);
+
+// ===== 저장 로그 (/data/rb_log/custom_css/...) =====
+$log_root = G5_DATA_PATH . '/rb_log/custom_css';
+
+// 로그 디렉토리: /data/rb_log/custom_css/{mode}/{layout}_{id}/{shop}/
+$layout_part = ($mode === 'mod') ? (slug($md_layout).'_'.slug($md_id))
+                                 : (slug($sec_layout).'_'.slug($sec_id));
+$log_dir = $log_root . '/' . $mode . '/' . $layout_part . '/' . $shop_attr;
+
+if (!is_dir($log_dir)) @mkdir($log_dir, 0755, true);
+
+$log_file = $log_dir . '/save.log.txt';
+$now  = date('Y-m-d H:i:s');
+$ip   = $_SERVER['REMOTE_ADDR'] ?? '-';
+$mb   = $member['mb_id'] ?? '-';
+$size = strlen($payload);
+$hash = @hash_file('sha256', $path) ?: '-';
+$abs  = $path;
+
+$line = sprintf("[%s] %s %s CSS_SAVE mode=%s target=%s shop=%s size=%d file=%s sha256=%s\n",
+  $now, $ip, $mb, $mode, $layout_part, $shop_attr, $size, $abs, $hash
+);
+@file_put_contents($log_file, $line, FILE_APPEND | LOCK_EX);
+@chmod($log_file, 0644);
+
+// 응답
+$link_id = 'rb-css-'.pathinfo($fname, PATHINFO_FILENAME);
 
 echo json_encode([
   'status'   => 'ok',
@@ -108,6 +133,5 @@ echo json_encode([
   'link_id'  => $link_id,
   'mode'     => $mode,
   'is_shop'  => $is_shop,
-  // 에디터/미리보기용: data-shop 기반 최종 타깃
   'selector' => $selector
 ]);
