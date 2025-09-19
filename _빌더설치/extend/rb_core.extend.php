@@ -73,6 +73,8 @@ if (isset($bo_table) && $bo_table) {
     $rb_page_urls = 'item-' . $it_id;
 } else if(isset($ev_id) && $ev_id) {
     $rb_page_urls = 'event-' . $ev_id;
+} else if(isset($fr_id) && $fr_id) {
+    $rb_page_urls = 'form-' . $fr_id;
 }
 
 
