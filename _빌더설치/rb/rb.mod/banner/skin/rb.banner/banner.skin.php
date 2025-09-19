@@ -64,42 +64,65 @@ if ($i > 0) echo '</div>';
 
 
 
-                    <script>
-                        var swiper = new Swiper('.swiper-container-slide_bn_<?php echo $row_mod['md_id'] ?>', {
-                            slidesPerView: <?php echo (!empty($rb_skin['md_col'])) ? $rb_skin['md_col'] : 1; ?>, //가로갯수
-                            spaceBetween: <?php echo (!empty($rb_skin['md_gap'])) ? $rb_skin['md_gap'] : 0; ?>, // 간격
-                            slidesPerColumnFill: 'row',
-                            slidesPerColumn: <?php echo (!empty($rb_skin['md_row'])) ? $rb_skin['md_row'] : 1; ?>, // 세로갯수
-                            touchRatio: <?php echo (!empty($rb_skin['md_swiper_is'])) ? $rb_skin['md_swiper_is'] : 0; ?>, // 드래그 가능여부
-                            observer: true, //리셋
-                            observeParents: true, //리셋
+<script>
+    var swiper = new Swiper('.swiper-container-slide_bn_<?php echo $row_mod['md_id'] ?>', {
+        slidesPerView: <?php echo (!empty($rb_skin['md_col'])) ? $rb_skin['md_col'] : 1; ?>,
+        spaceBetween: <?php echo (!empty($rb_skin['md_gap'])) ? $rb_skin['md_gap'] : 0; ?>,
+        slidesPerColumnFill: 'row',
+        slidesPerColumn: <?php echo (!empty($rb_skin['md_row'])) ? $rb_skin['md_row'] : 1; ?>,
+        touchRatio: <?php echo (!empty($rb_skin['md_swiper_is'])) ? $rb_skin['md_swiper_is'] : 0; ?>,
+        observer: true,
+        observeParents: true,
+        navigation: {
+            nextEl: '.swiper-button-next-slide_bn_<?php echo $row_mod['md_id'] ?>',
+            prevEl: '.swiper-button-prev-slide_bn_<?php echo $row_mod['md_id'] ?>',
+        },
+        <?php if(isset($rb_skin['md_auto_is']) && $rb_skin['md_auto_is'] == 1) { ?>
+        autoplay: {
+            delay: <?php echo (!empty($rb_skin['md_auto_time'])) ? $rb_skin['md_auto_time'] : 3000; ?>,
+            disableOnInteraction: false,
+        },
+        <?php } ?>
+        breakpoints: {
+            1024: {
+                slidesPerView: <?php echo (!empty($rb_skin['md_col'])) ? $rb_skin['md_col'] : 1; ?>,
+                spaceBetween: <?php echo (!empty($rb_skin['md_gap'])) ? $rb_skin['md_gap'] : 0; ?>,
+                slidesPerColumn: <?php echo (!empty($rb_skin['md_row'])) ? $rb_skin['md_row'] : 1; ?>,
+                slidesPerColumnFill: 'row'
+            },
+            10: {
+                slidesPerView: <?php echo (!empty($rb_skin['md_col_mo'])) ? $rb_skin['md_col_mo'] : 1; ?>,
+                spaceBetween: <?php echo (!empty($rb_skin['md_gap_mo'])) ? $rb_skin['md_gap_mo'] : 0; ?>,
+                slidesPerColumn: <?php echo (!empty($rb_skin['md_row_mo'])) ? $rb_skin['md_row_mo'] : 1; ?>,
+                slidesPerColumnFill: 'row'
+            }
+        }
+    });
 
-                            navigation: { //네비
-                                nextEl: '.swiper-button-next-slide_bn_<?php echo $row_mod['md_id'] ?>',
-                                prevEl: '.swiper-button-prev-slide_bn_<?php echo $row_mod['md_id'] ?>',
-                            },
+    // 마진 초기화
+    (function(sw) {
+        if (!sw) return;
 
-                            <?php if(isset($rb_skin['md_auto_is']) && $rb_skin['md_auto_is'] == 1) { ?>
-                            autoplay: {
-                                delay: <?php echo (!empty($rb_skin['md_auto_time'])) ? $rb_skin['md_auto_time'] : 3000; ?>,
-                                disableOnInteraction: false,
-                            },
-                            <?php } ?>
+        function resetSlideMargins(s) {
+            // v5: s.slides는 NodeList (또는 jQuery-wrapped). 둘 다 대응
+            var slides = s.slides || (s.$wrapperEl ? s.$wrapperEl[0].querySelectorAll('.swiper-slide') : []);
+            var len = slides.length || 0;
+            for (var i = 0; i < len; i++) {
+                slides[i].style.marginTop = '';
+            }
+            s.updateSize();
+            s.updateSlides();
+            s.updateSlidesClasses();
+        }
 
-                            breakpoints: { // 반응형
-                                1024: {
-                                    slidesPerView: <?php echo (!empty($rb_skin['md_col'])) ? $rb_skin['md_col'] : 1; ?>, //가로갯수
-                                    spaceBetween: <?php echo (!empty($rb_skin['md_gap'])) ? $rb_skin['md_gap'] : 0; ?>, // 간격
-                                    slidesPerColumn: <?php echo (!empty($rb_skin['md_row'])) ? $rb_skin['md_row'] : 1; ?>, // 세로갯수
-                                    slidesPerColumnFill: 'row', //세로형
-                                },
-                                10: {
-                                    slidesPerView: <?php echo (!empty($rb_skin['md_col_mo'])) ? $rb_skin['md_col_mo'] : 1; ?>, //가로갯수
-                                    spaceBetween: <?php echo (!empty($rb_skin['md_gap_mo'])) ? $rb_skin['md_gap_mo'] : 0; ?>, // 간격
-                                    slidesPerColumn: <?php echo (!empty($rb_skin['md_row_mo'])) ? $rb_skin['md_row_mo'] : 1; ?>, // 세로갯수
-                                    slidesPerColumnFill: 'row',
-                                }
-                            }
-
-                        });
-                    </script>
+        sw.on('breakpoint', function() {
+            resetSlideMargins(sw);
+        });
+        sw.on('resize', function() {
+            resetSlideMargins(sw);
+        });
+        sw.on('imagesReady', function() {
+            resetSlideMargins(sw);
+        });
+    })(swiper);
+</script>
