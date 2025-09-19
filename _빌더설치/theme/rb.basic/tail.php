@@ -18,6 +18,9 @@ if(G5_COMMUNITY_USE === false) {
     <?php if(isset($co_id) && $co_id) { ?>
     <div class="rb_co_btm flex_box" data-layout="rb_co_btm_<?php echo $co_id ?>"></div>
     <?php } ?>
+    <?php if(isset($fr_id) && $fr_id) { ?>
+    <div class="rb_fr_btm flex_box" data-layout="rb_fr_btm_<?php echo $fr_id ?>"></div>
+    <?php } ?>
 <?php } ?>
 
 <?php if (!defined('_INDEX_') && !$sidebar_hidden) { ?>
@@ -26,7 +29,7 @@ if(G5_COMMUNITY_USE === false) {
     </div>
     <?php } ?>
     <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left" || isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") { ?>
-    <div id="rb_sidemenu" class="rb_sidemenu rb_sidemenu_<?php echo isset($rb_core['sidemenu']) ? $rb_core['sidemenu'] : ''; ?> <?php if (isset($rb_core['sidemenu_hide']) && $rb_core['sidemenu_hide'] == "1") { ?>pc<?php } ?>" style="width:<?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>px; <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left") { ?>padding-right:<?php echo isset($rb_core['sidemenu_padding']) ? $rb_core['sidemenu_padding'] : '0'; ?>px;<?php } else if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") { ?>padding-left:<?php echo isset($rb_core['sidemenu_padding']) ? $rb_core['sidemenu_padding'] : '0'; ?>px; transform: translateX(-30px)<?php } ?>"><div class="flex_box" data-layout="rb_sidemenu"></div></div>
+    <div id="rb_sidemenu" class="rb_sidemenu rb_sidemenu_<?php echo isset($rb_core['sidemenu']) ? $rb_core['sidemenu'] : ''; ?> <?php if (isset($rb_core['sidemenu_hide']) && $rb_core['sidemenu_hide'] == "1") { ?>pc<?php } ?>" style="width:<?php echo isset($rb_core['sidemenu_width']) ? $rb_core['sidemenu_width'] : '200'; ?>px; <?php if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "left") { ?>padding-right:<?php echo isset($rb_core['sidemenu_padding']) ? $rb_core['sidemenu_padding'] : '0'; ?>px;<?php } else if (isset($rb_core['sidemenu']) && $rb_core['sidemenu'] == "right") { ?>padding-left:<?php echo isset($rb_core['sidemenu_padding']) ? $rb_core['sidemenu_padding'] : '0'; ?>px;<?php } ?>"><div class="flex_box" data-layout="rb_sidemenu"></div></div>
     <?php } ?>
 
     <div class="cb"></div>

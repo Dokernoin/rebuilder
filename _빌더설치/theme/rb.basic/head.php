@@ -120,6 +120,9 @@ include_once(G5_PATH.'/rb/rb.mod/alarm/alarm.php'); // 실시간 알림
             <?php if(isset($co_id) && $co_id) { ?>
                 <div class="rb_co_top flex_box" data-layout="rb_co_top_<?php echo $co_id ?>"></div>
             <?php } ?>
+            <?php if(isset($fr_id) && $fr_id) { ?>
+                <div class="rb_fr_top flex_box" data-layout="rb_fr_top_<?php echo $fr_id ?>"></div>
+            <?php } ?>
         <?php } ?>
 
         <?php if (!defined("_INDEX_")) { ?><h2 id="container_title"><?php echo get_head_title($g5['title']); ?></h2><?php } ?>
