@@ -40,9 +40,13 @@ $rb_skin['md_gap_mo']; // 모바일 여백
 
         <li class="bbs_main_wrap_tit_l">
             <!-- 타이틀 { -->
+            <?php if($rb_skin['md_sca'] || $rb_skin['md_module']) { ?>
             <a href="<?php echo $links_url; ?>">
+            <?php } ?>
                 <h2 class="<?php echo isset($rb_skin['md_title_font']) ? $rb_skin['md_title_font'] : 'font-B'; ?>" style="color:<?php echo isset($rb_skin['md_title_color']) ? $rb_skin['md_title_color'] : '#25282b'; ?>; font-size:<?php echo isset($rb_skin['md_title_size']) ? $rb_skin['md_title_size'] : '20'; ?>px; "><?php echo $item_subject ?></h2>
+            <?php if($rb_skin['md_sca'] || $rb_skin['md_module']) { ?>
             </a>
+            <?php } ?>
             <!-- } -->
         </li>
 
