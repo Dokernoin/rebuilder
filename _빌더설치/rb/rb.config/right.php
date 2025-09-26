@@ -900,6 +900,50 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
                                 <ul class="rows_inp_lr mt-5">
                                     <li class="rows_inp_l rows_inp_l_span">
+                                        <span class="font-B">상단여백</span><br>
+                                        0~100px
+                                    </li>
+
+                                    <li class="rows_inp_r mt-15">
+                                        <div id="co_topvisual_mt_range" class="rb_range_item"></div>
+                                        <input type="hidden" name="co_topvisual_mt" id="co_topvisual_mt" class="co_range_send" value="<?php echo !empty($rb_v_info['topvisual_mt']) ? $rb_v_info['topvisual_mt'] : '0'; ?>">
+                                    </li>
+
+                                    <script type="text/javascript">
+                                        $("#co_topvisual_mt_range").slider({
+                                            range: "min",
+                                            min: 0,
+                                            max: 100,
+                                            value: <?php echo !empty($rb_v_info['topvisual_mt']) ? $rb_v_info['topvisual_mt'] : '0'; ?>,
+                                            step: 5,
+                                            slide: function(e, ui) {
+                                                $("#co_topvisual_mt_range .ui-slider-handle").html(ui.value);
+                                                $("#co_topvisual_mt").val(ui.value); // hidden input에 값 업데이트
+
+                                                //executeAjax();
+
+                                                // 세로사이즈 반영
+                                                $('#rb_topvisual').css('margin-top', ui.value);
+
+                                            }
+                                        });
+
+                                        $("#co_topvisual_mt_range .ui-slider-handle").html("<?php echo !empty($rb_v_info['topvisual_mt']) ? $rb_v_info['topvisual_mt'] : '0'; ?>");
+                                        $("#co_topvisual_mt").val("<?php echo !empty($rb_v_info['topvisual_mt']) ? $rb_v_info['topvisual_mt'] : '0'; ?>"); // 초기값 설정
+                                    </script>
+
+
+                                    </li>
+                                    <div class="cb"></div>
+                                </ul>
+
+
+
+
+
+
+                                <ul class="rows_inp_lr mt-5">
+                                    <li class="rows_inp_l rows_inp_l_span">
                                         <span class="font-B">세로 크기</span><br>
                                         50~500px
                                     </li>
@@ -915,7 +959,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                             min: 50,
                                             max: 500,
                                             value: <?php echo !empty($rb_v_info['topvisual_height']) ? $rb_v_info['topvisual_height'] : '200'; ?>,
-                                            step: 10,
+                                            step: 5,
                                             slide: function(e, ui) {
                                                 $("#co_topvisual_height_range .ui-slider-handle").html(ui.value);
                                                 $("#co_topvisual_height").val(ui.value); // hidden input에 값 업데이트
@@ -3334,6 +3378,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         var co_sidemenu_hide = "<?php echo !empty($rb_core['sidemenu_hide']) ? $rb_core['sidemenu_hide'] : '0'; ?>";
         var co_sidemenu_hide_shop = "<?php echo !empty($rb_core['sidemenu_hide_shop']) ? $rb_core['sidemenu_hide_shop'] : '0'; ?>";
 
+        var co_topvisual_mt = "<?php echo !empty($rb_v_info['topvisual_mt']) ? $rb_v_info['topvisual_mt'] : '0'; ?>";
         var co_topvisual_height = "<?php echo !empty($rb_v_info['topvisual_height']) ? $rb_v_info['topvisual_height'] : ''; ?>";
         var co_topvisual_width = "<?php echo !empty($rb_v_info['topvisual_width']) ? $rb_v_info['topvisual_width'] : ''; ?>";
         var co_topvisual_bl = "<?php echo isset($rb_v_info['topvisual_bl']) ? $rb_v_info['topvisual_bl'] : '10'; ?>";
@@ -3371,6 +3416,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         var co_sidemenu_hide = $('input[name="co_sidemenu_hide"]:checked').val();
         var co_sidemenu_hide_shop = $('input[name="co_sidemenu_hide_shop"]:checked').val();
 
+        var co_topvisual_mt = $('input[name="co_topvisual_mt"]').val();
         var co_topvisual_height = $('input[name="co_topvisual_height"]').val();
         var co_topvisual_width = $('input[name="co_topvisual_width"]:checked').val();
         var co_topvisual_bl = $('input[name="co_topvisual_bl"]').val();
@@ -3573,6 +3619,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
             method: 'POST', // 또는 'GET' 등의 HTTP 메서드
             dataType: 'json',
             data: {
+                "co_topvisual_mt": co_topvisual_mt,
                 "co_topvisual_height": co_topvisual_height,
                 "co_topvisual_width": co_topvisual_width,
                 "co_topvisual_bl": co_topvisual_bl,

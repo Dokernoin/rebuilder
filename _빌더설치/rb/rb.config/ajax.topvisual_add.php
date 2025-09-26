@@ -18,6 +18,7 @@ if (!$v_code) exit('페이지 코드가 없습니다.');
 
 if(isset($mod_type) && $mod_type == 1) {
 
+    $co_topvisual_mt = !empty($_POST['co_topvisual_mt']) ? $_POST['co_topvisual_mt'] : '0';
     $co_topvisual_height = !empty($_POST['co_topvisual_height']) ? $_POST['co_topvisual_height'] : '200';
     $co_topvisual_width = !empty($_POST['co_topvisual_width']) ? $_POST['co_topvisual_width'] : '';
     $co_topvisual_bl = isset($_POST['co_topvisual_bl']) ? $_POST['co_topvisual_bl'] : '10';
@@ -49,6 +50,7 @@ if(isset($mod_type) && $mod_type == 1) {
     if ($row['cnt'] > 0) {
         // 현재 노드 업데이트
         sql_query("UPDATE {$table} SET
+            co_topvisual_mt = '{$co_topvisual_mt}',
             co_topvisual_height = '{$co_topvisual_height}',
             co_topvisual_width = '{$co_topvisual_width}',
             co_topvisual_bl = '{$co_topvisual_bl}',
@@ -70,6 +72,7 @@ if(isset($mod_type) && $mod_type == 1) {
         // co_topvisual_style_all = 1 이면 하위 노드도 동일하게 스타일 동기화
         if ($co_topvisual_style_all == 1) {
             sql_query("UPDATE {$table} SET
+                co_topvisual_mt = '{$co_topvisual_mt}',
                 co_topvisual_height = '{$co_topvisual_height}',
                 co_topvisual_width = '{$co_topvisual_width}',
                 co_topvisual_bl = '{$co_topvisual_bl}',
@@ -89,6 +92,7 @@ if(isset($mod_type) && $mod_type == 1) {
 
         // 응답
         $data = array(
+            'co_topvisual_mt' => $co_topvisual_mt,
             'co_topvisual_height' => $co_topvisual_height,
             'co_topvisual_width' => $co_topvisual_width,
             'co_topvisual_bl' => $co_topvisual_bl,

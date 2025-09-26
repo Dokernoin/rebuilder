@@ -139,6 +139,7 @@ function rb_auto_insert_node_if_inherited($v_code, $table = 'rb_topvisual') {
             // 스타일도 상속할 경우
             if (isset($parent['co_topvisual_style_all']) && intval($parent['co_topvisual_style_all']) === 1) {
                 $style_fields = [
+                    'co_topvisual_mt',
                     'co_topvisual_height',
                     'co_topvisual_width',
                     'co_topvisual_bl',
@@ -215,6 +216,7 @@ elseif (rb_has_topvisual_all($rb_page_urls)) {
     $should_show_visual = true;
 }
 
+$rb_v_info['topvisual_mt'] = !empty($rb_v_info['co_topvisual_mt']) ? $rb_v_info['co_topvisual_mt'] : '0'; // 상단영역 상단여백
 $rb_v_info['topvisual_height'] = !empty($rb_v_info['co_topvisual_height']) ? $rb_v_info['co_topvisual_height'] : '200'; // 상단영역 세로크기
 $rb_v_info['topvisual_width'] = !empty($rb_v_info['co_topvisual_width']) ? $rb_v_info['co_topvisual_width'] : ''; // 상단영역 가로크기
 $rb_v_info['topvisual_bl'] = isset($rb_v_info['co_topvisual_bl']) ? $rb_v_info['co_topvisual_bl'] : '10'; // 상단영역 블라인드

@@ -482,7 +482,11 @@ input#md_title_hide + label:after {
     position: absolute;
     width: 100%;
     bottom: 15px;
+    opacity: 0;
+    transition: all 350ms cubic-bezier(0.645, 0.045, 0.355, 1);
 }
+
+#rb_topvisual:hover #topvisual_btn_wrap  {opacity: 1;}
 
 #topvisual_btn_wrap button {
     border: 0px;
@@ -507,6 +511,11 @@ input#md_title_hide + label:after {
     background-color: #00d6ee;
     color:#fff;
 }
+
+#rb_topvisual:hover .main_wording_block_adm {display: block;}
+#rb_topvisual:hover .sub_wording_block_adm {display: block;}
+#rb_topvisual_txt .main_wording:focus {outline: none; border:1px solid #00d6ee;}
+#rb_topvisual_txt .sub_wording:focus {outline: none; border:1px solid #00d6ee;}
 
 .tiny_inp_cl input {
     width: 120px !important;
