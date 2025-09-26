@@ -599,7 +599,7 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
                             switch($od['od_pg']) {
                                 case 'lg':
                                     $pg_url  = 'https://app.tosspayments.com';
-                                    $pg_test = '토스페이먼츠';
+                                    $pg_test = '토스페이먼츠(구버전)';
                                     if ($default['de_card_test']) {
                                         $pg_url = 'https://pgweb.tosspayments.com/tmert';
                                         $pg_test .= ' 테스트 ';
@@ -616,6 +616,10 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
                                 case 'nicepay':
                                     $pg_url  = 'https://npg.nicepay.co.kr/';
                                     $pg_test = 'NICEPAY';
+                                    break;
+                                case 'toss':
+                                    $pg_url  = 'https://app.tosspayments.com';
+                                    $pg_test = '토스페이먼츠 ';
                                     break;
                                 default:
                                     $pg_url  = 'http://admin8.kcp.co.kr';
@@ -726,6 +730,9 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
                                     break;
                             }
                             $cash_receipt_script = 'javascript:showCashReceipts(\''.$LGD_MID.'\',\''.$od['od_id'].'\',\''.$od['od_casseqno'].'\',\''.$trade_type.'\',\''.$CST_PLATFORM.'\');';
+
+                        } else if($od['od_pg'] == 'toss') {
+                            $cash_receipt_script = 'window.open(\'https://dashboard.tosspayments.com/receipt/mids/si_'.$config['cf_lg_mid'].'/orders/'.$od['od_id'].'/cash-receipt?ref=dashboard\',\'receipt\',\'width=430,height=700\');';
                         } else if($od['od_pg'] == 'inicis') {
                             $cash = unserialize($od['od_cash_info']);
                             $cash_receipt_script = 'window.open(\'https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/Cash_mCmReceipt.jsp?noTid='.$cash['TID'].'&clpaymethod=22\',\'showreceipt\',\'width=380,height=540,scrollbars=no,resizable=no\');';

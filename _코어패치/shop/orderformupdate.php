@@ -19,6 +19,12 @@ if(($od_settle_case != '무통장' && $od_settle_case != 'KAKAOPAY') && $default
     alert('결제등록 요청 후 주문해 주십시오.');
 }
 
+// 토스 v2 대응
+if(($od_settle_case != '무통장' && $od_settle_case != 'KAKAOPAY') && $default['de_pg_service'] == 'toss' && !$_POST['paymentKey']){
+    if(function_exists('add_order_post_log')) add_order_post_log('결제등록 요청 후 주문해 주십시오.');
+    alert('결제등록 요청 후 주문해 주십시오.');
+}
+
 // 장바구니가 비어있는가?
 if (get_session("ss_direct"))
     $tmp_cart_id = get_session('ss_cart_direct');
@@ -336,6 +342,9 @@ else if ($od_settle_case == "계좌이체")
         case 'lg':
             include G5_SHOP_PATH.'/lg/xpay_result.php';
             break;
+        case 'toss':
+            include G5_SHOP_PATH.'/toss/toss_result.php';
+            break;
         case 'inicis':
             include G5_SHOP_PATH.'/inicis/inistdpay_result.php';
             break;
@@ -366,6 +375,10 @@ else if ($od_settle_case == "가상계좌")
             include G5_SHOP_PATH.'/lg/xpay_result.php';
             $od_receipt_time = '0000-00-00 00:00:00';
             break;
+        case 'toss':
+            include G5_SHOP_PATH.'/toss/toss_result.php';
+            $od_receipt_time = '0000-00-00 00:00:00';
+            break;
         case 'inicis':
             include G5_SHOP_PATH.'/inicis/inistdpay_result.php';
             $od_app_no = $app_no;
@@ -394,6 +407,9 @@ else if ($od_settle_case == "휴대폰")
         case 'lg':
             include G5_SHOP_PATH.'/lg/xpay_result.php';
             break;
+        case 'toss':
+            include G5_SHOP_PATH.'/toss/toss_result.php';
+            break;
         case 'inicis':
             include G5_SHOP_PATH.'/inicis/inistdpay_result.php';
             break;
@@ -420,6 +436,9 @@ else if ($od_settle_case == "신용카드")
     switch($default['de_pg_service']) {
         case 'lg':
             include G5_SHOP_PATH.'/lg/xpay_result.php';
+            break;
+        case 'toss':
+            include G5_SHOP_PATH.'/toss/toss_result.php';
             break;
         case 'inicis':
             include G5_SHOP_PATH.'/inicis/inistdpay_result.php';
@@ -449,6 +468,9 @@ else if ($od_settle_case == "간편결제" || (($od_settle_case == "lpay" || $od
     switch($default['de_pg_service']) {
         case 'lg':
             include G5_SHOP_PATH.'/lg/xpay_result.php';
+            break;
+        case 'toss':
+            include G5_SHOP_PATH.'/toss/toss_result.php';
             break;
         case 'inicis':
             include G5_SHOP_PATH.'/inicis/inistdpay_result.php';
@@ -508,6 +530,9 @@ if($tno) {
         switch($od_pg) {
             case 'lg':
                 include G5_SHOP_PATH.'/lg/xpay_cancel.php';
+                break;
+            case 'toss':
+                include G5_SHOP_PATH.'/toss/toss_cancel.php';
                 break;
             case 'inicis':
                 include G5_SHOP_PATH.'/inicis/inipay_cancel.php';
@@ -650,6 +675,9 @@ if(! $result || ! (isset($exists_order['od_id']) && $od_id && $exists_order['od_
             case 'lg':
                 include G5_SHOP_PATH.'/lg/xpay_cancel.php';
                 break;
+            case 'toss':
+                include G5_SHOP_PATH.'/toss/toss_cancel.php';
+                break;
             case 'inicis':
                 include G5_SHOP_PATH.'/inicis/inipay_cancel.php';
                 break;
@@ -764,6 +792,9 @@ if(!$result) {
         switch($od_pg) {
             case 'lg':
                 include G5_SHOP_PATH.'/lg/xpay_cancel.php';
+                break;
+            case 'toss':
+                include G5_SHOP_PATH.'/toss/toss_cancel.php';
                 break;
             case 'inicis':
                 include G5_SHOP_PATH.'/inicis/inipay_cancel.php';
