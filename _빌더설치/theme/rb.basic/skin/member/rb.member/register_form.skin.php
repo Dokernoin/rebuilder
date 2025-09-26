@@ -501,61 +501,6 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
                 <?php }  ?>
 
 
-                <?php if (isset($config['cf_kakaotalk_use']) && $config['cf_kakaotalk_use'] !== "") { ?>
-
-
-                <li>
-                    <span>
-                    게시판 알림설정
-                    <div class="rb-help" data-open="false">
-                        <button type="button" class="rb-help-btn"
-                           data-img=""
-                           data-txt="게시판이나 댓글이 등록되면 알림톡으로 안내를 받을 수 있습니다. 알림은 등록된 휴대폰 번호로 발송됩니다."
-                           data-title="게시판 알림설정 도움말"
-                           data-alt="도움말"
-                           aria-expanded="false">
-                            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
-                                <g fill='none'>
-                                    <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
-                                    <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
-                                </g>
-                            </svg>
-                        </button>
-                        <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
-                    </div>
-                    </span>
-
-                        <!-- 게시글 알림 -->
-                        <div class="alt_boxs">
-                                <ul>
-                                    <input type="checkbox" name="mb_board_post" value="1" id="mb_board_post" <?php echo (empty($w) || !empty($member['mb_board_post'])) ? 'checked' : ''; ?> class="selec_chk">
-                                    <label for="mb_board_post">내 게시글 작성 완료 알림</label>
-                                </ul>
-                                <ul>
-                                    <input type="checkbox" name="mb_board_reply" value="1" id="mb_board_reply" <?php echo (empty($w) || !empty($member['mb_board_reply'])) ? 'checked' : ''; ?> class="selec_chk">
-                                    <label for="mb_board_reply">내 게시글에 달린 답변 알림</label>
-                                </ul>
-
-                        </div>
-
-                        <!-- 댓글 알림 -->
-                        <div class="alt_boxs">
-                            <ul>
-                                <input type="checkbox" name="mb_board_comment" value="1" id="mb_board_comment" <?php echo (empty($w) || !empty($member['mb_board_comment'])) ? 'checked' : ''; ?>class="selec_chk">
-                                <label for="mb_board_comment">내 게시글에 달린 댓글 알림</label>
-                            </ul>
-                            <ul>
-                                <input type="checkbox" name="mb_board_recomment" value="1" id="mb_board_recomment" <?php echo (empty($w) || !empty($member['mb_board_recomment'])) ? 'checked' : ''; ?> class="selec_chk">
-                                <label for="mb_board_recomment">댓글에 대댓글 알림</label>
-                            </ul>
-                        </div>
-
-
-                </li>
-
-
-                <?php } ?>
-
                 <!-- 회원가입 약관 동의에 광고성 정보 수신 동의 표시 여부가 사용시에만 -->
                 <?php if (isset($config['cf_use_promotion']) && (int)$config['cf_use_promotion'] === 1) { ?>
 
@@ -622,15 +567,15 @@ if ($config['cf_cert_use'] && ($config['cf_cert_simple'] || $config['cf_cert_ipi
 
                                 <?php } ?>
                                 <template id="tpl_promotion">
-                                    수집·이용에 동의한 개인정보를 이용하여 이메일/SMS/카카오톡 등으로 오전 8시~오후 9시에 광고성 정보를 전송할 수 있습니다.<br>
+                                    수집·이용에 동의한 개인정보를 이용하여 이메일/SMS/ 등으로 오전 8시~오후 9시에 광고성 정보를 전송할 수 있습니다.<br>
                                     동의는 언제든지 마이페이지에서 철회할 수 있습니다.
                                 </template>
 
                                 <!-- (선택) 개인정보 제3자 제공 동의 -->
-                                <!-- SMS 및 카카오톡 사용시에만 -->
+                                <!-- SMS 사용시에만 -->
                                 <?php
-                                    $configKeys = array('cf_sms_use', 'cf_kakaotalk_use');
-                                    $companies  = array('icode' => '아이코드', 'popbill' => '팝빌');
+                                    $configKeys = ['cf_sms_use'];
+                					$companies = ['icode' => '아이코드'];
 
                                     $usedCompanies = array();
                                     foreach ($configKeys as $key) {

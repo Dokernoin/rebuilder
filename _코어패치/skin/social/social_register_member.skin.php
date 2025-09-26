@@ -125,10 +125,10 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
                                 </template>
 
                                 <!-- (선택) 개인정보 제3자 제공 동의 -->
-                                <!-- SMS 및 카카오톡 사용시에만 -->
+                                <!-- SMS 사용시에만 -->
                                 <?php
-                                    $configKeys = array('cf_sms_use', 'cf_kakaotalk_use');
-                                    $companies  = array('icode' => '아이코드', 'popbill' => '팝빌');
+                                    $configKeys = ['cf_sms_use'];
+                                    $companies = ['icode' => '아이코드'];
 
                                     $usedCompanies = array();
                                     foreach ($configKeys as $key) {
