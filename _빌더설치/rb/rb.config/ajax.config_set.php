@@ -1349,8 +1349,8 @@ if($mod_type == "del_sec") { //섹션삭제
 
 
         <?php
-                        if($is_shop == 1) {
-                    ?>
+            if($is_shop == 1) {
+        ?>
 
         <ul class="rb_config_sec selected_item selected_select">
             <h6 class="font-B">
