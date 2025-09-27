@@ -16,6 +16,7 @@ include_once(G5_LIB_PATH.'/latest.lib.php');
 
 <style>
     #container_title {display: none;}
+    .sub {padding-left: 0px !important; padding-right: 0px !important;}
 </style>
 
 <?php if(isset($gr_id) && $gr_id) { ?>
