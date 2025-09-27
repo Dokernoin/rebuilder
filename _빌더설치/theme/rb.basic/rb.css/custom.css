@@ -470,7 +470,7 @@ select#ct_send_cost {width: 150px;}
 .rb_bbs_wrap .rb_bbs_top li.cnts {float:left;}
 .module_banner_wrap {overflow: hidden;}
 .bn_radius {overflow: hidden;}
-.rb_module_wide {width: 100vw;position: relative;left: 50%;transform: translateX(-50%);padding-left: 7px !important;padding-right: 7px !important;}
+.rb_module_wide {width: 100vw;position: relative;left: 50%;transform: translateX(-50%);}
 .rb_module_mid {width: 1920px;position: relative;left: 50%;transform: translateX(-50%);}
 .index {padding-bottom: 30px; padding-top: 20px;}
 
@@ -787,6 +787,12 @@ select#ct_send_cost {width: 150px;}
 .md_arrow_1 .mod_bn_wrap .swiper-button-next {right: 10px !important;}
 .md_arrow_1 .mod_bn_wrap .swiper-button-prev {left:10px !important;}
 .swiper-button-prev, .swiper-button-next {top:50% !important; margin-top: 0px !important; transform: translateY(-50%) !important;}
+
+.rb_module_wide {padding-left: 0px !important; padding-right: 0px !important;}
+.rb_module_wide .md_arrow_1 .mod_bn_wrap .swiper-button-next {right: 20px !important;}
+.rb_module_wide .md_arrow_1 .mod_bn_wrap .swiper-button-prev {left:20px !important;}
+#rb_sidemenu_shop .flex_box {}
+#rb_sidemenu_float_shop .flex_box {}
 /* } */
 
 
@@ -972,8 +978,52 @@ select#ct_send_cost {width: 150px;}
 
     /* 2.2.3.2 { */
     #rb_topvisual_bl {border-radius: 0px !important;}
-    .md_arrow_1 .rb_swiper .rb_swiper_paging_btn .rb-swiper-prev {left: 10px !important;}
-    .md_arrow_1 .rb_swiper .rb_swiper_paging_btn .rb-swiper-next {right: 10px !important;}
+    .md_arrow_1 .rb_swiper .rb_swiper_paging_btn .rb-swiper-prev {left: -10px !important;}
+    .md_arrow_1 .rb_swiper .rb_swiper_paging_btn .rb-swiper-next {right: -10px !important;}
+    .module_banner_wrap {margin: 0px;}
+    .q_btns {padding: 0px;}
+    .bbs_main {padding-top: 0px; padding-bottom: 0px;}
+    .content_box .swiper-container {padding-left: 0px; padding-right: 0px;}
+    .rb_swiper .rb_swiper_inner {padding-right: 0px; padding-left: 0px;}
+    .bbs_main_wrap_tit {padding-right: 0px; padding-left: 0px;}
+    #poll {margin-left: 0px; margin-right: 0px;}
+    .content_box {margin-bottom: 0px;}
+    .rb_module_wide .md_arrow_1 .mod_bn_wrap .swiper-button-next {right: 10px !important;}
+    .rb_module_wide .md_arrow_1 .mod_bn_wrap .swiper-button-prev {left:10px !important;}
+    #sct {padding-left: 0px; padding-right: 0px;}
+    #container_title {padding-left: 0px; padding-right: 0px;}
+
+    #sit_buy .sit_buy_inner {
+        padding-bottom: 202px;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #sit_buy::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        background: transparent;
+    }
+    #sit {padding-left: 0px; padding-right: 0px;}
+    #sod_frm {padding-left: 0px; padding-right: 0px;}
+    #sod_fin {padding-left: 0px; padding-right: 0px;}
+    #sod_v {padding-left: 0px; padding-right: 0px;}
+    #sit_hhtml {padding-left: 0px; padding-right: 0px;}
+    #ssch  {padding-left: 0px; padding-right: 0px;}
+    .rb_prof.rb_prof_partner {padding-left: 0px; padding-right: 0px;}
+    #sod_bsk {padding-left: 0px; padding-right: 0px;}
+    #sod_ws {padding-left: 0px; padding-right: 0px;}
+    .couponzone_list {padding-left: 0px; padding-right: 0px;}
+    .rb_bbs_wrap {padding-left: 0px; padding-right: 0px;}
+    .rb_faq {padding-left: 0px !important; padding-right: 0px !important;}
+    .rb_serch_skin {padding-left: 0px; padding-right: 0px;}
+    #current_connect {padding-left: 0px; padding-right: 0px;}
+    .rb_prof.rb_prof_new {padding-left: 0px; padding-right: 0px;}
+    .rb_prof_tab {padding-left: 0px !important; padding-right: 0px !important;}
+    .rb_form_wrap_top {padding-left: 0px !important; padding-right: 0px !important;}
+    .rb_form_wrap {padding-left: 0px !important; padding-right: 0px !important;}
+    #ctt {padding-left: 0px !important; padding-right: 0px !important;}
     /* } */
 
 }

@@ -157,7 +157,7 @@ foreach ($layouts as $layout_no) {
                     <?php } ?>
 
                     <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'banner') { ?>
-                        <div class="bbs_main_wrap_tit mo-mb-0" style="display:<?php echo (isset($row_mod['md_title_hide']) && $row_mod['md_title_hide'] == '1') ? 'none' : 'block'; ?>">
+                        <div class="bbs_main_wrap_tit" style="display:<?php echo (isset($row_mod['md_title_hide']) && $row_mod['md_title_hide'] == '1') ? 'none' : 'block'; ?>">
                             <ul class="bbs_main_wrap_tit_l">
                                 <a href="javascript:void(0);">
                                     <h2 class="<?php echo isset($row_mod['md_title_font']) ? $row_mod['md_title_font'] : 'font-B'; ?>" style="color:<?php echo isset($row_mod['md_title_color']) ? $row_mod['md_title_color'] : '#25282b'; ?>; font-size:<?php echo isset($row_mod['md_title_size']) ? $row_mod['md_title_size'] : '20'; ?>px; "><?php echo $row_mod['md_title'] ?></h2>
@@ -253,9 +253,9 @@ foreach ($layouts as $layout_no) {
                  data-shop="0"
                  >
 
-                 <?php if ($is_admin) { ?>
+                <?php if ($is_admin) { ?>
                    <span class="rb-sec-label">섹션 <?php echo $row_sec['sec_id']; ?> / <?php echo cut_str($row_sec['sec_title'], 15); ?></span>
-                   <?php } ?>
+                <?php } ?>
 
 
                 <div class="rb_section_title">

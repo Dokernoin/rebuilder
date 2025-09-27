@@ -160,7 +160,7 @@ foreach ($layouts as $layout_no) {
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'banner') { ?>
 
-                    <div class="bbs_main_wrap_tit mo-mb-0" style="display:<?php echo (isset($row_mod['md_title_hide']) && $row_mod['md_title_hide'] == '1') ? 'none' : 'block'; ?>">
+                    <div class="bbs_main_wrap_tit" style="display:<?php echo (isset($row_mod['md_title_hide']) && $row_mod['md_title_hide'] == '1') ? 'none' : 'block'; ?>">
                         <ul class="bbs_main_wrap_tit_l">
                             <!-- 타이틀 { -->
                             <a href="javascript:void(0);">
