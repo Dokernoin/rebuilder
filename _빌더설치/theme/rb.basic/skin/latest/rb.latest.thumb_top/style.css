@@ -3,8 +3,8 @@
 .bbs_main_wrap_thumb_top_con {box-sizing: border-box; width: 100%}
 .bbs_main_wrap_thumb_top_con dd {position: relative;}
 .bbs_main_wrap_thumb_top_con dd:last-child {margin-bottom: 0px;}
-.bbs_main_wrap_thumb_top_con .bbs_main_wrap_con_ul1 {width: 100%; box-sizing: border-box; position: relative; margin-bottom: 20px;}
-.bbs_main_wrap_thumb_top_con .bbs_main_wrap_con_ul1 img {width: 100%; height:auto; border-radius: 10px;}
+.bbs_main_wrap_thumb_top_con .bbs_main_wrap_con_ul1 {width: 100%; box-sizing: border-box; position: relative; margin-bottom: 20px; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 10px; border:1px solid rgba(0,0,0,0.1);}
+.bbs_main_wrap_thumb_top_con .bbs_main_wrap_con_ul1 img {width: 100%; height:100%; object-fit: cover; border:0px;}
 .bbs_main_wrap_thumb_top_con .bbs_main_wrap_con_ul2 {width: 100%;}
 .bbs_main_wrap_thumb_top_con .bbs_main_wrap_con_subj {font-size: 16px;}
 .bbs_main_wrap_thumb_top_con .bbs_main_wrap_con_cont {font-size: 14px; color:#666; word-break: keep-all; margin-top: 15px;}

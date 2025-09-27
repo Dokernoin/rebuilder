@@ -46,11 +46,11 @@
 .rb_latest_tabs_top .latest-tab-content-thumb-top dd {position: relative;}
 .rb_latest_tabs_top .latest-tab-content-thumb-top .more_btn {position: absolute; top:0px; right:0px;}
 .rb_latest_tabs_top .latest-tab-content-thumb-top dd:last-child {margin-bottom: 0px;}
-.rb_latest_tabs_top .latest-tab-content-thumb-top .bbs_main_wrap_con_ul1 {width: 100%; box-sizing: border-box; position: relative; margin-bottom: 20px;}
-.rb_latest_tabs_top .latest-tab-content-thumb-top .bbs_main_wrap_con_ul1 img {width: 100%; height:auto; border-radius: 10px;}
+.rb_latest_tabs_top .latest-tab-content-thumb-top .bbs_main_wrap_con_ul1 {width: 100%; box-sizing: border-box; position: relative; margin-bottom: 20px; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 10px; border:1px solid rgba(0,0,0,0.1);}
+.rb_latest_tabs_top .latest-tab-content-thumb-top .bbs_main_wrap_con_ul1 img {width: 100%; height:100%; object-fit: cover; border:0px;}
 .rb_latest_tabs_top .latest-tab-content-thumb-top .bbs_main_wrap_con_ul2 {width: 100%;}
 .rb_latest_tabs_top .latest-tab-content-thumb-top .bbs_main_wrap_con_subj {font-size: 16px;}
-.rb_latest_tabs_top .latest-tab-content-thumb-top .bbs_main_wrap_con_cont {font-size: 14px; color:#666; word-break: keep-all; margin-top: 15px;}
+.rb_latest_tabs_top .latest-tab-content-thumb-top .bbs_main_wrap_con_cont {font-size: 14px; color:#666; word-break: keep-all; margin-top: 10px;}
 .rb_latest_tabs_top .latest-tab-content-thumb-top .bbs_main_wrap_con_cont a {color:#666;}
 .rb_latest_tabs_top .latest-tab-content-thumb-top .bbs_main_wrap_con_info {font-size: 12px; color:#999; margin-top: 10px;}
 .rb_latest_tabs_top .latest-tab-content-thumb-top .bbs_main_wrap_con_writer {margin-top: 20px;}

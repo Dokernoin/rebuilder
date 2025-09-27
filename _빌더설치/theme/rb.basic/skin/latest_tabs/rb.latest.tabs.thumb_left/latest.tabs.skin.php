@@ -107,12 +107,12 @@ $rb_skin['md_tab_list'] 탭 설정
             <div class="latest-tab-content<?php echo $i == 0 ? ' active' : ''; ?>" id="tab-<?php echo $rb_skin['md_id'].'-'.$i; ?>">
 
                 <?php
-        if(isset($cate) && $cate) {
-            $links_url = get_pretty_url($bo_table,'','sca='.urlencode($cate));
-        } else {
-            $links_url = get_pretty_url($bo_table);
-        }
-        ?>
+                if(isset($cate) && $cate) {
+                    $links_url = get_pretty_url($bo_table,'','sca='.urlencode($cate));
+                } else {
+                    $links_url = get_pretty_url($bo_table);
+                }
+                ?>
                 <button type="button" class="more_btn" onclick="location.href='<?php echo $links_url ?>';" style="display:<?php echo (isset($rb_skin['md_title_hide']) && $rb_skin['md_title_hide'] == '1') ? 'none' : 'block'; ?>">더보기</button>
 
                 <div class="rb_swiper" id="rb_swiper_<?php echo $rb_skin['md_id'].'_'.$i ?>" data-pc-w="<?php echo $rb_skin['md_col'] ?>" data-pc-h="<?php echo $rb_skin['md_row'] ?>" data-mo-w="<?php echo $rb_skin['md_col_mo'] ?>" data-mo-h="<?php echo $rb_skin['md_row_mo'] ?>" data-pc-gap="<?php echo $rb_skin['md_gap'] ?>" data-mo-gap="<?php echo $rb_skin['md_gap_mo'] ?>" data-autoplay="<?php echo $rb_skin['md_auto_is'] ?>" data-autoplay-time="<?php echo $rb_skin['md_auto_time'] ?>" data-pc-swap="<?php echo $rb_skin['md_swiper_is'] ?>" data-mo-swap="<?php echo $rb_skin['md_swiper_is'] ?>">
@@ -121,13 +121,13 @@ $rb_skin['md_tab_list'] 탭 설정
                         <div class="rb-swiper-wrapper swiper-wrapper">
                             <?php foreach ($list as $row): ?>
                             <?php
-                  $thumb = get_list_thumbnail($bo_table, $row['wr_id'], $thumb_width, $thumb_height, false, true);
-                  $img = ($thumb['src'] && !strstr($row['wr_option'], 'secret')) ? $thumb['src'] : (strstr($row['wr_option'], 'secret') ? G5_THEME_URL.'/rb.img/sec_image.png' : G5_THEME_URL.'/rb.img/no_image.png');
-                  $thumb_alt = $thumb['alt'] ?: '이미지';
-                  $wr_href = get_pretty_url($bo_table, $row['wr_id']);
-                  $wr_content = strip_tags($row['wr_content']);
-                  $is_secret = strstr($row['wr_option'], 'secret');
-                ?>
+                              $thumb = get_list_thumbnail($bo_table, $row['wr_id'], $thumb_width, $thumb_height, false, true);
+                              $img = ($thumb['src'] && !strstr($row['wr_option'], 'secret')) ? $thumb['src'] : (strstr($row['wr_option'], 'secret') ? G5_THEME_URL.'/rb.img/sec_image.png' : G5_THEME_URL.'/rb.img/no_image.png');
+                              $thumb_alt = $thumb['alt'] ?: '이미지';
+                              $wr_href = get_pretty_url($bo_table, $row['wr_id']);
+                              $wr_content = trim(strip_tags((string)($row['wr_content'] ?? '')));
+                              $is_secret = strstr($row['wr_option'], 'secret');
+                            ?>
                             <div class="rb_swiper_list">
                                 <div>
                                     <?php if ($rb_skin['md_thumb_is']): ?>
@@ -135,43 +135,68 @@ $rb_skin['md_tab_list'] 탭 설정
                                         <a href="<?php echo $wr_href ?>">
                                             <img src="<?php echo $img ?>" alt="<?php echo $thumb_alt ?>" class="skin_list_image">
                                         </a>
-
-                                        <?php if($rb_skin['md_icon_is'] == 1) { //모듈설정:아이콘 출력여부(1,0)?>
-                                        <div class="icon_abs">
-                                            <?php if ($row['icon_new']) echo "<span class=\"bbs_list_label label3\">새글</span>"; ?>
-                                            <?php if ($row['icon_hot']) echo "<span class=\"bbs_list_label label1\">인기</span>"; ?>
-                                        </div>
-                                        <?php } ?>
                                     </ul>
                                     <?php endif; ?>
 
                                     <ul class="bbs_main_wrap_con_ul2" style="<?php echo !$rb_skin['md_thumb_is'] ? 'padding-left:0px !important; min-height:36px;' : '' ?>">
-                                        <?php if($rb_skin['md_subject_is']): ?>
-                                        <li class="bbs_main_wrap_con_subj cut">
-                                            <a href="<?php echo $wr_href ?>" class="font-B"><?php echo $row['subject'] ?></a>
-                                        </li>
-                                        <?php endif; ?>
 
-                                        <?php if($rb_skin['md_content_is']): ?>
-                                        <li class="bbs_main_wrap_con_cont">
-                                            <?php if ($is_secret): ?>
-                                            <a href="<?php echo $wr_href ?>" style="opacity:0.6" class="cut2">작성자 및 관리자 외 열람할 수 없습니다.<br>비밀글 기능으로 보호된 글입니다.</a>
-                                            <?php else: ?>
-                                            <a href="<?php echo $wr_href ?>" class="cut2"><?php echo $wr_content ?></a>
-                                            <?php endif; ?>
-                                        </li>
-                                        <?php endif; ?>
 
-                                        <?php if($rb_skin['md_nick_is'] || $rb_skin['md_date_is'] || $rb_skin['md_comment_is']): ?>
-                                        <li class="bbs_main_wrap_con_info">
-                                            <?php if($rb_skin['md_nick_is']) echo '<span class="prof_tiny_name font-B">'.$row['wr_name'].'</span>'; ?>
-                                            <?php if($rb_skin['md_date_is']) echo passing_time($row['wr_datetime']).'　'; ?>
-                                            <?php if($rb_skin['md_ca_is']) echo $row['ca_name'].'　'; ?>
+                                        <?php if($rb_skin['md_subject_is'] == 1 || $rb_skin['md_icon_is'] == 1 || $rb_skin['md_comment_is'] == 1) { ?>
+                                        <li class="bbs_main_wrap_con_subj">
+                                            <?php if($rb_skin['md_subject_is'] == 1) { //모듈설정:제목 출력여부(1,0) ?>
+                                            <a href="<?php echo $wr_href ?>" class="font-B cut_subj"><?php echo $row['subject'] ?></a>
+                                            <?php } ?>
 
-                                            <?php if($rb_skin['md_comment_is'] && $row['wr_comment']) echo '댓글 '.number_format($row['wr_comment']).'　'; ?>
-                                            조회 <?php echo number_format($row['wr_hit']) ?>
+                                            <?php if($rb_skin['md_comment_is'] == 1) { //모듈설정:댓글 출력여부(1,0 || 댓글이 0개 이상인 경우)?>
+                                                <?php if($row['comment_cnt']) { ?>
+                                                <span class="comments_span font-B main_color">+<?php echo number_format($row['wr_comment']); ?></span>
+                                                <?php } ?>
+                                            <?php } ?>
+
+                                            <?php if($rb_skin['md_icon_is'] == 1) { //모듈설정:아이콘 출력여부(1,0)?>
+
+                                                <?php if ($row['icon_new']) echo "<span class=\"bbs_list_label bbs_list_label_inline label3\">N</span>"; ?>
+                                                <?php if ($row['icon_hot']) echo "<span class=\"bbs_list_label bbs_list_label_inline label1\">H</span>"; ?>
+
+                                            <?php } ?>
+
+                                            <div class="cb"></div>
+
                                         </li>
-                                        <?php endif; ?>
+                                        <?php } ?>
+
+
+                                        <?php if($rb_skin['md_content_is'] == 1) { //모듈설정:본문 출력여부(1,0)?>
+                                            <?php if ($is_secret) { ?>
+                                                <li class="bbs_main_wrap_con_cont">
+                                                    <a href="<?php echo $wr_href ?>" style="opacity:0.6" class="cut2">작성자 및 관리자 외 열람할 수 없습니다.<br>비밀글 기능으로 보호된 글입니다.</a>
+                                                </li>
+                                            <?php } else { ?>
+                                                <li class="bbs_main_wrap_con_cont cut2">
+                                                    <a href="<?php echo $wr_href ?>" class="cut2"><?php echo $wr_content ?></a>
+                                                </li>
+                                            <?php } ?>
+                                        <?php } ?>
+
+
+                                        <?php if($rb_skin['md_date_is'] == 1 || $rb_skin['md_ca_is'] == 1) { //모듈설정:작성일 출력여부(1,0) || 모듈설정:카테고리명 출력여부(1,0)?>
+                                            <li class="bbs_main_wrap_con_info">
+
+                                                <?php if($rb_skin['md_nick_is'] == 1) { //모듈설정:작성자 출력여부(1,0)?>
+                                                <span class="prof_tiny_name font-B"><?php echo $row['wr_name'] ?></span>
+                                                <?php } ?>
+
+                                                <?php if($rb_skin['md_ca_is'] == 1 && $list[$i]['ca_name']) { //모듈설정:카테고리 출력여부(1,0) || 카테고리 있을때만?>
+                                                <?php echo $row['ca_name'] ?>
+                                                <?php } ?>
+
+                                                <?php if($rb_skin['md_date_is'] == 1) { //모듈설정:작성일 출력여부(1,0)?>
+                                                <?php echo passing_time($row['wr_datetime']) ?>
+                                                조회 <?php echo number_format($row['wr_hit']); ?>
+                                                <?php } ?>
+                                            </li>
+                                        <?php } ?>
+
 
 
                                     </ul>

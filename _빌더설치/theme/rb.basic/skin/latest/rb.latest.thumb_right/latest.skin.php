@@ -53,7 +53,7 @@ $rb_skin['md_auto_is'] 자동롤링 여부(1,0)
 */
 
 ?>
-<link rel="stylesheet" href="<?php echo $latest_skin_url ?>/style.css?ver=202407011444">
+<link rel="stylesheet" href="<?php echo $latest_skin_url ?>/style.css?ver=<?php echo G5_SERVER_TIME ?>">
 
 
     <div class="bbs_main">
@@ -122,10 +122,7 @@ $rb_skin['md_auto_is'] 자동롤링 여부(1,0)
                                 $sec_txt = '<span style="opacity:0.6">작성자 및 관리자 외 열람할 수 없습니다.<br>비밀글 기능으로 보호된 글입니다.</span>';
                                 
                                 //본문출력 (class="cut" : 한줄자르기 / class="cut2" : 두줄자르기)
-                                //$wr_content = preg_replace("/<(.*?)\>/","",$list[$i]['wr_content']);
-                                //$wr_content = preg_replace("/&nbsp;/","",$wr_content);
-                                //$wr_content = preg_replace("/&gt;/","",$wr_content);
-                                $wr_content = strip_tags($list[$i]['wr_content']);
+                                $wr_content = trim(strip_tags((string)($list[$i]['wr_content'] ?? '')));
                             ?>
                             
 
@@ -144,9 +141,31 @@ $rb_skin['md_auto_is'] 자동롤링 여부(1,0)
                                     <?php } ?>
                                     
                                     <ul class="bbs_main_wrap_con_ul2" <?php if(!$thumb['src'] || !$rb_skin['md_thumb_is']) { ?>style="padding-right:0px; min-height:auto !important;"<?php } ?>>
+
+
                                         
-                                        <?php if($rb_skin['md_subject_is'] == 1) { //모듈설정:제목 출력여부(1,0) ?>
-                                        <li class="bbs_main_wrap_con_subj cut"><a href="<?php echo $wr_href ?>" class="font-B"><?php echo $list[$i]['subject'] ?></a></li>
+                                        <?php if($rb_skin['md_subject_is'] == 1 || $rb_skin['md_icon_is'] == 1) { ?>
+                                        <li class="bbs_main_wrap_con_subj">
+                                            <?php if($rb_skin['md_subject_is'] == 1) { //모듈설정:제목 출력여부(1,0) ?>
+                                            <a href="<?php echo $wr_href ?>" class="font-B cut_subj"><?php echo $list[$i]['subject'] ?></a>
+                                            <?php } ?>
+
+                                            <?php if($rb_skin['md_comment_is'] == 1) { //모듈설정:댓글 출력여부(1,0 || 댓글이 0개 이상인 경우)?>
+                                                <?php if($list[$i]['comment_cnt']) { ?>
+                                                <span class="comments_span font-B main_color">+<?php echo number_format($list[$i]['wr_comment']); ?></span>
+                                                <?php } ?>
+                                            <?php } ?>
+
+                                            <?php if($rb_skin['md_icon_is'] == 1) { //모듈설정:아이콘 출력여부(1,0)?>
+
+                                                <?php if ($list[$i]['icon_new']) echo "<span class=\"bbs_list_label bbs_list_label_inline label3\">N</span>"; ?>
+                                                <?php if ($list[$i]['icon_hot']) echo "<span class=\"bbs_list_label bbs_list_label_inline label1\">H</span>"; ?>
+
+                                            <?php } ?>
+
+                                            <div class="cb"></div>
+
+                                        </li>
                                         <?php } ?>
                                         
                                         <?php if($rb_skin['md_content_is'] == 1) { //모듈설정:본문 출력여부(1,0)?>
@@ -169,31 +188,20 @@ $rb_skin['md_auto_is'] 자동롤링 여부(1,0)
                                                 <?php if($rb_skin['md_nick_is'] == 1) { //모듈설정:작성자 출력여부(1,0)?>
                                                 <span class="prof_tiny_name font-B"><?php echo $list[$i]['wr_name'] ?></span>　
                                                 <?php } ?>
-                                                
-                                                <?php if($rb_skin['md_date_is'] == 1) { //모듈설정:작성일 출력여부(1,0)?>
-                                                <?php echo passing_time($list[$i]['wr_datetime']) ?>　
-                                                <?php } ?>
 
                                                 <?php if($rb_skin['md_ca_is'] == 1 && $list[$i]['ca_name']) { //모듈설정:카테고리 출력여부(1,0) || 카테고리 있을때만?>
                                                 <?php echo $list[$i]['ca_name'] ?>　
                                                 <?php } ?>
                                                 
-                                                <?php if($rb_skin['md_comment_is'] == 1) { //모듈설정:댓글 출력여부(1,0 || 댓글이 0개 이상인 경우)?>
-                                                    <?php if($list[$i]['comment_cnt']) { ?>
-                                                        댓글 <?php echo number_format($list[$i]['wr_comment']); ?>　
-                                                    <?php } ?>
-                                                    조회 <?php echo number_format($list[$i]['wr_hit']); ?>　
+                                                <?php if($rb_skin['md_date_is'] == 1) { //모듈설정:작성일 출력여부(1,0)?>
+                                                <?php echo passing_time($list[$i]['wr_datetime']) ?>
+                                                조회 <?php echo number_format($list[$i]['wr_hit']); ?>
                                                 <?php } ?>
+
 
                                             </li>
                                         <?php } ?>
-                                        
-                                        <?php if($rb_skin['md_icon_is'] == 1 && $list[$i]['icon_new'] || $rb_skin['md_icon_is'] == 1 && $list[$i]['icon_hot']) { //모듈설정:작성자 출력여부(1,0) || 모듈설정:아이콘 출력여부(1,0)?>
-                                        <li class="bbs_main_wrap_con_writer">
-                                            <?php if ($list[$i]['icon_new']) echo "<span class=\"bbs_list_label label3\">새글</span>"; ?>
-                                            <?php if ($list[$i]['icon_hot']) echo "<span class=\"bbs_list_label label1\">인기</span>"; ?>
-                                        </li>
-                                        <?php } ?>
+
                                     </ul>
                                     <div class="cb"></div>
                                 </div>

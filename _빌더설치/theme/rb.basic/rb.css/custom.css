@@ -798,6 +798,8 @@ select#ct_send_cost {width: 150px;}
 .rb-board-table {border-top:1px solid #eee;}
 .wrap_selec {margin-right: 20px; border-radius: 6px; margin-top: -2px;}
 .wrap_selec select {height:35px;}
+
+.rb_bbs_wrap h2 {white-space: normal;overflow-wrap: anywhere;word-break: break-word;}
 /* } */
 
 

@@ -56,7 +56,7 @@
 .rb_latest_tabs_left .latest-tab-content .bbs_main_wrap_con_writer span {display: inline-block;}
 .rb_latest_tabs_left .latest-tab-content .prof_tiny_image img {width: 30px; height:auto; border-radius: 50%; margin-right: 5px;}
 .rb_latest_tabs_left .latest-tab-content .prof_tiny_name {font-size: 12px; color:#999; line-height: 20px; margin-right: 10px;}
-.rb_latest_tabs_left .latest-tab-content  .bbs_list_label {font-size: 11px;border-radius: 4px;padding-left: 5px;padding-right: 5px;padding-top: 3px;padding-bottom: 2px;}
+.rb_latest_tabs_left .latest-tab-content .bbs_list_label {font-size: 11px;border-radius: 4px;padding-left: 5px;padding-right: 5px;padding-top: 3px;padding-bottom: 2px;}
 
 .rb_latest_tabs_left .latest-tab-content .icon_abs {position: absolute; right:40px; top:10px;}
 .rb_latest_tabs_left .latest-tab-content .bbs_list_label.label1 {background-color: #FFC700; color:#fff;}
@@ -65,6 +65,19 @@
 .rb_latest_tabs_left .latest-tab-content .bbs_list_label.label4 {background-color: #AA20FF; color:#fff;}
 .rb_latest_tabs_left .latest-tab-content .bbs_list_label.label5 {background-color: #25282B; color:#fff;}
 .rb_latest_tabs_left .latest-tab-content .bbs_list_label.label6 {background-color: #D6DCE0; color:#000;}
+
+.rb_latest_tabs_left .latest-tab-content a.cut_subj {
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 70%;
+    float: left;
+    margin-right: 5px;
+}
+
+.rb_latest_tabs_left .latest-tab-content .bbs_list_label_inline {display: inline-block; font-size: 9px; line-height: 100%; padding: 4px 5px; vertical-align: middle; margin-top: -4px;}
+.rb_latest_tabs_left .latest-tab-content .comments_span {font-size: 14px; margin-right: 5px; display: inline-block; vertical-align: top; margin-top:4px; line-height: 100%;}
 
 @media all and (max-width:1024px) {
     .rb_latest_tabs_left .latest-tab-content .more_btn {top:20px; right:20px;}

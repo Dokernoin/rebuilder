@@ -65,21 +65,21 @@ if(isset($rb_skin['md_title']) && $rb_skin['md_title']) {
             <!-- 탭별 콘텐츠 -->
             <?php foreach ($tabs as $i => $tab): ?>
             <?php
-        $list = $tab['list'];
-        $list_count = count($list);
-        $bo_table = $tab['bo_table'];
-        $cate = $tab['sca'];
-      ?>
+                $list = $tab['list'];
+                $list_count = count($list);
+                $bo_table = $tab['bo_table'];
+                $cate = $tab['sca'];
+              ?>
 
             <div class="latest-tab-content-thumb-top<?php echo $i == 0 ? ' active' : ''; ?>" id="tab-<?php echo $rb_skin['md_id'].'-'.$i; ?>">
 
                 <?php
-        if(isset($cate) && $cate) {
-            $links_url = get_pretty_url($bo_table,'','sca='.urlencode($cate));
-        } else {
-            $links_url = get_pretty_url($bo_table);
-        }
-        ?>
+                if(isset($cate) && $cate) {
+                    $links_url = get_pretty_url($bo_table,'','sca='.urlencode($cate));
+                } else {
+                    $links_url = get_pretty_url($bo_table);
+                }
+                ?>
                 <button type="button" class="more_btn" onclick="location.href='<?php echo $links_url ?>';" style="display:<?php echo (isset($rb_skin['md_title_hide']) && $rb_skin['md_title_hide'] == '1') ? 'none' : 'block'; ?>">더보기</button>
 
                 <div class="rb_swiper" id="rb_swiper_<?php echo $rb_skin['md_id'].'_'.$i ?>" data-pc-w="<?php echo $rb_skin['md_col'] ?>" data-pc-h="<?php echo $rb_skin['md_row'] ?>" data-mo-w="<?php echo $rb_skin['md_col_mo'] ?>" data-mo-h="<?php echo $rb_skin['md_row_mo'] ?>" data-pc-gap="<?php echo $rb_skin['md_gap'] ?>" data-mo-gap="<?php echo $rb_skin['md_gap_mo'] ?>" data-autoplay="<?php echo $rb_skin['md_auto_is'] ?>" data-autoplay-time="<?php echo $rb_skin['md_auto_time'] ?>" data-pc-swap="<?php echo $rb_skin['md_swiper_is'] ?>" data-mo-swap="<?php echo $rb_skin['md_swiper_is'] ?>">
@@ -93,7 +93,7 @@ if(isset($rb_skin['md_title']) && $rb_skin['md_title']) {
                               $img = ($thumb['src'] && !strstr($row['wr_option'], 'secret')) ? $thumb['src'] : (strstr($row['wr_option'], 'secret') ? G5_THEME_URL.'/rb.img/sec_image.png' : G5_THEME_URL.'/rb.img/no_image.png');
                               $thumb_alt = $thumb['alt'] ?: '이미지';
                               $wr_href = get_pretty_url($bo_table, $row['wr_id']);
-                              $wr_content = strip_tags($row['wr_content']);
+                              $wr_content = trim(strip_tags((string)($row['wr_content'] ?? '')));
                               $is_secret = strstr($row['wr_option'], 'secret');
                             ?>
 
@@ -109,8 +109,8 @@ if(isset($rb_skin['md_title']) && $rb_skin['md_title']) {
 
                                         <?php if($rb_skin['md_icon_is'] == 1) { //모듈설정:아이콘 출력여부(1,0)?>
                                         <div class="icon_abs">
-                                            <?php if ($row['icon_new']) echo "<span class=\"bbs_list_label label3\">새글</span>"; ?>
-                                            <?php if ($row['icon_hot']) echo "<span class=\"bbs_list_label label1\">인기</span>"; ?>
+                                            <?php if ($row['icon_new']) echo "<span class=\"bbs_list_label label3\">N</span>"; ?>
+                                            <?php if ($row['icon_hot']) echo "<span class=\"bbs_list_label label1\">H</span>"; ?>
                                         </div>
                                         <?php } ?>
                                     </ul>
@@ -143,10 +143,6 @@ if(isset($rb_skin['md_title']) && $rb_skin['md_title']) {
                                             <span class="font-B"><?php echo $row['wr_name'] ?></span>
                                             <?php } ?>
 
-                                            <?php if($rb_skin['md_date_is'] == 1) { //모듈설정:작성일 출력여부(1,0)?>
-                                            <?php echo passing_time($row['wr_datetime']) ?>
-                                            <?php } ?>
-
                                             <?php if($rb_skin['md_ca_is'] == 1 && $row['ca_name']) { //모듈설정:카테고리 출력여부(1,0) || 카테고리 있을때만?>
                                             <?php echo $row['ca_name'] ?>
                                             <?php } ?>
@@ -155,6 +151,10 @@ if(isset($rb_skin['md_title']) && $rb_skin['md_title']) {
                                             <?php if($row['comment_cnt']) { ?>
                                             댓글 <?php echo number_format($row['wr_comment']); ?>
                                             <?php } ?>
+                                            <?php } ?>
+
+                                            <?php if($rb_skin['md_date_is'] == 1) { //모듈설정:작성일 출력여부(1,0)?>
+                                            <?php echo passing_time($row['wr_datetime']) ?>
                                             조회 <?php echo number_format($row['wr_hit']); ?>
                                             <?php } ?>
 
