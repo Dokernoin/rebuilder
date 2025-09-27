@@ -793,6 +793,11 @@ select#ct_send_cost {width: 150px;}
 .rb_module_wide .md_arrow_1 .mod_bn_wrap .swiper-button-prev {left:20px !important;}
 #rb_sidemenu_shop .flex_box {}
 #rb_sidemenu_float_shop .flex_box {}
+
+.rb_bbs_wrap .rb_bbs_top {min-height: 40px;}
+.rb-board-table {border-top:1px solid #eee;}
+.wrap_selec {margin-right: 20px; border-radius: 6px; margin-top: -2px;}
+.wrap_selec select {height:35px;}
 /* } */
 
 
