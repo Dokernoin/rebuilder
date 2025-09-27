@@ -759,7 +759,7 @@ input#md_title_hide + label:after {
     margin-top: 0px;
 }
 
-.rb_section_box_set.ui-sortable-handle{border: 1px dashed #00d6ee !important;}
+.rb_section_box_set.ui-sortable-handle{border: 1px dashed #ff64b5 !important;}
 .rb_section_box_set.ui-sortable-handle .content_box {border:0px !important;}
 
 .rb_section_box .add_section_wrap .add_section_btns {
@@ -1041,13 +1041,13 @@ html.rb-mode-sec .flex_box_inner .ui-sortable-handle .content_box {
 
 .ui-sortable-helper.rb-sec-helper {
     width: 200px !important;
-    height: 100px !important;
+    height: 80px !important;
     min-width: 200px !important;
-    min-height: 100px !important;
+    min-height: 80px !important;
     max-width: 200px !important;
-    max-height: 100px !important;
-    border: 1px dashed #00d6ee;
-    border-radius: 10px;
+    max-height: 80px !important;
+    border: 2px dashed #ff64b5;
+    border-radius: 0px;
     background: #fff;
     box-shadow: 5px 4px 25px rgba(0, 0, 0, 0.1);
     pointer-events: none;
@@ -1056,7 +1056,7 @@ html.rb-mode-sec .flex_box_inner .ui-sortable-handle .content_box {
     display: flex;
     align-items: center;
     justify-content: center;
-    color:#999;
+    color:#ff64b5 !important;
 }
 
 .rb-sec-helper-inner {
@@ -1076,13 +1076,14 @@ html.rb-mode-sec .flex_box_inner .ui-sortable-handle .content_box {
     border: 1px dashed #c7cdd4;
     border-radius: 10px;
     background: #f9f9f9;
+    display: none;
 }
 
 .placeholders_section {
     width: 100% !important;
     height: 100px !important;
-    border-radius: 10px;
-    background: #00d6ee;
+    border-radius: 0px;
+    background: #ff64b5;
     box-sizing: border-box !important;
     position: relative;
     opacity: 0.2;
