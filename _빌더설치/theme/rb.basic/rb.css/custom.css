@@ -800,6 +800,8 @@ select#ct_send_cost {width: 150px;}
 .wrap_selec select {height:35px;}
 
 .rb_bbs_wrap h2 {white-space: normal;overflow-wrap: anywhere;word-break: break-word;}
+#rb_sidemenu_shop .flex_box_inner {transform: none !important;}
+#rb_sidemenu_float_shop .flex_box_inner {transform: none !important;}
 /* } */
 
 
@@ -1035,6 +1037,10 @@ select#ct_send_cost {width: 150px;}
     .schedule-box-ajax .cates.cals {top:0px !important;}
     .schedule-box-ajax {padding-left: 0px !important; padding-right: 0px !important;}
     .rb_icon_menu_wrap {padding: 0px !important;}
+    #rb_sidemenu_shop .content_box {padding-left: 0px !important; padding-right: 0px !important;}
+    .rb_outlogin {padding: 0px !important;}
+    .rb_outlogin .rb_outlogin_po {top:0px !important; right:0px !important;}
+    .rb_sec_wide {flex: none;}
     html, body {height: inherit;}
     /* } */
 
