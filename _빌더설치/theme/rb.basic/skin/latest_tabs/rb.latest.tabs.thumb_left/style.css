@@ -78,7 +78,3 @@
 
 .rb_latest_tabs_left .latest-tab-content .bbs_list_label_inline {display: inline-block; font-size: 9px; line-height: 100%; padding: 4px 5px; vertical-align: middle; margin-top: -4px;}
 .rb_latest_tabs_left .latest-tab-content .comments_span {font-size: 14px; margin-right: 5px; display: inline-block; vertical-align: top; margin-top:4px; line-height: 100%;}
-
-@media all and (max-width:1024px) {
-    .rb_latest_tabs_left .latest-tab-content .more_btn {top:20px; right:20px;}
-}

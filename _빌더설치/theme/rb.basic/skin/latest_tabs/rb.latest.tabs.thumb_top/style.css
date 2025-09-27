@@ -68,6 +68,3 @@
 .rb_latest_tabs_top .latest-tab-content-thumb-top .bbs_list_label.label6 {background-color: #D6DCE0; color:#000;}
 
 
-@media all and (max-width:1024px) {
-    .rb_latest_tabs_top .latest-tab-content-thumb-top .more_btn {top:20px; right:20px;}
-}
