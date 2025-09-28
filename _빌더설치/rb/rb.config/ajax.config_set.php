@@ -459,6 +459,7 @@ if($mod_type == "del_sec") { //섹션삭제
         <input type="hidden" name="md_tab_list" id="md_tab_list" value='<?php echo htmlspecialchars($md_tab_list, ENT_QUOTES); ?>'>
 
         <script>
+
             $(document).ready(function() {
                 let selectedData = [];
 
@@ -531,11 +532,19 @@ if($mod_type == "del_sec") { //섹션삭제
 
                 // 태그 삭제
                 $('#tab_selects').on('click', '.tag-remove', function() {
-                    const $tag = $(this).closest('.tag');
-                    const key = $tag.data('key');
-                    selectedData = selectedData.filter(k => k !== key);
-                    $tag.remove();
-                    updateHiddenField();
+                  const $tag = $(this).closest('.tag');
+                  const key  = String($tag.data('key') || '');
+
+                  // 기존 로직 그대로
+                  selectedData = selectedData.filter(k => String(k) !== key);
+                  $tag.remove();
+
+                  // DOM에 남아있는 태그를 기준으로 다시 한 번 보정 (불일치 방지용)
+                  selectedData = $('#tab_selects .tag').map(function(){
+                    return String($(this).data('key') || '');
+                  }).get();
+
+                  updateHiddenField();
                 });
 
                 // 드래그
@@ -667,20 +676,30 @@ if($mod_type == "del_sec") { //섹션삭제
                 });
 
                 // --- 태그 삭제 ---
-                $('#item_tab_selects').on('click', '.item-tag-remove', function() {
-                    const $tag = $(this).closest('.item-tag');
-                    const key = $tag.data('key');
-                    // 태그 삭제
-                    itemSelectedData = itemSelectedData.filter(k => String(k) !== String(key));
-                    $tag.remove();
+                $('#item_tab_selects').off('click.rb.itemRemove').on('click.rb.itemRemove', '.item-tag-remove', function() {
+                  const $tag = $(this).closest('.item-tag');
+                  const key  = String($tag.data('key'));
 
-                    // select는 마지막 값으로 설정 (남은게 있다면)
-                    if (itemSelectedData.length) {
-                        $('#md_sca_shop').val(itemSelectedData[itemSelectedData.length - 1]);
-                    } else {
-                        $('#md_sca_shop').val('');
-                    }
-                    updateItemHiddenField();
+                  // 배열에서 해당 키만 제거 (문자/숫자 혼재 대비 toString)
+                  itemSelectedData = (itemSelectedData || []).filter(k => String(k) !== key);
+
+                  // DOM 제거
+                  $tag.remove();
+
+                  // ✅ 안전장치: DOM 기준으로 다시 한 번 재수집 (불일치 방지)
+                  itemSelectedData = $('#item_tab_selects .item-tag').map(function(){
+                    return String($(this).data('key') || '');
+                  }).get();
+
+                  // select는 마지막 값으로 설정 (남은게 있다면)
+                  if (itemSelectedData.length) {
+                    $('#md_sca_shop').val(itemSelectedData[itemSelectedData.length - 1]);
+                  } else {
+                    $('#md_sca_shop').val('');
+                  }
+
+                  // hidden 갱신
+                  updateItemHiddenField();
                 });
 
                 // --- 드래그 정렬 ---
@@ -1707,10 +1726,11 @@ if($mod_type == "del_sec") { //섹션삭제
 
 <ul class="rb_config_sec">
     <?php if(isset($set_id) && $set_id != '') { ?>
-    <button type="button" class="main_rb_bg font-B" id="edit_css_btn" onclick="edit_css_mod_open(this)" data-layout="<?php echo $set_layout ?>" data-id="<?php echo $set_id ?>">CSS 라이브 커스텀</button>
+    <button type="button" class="main_rb_bg font-B" id="edit_css_btn" onclick="edit_css_mod_open(this)" data-layout="<?php echo $set_layout ?>" data-id="<?php echo $set_id ?>" data-tooltip="스타일을 바로 적용할 수 있어요" data-tooltip-pos="top">CSS 라이브 커스텀</button>
     <div class="cb"></div>
     <?php } ?>
-    <button type="button" class="rb_config_save mt-5 font-B" onclick="executeAjax_module()">저장하기</button>
+    <button type="button" class="rb_config_save mt-5 font-B" onclick="executeAjax_module()">적용하기</button>
+    <button type="button" class="rb_config_save2 mt-5 font-B" onclick="openLibPanel()">라이브러리</button>
     <button type="button" class="rb_config_close mt-5 font-B" onclick="toggleSideOptions_close()">취소</button>
     <div class="cb"></div>
 </ul>

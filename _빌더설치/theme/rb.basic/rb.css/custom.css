@@ -681,7 +681,7 @@ select#ct_send_cost {width: 150px;}
 /* 전역 툴팁 { */
 .rb-tooltip {
     position: fixed;
-    z-index: 99999;
+    z-index: 99999999999;
     background: rgba(0, 0, 0, 0.85);
     color: #fff;
     font-size: 12px;

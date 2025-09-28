@@ -248,7 +248,7 @@
 }
 
 .rb_config .rb_config_reload {
-    width: 49%;
+    width: 73%;
     background-color: #25282B;
     color: #fff;
     height: 47px;
@@ -258,7 +258,7 @@
 }
 
 .rb_config .rb_config_save {
-    width: 49%;
+    width: 36%;
     background-color: #25282B;
     color: #fff;
     height: 47px;
@@ -267,8 +267,27 @@
     float: left;
 }
 
+.rb_config .rb_config_save2 {
+    width: 36%;
+    background-color: #BAC1D1;
+    color: #fff;
+    height: 47px;
+    border-radius: 10px;
+    border: 0px;
+    float: left;
+    margin-left: 1%;
+}
+
+#rb-lib-list .rb_config_save_btn {
+    width: 100%;
+    color: #fff;
+    height: 40px;
+    border-radius: 6px;
+    border: 0px;
+}
+
 .rb_config .rb_config_close {
-    width: 49%;
+    width: 26%;
     background-color: #f1f1f1;
     color: #25282B;
     height: 47px;
@@ -971,7 +990,7 @@ html.rb-mode-sec .flex_box_inner .ui-sortable-handle .content_box {
 
 .rb-sh-side-css-top-tit {
     color: #fff;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 140%;
 }
 
@@ -1021,7 +1040,7 @@ html.rb-mode-sec .flex_box_inner .ui-sortable-handle .content_box {
 #rb-css-fileinfo {
     font-size: 12px;
     position: absolute;
-    top: 73px;
+    top: 80px;
     background-color: #3b3e41;
     padding: 0px;
     text-indent: 20px;
@@ -1029,6 +1048,135 @@ html.rb-mode-sec .flex_box_inner .ui-sortable-handle .content_box {
     width: 100%;
     color: #999
 }
+
+
+/* 라이브러리 { */
+
+#rb-lib-list {
+    overflow: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    /* iOS 관성 스크롤 */
+
+    /* Firefox 전용 */
+    scrollbar-width: thin;
+    /* thin ≈ 6px 이지만 색과 어울림 좋음 */
+    scrollbar-color: var(--rb-sb-thumb) var(--rb-sb-track);
+
+    position: relative;
+    background-color: #25282b;
+}
+
+/* WebKit(Chromium/Safari/Edge) 전용 */
+#rb-lib-list::-webkit-scrollbar {
+    width: 3px;
+    /* 세로 스크롤바 두께 */
+    height: 3px;
+    /* 가로 스크롤바 두께 */
+}
+
+#rb-lib-list::-webkit-scrollbar-track {
+    background: var(--rb-sb-track);
+}
+
+#rb-lib-list::-webkit-scrollbar-thumb {
+    background: var(--rb-sb-thumb);
+    border-radius: 8px;
+}
+
+#rb-lib-list::-webkit-scrollbar-thumb:hover {
+    background: var(--rb-sb-thumb-hover);
+}
+
+/* 스크롤 모서리 (둘 다 생길 때) */
+#rb-lib-list::-webkit-scrollbar-corner {
+    background: var(--rb-sb-track);
+}
+
+
+#rb-lib-list {
+    border: 0px;
+    box-sizing: border-box;
+    overflow: auto;
+
+    height: 100%;
+    padding:96px 20px 20px 20px;
+    outline: none;
+}
+
+
+.rb-sh-side-lib {
+    position: fixed;
+    top: 0px;
+    right: -320px;
+    height: 100%;
+    width: 320px;
+    background-color: #fff;
+    z-index: 9999999;
+    min-width: 320px;
+}
+
+.rb-sh-side-lib.open {
+    right: 400px;
+}
+
+
+.rb-sh-side-lib-top-wrap {
+    padding: 20px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: #f0f5f9;
+    display: flex;
+    align-items: center;
+    z-index: 3
+}
+
+.rb-sh-side-lib-top-tit {
+    color: #25282b;
+    font-size: 14px;
+    line-height: 140%;
+}
+
+.rb-sh-side-lib-top-tit span {
+    color: #999;
+    font-size: 12px;
+}
+
+.rb-sh-side-lib-top-btn {
+    margin-left: auto;
+}
+
+
+
+#lib_close_btn {
+    border-radius: 6px;
+    color: #fff;
+    height: 33px;
+    padding: 0px 10px;
+    border: 0px;
+    background-color: transparent;
+    margin-right: -10px;
+}
+
+.rb-lib-st-top {position: sticky; top:0px; z-index: 3}
+.rb-lib-st-top select {width: 100%; height:40px; border-radius: 6px; background-color: #BAC1D1; color:#000; border:0px !important;}
+
+.rb-lib-st-list {margin-top: 10px;}
+
+.rb-lib-st-list ul {border:0px; border-radius:6px; padding: 18px; box-sizing: border-box; position: relative; margin-top: 10px; margin-bottom: 10px; background-color: rgba(255,255,255,0.05); cursor: pointer;}
+.rb-lib-st-list ul:hover {background-color: rgba(255,255,255,0.1);}
+.rb-lib-st-list ul li.rb-lib-st-list-tit {font-size: 14px; color:#f0f5f9; margin-bottom: 7px; width: 80%}
+.rb-lib-st-list ul li.rb-lib-st-list-opt {font-size: 11px; display: flex; gap:5px 5px; flex-direction: row; flex-wrap: wrap; margin-top: 10px;}
+.rb-lib-st-list ul li.rb-lib-st-list-opt span {background-color: rgba(255,255,255,0.3); padding: 4px 8px; border-radius: 20px;}
+.rb-lib-st-list ul li.rb-lib-st-list-opt span.opt_names {color:#fff;}
+.rb-lib-st-list ul li.rb-lib-st-list-skin {font-size: 11px; color:#25282b}
+.rb-lib-st-list ul li.rb-lib-st-list-date {font-size: 11px; color:#777; display: block; margin-top: 5px;}
+.rb-lib-st-list ul button {position: absolute; top:13px; right:13px; background-color: transparent; width: 25px; height:25px; text-align: center; border-radius: 4px;}
+/* } */
+
+
 
 .rb_section_box.ui-sortable-handle {
     cursor: grab !important;
