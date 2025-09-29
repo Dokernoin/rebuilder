@@ -1676,10 +1676,38 @@ if($mod_type == "del_sec") { //섹션삭제
         <ul class="rows_inp_lr mt-10">
             <li class="rows_inp_l rows_inp_l_span">
                 <span class="font-B">세로사이즈</span><br>
-                %, PX
+                PX
             </li>
             <li class="rows_inp_r">
-                <input type="text" name="md_height" class="input w40 h40 text-center" value="auto" placeholder="auto" readonly autocomplete="off">　<span class="md_size_set">%</span>
+                <input type="text" name="md_height" class="input w40 h40 text-center" value="<?php echo !empty($md_height) ? $md_height : 'auto'; ?>" placeholder="auto" readonly autocomplete="off">　<span class="">px</span>
+
+                <input type="checkbox" id="md_height_auto" class="magic-checkbox" <?php if (isset($md_height) && $md_height == 'auto') { ?>checked<?php } ?>><label for="md_height_auto">Auto</label>
+
+                <script>
+                (function(){
+                  const inp = document.querySelector('input[name="md_height"]');
+                  const chk = document.getElementById('md_height_auto');
+                  if(!inp || !chk) return;
+
+                  // 처음 로드 때 'auto'가 아니면 그 값을 기억
+                  if (inp.value && inp.value !== 'auto') inp.dataset.prev = inp.value;
+
+                  // 체크 토글
+                  chk.addEventListener('change', function(){
+                    if (this.checked) {
+                      if (inp.value && inp.value !== 'auto') inp.dataset.prev = inp.value;
+                      inp.value = 'auto';
+                    } else {
+                      inp.value = inp.dataset.prev || '';
+                    }
+                  });
+
+                  // 체크 해제 상태에서 사용자가 숫자 변경하면 그걸 새 이전값으로 기억(선택적)
+                  inp.addEventListener('input', function(){
+                    if (!chk.checked && this.value !== 'auto') inp.dataset.prev = this.value;
+                  });
+                })();
+                </script>
             </li>
 
             <div class="cb"></div>

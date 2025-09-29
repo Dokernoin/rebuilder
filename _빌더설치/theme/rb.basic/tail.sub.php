@@ -600,7 +600,6 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 </script>
 
 
-
 <?php
     $rb_core_colors = isset($rb_core['color']) ? $rb_core['color'] : '';
     $rb_core_headers = isset($rb_core['header']) ? $rb_core['header'] : '';

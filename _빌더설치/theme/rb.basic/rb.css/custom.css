@@ -802,6 +802,7 @@ select#ct_send_cost {width: 150px;}
 .rb_bbs_wrap h2 {white-space: normal;overflow-wrap: anywhere;word-break: break-word;}
 #rb_sidemenu_shop .flex_box_inner {transform: none !important;}
 #rb_sidemenu_float_shop .flex_box_inner {transform: none !important;}
+
 /* } */
 
 
@@ -987,8 +988,8 @@ select#ct_send_cost {width: 150px;}
 
     /* 2.2.3.2 { */
     #rb_topvisual_bl {border-radius: 0px !important;}
-    .md_arrow_1 .rb_swiper .rb_swiper_paging_btn .rb-swiper-prev {left: -10px !important;}
-    .md_arrow_1 .rb_swiper .rb_swiper_paging_btn .rb-swiper-next {right: -10px !important;}
+    .md_arrow_1 .rb_swiper .rb_swiper_paging_btn .rb-swiper-prev {left: 0px !important;}
+    .md_arrow_1 .rb_swiper .rb_swiper_paging_btn .rb-swiper-next {right: 0px !important;}
     .module_banner_wrap {margin: 0px;}
     .q_btns {padding: 0px;}
     .bbs_main {padding-top: 0px; padding-bottom: 0px;}
@@ -1051,8 +1052,9 @@ select#ct_send_cost {width: 150px;}
     .rb_shop_list5 .swiper-slide {padding: 0px !important;}
     .rb_shop_list5 .list_wish_int {top:0px; right:0px;}
     .rb_item_tab_nav {margin-bottom: 20px;}
-
-
+    .rb-module-wrap {height:auto !important;}
+    .more_btn {background-color: #fff;}
+    .swiper-button-prev, .swiper-button-next {background-color: #fff;}
     html, body {height: inherit;}
     /* } */
 

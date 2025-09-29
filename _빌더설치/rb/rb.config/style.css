@@ -890,6 +890,67 @@ input#md_title_hide + label:after {
     padding: 0px 7px;
 }
 
+.content_box_set {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+}
+
+.content_box .rb-resize-s {
+    display: none;
+}
+
+.content_box .rb-resize-s-reset {
+    display: none;
+}
+
+.content_box_set .rb-resize-s {
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: 5px;
+    transform: translateX(-50%);
+    border: 0px;
+    background-color: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 0px;
+    padding-right: 0px;
+    border-radius: 6px !important;
+    width: 25px;
+    height: 25px;
+    cursor: ns-resize;
+    z-index: 99;
+    margin-left: -15px;
+}
+
+.content_box_set .rb-resize-s-reset {
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: 5px;
+    transform: translateX(-50%);
+    border: 0px;
+    background-color: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 6px;
+    padding-right: 6px;
+    border-radius: 6px !important;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    z-index: 99;
+    margin-left: 15px;
+}
+.rb-guide-y{
+        position:absolute; left:0; right:0; height:0;
+        border-top:1px solid rgba(0,153,255,.9);
+        pointer-events:none; z-index:9999; display:none;
+}
+.rb-no-select{ user-select:none !important; }
 
 .flex_box_inner {
     z-index: 101;

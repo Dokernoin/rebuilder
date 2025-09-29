@@ -1810,7 +1810,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                 else $el.css(common);
             }
 
-            // ★ forceVisual===true 이면 기존 마커 무시하고 새로 계산
+            // forceVisual===true 이면 기존 마커 무시하고 새로 계산
             var hasExistingBreak = !forceVisual && $flex.children('.rb-row-break, .rb-row-break-end').length > 0;
 
             var groups = [];
@@ -1901,10 +1901,10 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
             if (raf2) cancelAnimationFrame(raf2);
 
             var id1 = requestAnimationFrame(function() {
-                // ★ 1프레임: 마커를 시각적 기준으로 강제 재계산
+                // 1프레임: 마커를 시각적 기준으로 강제 재계산
                 ensureRowBreaks($flex, true);
                 var id2 = requestAnimationFrame(function() {
-                    // ★ 2프레임: 핸들 위치 렌더
+                    // 2프레임: 핸들 위치 렌더
                     renderRowHandles($flex);
                 });
                 $flex.data('rbRaf2', id2);
@@ -2058,7 +2058,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
             }
 
-            // 클릭 이벤트(중복 방지 후 바인딩) — ★ 마커 인덱스로 moveRowByMarker 호출
+            // 클릭 이벤트(중복 방지 후 바인딩) — 마커 인덱스로 moveRowByMarker 호출
             $flex.off('click.rbRowHandle').on('click.rbRowHandle', '.rb-row-handle .rb-row-btn', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -2321,6 +2321,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                     scroll: true,
                     containment: "document",
                     connectWith: false,
+                    cancel: '.rb-resize-s, .rb-resize-s-reset',
 
                     start: function(event, ui) {
 
@@ -6000,7 +6001,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                 return IN_SHOP ? ($shop.length ? $shop : $all) : ($norm.length ? $norm : $all);
             }
 
-            // ★ 슬라이더 동기화: hidden.co_range_send ↔ #<base>_range
+            // 슬라이더 동기화: hidden.co_range_send ↔ #<base>_range
             function syncSlider($inputs, val) {
                 var v = Number(val);
                 if (!isFinite(v)) v = parseFloat(val);
@@ -6105,4 +6106,254 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
             });
         }
     }
+</script>
+
+
+<script>
+
+    $(document).on('click', '.rb-resize-s-reset', function(e){
+      e.preventDefault();
+
+      // 이 버튼이 속한 모듈 카드/랩퍼 찾기
+      const $card = $(this).closest('.rb_layout_box');
+      const $wrap = $card.find('.rb-module-wrap').first();
+
+      // UI 리셋: 높이 auto로
+      $wrap.css('height', 'auto');
+
+      // 서버 저장: md_height = 'auto'
+      if (typeof rbSaveModuleHeight === 'function') {
+        rbSaveModuleHeight($wrap, 'auto');
+      }
+    });
+
+
+    function rbSaveModuleHeight($box, finalOuterPx) {
+        var $card = $box.closest('.rb_layout_box');
+        var md_id = $card.data('id') ?? $card.attr('data-id');
+        var layout = $card.data('layout') ?? $card.attr('data-layout');
+
+        <?php if (defined('_SHOP_')) { ?>
+        var is_shop = '1';
+        <?php } else { ?>
+        var is_shop = '0';
+        <?php } ?>
+
+        if (!md_id) {
+            console.warn('[rbSaveModuleHeight] md_id 없음');
+            return;
+        }
+
+        $.ajax({
+            url: '<?php echo G5_URL ?>/rb/rb.config/ajax.module_set.php',
+            type: 'POST',
+            data: {
+                md_id: md_id,
+                md_layout: (layout || ''),
+                md_height: String(finalOuterPx),
+                is_shop: is_shop
+            },
+            dataType: 'json'
+        }).done(function(res) {
+            // console.log('saved', res);
+        }).fail(function(xhr) {
+            console.warn('height save failed', xhr?.responseText || xhr);
+        });
+    }
+
+    (function($) {
+        function clamp(v, min, max) {
+            return Math.max(min, Math.min(max, v));
+        }
+
+        // UL 기본 마진 제거 + 마진붕괴 방지(그대로 유지)
+        (function injectOnce() {
+            if (document.getElementById('rb-resizer-fix-style')) return;
+            var st = document.createElement('style');
+            st.id = 'rb-resizer-fix-style';
+            st.textContent = ``;
+            document.head.appendChild(st);
+        })();
+
+        function zoneContentTop($zone) {
+            var r = $zone[0].getBoundingClientRect();
+            var cs = getComputedStyle($zone[0]);
+            return r.top + (parseFloat(cs.paddingTop) || 0) + (parseFloat(cs.borderTopWidth) || 0);
+        }
+
+        function ensureHandlesAndGuides(ctx) {
+            var $ctx = ctx ? $(ctx) : $(document);
+            $ctx.find('.content_box_set').each(function() {
+                var $b = $(this);
+                if (!$b.data('rbResizeReady')) {
+                    if (!$b.children('.rb-resize-s').length) {
+                        $b.append('<div class="rb-resize-s" aria-label="resize bottom"></div>');
+                    }
+                    $b.data('rbResizeReady', true);
+                }
+            });
+            $ctx.find('.ui-sortable').each(function() {
+                var $zone = $(this);
+                if ($zone.css('position') === 'static') $zone.css('position', 'relative');
+                if (!$zone.children('.rb-guide-y').length) {
+                    $('<div class="rb-guide-y"></div>').appendTo($zone);
+                }
+            });
+        }
+        ensureHandlesAndGuides();
+
+        var mo = new MutationObserver(function(muts) {
+            for (var m of muts) {
+                for (var n of m.addedNodes) {
+                    if (!(n instanceof HTMLElement)) continue;
+                    if (n.matches?.('.content_box_set, .ui-sortable, .ui-sortable-handle') ||
+                        n.querySelector?.('.content_box_set, .ui-sortable, .ui-sortable-handle')) {
+                        ensureHandlesAndGuides(n);
+                    }
+                }
+            }
+        });
+        mo.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+        window.rbResizerRefresh = ensureHandlesAndGuides;
+
+        // ── 리사이즈 드래그 로직 ─────────────────────────────
+        var SNAP = 10,
+            MIN_H = 60,
+            MAX_H = 4000;
+        var dragging = false,
+            startY = 0,
+            startOuterH = 0;
+        var $box = null,
+            $wrap = null,
+            $zone = null,
+            $guide = null,
+            $sortable = null;
+        var containerTop = 0,
+            boxTop = 0,
+            snapTargets = [];
+        var prevBoxSizing = '';
+
+        // 스냅 타겟은 형제들의 "wrap(.rb-module-wrap) 바닥" 기준
+        function collectSnapTargets($zone, $excludeBox) {
+            var list = [],
+                zTop = containerTop;
+            $zone.find('.ui-sortable-handle .content_box_set').each(function() {
+                if (this === $excludeBox[0]) return;
+                var $w = $(this).children('.rb-module-wrap').first();
+                var r = ($w[0] || this).getBoundingClientRect(); // 없으면 box로 폴백
+                list.push((r.top + r.height) - zTop);
+            });
+            return list.sort(function(a, b) {
+                return a - b;
+            });
+        }
+
+        $(document).on('mousedown.rbResize', '.content_box_set .rb-resize-s', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            $box = $(this).closest('.content_box_set');
+            $wrap = $box.children('.rb-module-wrap').first(); // 대상 wrap
+            if (!$wrap.length) $wrap = $box; // 안전 폴백
+
+            $zone = $box.closest('.ui-sortable');
+            if (!$zone.length) $zone = $box.parent();
+            $guide = $zone.children('.rb-guide-y');
+
+            // jQuery UI sortable 일시 비활성
+            $sortable = $zone.data('ui-sortable') ? $zone : null;
+            if ($sortable) $sortable.sortable('option', 'disabled', true);
+
+            var wr = $wrap[0].getBoundingClientRect();
+
+            containerTop = zoneContentTop($zone);
+            boxTop = wr.top - containerTop;
+
+            startY = e.pageY;
+            startOuterH = Math.round(wr.height); // wrap의 겉높이 기준
+
+            // 드래그 중엔 wrap을 border-box 로 강제 → 겉높이=height
+            prevBoxSizing = $wrap.css('box-sizing');
+            $wrap.css('box-sizing', 'border-box');
+
+            snapTargets = collectSnapTargets($zone, $box);
+
+            dragging = true;
+            $('body').addClass('rb-no-select');
+        });
+
+        var scheduled = false,
+            lastMove = null;
+
+        function tick() {
+            scheduled = false;
+            if (!dragging || !lastMove) return;
+
+            var e = lastMove;
+            var dy = e.pageY - startY;
+
+            // 매 프레임 wrap 위치 실측
+            var wr = $wrap[0].getBoundingClientRect();
+            boxTop = wr.top - containerTop;
+
+            var hOuter = clamp(startOuterH + dy, MIN_H, MAX_H);
+
+            var curBottom = boxTop + hOuter;
+            var snapped = null;
+            for (var i = 0; i < snapTargets.length; i++) {
+                var t = snapTargets[i];
+                if (Math.abs(t - curBottom) <= SNAP) {
+                    snapped = t;
+                    break;
+                }
+            }
+            if (snapped != null) {
+                $guide.css({
+                    top: snapped + 'px'
+                }).show();
+                hOuter = clamp(Math.round(snapped - boxTop), MIN_H, MAX_H);
+            } else {
+                $guide && $guide.hide();
+            }
+
+            // wrap에만 높이 적용
+            $wrap.css('height', hOuter + 'px');
+        }
+
+        $(document).on('mousemove.rbResize', function(e) {
+            if (!dragging) return;
+            e.preventDefault();
+            e.stopPropagation();
+            lastMove = e;
+            if (!scheduled) {
+                scheduled = true;
+                requestAnimationFrame(tick);
+            }
+        });
+
+        $(document).on('mouseup.rbResize', function() {
+            if (!dragging) return;
+
+            if ($sortable) $sortable.sortable('option', 'disabled', false);
+            $guide && $guide.hide();
+
+            if ($box && $wrap) {
+                // 저장도 wrap의 겉높이로
+                var finalOuter = Math.round($wrap[0].getBoundingClientRect().height);
+                rbSaveModuleHeight($box, finalOuter);
+                // box-sizing 원복
+                if (prevBoxSizing) $wrap.css('box-sizing', prevBoxSizing);
+            }
+
+            dragging = false;
+            $box = $wrap = $zone = $guide = $sortable = null;
+            scheduled = false;
+            lastMove = null;
+            $('body').removeClass('rb-no-select');
+        });
+
+    })(jQuery);
 </script>

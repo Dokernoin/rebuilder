@@ -92,6 +92,7 @@ if (!function_exists('rb_build_sets_from_post')) {
       if ($k === 'md_id') continue;         // where 키 제외
       if (!isset($cols[$k])) continue;      // 테이블에 없는 컬럼은 스킵
 
+
       // *_is on/off 정규화
       if (preg_match('/_is$/', $k)) $v = rb_norm_onoff($v);
 
@@ -101,6 +102,15 @@ if (!function_exists('rb_build_sets_from_post')) {
         $sets[] = $k."='".rb_sql_esc($json)."'";
         continue;
       }
+
+      if ($k === 'md_height') { // 빈값저장
+        if (is_array($v)) $v = '';
+        if ($v === null) $v = '';
+        $sets[] = $k."='".rb_sql_esc((string)$v)."'";
+        continue;
+      }
+
+
       // (선택) 최신글 탭 리스트도 JSON 고정 저장
       if ($k === 'md_tab_list') {
         $json = rb_norm_list_json($v, /*prefix30*/ false);
@@ -164,23 +174,6 @@ if (isset($_REQUEST['preset_action'])) {
     $req_shop = isset($_REQUEST['is_shop']) ? (int)$_REQUEST['is_shop'] : 0;
     //$table    = ($req_shop === 1) ? 'rb_module_lib_shop' : 'rb_module_lib'; //rb_module_lib_shop 테이블 잠시 사용안함
     $table    = 'rb_module_lib';
-
-    // ensure table
-    $create_sql = "CREATE TABLE IF NOT EXISTS `{$table}` (
-      `lib_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-      `md_theme` VARCHAR(100) NOT NULL DEFAULT '',
-      `md_layout` VARCHAR(255) NOT NULL DEFAULT '',
-      `title` VARCHAR(255) NOT NULL DEFAULT '',
-      `md_type` VARCHAR(50) NOT NULL DEFAULT '',
-      `md_show` VARCHAR(20) NOT NULL DEFAULT 0,
-      `width_text` VARCHAR(50) NOT NULL DEFAULT '',
-      `payload_json` MEDIUMTEXT NOT NULL,
-      `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-      PRIMARY KEY (`lib_id`),
-      KEY `idx_theme_layout` (`md_theme`,`md_layout`)
-    )";
-    @sql_query($create_sql);
 
     $filter_payload = function($src){
         $dst = [];

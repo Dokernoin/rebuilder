@@ -106,7 +106,7 @@ foreach ($layouts as $layout_no) {
             ?>
             <div
               class="rb_layout_box <?php echo isset($row_mod['md_show']) ? $row_mod['md_show'] : ''; ?>"
-              style="width:<?php echo $row_mod['md_width']; ?><?php echo !empty($row_mod['md_size']) ? $row_mod['md_size'] : '%'; ?>; height:<?php echo $row_mod['md_height']; ?>;
+              style="width:<?php echo $row_mod['md_width']; ?><?php echo !empty($row_mod['md_size']) ? $row_mod['md_size'] : '%'; ?>;
               margin-top:<?php
                   echo IS_MOBILE()
                       ? (!empty($row_mod['md_margin_top_mo']) ? $row_mod['md_margin_top_mo'] : '0')
@@ -129,19 +129,19 @@ foreach ($layouts as $layout_no) {
                 <ul class="content_box rb_module_<?php echo $row_mod['md_id']; ?> rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_radius_<?php echo $row_mod['md_radius']; ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?> <?php echo isset($row_mod['md_show']) ? $row_mod['md_show'] : ''; ?> <?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 1) { ?>rb_module_wide<?php } ?> <?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 2) { ?>rb_module_mid<?php } ?>"
 
                     style="<?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 1) { ?>
-                    min-width:<?php if($is_index) { ?><?php echo $rb_core['main_width'] ?>px<?php } else { ?><?php echo $rb_core['sub_width'] ?>px<?php } ?>;
-                    <?php } ?>">
+                    min-width:<?php if($is_index) { ?><?php echo $rb_core['main_width'] ?>px;<?php } else { ?><?php echo $rb_core['sub_width'] ?>px;<?php } ?>
+                    <?php } ?>; ">
 
 
 
                     <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'latest') { ?>
-                        <div class="module_latest_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>">
+                        <div class="rb-module-wrap module_latest_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>" style="<?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px<?php } ?>;">
                             <?php echo '<?php echo rb_latest("' . $row_mod['md_bo_table'] . '", "' . $row_mod['md_skin'] . '", ' . $row_mod['md_cnt'] . ', 999, 1, ' . $row_mod['md_id'] . ', "' . $row_mod['md_sca'] . '", "' . $row_mod['md_order_latest'] . '", "' . $rb_module_table . '", "' . $row_mod['md_notice'] . '"); ?>'; ?>
                         </div>
                     <?php } ?>
 
                     <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'tab') { ?>
-                        <div class="module_latest_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>">
+                        <div class="rb-module-wrap module_latest_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>" style="<?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px<?php } ?>;">
                         <?php
                             $tab_list_clean = addslashes($row_mod['md_tab_list']);
                             $tab_code = '<?php echo rb_latest_tabs("' . $row_mod['md_tab_skin'] . '", "' . $tab_list_clean . '", ' . intval($row_mod['md_cnt']) . ', 999, 1, "' . $row_mod['md_id'] . '", "' . $row_mod['md_order_latest'] . '", "' . $rb_module_table . '", "' . $row_mod['md_notice'] . '"); ?>';
@@ -151,7 +151,7 @@ foreach ($layouts as $layout_no) {
                     <?php } ?>
 
                     <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'widget') { ?>
-                        <div class="module_widget_wrap">
+                        <div class="rb-module-wrap module_widget_wrap" style="<?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px<?php } ?>;">
                             <?php echo '<?php @include (G5_PATH . "/rb/' . $row_mod['md_widget'] . '/widget.php"); ?>'; ?>
                         </div>
                     <?php } ?>
@@ -166,7 +166,7 @@ foreach ($layouts as $layout_no) {
                             <ul class="bbs_main_wrap_tit_r"></ul>
                             <div class="cb"></div>
                         </div>
-                        <div class="module_banner_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>">
+                        <div class="rb-module-wrap module_banner_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>" style="<?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px<?php } ?>;">
                             <?php echo '<?php echo rb_banners("' . $row_mod['md_banner'] . '", "' . $row_mod['md_banner_id'] . '", "' . $row_mod['md_banner_skin'] . '", "' . $row_mod['md_order_banner'] . '"); ?>'; ?>
                         </div>
                     <?php } ?>
@@ -181,7 +181,7 @@ foreach ($layouts as $layout_no) {
                             <ul class="bbs_main_wrap_tit_r"></ul>
                             <div class="cb"></div>
                         </div>
-                        <div class="module_poll_wrap">
+                        <div class="rb-module-wrap module_poll_wrap" style="<?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px<?php } ?>;">
                             <?php echo '<?php echo poll("' . $row_mod['md_poll'] . '", "' . $row_mod['md_poll_id'] . '"); ?>'; ?>
                         </div>
                     <?php } ?>
@@ -207,7 +207,18 @@ foreach ($layouts as $layout_no) {
                             </div>
                         </span>
                     <?php } ?>
+
+                    <?php if($is_admin) { ?>
+                    <div class="rb-resize-s" aria-label="resize bottom" data-tooltip="드래그로 모듈의 높이를 변경할 수 있어요. 변경시 즉시 적용되요. 높이가 내용보다 좁지않게 설정해주세요." data-tooltip-pos="top">
+                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none' fill-rule='evenodd'><path d='M24 0v24H0V0h24ZM12.594 23.258l-.012.002-.071.035-.02.004-.014-.004-.071-.036c-.01-.003-.019 0-.024.006l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.016-.018Zm.264-.113-.014.002-.184.093-.01.01-.003.011.018.43.005.012.008.008.201.092c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.003-.011.018-.43-.003-.012-.01-.01-.184-.092Z'/><path fill='#00d6ee' d='M11.293 7.293a1 1 0 0 1 1.414 0l2 2A1 1 0 0 1 14 11h-4a1 1 0 0 1-.707-1.707l2-2Zm-2.217 6.324A1 1 0 0 1 10 13h4a1 1 0 0 1 .707 1.707l-2 2a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1-.217-1.09Z'/></g></svg>
+                    </div>
+
+                    <div class="rb-resize-s-reset" data-tooltip="설정된 높이를 초기화할 수 있어요." data-tooltip-pos="top">
+                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#00D6EEFF' d='M2 12.08c-.006-.862.91-1.356 1.618-.975l.095.058 2.678 1.804c.972.655.377 2.143-.734 2.007l-.117-.02-1.063-.234a8.002 8.002 0 0 0 14.804.605 1 1 0 0 1 1.82.828c-1.987 4.37-6.896 6.793-11.687 5.509A10.003 10.003 0 0 1 2 12.08m.903-4.228C4.89 3.482 9.799 1.06 14.59 2.343a10.002 10.002 0 0 1 7.414 9.581c.007.863-.91 1.358-1.617.976l-.096-.058-2.678-1.804c-.972-.655-.377-2.143.734-2.007l.117.02 1.063.234A8.002 8.002 0 0 0 4.723 8.68a1 1 0 1 1-1.82-.828'/></g></svg>
+                    </div>
+                    <?php } ?>
                 </ul>
+
 
                 <div class="flex_box_inner flex_box" data-layout="<?php echo $row_mod['md_layout']; ?>-<?php echo $row_mod['md_id']; ?>"></div>
             </div>
