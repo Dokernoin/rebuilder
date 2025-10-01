@@ -788,7 +788,7 @@ select#ct_send_cost {width: 150px;}
 .md_arrow_1 .mod_bn_wrap .swiper-button-prev {left:10px !important;}
 .swiper-button-prev, .swiper-button-next {top:50% !important; margin-top: 0px !important; transform: translateY(-50%) !important;}
 
-.rb_module_wide {padding-left: 0px !important; padding-right: 0px !important;}
+.rb_module_wide {padding-left: 5px !important; padding-right: 5px !important;}
 .rb_module_wide .md_arrow_1 .mod_bn_wrap .swiper-button-next {right: 20px !important;}
 .rb_module_wide .md_arrow_1 .mod_bn_wrap .swiper-button-prev {left:20px !important;}
 #rb_sidemenu_shop .flex_box {}
@@ -803,6 +803,11 @@ select#ct_send_cost {width: 150px;}
 #rb_sidemenu_shop .flex_box_inner {transform: none !important;}
 #rb_sidemenu_float_shop .flex_box_inner {transform: none !important;}
 
+.content_box {overflow: inherit;}
+.rb-module-wrap {overflow: hidden;}
+
+.more_btn {background-color: #fff;}
+.swiper-button-prev, .swiper-button-next {background-color: #fff;}
 /* } */
 
 
@@ -1053,8 +1058,8 @@ select#ct_send_cost {width: 150px;}
     .rb_shop_list5 .list_wish_int {top:0px; right:0px;}
     .rb_item_tab_nav {margin-bottom: 20px;}
     .rb-module-wrap {height:auto !important;}
-    .more_btn {background-color: #fff;}
-    .swiper-button-prev, .swiper-button-next {background-color: #fff;}
+    .rb_module_wide {padding-left: 0px !important; padding-right: 0px !important;}
+
     html, body {height: inherit;}
     /* } */
 

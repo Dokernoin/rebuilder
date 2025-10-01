@@ -211,6 +211,13 @@ if($mod_type == "del_sec") { //섹션삭제
                 $md_order_latest = !empty($rb_module['md_order_latest']) ? $rb_module['md_order_latest'] : '';
                 $md_order_banner = !empty($rb_module['md_order_banner']) ? $rb_module['md_order_banner'] : '';
                 $md_border = !empty($rb_module['md_border']) ? $rb_module['md_border'] : '';
+                $md_border_width = !empty($rb_module['md_border_width']) ? $rb_module['md_border_width'] : '';
+                $md_border_color = !empty($rb_module['md_border_color']) ? $rb_module['md_border_color'] : '';
+                $md_box_shadow = !empty($rb_module['md_box_shadow']) ? $rb_module['md_box_shadow'] : '';
+                $md_box_shadow_w = !empty($rb_module['md_box_shadow_w']) ? $rb_module['md_box_shadow_w'] : '';
+                $md_box_shadow_c = !empty($rb_module['md_box_shadow_c']) ? $rb_module['md_box_shadow_c'] : '';
+
+                $md_level = !empty($rb_module['md_level']) ? $rb_module['md_level'] : '';
                 $md_module = !empty($rb_module['md_module']) ? $rb_module['md_module'] : '';
                 $md_soldout_hidden = !empty($rb_module['md_soldout_hidden']) ? $rb_module['md_soldout_hidden'] : '';
                 $md_soldout_asc = !empty($rb_module['md_soldout_asc']) ? $rb_module['md_soldout_asc'] : '';
@@ -219,10 +226,18 @@ if($mod_type == "del_sec") { //섹션삭제
                 $md_arrow_type  = !empty($rb_module['md_arrow_type']) ? $rb_module['md_arrow_type'] : '0';
                 $md_radius = empty($rb_module['md_radius']) ? '0' : $rb_module['md_radius'];
                 $md_padding = empty($rb_module['md_padding']) ? '0' : $rb_module['md_padding'];
-                $md_margin_top_pc = empty($rb_module['md_margin_top_pc']) ? '' : $rb_module['md_margin_top_pc'];
-                $md_margin_top_mo = empty($rb_module['md_margin_top_mo']) ? '' : $rb_module['md_margin_top_mo'];
-                $md_margin_btm_pc = empty($rb_module['md_margin_btm_pc']) ? '' : $rb_module['md_margin_btm_pc'];
-                $md_margin_btm_mo = empty($rb_module['md_margin_btm_mo']) ? '' : $rb_module['md_margin_btm_mo'];
+
+                $md_margin_top_pc = $rb_module['md_margin_top_pc'] ?? '';
+                $md_margin_top_mo = $rb_module['md_margin_top_mo'] ?? '';
+                $md_margin_btm_pc = $rb_module['md_margin_btm_pc'] ?? '';
+                $md_margin_btm_mo = $rb_module['md_margin_btm_mo'] ?? '';
+
+                $md_padding_lr_pc = $rb_module['md_padding_lr_pc'] ?? '';
+                $md_padding_lr_mo = $rb_module['md_padding_lr_mo'] ?? '';
+                $md_padding_tb_pc = $rb_module['md_padding_tb_pc'] ?? '';
+                $md_padding_tb_mo = $rb_module['md_padding_tb_mo'] ?? '';
+
+
     
                 ?>
 
@@ -232,6 +247,41 @@ if($mod_type == "del_sec") { //섹션삭제
 
 <?php } ?>
 
+        <script type="text/javascript">
+
+                Coloris({
+                    el: '.coloris'
+                });
+                Coloris.setInstance('.coloris', {
+                    parent: '.sh-side-demos-container', // 상위 container
+                    formatToggle: false, // Hex, RGB, HSL 토글버튼 활성
+                    format: 'hex', // 색상 포맷지정
+                    margin: 0, // margin
+                    swatchesOnly: false, // 색상 견본만 표시여부
+                    alpha: true, // 알파(투명) 활성여부
+                    theme: 'polaroid', // default, large, polaroid, pill
+                    themeMode: 'Light', // dark, Light
+                    focusInput: true, // 색상코드 Input에 포커스 여부
+                    selectInput: true, // 선택기가 열릴때 색상값을 select 여부
+                    autoClose: true, // 자동닫기 - 확인 안됨
+                    inline: false, // color picker를 인라인 위젯으로 사용시 true
+                    defaultColor: '#25282B', // 기본 색상인 인라인 mode
+                    // Clear Button 설정
+                    clearButton: true,
+                    //clearLabel: '초기화',
+                    // Close Button 설정
+                    closeButton: true, // true, false
+                    closeLabel: '닫기', // 닫기버튼 텍스트
+                    swatches: [
+                        '#AA20FF',
+                        '#FFC700',
+                        '#00A3FF',
+                        '#8ED100',
+                        '#FF5A5A',
+                        '#25282B'
+                    ]
+                });
+            </script>
 
 <ul class="rb_config_sec">
     <h6 class="font-B">모듈 타이틀 설정</h6>
@@ -279,41 +329,6 @@ if($mod_type == "del_sec") { //섹션삭제
             <div class="color_set_wrap square none_inp_cl" style="position: relative;">
                 <input type="text" class="coloris mod_md_title_color" name="md_title_color" value="<?php echo !empty($md_title_color) ? $md_title_color : '#25282B'; ?>" style="width:25px !important;">
             </div>컬러
-
-            <script type="text/javascript">
-                Coloris({
-                    el: '.coloris'
-                });
-                Coloris.setInstance('.coloris', {
-                    parent: '.sh-side-demos-container', // 상위 container
-                    formatToggle: false, // Hex, RGB, HSL 토글버튼 활성
-                    format: 'hex', // 색상 포맷지정
-                    margin: 0, // margin
-                    swatchesOnly: false, // 색상 견본만 표시여부
-                    alpha: true, // 알파(투명) 활성여부
-                    theme: 'polaroid', // default, large, polaroid, pill
-                    themeMode: 'Light', // dark, Light
-                    focusInput: true, // 색상코드 Input에 포커스 여부
-                    selectInput: true, // 선택기가 열릴때 색상값을 select 여부
-                    autoClose: true, // 자동닫기 - 확인 안됨
-                    inline: false, // color picker를 인라인 위젯으로 사용시 true
-                    defaultColor: '#25282B', // 기본 색상인 인라인 mode
-                    // Clear Button 설정
-                    clearButton: true,
-                    //clearLabel: '초기화',
-                    // Close Button 설정
-                    closeButton: true, // true, false
-                    closeLabel: '닫기', // 닫기버튼 텍스트
-                    swatches: [
-                        '#AA20FF',
-                        '#FFC700',
-                        '#00A3FF',
-                        '#8ED100',
-                        '#FF5A5A',
-                        '#25282B'
-                    ]
-                });
-            </script>
 
             <input type="number" class="tiny_input" name="md_title_size" value="<?php echo !empty($md_title_size) ? $md_title_size : '20'; ?>"> px
 
@@ -1119,48 +1134,26 @@ if($mod_type == "del_sec") { //섹션삭제
         <?php } ?>
 
 
-
-
-        <ul class="rb_config_sec selected_banner selected_select">
-            <h6 class="font-B">백그라운드 컬러 설정</h6>
-            <h6 class="font-R rb_config_sub_txt">
-                배너영역의 백그라운드 컬러를 설정할 수 있습니다.
-            </h6>
-            <div class="config_wrap">
-                <ul class="flex_left">
-                    <input type="text" name="md_banner_bg" class="input w50 h40 text-center" value="<?php echo !empty($md_banner_bg) ? $md_banner_bg : ''; ?>" placeholder="컬러코드(16진수)" autocomplete="off">
-                    <span class="bn_bg_color_label" style="background-color:<?php echo $md_banner_bg?>"></span>
-                    <span>예) #FFFFFF</span>
-                </ul>
-            </div>
-        </ul>
-
         <ul class="rb_config_sec selected_style selected_select">
             <h6 class="font-B">
             모듈 스타일 설정
             </h6>
-            <h6 class="font-R rb_config_sub_txt">모듈 박스의 스타일을 설정할 수 있습니다.<br>와이드 옵션은 가로 1열인 모듈에만 사용해주시고<br>간격은 마이너스(-)를 입력할 수 있습니다.</h6>
+            <h6 class="font-R rb_config_sub_txt">모듈 박스의 스타일을 설정할 수 있습니다.</h6>
             <div class="config_wrap">
 
-                <ul class="rows_inp_lr mt-10">
+
+                <div class="config_wrap_bg">
+
+                <ul class="rows_inp_lr">
                     <li class="rows_inp_l rows_inp_l_span">
                         <span class="font-B">와이드</span><br>
                         wide
                     </li>
                     <li class="rows_inp_r mt-5">
-                        <?php if($is_shop == 1) { // 영카트?>
-                        <input type="radio" name="md_wide_is_shop" id="md_wide_is_shop_1" class="magic-radio" value="" <?php if (isset($md_wide_is) && $md_wide_is == "" || empty($md_wide_is)) { ?>checked<?php } ?>><label for="md_wide_is_shop_1">기본</label>
-                        <input type="radio" name="md_wide_is_shop" id="md_wide_is_shop_2" class="magic-radio" value="1" <?php if (isset($md_wide_is) && $md_wide_is == "1") { ?>checked<?php } ?>><label for="md_wide_is_shop_2">100%</label>
-                        <!--
-                        <input type="radio" name="md_wide_is_shop" id="md_wide_is_shop_3" class="magic-radio" value="2" <?php if (isset($md_wide_is) && $md_wide_is == "2") { ?>checked<?php } ?>><label for="md_wide_is_shop_3">1920px</label>
-                        -->
-                        <?php } else { ?>
+
                         <input type="radio" name="md_wide_is" id="md_wide_is_1" class="magic-radio" value="" <?php if (isset($md_wide_is) && $md_wide_is == "" || empty($md_wide_is)) { ?>checked<?php } ?>><label for="md_wide_is_1">기본</label>
                         <input type="radio" name="md_wide_is" id="md_wide_is_2" class="magic-radio" value="1" <?php if (isset($md_wide_is) && $md_wide_is == "1") { ?>checked<?php } ?>><label for="md_wide_is_2">100%</label>
-                        <!--
-                        <input type="radio" name="md_wide_is" id="md_wide_is_3" class="magic-radio" value="2" <?php if (isset($md_wide_is) && $md_wide_is == "2") { ?>checked<?php } ?>><label for="md_wide_is_3">1920px</label>
-                        -->
-                        <?php } ?>
+
                     </li>
 
                     <div class="cb"></div>
@@ -1178,41 +1171,388 @@ if($mod_type == "del_sec") { //섹션삭제
                     </div>
                 </ul>
 
-                <ul class="rows_inp_lr mt-10">
+
+                <ul class="rows_inp_lr mt-5">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">배경컬러</span><br>
+                        background
+                    </li>
+                    <li class="rows_inp_r">
+
+                        <div class="color_set_wrap square none_inp_cl" style="position: relative;">
+                            <input type="text" class="coloris" name="md_banner_bg" id="md_banner_bg" value="<?php echo !empty($md_banner_bg) ? $md_banner_bg : '#FFFFFF'; ?>" style="width:25px !important;"> 배경컬러
+                        </div>
+
+
+                    </li>
+
+                    <div class="cb"></div>
+
+                    <div class="rb-help" data-open="false">
+                        <button type="button" class="rb-help-btn"
+                            data-img=""
+                            data-txt="모듈의 백그라운드 컬러를 설정할 수 있어요. 어두운 컬러의 경우 컨텐츠가 잘 안보일 수 있으니 [라이브 CSS 커스텀] 기능으로 컨텐츠의 컬러도 변경해보세요."
+                            data-title="배경컬러 란?"
+                            data-alt="미리보기"
+                            aria-expanded="false">
+                            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
+                        </button>
+                        <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                    </div>
+                </ul>
+
+                <ul class="rows_inp_lr mt-5">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">모서리 라운드</span><br>
+                        border-radius
+                    </li>
+                    <li class="rows_inp_r mt-15">
+                        <div id="md_radius_range" class="rb_range_item"></div>
+                        <input type="hidden" id="md_radius" class="co_range_send" name="md_radius" value="<?php echo !empty($md_radius) ? $md_radius : '0'; ?>">
+                    </li>
+
+                    <script type="text/javascript">
+                        $("#md_radius_range").slider({
+                            range: "min",
+                            min: 0,
+                            max: 50,
+                            value: <?php echo !empty($md_radius) ? $md_radius : '0'; ?>,
+                            step: 1,
+                            slide: function(e, ui) {
+                                $("#md_radius_range .ui-slider-handle").html(ui.value);
+                                $("#md_radius").val(ui.value); // hidden input에 값 업데이트
+                            }
+                        });
+
+                        $("#md_radius_range .ui-slider-handle").html("<?php echo !empty($md_radius) ? $md_radius : '0'; ?>");
+                        $("#md_radius").val("<?php echo !empty($md_radius) ? $md_radius : '0'; ?>"); // 초기값 설정
+                    </script>
+
+                    <div class="cb"></div>
+                </ul>
+                </div>
+
+
+                <div class="config_wrap_bg">
+
+                <ul class="rows_inp_lr ">
                     <li class="rows_inp_l rows_inp_l_span">
                         <span class="font-B">테두리</span><br>
                         border
                     </li>
                     <li class="rows_inp_r mt-5">
-                        <?php if($is_shop == 1) { // 영카트?>
-                        <input type="radio" name="md_border_shop" id="md_border_shop_1" class="magic-radio" value="" <?php if (isset($md_border) && $md_border == "" || empty($md_border)) { ?>checked<?php } ?>><label for="md_border_shop_1">없음</label>
-                        <input type="radio" name="md_border_shop" id="md_border_shop_2" class="magic-radio" value="solid" <?php if (isset($md_border) && $md_border == "solid") { ?>checked<?php } ?>><label for="md_border_shop_2">실선</label>
-                        <input type="radio" name="md_border_shop" id="md_border_shop_3" class="magic-radio" value="dashed" <?php if (isset($md_border) && $md_border == "dashed") { ?>checked<?php } ?>><label for="md_border_shop_3">점선</label>
-                        <?php } else { ?>
+
                         <input type="radio" name="md_border" id="md_border_1" class="magic-radio" value="" <?php if (isset($md_border) && $md_border == "" || empty($md_border)) { ?>checked<?php } ?>><label for="md_border_1">없음</label>
                         <input type="radio" name="md_border" id="md_border_2" class="magic-radio" value="solid" <?php if (isset($md_border) && $md_border == "solid") { ?>checked<?php } ?>><label for="md_border_2">실선</label>
                         <input type="radio" name="md_border" id="md_border_3" class="magic-radio" value="dashed" <?php if (isset($md_border) && $md_border == "dashed") { ?>checked<?php } ?>><label for="md_border_3">점선</label>
-                        <?php } ?>
+
+                    </li>
+
+                    <div class="cb"></div>
+                </ul>
+
+                <ul class="rows_inp_lr mt-5 js-border-dep">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">테두리 두께</span><br>
+                        border-width
+                    </li>
+                    <li class="rows_inp_r mt-15">
+                        <div id="md_border_width_range" class="rb_range_item"></div>
+                        <input type="hidden" id="md_border_width" class="co_range_send" name="md_border_width" value="<?php echo !empty($md_border_width) ? $md_border_width : '1'; ?>">
+                    </li>
+
+                    <script type="text/javascript">
+                        $("#md_border_width_range").slider({
+                            range: "min",
+                            min: 0,
+                            max: 10,
+                            value: <?php echo !empty($md_border_width) ? $md_border_width : '0'; ?>,
+                            step: 1,
+                            slide: function(e, ui) {
+                                $("#md_border_width_range .ui-slider-handle").html(ui.value);
+                                $("#md_border_width").val(ui.value); // hidden input에 값 업데이트
+                            }
+                        });
+
+                        $("#md_border_width_range .ui-slider-handle").html("<?php echo !empty($md_border_width) ? $md_border_width : '0'; ?>");
+                        $("#md_border_width").val("<?php echo !empty($md_border_width) ? $md_border_width : '0'; ?>"); // 초기값 설정
+                    </script>
+
+                    <div class="cb"></div>
+                </ul>
+
+                <ul class="rows_inp_lr mt-5 js-border-dep">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">테두리 컬러</span><br>
+                        border-color
+                    </li>
+                    <li class="rows_inp_r">
+
+                        <div class="color_set_wrap square none_inp_cl" style="position: relative;">
+                            <input type="text" class="coloris" name="md_border_color" id="md_border_color" value="<?php echo !empty($md_border_color) ? $md_border_color : '#DDDDDD'; ?>" style="width:25px !important;"> 테두리 컬러
+                        </div>
+
                     </li>
 
                     <div class="cb"></div>
                 </ul>
 
 
+                <script>
+                  // 테두리 의존 섹션 토글
+                  function rb_toggleBorderDeps() {
+                    var v = $('input[name="md_border"]:checked').val() || '';
+                    if (v === '') {
+                      // 없음 → 숨김
+                      $('.js-border-dep').css('display', 'none');
+                    } else {
+                      // 실선/점선 등 → 표시
+                      $('.js-border-dep').css('display', '');
+                    }
+                  }
 
-                <ul class="rows_inp_lr mt-10">
+                  // 페이지 로드 시 & 라디오 변경 시 반영
+                  $(function(){
+                    rb_toggleBorderDeps();
+                    $(document).on('change', 'input[name="md_border"]', rb_toggleBorderDeps);
+                  });
+                </script>
+
+                </div>
+
+
+
+
+
+                <div class="config_wrap_bg">
+
+                <ul class="rows_inp_lr ">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">그림자</span><br>
+                        shadow
+                    </li>
+                    <li class="rows_inp_r mt-5">
+                        <input type="radio" name="md_box_shadow" id="md_box_shadow_1" class="magic-radio" value="" <?php if (isset($md_box_shadow) && $md_box_shadow == "" || empty($md_box_shadow)) { ?>checked<?php } ?>><label for="md_box_shadow_1">없음</label>
+                        <input type="radio" name="md_box_shadow" id="md_box_shadow_2" class="magic-radio" value="1" <?php if (isset($md_box_shadow) && $md_box_shadow == "1") { ?>checked<?php } ?>><label for="md_box_shadow_2">기본</label>
+                        <input type="radio" name="md_box_shadow" id="md_box_shadow_3" class="magic-radio" value="2" <?php if (isset($md_box_shadow) && $md_box_shadow == "2") { ?>checked<?php } ?>><label for="md_box_shadow_3">설정</label>
+                    </li>
+
+                    <div class="cb"></div>
+
+                </ul>
+
+                <ul class="rows_inp_lr mt-5 js-box-shadow-dep">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">그림자 크기</span><br>
+                        box-shadow
+                    </li>
+                    <li class="rows_inp_r mt-15">
+                        <div id="md_box_shadow_w_range" class="rb_range_item"></div>
+                        <input type="hidden" id="md_box_shadow_w" class="co_range_send" name="md_box_shadow_w" value="<?php echo !empty($md_box_shadow_w) ? $md_box_shadow_w : '0'; ?>">
+                    </li>
+
+                    <script type="text/javascript">
+                        $("#md_box_shadow_w_range").slider({
+                            range: "min",
+                            min: 0,
+                            max: 50,
+                            value: <?php echo !empty($md_box_shadow_w) ? $md_box_shadow_w : '0'; ?>,
+                            step: 1,
+                            slide: function(e, ui) {
+                                $("#md_box_shadow_w_range .ui-slider-handle").html(ui.value);
+                                $("#md_box_shadow_w").val(ui.value); // hidden input에 값 업데이트
+                            }
+                        });
+
+                        $("#md_box_shadow_w_range .ui-slider-handle").html("<?php echo !empty($md_box_shadow_w) ? $md_box_shadow_w : '0'; ?>");
+                        $("#md_box_shadow_w").val("<?php echo !empty($md_box_shadow_w) ? $md_box_shadow_w : '0'; ?>"); // 초기값 설정
+                    </script>
+
+                    <div class="cb"></div>
+
+                </ul>
+
+                <ul class="rows_inp_lr mt-5 js-box-shadow-dep">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">그림자 컬러</span><br>
+                        border-color
+                    </li>
+                    <li class="rows_inp_r">
+
+                        <div class="color_set_wrap square none_inp_cl" style="position: relative;">
+                            <input type="text" class="coloris" name="md_box_shadow_c" value="<?php echo !empty($md_box_shadow_c) ? $md_box_shadow_c : '#25282b16'; ?>" style="width:25px !important;"> 그림자 컬러
+                        </div>
+
+                    </li>
+
+                    <div class="cb"></div>
+
+                    <div class="rb-help" data-open="false">
+                        <button type="button" class="rb-help-btn"
+                            data-img="<?php echo G5_URL ?>/rb/rb.config/image/guide/help-img-5.png"
+                            data-txt="모듈에 그림자를 추가할 수 있어요. 기본의 경우 프리셋이 적용되며, 설정 선택시 임의설정이 가능해요. 그림자는 테두리나 컬러선택에서 투명도를 함께 사용하는게 좋아요!"
+                            data-title="그림자 란?"
+                            data-alt="미리보기"
+                            aria-expanded="false">
+                            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
+                        </button>
+                        <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                    </div>
+                </ul>
+
+                <script>
+
+                  function rb_toggleShadowDeps() {
+                    var v = $('input[name="md_box_shadow"]:checked').val() || '';
+                    if (v === '') {
+                      $('.js-box-shadow-dep').css('display', 'none');
+                    } else {
+                      $('.js-box-shadow-dep').css('display', '');
+                    }
+                  }
+
+                  $(function(){
+                    rb_toggleShadowDeps();
+                    $(document).on('change', 'input[name="md_box_shadow"]', rb_toggleShadowDeps);
+                  });
+                </script>
+
+                <script>
+                    (function() {
+                        var $modeRadios = $('input[name="md_box_shadow"]');
+                        var $sizeHidden = $('#md_box_shadow_w'); // hidden
+                        var $sizeSlider = $('#md_box_shadow_w_range'); // jQuery UI slider
+                        var $colorInput = $('[name="md_box_shadow_c"]'); // coloris input
+
+                        var DEFAULT_SIZE = 10;
+                        var DEFAULT_COLOR = '#25282b16';
+                        var prevMode = null; // '', '1', '2'
+
+                        // 커스텀값 저장: '설정' 모드에서 바꾼 값 보존
+                        $sizeHidden.data('custom', $sizeHidden.val() || '0');
+                        $colorInput.data('custom', $colorInput.val() || DEFAULT_COLOR);
+
+                        function setSliderVal($slider, $hidden, val) {
+                            val = parseInt(val, 10);
+                            if (isNaN(val)) val = 0;
+                            if ($slider.data('ui-slider')) {
+                                $slider.slider('value', val);
+                                $slider.find('.ui-slider-handle').text(val);
+                            }
+                            $hidden.val(val);
+                        }
+
+                        function setColorVal($inp, val) {
+                            var el = $inp && $inp[0];
+                            if (!el) return;
+
+                            // 1) 값 세팅
+                            el.value = val;
+
+                            // 2) Coloris가 듣는 이벤트 두 개 모두 쏘기 (스와치 갱신 트리거)
+                            el.dispatchEvent(new Event('input', {
+                                bubbles: true
+                            }));
+                            el.dispatchEvent(new Event('change', {
+                                bubbles: true
+                            }));
+
+                            // 3) 혹시 이벤트를 못 들었을 경우 대비: 래퍼 CSS 변수 직접 세팅
+                            // Coloris가 input을 감싸 만든 래퍼는 .clr-field
+                            var wrap = el.closest('.clr-field');
+                            if (wrap) {
+                                wrap.style.setProperty('--clr-color', val);
+                            } else {
+                                // 초기화 타이밍 문제로 아직 래퍼가 없으면 다음 틱에 한 번 더 시도
+                                requestAnimationFrame(function() {
+                                    var w2 = el.closest('.clr-field');
+                                    if (w2) w2.style.setProperty('--clr-color', val);
+                                });
+                            }
+                        }
+
+                        function toggleDepsVisible(modeVal) {
+                            if (modeVal === '') { // 없음
+                                $('.js-box-shadow-dep').css('display', 'none');
+                            } else {
+                                $('.js-box-shadow-dep').css('display', '');
+                            }
+                        }
+
+                        function setDepsEnabled(enabled) {
+                            // 슬라이더 enable/disable
+                            if ($sizeSlider.data('ui-slider')) {
+                                $sizeSlider.slider(enabled ? 'enable' : 'disable');
+                            }
+                            // 색상 인풋 비활성화
+                            $colorInput.prop('disabled', !enabled);
+
+                            // 접근성/스타일 보조(선택)
+                            $colorInput.toggleClass('is-disabled', !enabled);
+                            $sizeSlider.toggleClass('is-disabled', !enabled);
+                        }
+
+                        function applyMode(newMode) {
+                            // '설정(2)'에서 벗어나는 순간 최신 커스텀값을 기억
+                            if (prevMode === '2' && newMode !== '2') {
+                                $sizeHidden.data('custom', $sizeHidden.val() || '0');
+                                $colorInput.data('custom', $colorInput.val() || DEFAULT_COLOR);
+                            }
+
+                            toggleDepsVisible(newMode);
+
+                            if (newMode === '1') { // 기본
+                                setSliderVal($sizeSlider, $sizeHidden, DEFAULT_SIZE);
+                                setColorVal($colorInput, DEFAULT_COLOR);
+                                setDepsEnabled(false);
+
+                            } else if (newMode === '2') { // 설정(커스텀)
+                                var customSize = $sizeHidden.data('custom') || $sizeHidden.val() || '0';
+                                var customColor = $colorInput.data('custom') || $colorInput.val() || DEFAULT_COLOR;
+                                setSliderVal($sizeSlider, $sizeHidden, customSize);
+                                setColorVal($colorInput, customColor);
+                                setDepsEnabled(true);
+
+                            } else { // 없음
+                                // 표시만 숨김, 조작 의미 없으니 잠가도 OK
+                                setDepsEnabled(false);
+                            }
+                            prevMode = newMode;
+                        }
+
+                        // 초기 적용
+                        $(function() {
+                            var initMode = ($modeRadios.filter(':checked').val() || '');
+                            prevMode = initMode;
+                            applyMode(initMode);
+
+                            // 라디오 변경
+                            $(document).on('change', 'input[name="md_box_shadow"]', function() {
+                                var v = ($modeRadios.filter(':checked').val() || '');
+                                applyMode(v);
+                            });
+                        });
+                    })();
+                </script>
+
+                </div>
+
+
+
+
+
+
+
+                <div class="config_wrap_bg">
+
+                <ul class="rows_inp_lr">
                     <li class="rows_inp_l rows_inp_l_span">
                         <span class="font-B">상단 간격</span><br>
                         margin-top
                     </li>
                     <li class="rows_inp_r mt-5">
-                        <?php if($is_shop == 1) { // 영카트?>
-                        <input type="number" id="md_margin_top_pc_shop" class="tiny_input w25 ml-0" name="md_margin_top_pc_shop" placeholder="PC" value="<?php echo !empty($md_margin_top_pc) ? $md_margin_top_pc : ''; ?>"> <span class="font-12">px　</span>
-                        <input type="number" id="md_margin_top_mo_shop" class="tiny_input w25 ml-0" name="md_margin_top_mo_shop" placeholder="Mobile" value="<?php echo !empty($md_margin_top_mo) ? $md_margin_top_mo : ''; ?>"> <span class="font-12">px</span>
-                        <?php } else { ?>
-                        <input type="number" id="md_margin_top_pc" class="tiny_input w25 ml-0" name="md_margin_top_pc" placeholder="PC" value="<?php echo !empty($md_margin_top_pc) ? $md_margin_top_pc : ''; ?>"> <span class="font-12">px　</span>
-                        <input type="number" id="md_margin_top_mo" class="tiny_input w25 ml-0" name="md_margin_top_mo" placeholder="Mobile" value="<?php echo !empty($md_margin_top_mo) ? $md_margin_top_mo : ''; ?>"> <span class="font-12">px</span>
-                        <?php } ?>
+                        <input type="number" id="md_margin_top_pc" class="tiny_input w30 ml-0" name="md_margin_top_pc" placeholder="PC" value="<?php echo (isset($md_margin_top_pc) && $md_margin_top_pc !== '') ? $md_margin_top_pc : ''; ?>"> <span class="font-12">px　</span>
+                        <input type="number" id="md_margin_top_mo" class="tiny_input w30 ml-0" name="md_margin_top_mo" placeholder="Mobile" value="<?php echo (isset($md_margin_top_mo) && $md_margin_top_mo !== '') ? $md_margin_top_mo : ''; ?>"> <span class="font-12">px</span>
                     </li>
 
                     <div class="cb"></div>
@@ -1231,19 +1571,14 @@ if($mod_type == "del_sec") { //섹션삭제
                 </ul>
 
 
-                <ul class="rows_inp_lr mt-10">
+                <ul class="rows_inp_lr mt-5">
                     <li class="rows_inp_l rows_inp_l_span">
                         <span class="font-B">하단 간격</span><br>
                         margin-bottom
                     </li>
                     <li class="rows_inp_r mt-5">
-                        <?php if($is_shop == 1) { // 영카트?>
-                        <input type="number" id="md_margin_btm_pc_shop" class="tiny_input w25 ml-0" name="md_margin_btm_pc_shop" placeholder="PC" value="<?php echo !empty($md_margin_btm_pc) ? $md_margin_btm_pc : ''; ?>"> <span class="font-12">px　</span>
-                        <input type="number" id="md_margin_btm_mo_shop" class="tiny_input w25 ml-0" name="md_margin_btm_mo_shop" placeholder="Mobile" value="<?php echo !empty($md_margin_btm_mo) ? $md_margin_btm_mo : ''; ?>"> <span class="font-12">px</span>
-                        <?php } else { ?>
-                        <input type="number" id="md_margin_btm_pc" class="tiny_input w25 ml-0" name="md_margin_btm_pc" placeholder="PC" value="<?php echo !empty($md_margin_btm_pc) ? $md_margin_btm_pc : ''; ?>"> <span class="font-12">px　</span>
-                        <input type="number" id="md_margin_btm_mo" class="tiny_input w25 ml-0" name="md_margin_btm_mo" placeholder="Mobile" value="<?php echo !empty($md_margin_btm_mo) ? $md_margin_btm_mo : ''; ?>"> <span class="font-12">px</span>
-                        <?php } ?>
+                        <input type="number" id="md_margin_btm_pc" class="tiny_input w30 ml-0" name="md_margin_btm_pc" placeholder="PC" value="<?php echo (isset($md_margin_btm_pc) && $md_margin_btm_pc !== '') ? $md_margin_btm_pc : ''; ?>"> <span class="font-12">px　</span>
+                        <input type="number" id="md_margin_btm_mo" class="tiny_input w30 ml-0" name="md_margin_btm_mo" placeholder="Mobile" value="<?php echo (isset($md_margin_btm_mo) && $md_margin_btm_mo !== '') ? $md_margin_btm_mo : ''; ?>"> <span class="font-12">px</span>
                     </li>
 
                     <div class="cb"></div>
@@ -1261,98 +1596,26 @@ if($mod_type == "del_sec") { //섹션삭제
                         </div>
                 </ul>
 
+                </div>
 
-                <ul class="rows_inp_lr mt-10">
+                <div class="config_wrap_bg">
+
+                <ul class="rows_inp_lr">
                     <li class="rows_inp_l rows_inp_l_span">
-                        <span class="font-B">모서리 라운드</span><br>
-                        border-radius
-                    </li>
-                    <li class="rows_inp_r mt-15">
-                        <div id="md_radius_range" class="rb_range_item"></div>
-                        <?php if($is_shop == 1) { // 영카트?>
-                        <input type="hidden" id="md_radius_shop" class="co_range_send" name="md_radius_shop" value="<?php echo !empty($md_radius) ? $md_radius : '0'; ?>">
-                        <?php } else { ?>
-                        <input type="hidden" id="md_radius" class="co_range_send" name="md_radius" value="<?php echo !empty($md_radius) ? $md_radius : '0'; ?>">
-                        <?php } ?>
-                    </li>
-
-                    <script type="text/javascript">
-                        $("#md_radius_range").slider({
-                            range: "min",
-                            min: 0,
-                            max: 30,
-                            value: <?php echo !empty($md_radius) ? $md_radius : '0'; ?>,
-                            step: 5,
-                            slide: function(e, ui) {
-                                $("#md_radius_range .ui-slider-handle").html(ui.value);
-
-                                <?php if($is_shop == 1) { // 영카트?>
-                                $("#md_radius_shop").val(ui.value); // hidden input에 값 업데이트
-                                <?php } else { ?>
-                                $("#md_radius").val(ui.value); // hidden input에 값 업데이트
-                                <?php } ?>
-
-                            }
-                        });
-
-                        $("#md_radius_range .ui-slider-handle").html("<?php echo !empty($md_radius) ? $md_radius : '0'; ?>");
-                        <?php if($is_shop == 1) { // 영카트?>
-                        $("#md_radius_shop").val("<?php echo !empty($md_radius) ? $md_radius : '0'; ?>"); // 초기값 설정
-                        <?php } else { ?>
-                        $("#md_radius").val("<?php echo !empty($md_radius) ? $md_radius : '0'; ?>"); // 초기값 설정
-                        <?php } ?>
-                    </script>
-
-                    <div class="cb"></div>
-                </ul>
-
-
-                <ul class="rows_inp_lr mt-10">
-                    <li class="rows_inp_l rows_inp_l_span">
-                        <span class="font-B">내부 여백(전체)</span><br>
+                        <span class="font-B">내부 여백 (가로축)</span><br>
                         padding
                     </li>
-                    <li class="rows_inp_r mt-15">
-                        <div id="md_padding_range" class="rb_range_item"></div>
-                        <?php if($is_shop == 1) { // 영카트?>
-                        <input type="hidden" id="md_padding_shop" class="co_range_send" name="md_padding_shop" value="<?php echo !empty($md_padding) ? $md_padding : '0'; ?>">
-                        <?php } else { ?>
-                        <input type="hidden" id="md_padding" class="co_range_send" name="md_padding" value="<?php echo !empty($md_padding) ? $md_padding : '0'; ?>">
-                        <?php } ?>
+
+                    <li class="rows_inp_r mt-5">
+                        <input type="number" id="md_padding_lr_pc" class="tiny_input w30 ml-0" name="md_padding_lr_pc" placeholder="PC" value="<?php echo (isset($md_padding_lr_pc) && $md_padding_lr_pc !== '') ? $md_padding_lr_pc : ''; ?>"> <span class="font-12">px</span>
+                        <input type="number" id="md_padding_lr_mo" class="tiny_input w30 ml-0" name="md_padding_lr_mo" placeholder="Mobile" value="<?php echo (isset($md_padding_lr_mo) && $md_padding_lr_mo !== '') ? $md_padding_lr_mo : ''; ?>"> <span class="font-12">px</span>
                     </li>
-
-                    <script type="text/javascript">
-                        $("#md_padding_range").slider({
-                            range: "min",
-                            min: 0,
-                            max: 30,
-                            value: <?php echo !empty($md_padding) ? $md_padding : '0'; ?>,
-                            step: 5,
-                            slide: function(e, ui) {
-                                $("#md_padding_range .ui-slider-handle").html(ui.value);
-
-                                <?php if($is_shop == 1) { // 영카트?>
-                                $("#md_padding_shop").val(ui.value); // hidden input에 값 업데이트
-                                <?php } else { ?>
-                                $("#md_padding").val(ui.value); // hidden input에 값 업데이트
-                                <?php } ?>
-                            }
-                        });
-
-                        $("#md_padding_range .ui-slider-handle").html("<?php echo !empty($md_padding) ? $md_padding : '0'; ?>");
-                        <?php if($is_shop == 1) { // 영카트?>
-                        $("#md_padding_shop").val("<?php echo !empty($md_padding) ? $md_padding : '0'; ?>"); // 초기값 설정
-                        <?php } else { ?>
-                        $("#md_padding").val("<?php echo !empty($md_padding) ? $md_padding : '0'; ?>"); // 초기값 설정
-                        <?php } ?>
-                    </script>
                     <div class="cb"></div>
-
                         <div class="rb-help" data-open="false">
                             <button type="button" class="rb-help-btn"
                                 data-img=""
-                                data-txt="모듈 내부에 4방향으로 padding(여백) 값이 들어가요. 테두리 옵션을 사용할때 같이 사용하면 좋아요. 모바일 여백의 경우 모바일기기로 접속시에만 반영되요."
-                                data-title="내부 여백 이란?"
+                                data-txt="모듈 내부 (좌/우) 에 동일한 padding(여백) 값을 설정할 수 있어요. 테두리 옵션을 사용할때 같이 사용하면 좋아요. 모바일 여백의 경우 모바일기기로 접속시에만 반영되요."
+                                data-title="내부 여백(가로축) 이란?"
                                 data-alt="미리보기"
                                 aria-expanded="false">
                                 <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
@@ -1360,6 +1623,71 @@ if($mod_type == "del_sec") { //섹션삭제
                             <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
                         </div>
                 </ul>
+
+                <ul class="rows_inp_lr mt-5">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">내부 여백 (세로축)</span><br>
+                        padding
+                    </li>
+
+                    <li class="rows_inp_r mt-5">
+                        <input type="number" id="md_padding_tb_pc" class="tiny_input w30 ml-0" name="md_padding_tb_pc" placeholder="PC" value="<?php echo (isset($md_padding_tb_pc) && $md_padding_tb_pc !== '') ? $md_padding_tb_pc : ''; ?>"> <span class="font-12">px</span>
+                        <input type="number" id="md_padding_tb_mo" class="tiny_input w30 ml-0" name="md_padding_tb_mo" placeholder="Mobile" value="<?php echo (isset($md_padding_tb_mo) && $md_padding_tb_mo !== '') ? $md_padding_tb_mo : ''; ?>"> <span class="font-12">px</span>
+                    </li>
+                    <div class="cb"></div>
+
+                    <div class="rb-help" data-open="false">
+                            <button type="button" class="rb-help-btn"
+                                data-img=""
+                                data-txt="모듈 내부 (상/하) 에 동일한 padding(여백) 값을 설정할 수 있어요. 테두리 옵션을 사용할때 같이 사용하면 좋아요. 모바일 여백의 경우 모바일기기로 접속시에만 반영되요."
+                                data-title="내부 여백(세로축) 이란?"
+                                data-alt="미리보기"
+                                aria-expanded="false">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='none'><path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z'/><path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5'/></g></svg>
+                            </button>
+                            <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                        </div>
+
+                </ul>
+
+                <ul class="rows_inp_lr mt-5">
+                    <li class="rows_inp_l rows_inp_l_span">
+                        <span class="font-B">일괄설정</span><br>
+                        padding
+                    </li>
+
+                    <li class="rows_inp_r mt-20">
+                            <div id="md_padding_range" class="rb_range_item"></div>
+                            <input type="hidden" id="md_padding" class="co_range_send" name="md_padding" value="<?php echo !empty($md_padding) ? $md_padding : '0'; ?>">
+                    </li>
+
+                     <script type="text/javascript">
+                        $("#md_padding_range").slider({
+                            range: "min",
+                            min: 0,
+                            max: 50,
+                            value: <?php echo !empty($md_padding) ? $md_padding : '0'; ?>,
+                            step: 1,
+                            slide: function(e, ui) {
+                                $("#md_padding_range .ui-slider-handle").html(ui.value);
+                                $("#md_padding").val(ui.value);
+                                $("#md_padding_lr_pc").val(ui.value);
+                                $("#md_padding_lr_mo").val(ui.value);
+                                $("#md_padding_tb_pc").val(ui.value);
+                                $("#md_padding_tb_mo").val(ui.value);
+                            }
+                        });
+
+                        $("#md_padding_range .ui-slider-handle").html("<?php echo !empty($md_padding) ? $md_padding : '0'; ?>");
+                        $("#md_padding").val("<?php echo !empty($md_padding) ? $md_padding : '0'; ?>"); // 초기값 설정
+
+                    </script>
+
+                    <div class="cb"></div>
+
+                </ul>
+                </div>
+
 
 
             </div>
@@ -1679,7 +2007,7 @@ if($mod_type == "del_sec") { //섹션삭제
                 PX
             </li>
             <li class="rows_inp_r">
-                <input type="text" name="md_height" class="input w40 h40 text-center" value="<?php echo !empty($md_height) ? $md_height : 'auto'; ?>" placeholder="auto" readonly autocomplete="off">　<span class="">px</span>
+                <input type="text" name="md_height" class="input w40 h40 text-center" value="<?php echo !empty($md_height) ? $md_height : 'auto'; ?>" placeholder="auto" autocomplete="off">　<span class="">px</span>
 
                 <input type="checkbox" id="md_height_auto" class="magic-checkbox" <?php if (isset($md_height) && $md_height == 'auto') { ?>checked<?php } ?>><label for="md_height_auto">Auto</label>
 
@@ -1853,6 +2181,7 @@ if($mod_type == "del_sec") { //섹션삭제
 <?php } ?>
 
 
+
 <ul class="rb_config_sec">
     <h6 class="font-B">섹션 타이틀 설정</h6>
     <h6 class="font-R rb_config_sub_txt">타이틀의 워딩 및 스타일을 설정할 수 있습니다.</h6>
@@ -1996,8 +2325,8 @@ if($mod_type == "del_sec") { //섹션삭제
                         margin-top
                     </li>
                     <li class="rows_inp_r mt-5">
-                        <input type="number" id="sec_margin_top_pc" class="tiny_input w25 ml-0" name="sec_margin_top_pc" placeholder="PC" value="<?php echo !empty($sec_margin_top_pc) ? $sec_margin_top_pc : ''; ?>"> <span class="font-12">px　</span>
-                        <input type="number" id="sec_margin_top_mo" class="tiny_input w25 ml-0" name="sec_margin_top_mo" placeholder="Mobile" value="<?php echo !empty($sec_margin_top_mo) ? $sec_margin_top_mo : ''; ?>"> <span class="font-12">px</span>
+                        <input type="number" id="sec_margin_top_pc" class="tiny_input w25 ml-0" name="sec_margin_top_pc" placeholder="PC" value="<?php echo (isset($sec_margin_top_pc) && $sec_margin_top_pc !== '') ? $sec_margin_top_pc : ''; ?>"> <span class="font-12">px　</span>
+                        <input type="number" id="sec_margin_top_mo" class="tiny_input w25 ml-0" name="sec_margin_top_mo" placeholder="Mobile" value="<?php echo (isset($sec_margin_top_mo) && $sec_margin_top_mo !== '') ? $sec_margin_top_mo : ''; ?>"> <span class="font-12">px</span>
                     </li>
 
                     <div class="cb"></div>
@@ -2022,8 +2351,8 @@ if($mod_type == "del_sec") { //섹션삭제
                         margin-bottom
                     </li>
                     <li class="rows_inp_r mt-5">
-                        <input type="number" id="sec_margin_btm_pc" class="tiny_input w25 ml-0" name="sec_margin_btm_pc" placeholder="PC" value="<?php echo !empty($sec_margin_btm_pc) ? $sec_margin_btm_pc : ''; ?>"> <span class="font-12">px　</span>
-                        <input type="number" id="sec_margin_btm_mo" class="tiny_input w25 ml-0" name="sec_margin_btm_mo" placeholder="Mobile" value="<?php echo !empty($sec_margin_btm_mo) ? $sec_margin_btm_mo : ''; ?>"> <span class="font-12">px</span>
+                        <input type="number" id="sec_margin_btm_pc" class="tiny_input w25 ml-0" name="sec_margin_btm_pc" placeholder="PC" value="<?php echo (isset($sec_margin_btm_pc) && $sec_margin_btm_pc !== '') ? $sec_margin_btm_pc : ''; ?>"> <span class="font-12">px　</span>
+                        <input type="number" id="sec_margin_btm_mo" class="tiny_input w25 ml-0" name="sec_margin_btm_mo" placeholder="Mobile" value="<?php echo (isset($sec_margin_btm_mo) && $sec_margin_btm_mo !== '') ? $sec_margin_btm_mo : ''; ?>"> <span class="font-12">px</span>
                     </li>
 
                     <div class="cb"></div>
@@ -2086,40 +2415,7 @@ if($mod_type == "del_sec") { //섹션삭제
     </div>
 </ul>
 
-            <script type="text/javascript">
-                Coloris({
-                    el: '.coloris'
-                });
-                Coloris.setInstance('.coloris', {
-                    parent: '.sh-side-demos-container', // 상위 container
-                    formatToggle: false, // Hex, RGB, HSL 토글버튼 활성
-                    format: 'hex', // 색상 포맷지정
-                    margin: 0, // margin
-                    swatchesOnly: false, // 색상 견본만 표시여부
-                    alpha: true, // 알파(투명) 활성여부
-                    theme: 'polaroid', // default, large, polaroid, pill
-                    themeMode: 'Light', // dark, Light
-                    focusInput: true, // 색상코드 Input에 포커스 여부
-                    selectInput: true, // 선택기가 열릴때 색상값을 select 여부
-                    autoClose: true, // 자동닫기 - 확인 안됨
-                    inline: false, // color picker를 인라인 위젯으로 사용시 true
-                    defaultColor: '#25282B', // 기본 색상인 인라인 mode
-                    // Clear Button 설정
-                    clearButton: true,
-                    //clearLabel: '초기화',
-                    // Close Button 설정
-                    closeButton: true, // true, false
-                    closeLabel: '닫기', // 닫기버튼 텍스트
-                    swatches: [
-                        '#AA20FF',
-                        '#FFC700',
-                        '#00A3FF',
-                        '#8ED100',
-                        '#FF5A5A',
-                        '#25282B'
-                    ]
-                });
-            </script>
+
 
 <ul class="rb_config_sec">
     <button type="button" class="main_rb_bg font-B" id="edit_css_btn" onclick="edit_css_sec_open(this)" data-layout="<?php echo $set_layout ?>" data-id="<?php echo $set_id ?>">CSS 라이브 커스텀</button>

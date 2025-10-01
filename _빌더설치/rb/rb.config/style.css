@@ -215,6 +215,7 @@
 .rb_config h6 {
     font-size: 14px;
     color: #999;
+    font-weight: normal;
 }
 
 .rb_config_sec {
@@ -316,7 +317,7 @@
 
 .rb_config .rows_inp_l {
     float: left;
-    width: 35%;
+    width: 35% !important;
 }
 
 .rb_config .rows_inp_l_span {
@@ -331,7 +332,7 @@
 
 .rb_config .rows_inp_r {
     float: left;
-    width: 65%;
+    width: 65% !important;
 }
 
 .sh-side-demos-container .input {
@@ -691,8 +692,11 @@ input#md_title_hide + label:after {
     border: 0px;
 }
 
+.ui-sortable-handle {margin-left: -2px;}
+
 .ui-sortable-handle .content_box {
-    border: 1px dashed #00d6ee;
+    border: 1px dashed #00d6ee !important;
+    border-radius: 0px !important;
     min-height: 75px;
 }
 
@@ -1373,7 +1377,6 @@ html.rb-mode-sec .flex_box_inner .ui-sortable-handle .content_box {
 }
 
 
-
 #rb-css-editor {
     --fs: 13px;
     /* 글자 크기 */
@@ -1478,6 +1481,7 @@ html.rb-mode-sec .flex_box_inner .ui-sortable-handle .content_box {
     z-index: 101
 }
 
+.coloris:disabled {background-color: transparent !important;}
 
 @media all and (max-width: 1024px) {
 

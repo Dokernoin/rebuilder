@@ -1,113 +1,29 @@
-.rb_module_border_ .module_latest_wrap {border:0px;}
-.rb_module_border_solid .module_latest_wrap {border: 1px solid #ddd;}
-.rb_module_border_dashed .module_latest_wrap {border: 1px dashed #ddd;}
+.rb_module_border_ .rb-module-wrap {border:0px;}
+.rb_module_border_solid .rb-module-wrap {border: 1px solid #ddd;}
+.rb_module_border_dashed .rb-module-wrap {border: 1px dashed #ddd;}
 
-.rb_module_border_ .module_widget_wrap {border:0px;}
-.rb_module_border_solid .module_widget_wrap {border: 1px solid #ddd;}
-.rb_module_border_dashed .module_widget_wrap {border: 1px dashed #ddd;}
+.rb_module_border_width_ .rb-module-wrap {border-width: 0px;}
+.rb_module_border_width_0 .rb-module-wrap {border-width: 0px;}
+.rb_module_border_width_1 .rb-module-wrap {border-width: 1px;}
+.rb_module_border_width_2 .rb-module-wrap {border-width: 2px;}
+.rb_module_border_width_3 .rb-module-wrap {border-width: 3px;}
+.rb_module_border_width_4 .rb-module-wrap {border-width: 4px;}
+.rb_module_border_width_5 .rb-module-wrap {border-width: 5px;}
+.rb_module_border_width_6 .rb-module-wrap {border-width: 6px;}
+.rb_module_border_width_7 .rb-module-wrap {border-width: 7px;}
+.rb_module_border_width_8 .rb-module-wrap {border-width: 8px;}
+.rb_module_border_width_9 .rb-module-wrap {border-width: 9px;}
+.rb_module_border_width_10 .rb-module-wrap {border-width: 10px;}
 
-.rb_module_border_ .module_poll_wrap {border:0px;}
-.rb_module_border_solid .module_poll_wrap {border: 1px solid #ddd;}
-.rb_module_border_dashed .module_poll_wrap {border: 1px dashed #ddd;}
 
-.rb_module_border_ .module_banner_wrap {border:0px;}
-.rb_module_border_solid .module_banner_wrap {border: 1px solid #ddd;}
-.rb_module_border_dashed .module_banner_wrap {border: 1px dashed #ddd;}
-
-.rb_module_border_ .module_item_wrap {border:0px;}
-.rb_module_border_solid .module_item_wrap {border: 1px solid #ddd;}
-.rb_module_border_dashed .module_item_wrap {border: 1px dashed #ddd;}
-
-.rb_module_radius_ .module_latest_wrap {border-radius: 0px;}
-.rb_module_radius_0 .module_latest_wrap {border-radius: 0px;}
-.rb_module_radius_5 .module_latest_wrap {border-radius: 5px;}
-.rb_module_radius_10 .module_latest_wrap {border-radius: 10px;}
-.rb_module_radius_15 .module_latest_wrap {border-radius: 15px;}
-.rb_module_radius_20 .module_latest_wrap {border-radius: 20px;}
-.rb_module_radius_25 .module_latest_wrap {border-radius: 25px;}
-.rb_module_radius_30 .module_latest_wrap {border-radius: 30px;}
-
-.rb_module_radius_ .module_widget_wrap {border-radius: 0px;}
-.rb_module_radius_0 .module_widget_wrap {border-radius: 0px;}
-.rb_module_radius_5 .module_widget_wrap {border-radius: 5px;}
-.rb_module_radius_10 .module_widget_wrap {border-radius: 10px;}
-.rb_module_radius_15 .module_widget_wrap {border-radius: 15px;}
-.rb_module_radius_20 .module_widget_wrap {border-radius: 20px;}
-.rb_module_radius_25 .module_widget_wrap {border-radius: 25px;}
-.rb_module_radius_30 .module_widget_wrap {border-radius: 30px;}
-
-.rb_module_radius_ .module_poll_wrap {border-radius: 0px;}
-.rb_module_radius_0 .module_poll_wrap {border-radius: 0px;}
-.rb_module_radius_5 .module_poll_wrap {border-radius: 5px;}
-.rb_module_radius_10 .module_poll_wrap {border-radius: 10px;}
-.rb_module_radius_15 .module_poll_wrap {border-radius: 15px;}
-.rb_module_radius_20 .module_poll_wrap {border-radius: 20px;}
-.rb_module_radius_25 .module_poll_wrap {border-radius: 25px;}
-.rb_module_radius_30 .module_poll_wrap {border-radius: 30px;}
-
-.rb_module_radius_ .module_item_wrap {border-radius: 0px;}
-.rb_module_radius_0 .module_item_wrap {border-radius: 0px;}
-.rb_module_radius_5 .module_item_wrap {border-radius: 5px;}
-.rb_module_radius_10 .module_item_wrap {border-radius: 10px;}
-.rb_module_radius_15 .module_item_wrap {border-radius: 15px;}
-.rb_module_radius_20 .module_item_wrap {border-radius: 20px;}
-.rb_module_radius_25 .module_item_wrap {border-radius: 25px;}
-.rb_module_radius_30 .module_item_wrap {border-radius: 30px;}
-
-.rb_module_radius_ .module_banner_wrap {border-radius: 0px;}
-.rb_module_radius_0 .module_banner_wrap {border-radius: 0px;}
-.rb_module_radius_5 .module_banner_wrap {border-radius: 5px;}
-.rb_module_radius_10 .module_banner_wrap {border-radius: 10px;}
-.rb_module_radius_15 .module_banner_wrap {border-radius: 15px;}
-.rb_module_radius_20 .module_banner_wrap {border-radius: 20px;}
-.rb_module_radius_25 .module_banner_wrap {border-radius: 25px;}
-.rb_module_radius_30 .module_banner_wrap {border-radius: 30px;}
-
-.rb_module_padding_ .module_latest_wrap {padding: 0px;}
-.rb_module_padding_0 .module_latest_wrap {padding: 0px;}
-.rb_module_padding_5 .module_latest_wrap {padding: 5px;}
-.rb_module_padding_10 .module_latest_wrap {padding: 10px;}
-.rb_module_padding_15 .module_latest_wrap {padding: 15px;}
-.rb_module_padding_20 .module_latest_wrap {padding: 20px;}
-.rb_module_padding_25 .module_latest_wrap {padding: 25px;}
-.rb_module_padding_30 .module_latest_wrap {padding: 30px;}
-
-.rb_module_padding_ .module_widget_wrap {padding: 0px;}
-.rb_module_padding_0 .module_widget_wrap {padding: 0px;}
-.rb_module_padding_5 .module_widget_wrap {padding: 5px;}
-.rb_module_padding_10 .module_widget_wrap {padding: 10px;}
-.rb_module_padding_15 .module_widget_wrap {padding: 15px;}
-.rb_module_padding_20 .module_widget_wrap {padding: 20px;}
-.rb_module_padding_25 .module_widget_wrap {padding: 25px;}
-.rb_module_padding_30 .module_widget_wrap {padding: 30px;}
-
-.rb_module_padding_ .module_banner_wrap {padding: 0px;}
-.rb_module_padding_0 .module_banner_wrap {padding: 0px;}
-.rb_module_padding_5 .module_banner_wrap {padding: 5px;}
-.rb_module_padding_10 .module_banner_wrap {padding: 10px;}
-.rb_module_padding_15 .module_banner_wrap {padding: 15px;}
-.rb_module_padding_20 .module_banner_wrap {padding: 20px;}
-.rb_module_padding_25 .module_banner_wrap {padding: 25px;}
-.rb_module_padding_30 .module_banner_wrap {padding: 30px;}
-
-.rb_module_padding_ .module_poll_wrap {padding: 0px;}
-.rb_module_padding_0 .module_poll_wrap {padding: 0px;}
-.rb_module_padding_5 .module_poll_wrap {padding: 5px;}
-.rb_module_padding_10 .module_poll_wrap {padding: 10px;}
-.rb_module_padding_15 .module_poll_wrap {padding: 15px;}
-.rb_module_padding_20 .module_poll_wrap {padding: 20px;}
-.rb_module_padding_25 .module_poll_wrap {padding: 25px;}
-.rb_module_padding_30 .module_poll_wrap {padding: 30px;}
-
-.rb_module_padding_ .module_item_wrap {padding: 0px;}
-.rb_module_padding_0 .module_item_wrap {padding: 0px;}
-.rb_module_padding_5 .module_item_wrap {padding: 5px;}
-.rb_module_padding_10 .module_item_wrap {padding: 10px;}
-.rb_module_padding_15 .module_item_wrap {padding: 15px;}
-.rb_module_padding_20 .module_item_wrap {padding: 20px;}
-.rb_module_padding_25 .module_item_wrap {padding: 25px;}
-.rb_module_padding_30 .module_item_wrap {padding: 30px;}
-
+.rb_module_padding_ .rb-module-wrap {padding: 0px;}
+.rb_module_padding_0 .rb-module-wrap {padding: 0px;}
+.rb_module_padding_5 .rb-module-wrap {padding: 5px;}
+.rb_module_padding_10 .rb-module-wrap {padding: 10px;}
+.rb_module_padding_15 .rb-module-wrap {padding: 15px;}
+.rb_module_padding_20 .rb-module-wrap {padding: 20px;}
+.rb_module_padding_25 .rb-module-wrap {padding: 25px;}
+.rb_module_padding_30 .rb-module-wrap {padding: 30px;}
 
 
 .co_gap_pc_ .content_box {padding: 0px;}
@@ -208,56 +124,16 @@ section.co_gap_pc_30 {margin-top: -10px;}
     .flex_box {margin-left: 0px !important; margin-right: 0px !important; margin-bottom: 20px; transform: translateX(0px) !important;}
     .rb-layout-row {width: 100% !important; transform: translateX(0px) !important;}
 
-    .module_latest_wrap {padding: 0px !important;}
-    .module_widget_wrap {padding: 0px !important;}
-    .module_poll_wrap {padding: 0px !important;}
-    .module_item_wrap {padding: 0px !important;}
-    .module_banner_wrap {padding: 0px !important;}
+    .rb-module-wrap {padding: 0px;}
     
-    .rb_module_padding_ .module_latest_wrap {padding: 0px !important;}
-    .rb_module_padding_0 .module_latest_wrap {padding: 0px !important;}
-    .rb_module_padding_5 .module_latest_wrap {padding: 5px !important;}
-    .rb_module_padding_10 .module_latest_wrap {padding: 10px !important;}
-    .rb_module_padding_15 .module_latest_wrap {padding: 15px !important;}
-    .rb_module_padding_20 .module_latest_wrap {padding: 20px !important;}
-    .rb_module_padding_25 .module_latest_wrap {padding: 25px !important;}
-    .rb_module_padding_30 .module_latest_wrap {padding: 30px !important;}
-
-    .rb_module_padding_ .module_widget_wrap {padding: 0px !important;}
-    .rb_module_padding_0 .module_widget_wrap {padding: 0px !important;}
-    .rb_module_padding_5 .module_widget_wrap {padding: 5px !important;}
-    .rb_module_padding_10 .module_widget_wrap {padding: 10px !important;}
-    .rb_module_padding_15 .module_widget_wrap {padding: 15px !important;}
-    .rb_module_padding_20 .module_widget_wrap {padding: 20px !important;}
-    .rb_module_padding_25 .module_widget_wrap {padding: 25px !important;}
-    .rb_module_padding_30 .module_widget_wrap {padding: 30px !important;}
-
-    .rb_module_padding_ .module_banner_wrap {padding: 0px !important;}
-    .rb_module_padding_0 .module_banner_wrap {padding: 0px !important;}
-    .rb_module_padding_5 .module_banner_wrap {padding: 5px !important;}
-    .rb_module_padding_10 .module_banner_wrap {padding: 10px !important;}
-    .rb_module_padding_15 .module_banner_wrap {padding: 15px !important;}
-    .rb_module_padding_20 .module_banner_wrap {padding: 20px !important;}
-    .rb_module_padding_25 .module_banner_wrap {padding: 25px !important;}
-    .rb_module_padding_30 .module_banner_wrap {padding: 30px !important;}
-
-    .rb_module_padding_ .module_poll_wrap {padding: 0px !important;}
-    .rb_module_padding_0 .module_poll_wrap {padding: 0px !important;}
-    .rb_module_padding_5 .module_poll_wrap {padding: 5px !important;}
-    .rb_module_padding_10 .module_poll_wrap {padding: 10px !important;}
-    .rb_module_padding_15 .module_poll_wrap {padding: 15px !important;}
-    .rb_module_padding_20 .module_poll_wrap {padding: 20px !important;}
-    .rb_module_padding_25 .module_poll_wrap {padding: 25px !important;}
-    .rb_module_padding_30 .module_poll_wrap {padding: 30px !important;}
-
-    .rb_module_padding_ .module_item_wrap {padding: 0px !important;}
-    .rb_module_padding_0 .module_item_wrap {padding: 0px !important;}
-    .rb_module_padding_5 .module_item_wrap {padding: 5px !important;}
-    .rb_module_padding_10 .module_item_wrap {padding: 10px !important;}
-    .rb_module_padding_15 .module_item_wrap {padding: 15px !important;}
-    .rb_module_padding_20 .module_item_wrap {padding: 20px !important;}
-    .rb_module_padding_25 .module_item_wrap {padding: 25px !important;}
-    .rb_module_padding_30 .module_item_wrap {padding: 30px !important;}
+    .rb_module_padding_ .rb-module-wrap {padding: 0px;}
+    .rb_module_padding_0 .rb-module-wrap {padding: 0px;}
+    .rb_module_padding_5 .rb-module-wrap {padding: 5px;}
+    .rb_module_padding_10 .rb-module-wrap {padding: 10px;}
+    .rb_module_padding_15 .rb-module-wrap {padding: 15px;}
+    .rb_module_padding_20 .rb-module-wrap {padding: 20px;}
+    .rb_module_padding_25 .rb-module-wrap {padding: 25px;}
+    .rb_module_padding_30 .rb-module-wrap {padding: 30px;}
 
     .co_gap_pc_ .rb_ca_top {transform: translateX(-0px) !important; width: calc(100% + 0px) !important;}
     .co_gap_pc_0 .rb_ca_top {transform: translateX(-0px) !important; width: calc(100% + 0px) !important;}
@@ -303,7 +179,7 @@ section.co_gap_pc_30 {margin-top: -10px;}
 
 .rb_range_item .ui-slider-handle {
   position: absolute;
-  margin: -6px 0 0 -17px;
+  margin: -6px 0 0 0px;
   border-radius: 100px;
   color: #fff;
   border: 0;

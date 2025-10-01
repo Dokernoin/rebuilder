@@ -108,17 +108,7 @@ foreach ($layouts as $layout_no) {
 
         <div
               class="rb_layout_box <?php echo isset($row_mod['md_show']) ? $row_mod['md_show'] : ''; ?>"
-              style="width:<?php echo $row_mod['md_width']; ?><?php echo !empty($row_mod['md_size']) ? $row_mod['md_size'] : '%'; ?>; height:<?php echo $row_mod['md_height']; ?>;
-              margin-top:<?php
-                  echo IS_MOBILE()
-                      ? (!empty($row_mod['md_margin_top_mo']) ? $row_mod['md_margin_top_mo'] : '0')
-                      : (!empty($row_mod['md_margin_top_pc']) ? $row_mod['md_margin_top_pc'] : '0');
-              ?>px;
-              margin-bottom:<?php
-                  echo IS_MOBILE()
-                      ? (!empty($row_mod['md_margin_btm_mo']) ? $row_mod['md_margin_btm_mo'] : '0')
-                      : (!empty($row_mod['md_margin_btm_pc']) ? $row_mod['md_margin_btm_pc'] : '0');
-              ?>px;"
+              style="width:<?php echo $row_mod['md_width']; ?><?php echo !empty($row_mod['md_size']) ? $row_mod['md_size'] : '%'; ?>; height:<?php echo $row_mod['md_height']; ?>;"
               data-order-id="<?php echo $row_mod['md_order_id']; ?>"
               data-id="<?php echo $row_mod['md_id']; ?>"
               data-layout="<?php echo $row_mod['md_layout']; ?>"
@@ -128,21 +118,50 @@ foreach ($layouts as $layout_no) {
               data-shop="1"
             >
 
-                <ul class="content_box rb_module_shop_<?php echo $row_mod['md_id']; ?> rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_radius_<?php echo $row_mod['md_radius']; ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?> <?php echo isset($row_mod['md_show']) ? $row_mod['md_show'] : ''; ?> <?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 1) { ?>rb_module_wide<?php } ?> <?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 2) { ?>rb_module_mid<?php } ?>"
+                <ul class="content_box rb_module_shop_<?php echo $row_mod['md_id']; ?> <?php if(!empty($row_mod['md_border'])) { ?>rb_module_border_<?php echo $row_mod['md_border']; ?> rb_module_border_width_<?php echo $row_mod['md_border_width']; ?> <?php } ?><?php if (isset($row_mod['md_padding']) && $row_mod['md_padding'] > 0) { ?> rb_module_padding_<?php echo $row_mod['md_padding']; ?><?php } ?> <?php echo isset($row_mod['md_show']) ? $row_mod['md_show'] : ''; ?> <?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 1) { ?>rb_module_wide<?php } ?> <?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 2) { ?>rb_module_mid<?php } ?>"
 
                 style="<?php if (isset($row_mod['md_wide_is']) && $row_mod['md_wide_is'] == 1) { ?>
                     min-width:<?php if($is_index) { ?><?php echo $rb_core['main_width'] ?>px<?php } else { ?><?php echo $rb_core['sub_width'] ?>px<?php } ?>;
-                    <?php } ?>">
+                    <?php } ?>
+                    <?php if(!empty($row_mod['md_border_color'])) { ?>border-color:<?php echo $row_mod['md_border_color'] ?>; <?php } ?>
+                    <?php if(isset($row_mod['md_radius']) && $row_mod['md_radius'] > 0) { ?>border-radius:<?php echo $row_mod['md_radius'] ?>px; <?php } ?>
+                    <?php if(!empty($row_mod['md_box_shadow'])) { ?>box-shadow: 0 2px <?php echo $row_mod['md_box_shadow_w'] ?>px <?php echo $row_mod['md_box_shadow_c'] ?>; <?php } ?>
+                    <?php if(!empty($row_mod['md_banner_bg'])) { ?>background-color:<?php echo $row_mod['md_banner_bg'] ?>; <?php } ?>
+                    margin-top:<?php
+                          echo IS_MOBILE()
+                              ? (!empty($row_mod['md_margin_top_mo']) ? $row_mod['md_margin_top_mo'] : '0')
+                              : (!empty($row_mod['md_margin_top_pc']) ? $row_mod['md_margin_top_pc'] : '0');
+                      ?>px;
+                      margin-bottom:<?php
+                          echo IS_MOBILE()
+                              ? (!empty($row_mod['md_margin_btm_mo']) ? $row_mod['md_margin_btm_mo'] : '0')
+                              : (!empty($row_mod['md_margin_btm_pc']) ? $row_mod['md_margin_btm_pc'] : '0');
+                      ?>px;
+                    ">
 
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'latest') { ?>
-                    <div class="rb-module-wrap module_latest_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>" style="<?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px<?php } ?>;">
+                    <div class="rb-module-wrap module_latest_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>"
+                       style="
+                           <?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto;<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px;<?php } ?>
+                           <?php if(!empty($row_mod['md_border_color'])) { ?>border-color:<?php echo $row_mod['md_border_color'] ?>; <?php } ?>
+                           <?php if(isset($row_mod['md_radius']) && $row_mod['md_radius'] > 0) { ?>border-radius:<?php echo $row_mod['md_radius'] ?>px; <?php } ?>
+                           <?php if(!empty($row_mod['md_box_shadow'])) { ?>box-shadow: 0 2px <?php echo $row_mod['md_box_shadow_w'] ?>px <?php echo $row_mod['md_box_shadow_c'] ?>; <?php } ?>
+                           <?php if(!empty($row_mod['md_banner_bg'])) { ?>background-color:<?php echo $row_mod['md_banner_bg'] ?>; <?php } ?>
+                           ">
                         <?php echo '<?php echo rb_latest("' . $row_mod['md_bo_table'] . '", "' . $row_mod['md_skin'] . '", ' . $row_mod['md_cnt'] . ', 999, 1, ' . $row_mod['md_id'] . ', "' . $row_mod['md_sca'] . '", "' . $row_mod['md_order_latest'] . '", "' . $rb_module_table . '", "' . $row_mod['md_notice'] . '"); ?>'; ?>
                     </div>
                 <?php } ?>
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'tab') { ?>
-                <div class="rb-module-wrap module_latest_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>" style="<?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px<?php } ?>;">
+                <div class="rb-module-wrap module_latest_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>"
+                        style="
+                           <?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto;<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px;<?php } ?>
+                           <?php if(!empty($row_mod['md_border_color'])) { ?>border-color:<?php echo $row_mod['md_border_color'] ?>; <?php } ?>
+                           <?php if(isset($row_mod['md_radius']) && $row_mod['md_radius'] > 0) { ?>border-radius:<?php echo $row_mod['md_radius'] ?>px; <?php } ?>
+                           <?php if(!empty($row_mod['md_box_shadow'])) { ?>box-shadow: 0 2px <?php echo $row_mod['md_box_shadow_w'] ?>px <?php echo $row_mod['md_box_shadow_c'] ?>; <?php } ?>
+                           <?php if(!empty($row_mod['md_banner_bg'])) { ?>background-color:<?php echo $row_mod['md_banner_bg'] ?>; <?php } ?>
+                           ">
                 <?php
                     $tab_list_clean = addslashes($row_mod['md_tab_list']);
 
@@ -153,7 +172,14 @@ foreach ($layouts as $layout_no) {
                 <?php } ?>
 
                 <?php if (isset($row_mod['md_type']) && $row_mod['md_type'] == 'widget') { ?>
-                    <div class="rb-module-wrap module_widget_wrap" style="<?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px<?php } ?>;">
+                    <div class="rb-module-wrap module_widget_wrap"
+                       style="
+                           <?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto;<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px;<?php } ?>
+                           <?php if(!empty($row_mod['md_border_color'])) { ?>border-color:<?php echo $row_mod['md_border_color'] ?>; <?php } ?>
+                           <?php if(isset($row_mod['md_radius']) && $row_mod['md_radius'] > 0) { ?>border-radius:<?php echo $row_mod['md_radius'] ?>px; <?php } ?>
+                           <?php if(!empty($row_mod['md_box_shadow'])) { ?>box-shadow: 0 2px <?php echo $row_mod['md_box_shadow_w'] ?>px <?php echo $row_mod['md_box_shadow_c'] ?>; <?php } ?>
+                           <?php if(!empty($row_mod['md_banner_bg'])) { ?>background-color:<?php echo $row_mod['md_banner_bg'] ?>; <?php } ?>
+                           ">
                         <?php echo '<?php @include (G5_PATH . "/rb/' . $row_mod['md_widget'] . '/widget.php"); ?>'; ?>
                     </div>
                 <?php } ?>
@@ -174,7 +200,14 @@ foreach ($layouts as $layout_no) {
                         <div class="cb"></div>
                     </div>
 
-                    <div class="rb-module-wrap module_banner_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>" style="<?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px<?php } ?>;">
+                    <div class="rb-module-wrap module_banner_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>"
+                       style="
+                           <?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto;<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px;<?php } ?>
+                           <?php if(!empty($row_mod['md_border_color'])) { ?>border-color:<?php echo $row_mod['md_border_color'] ?>; <?php } ?>
+                           <?php if(isset($row_mod['md_radius']) && $row_mod['md_radius'] > 0) { ?>border-radius:<?php echo $row_mod['md_radius'] ?>px; <?php } ?>
+                           <?php if(!empty($row_mod['md_box_shadow'])) { ?>box-shadow: 0 2px <?php echo $row_mod['md_box_shadow_w'] ?>px <?php echo $row_mod['md_box_shadow_c'] ?>; <?php } ?>
+                           <?php if(!empty($row_mod['md_banner_bg'])) { ?>background-color:<?php echo $row_mod['md_banner_bg'] ?>; <?php } ?>
+                           ">
                         <?php echo '<?php echo rb_banners("' . $row_mod['md_banner'] . '", "' . $row_mod['md_banner_id'] . '", "' . $row_mod['md_banner_skin'] . '", "' . $row_mod['md_order_banner'] . '"); ?>'; ?>
                     </div>
                 <?php } ?>
@@ -195,7 +228,14 @@ foreach ($layouts as $layout_no) {
                         <div class="cb"></div>
                     </div>
 
-                    <div class="rb-module-wrap module_poll_wrap" style="<?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px<?php } ?>;">
+                    <div class="rb-module-wrap module_poll_wrap"
+                       style="
+                           <?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto;<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px;<?php } ?>
+                           <?php if(!empty($row_mod['md_border_color'])) { ?>border-color:<?php echo $row_mod['md_border_color'] ?>; <?php } ?>
+                           <?php if(isset($row_mod['md_radius']) && $row_mod['md_radius'] > 0) { ?>border-radius:<?php echo $row_mod['md_radius'] ?>px; <?php } ?>
+                           <?php if(!empty($row_mod['md_box_shadow'])) { ?>box-shadow: 0 2px <?php echo $row_mod['md_box_shadow_w'] ?>px <?php echo $row_mod['md_box_shadow_c'] ?>; <?php } ?>
+                           <?php if(!empty($row_mod['md_banner_bg'])) { ?>background-color:<?php echo $row_mod['md_banner_bg'] ?>; <?php } ?>
+                           ">
                         <?php echo '<?php echo poll("' . $row_mod['md_poll'] . '", "' . $row_mod['md_poll_id'] . '"); ?>'; ?>
                     </div>
                 <?php } ?>
@@ -232,7 +272,14 @@ foreach ($layouts as $layout_no) {
                     $code .= "\$item_limit = \" limit \" . \$row_mod['md_cnt'];\n";
                     $code .= "\$item_sql = \" select * from {\$g5['g5_shop_item_table']} \" . \$item_where . \" \" . \$item_order . \" \" . \$item_limit;\n";
                     ?>
-                    <div class="rb-module-wrap module_item_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>" style="<?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px<?php } ?>;">
+                    <div class="rb-module-wrap module_item_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>"
+                        style="
+                           <?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto;<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px;<?php } ?>
+                           <?php if(!empty($row_mod['md_border_color'])) { ?>border-color:<?php echo $row_mod['md_border_color'] ?>; <?php } ?>
+                           <?php if(isset($row_mod['md_radius']) && $row_mod['md_radius'] > 0) { ?>border-radius:<?php echo $row_mod['md_radius'] ?>px; <?php } ?>
+                           <?php if(!empty($row_mod['md_box_shadow'])) { ?>box-shadow: 0 2px <?php echo $row_mod['md_box_shadow_w'] ?>px <?php echo $row_mod['md_box_shadow_c'] ?>; <?php } ?>
+                           <?php if(!empty($row_mod['md_banner_bg'])) { ?>background-color:<?php echo $row_mod['md_banner_bg'] ?>; <?php } ?>
+                           ">
                     <?php
                     $code .= "\$list = new item_list();\n";
                     $code .= "\$list->set_img_size(300, 300);\n";
@@ -254,7 +301,14 @@ foreach ($layouts as $layout_no) {
                 <?php if(isset($row_mod['md_type']) && $row_mod['md_type'] == "item_tab") { ?>
 
 
-                <div class="rb-module-wrap module_item_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>" style="<?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px<?php } ?>;">
+                <div class="rb-module-wrap module_item_wrap md_arrow_<?php echo isset($row_mod['md_arrow_type']) ? $row_mod['md_arrow_type'] : ''; ?>"
+                        style="
+                           <?php if(empty($row_mod['md_height']) || isset($row_mod['md_height']) && $row_mod['md_height'] == "auto") { ?>height:auto;<?php } else { ?>height:<?php echo $row_mod['md_height'] ?>px;<?php } ?>
+                           <?php if(!empty($row_mod['md_border_color'])) { ?>border-color:<?php echo $row_mod['md_border_color'] ?>; <?php } ?>
+                           <?php if(isset($row_mod['md_radius']) && $row_mod['md_radius'] > 0) { ?>border-radius:<?php echo $row_mod['md_radius'] ?>px; <?php } ?>
+                           <?php if(!empty($row_mod['md_box_shadow'])) { ?>box-shadow: 0 2px <?php echo $row_mod['md_box_shadow_w'] ?>px <?php echo $row_mod['md_box_shadow_c'] ?>; <?php } ?>
+                           <?php if(!empty($row_mod['md_banner_bg'])) { ?>background-color:<?php echo $row_mod['md_banner_bg'] ?>; <?php } ?>
+                           ">
 
                 <?php
                 // md_item_tab_list를 배열로 변환

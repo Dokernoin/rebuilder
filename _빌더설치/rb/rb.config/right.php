@@ -2321,7 +2321,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                     scroll: true,
                     containment: "document",
                     connectWith: false,
-                    cancel: '.rb-resize-s, .rb-resize-s-reset',
+                    cancel: '.rb-resize-s, .rb-resize-s-reset, .admin_set_btn',
 
                     start: function(event, ui) {
 
@@ -4001,26 +4001,28 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
         <?php if(defined('_SHOP_')) { // 영카트?>
         var layout_name = '<?php echo $rb_core['layout_shop'] ?>';
-        var md_border = $('input[name="md_border_shop"]:checked').val();
-        var md_radius = $('#md_radius_shop').val();
-        var md_padding = $('#md_padding_shop').val();
-        var md_margin_top_pc = $('#md_margin_top_pc_shop').val();
-        var md_margin_top_mo = $('#md_margin_top_mo_shop').val();
-        var md_margin_btm_pc = $('#md_margin_btm_pc_shop').val();
-        var md_margin_btm_mo = $('#md_margin_btm_mo_shop').val();
-        var md_wide_is = $('input[name="md_wide_is_shop"]:checked').val();
         <?php } else { ?>
         var layout_name = '<?php echo $rb_core['layout'] ?>';
+        <?php } ?>
+
+        var md_wide_is = $('input[name="md_wide_is"]:checked').val();
         var md_border = $('input[name="md_border"]:checked').val();
+        var md_border_width = $('input[name="md_border_width"]').val();
+        var md_border_color = $('input[name="md_border_color"]').val();
+        var md_box_shadow = $('input[name="md_box_shadow"]:checked').val();
+        var md_box_shadow_w = $('input[name="md_box_shadow_w"]').val();
+        var md_box_shadow_c = $('input[name="md_box_shadow_c"]').val();
         var md_radius = $('#md_radius').val();
         var md_padding = $('#md_padding').val();
+        var md_padding_lr_pc = $('#md_padding_lr_pc').val();
+        var md_padding_lr_mo = $('#md_padding_lr_mo').val();
+        var md_padding_tb_pc = $('#md_padding_tb_pc').val();
+        var md_padding_tb_mo = $('#md_padding_tb_mo').val();
+
         var md_margin_top_pc = $('#md_margin_top_pc').val();
         var md_margin_top_mo = $('#md_margin_top_mo').val();
         var md_margin_btm_pc = $('#md_margin_btm_pc').val();
         var md_margin_btm_mo = $('#md_margin_btm_mo').val();
-        var md_wide_is = $('input[name="md_wide_is"]:checked').val();
-        <?php } ?>
-
 
         if (md_type == "item" || md_type == "item_tab") {
             var md_cnt = $('#md_cnt_shop').val();
@@ -4248,9 +4250,18 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                     "md_auto_is": md_auto_is,
                     "md_auto_time": md_auto_time,
                     "md_border": md_border,
+                    "md_border_width": md_border_width,
+                    "md_border_color": md_border_color,
+                    "md_box_shadow": md_box_shadow,
+                    "md_box_shadow_w": md_box_shadow_w,
+                    "md_box_shadow_c": md_box_shadow_c,
                     "md_radius": md_radius,
                     "md_module": md_module,
                     "md_padding": md_padding,
+                    "md_padding_lr_pc":md_padding_lr_pc,
+                    "md_padding_lr_mo":md_padding_lr_mo,
+                    "md_padding_tb_pc":md_padding_tb_pc,
+                    "md_padding_tb_mo":md_padding_tb_mo,
                     "md_margin_top_pc": md_margin_top_pc,
                     "md_margin_top_mo": md_margin_top_mo,
                     "md_margin_btm_pc": md_margin_btm_pc,
@@ -5698,28 +5709,23 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
 
     function rb_syncSlidersFromHidden() {
-        // radius
-        var radiusVal = (window.is_shop === '1') ?
-            ($('#md_radius_shop').val() ?? '0') :
-            ($('#md_radius').val() ?? '0');
-        radiusVal = parseInt(radiusVal, 10);
-        if (isNaN(radiusVal)) radiusVal = 0;
-        if ($('#md_radius_range').data('ui-slider')) {
-            $('#md_radius_range').slider('value', radiusVal);
-            $('#md_radius_range .ui-slider-handle').text(radiusVal);
-        }
+      // 공통 헬퍼: 값 파싱 + 슬라이더/핸들 동기화
+      function syncIntSlider(inputSel, sliderSel) {
+        var v = parseInt($(inputSel).val() || '0', 10);
+        if (isNaN(v)) v = 0;
 
-        // padding
-        var paddingVal = (window.is_shop === '1') ?
-            ($('#md_padding_shop').val() ?? '0') :
-            ($('#md_padding').val() ?? '0');
-        paddingVal = parseInt(paddingVal, 10);
-        if (isNaN(paddingVal)) paddingVal = 0;
-        if ($('#md_padding_range').data('ui-slider')) {
-            $('#md_padding_range').slider('value', paddingVal);
-            $('#md_padding_range .ui-slider-handle').text(paddingVal);
+        var $slider = $(sliderSel);
+        if ($slider.data('ui-slider')) {
+          $slider.slider('value', v);
+          $slider.find('.ui-slider-handle').text(v);
         }
-    }
+      }
+
+      // radius, padding 단일 키만 사용
+      syncIntSlider('#md_radius',  '#md_radius_range');
+      syncIntSlider('#md_padding', '#md_padding_range');
+        syncIntSlider('#md_border_width', '#md_border_width_range');
+}
 
 
     if (typeof rb_lib_list_reload !== 'function') {
@@ -6151,7 +6157,8 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                 md_id: md_id,
                 md_layout: (layout || ''),
                 md_height: String(finalOuterPx),
-                is_shop: is_shop
+                is_shop: is_shop,
+                is_height: '1',
             },
             dataType: 'json'
         }).done(function(res) {

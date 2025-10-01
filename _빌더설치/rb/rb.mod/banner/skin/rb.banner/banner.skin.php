@@ -3,7 +3,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 global $row_mod, $rb_module_table;
 $rb_skin = sql_fetch (" select * from {$rb_module_table} where md_id = '{$row_mod['md_id']}' "); //최신글 환경설정 테이블 조회 (삭제금지)
-$md_banner_bg = isset($rb_skin['md_banner_bg']) ? $rb_skin['md_banner_bg'] : '';
 
 ?>
 
@@ -17,7 +16,7 @@ while ($row = sql_fetch_array($result)) {
     // 새창 옵션
     $bn_new_win = isset($row['bn_new_win']) && $row['bn_new_win'] ? ' target="_blank"' : '';
 
-    if ($i == 0) echo '<div class="mod_bn_wrap" style="background-color:'.$md_banner_bg.'"><div class="swiper-container swiper-container-slide_bn swiper-container-slide_bn_'.$row_mod['md_id'].'"><ul class="swiper-wrapper swiper-wrapper-slide_bn swiper-wrapper-slide_bn_'.$row_mod['md_id'].'">'.PHP_EOL;
+    if ($i == 0) echo '<div class="mod_bn_wrap"><div class="swiper-container swiper-container-slide_bn swiper-container-slide_bn_'.$row_mod['md_id'].'"><ul class="swiper-wrapper swiper-wrapper-slide_bn swiper-wrapper-slide_bn_'.$row_mod['md_id'].'">'.PHP_EOL;
 
     $bimg = G5_DATA_PATH.'/banners/'.$row['bn_id'];
     if (file_exists($bimg)) {
