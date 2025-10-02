@@ -606,9 +606,16 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     $rb_config_colors = isset($rb_config['co_color']) ? $rb_config['co_color'] : '';
     $rb_config_headers = isset($rb_config['co_header']) ? $rb_config['co_header'] : '';
 
+    if (defined("_INDEX_")) {
+        $indexs = '1';
+    } else {
+        $indexs = '0';
+    }
+
+
     add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.color.php?rb_color_set=' . urlencode($rb_core_colors) . '&rb_color_code=' . urlencode($rb_config_colors) . '" />', 0);
     add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.header.php?rb_header_set=' . urlencode($rb_core_headers) . '&rb_header_code=' . urlencode($rb_config_headers) . '" />', 0);
-    add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.style.php?rb_color_set=' . urlencode($rb_core_colors) . '&rb_color_code=' . urlencode($rb_config_colors) . '" />', 0);
+    add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.style.php?rb_color_set=' . urlencode($rb_core_colors) . '&rb_color_code=' . urlencode($rb_config_colors) . '&rb_is_index='.$indexs.'" />', 0);
     add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.css/set.style.css?ver='.G5_SERVER_TIME.'" />', 0);
 ?>
 </body>

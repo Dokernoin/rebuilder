@@ -322,7 +322,11 @@ if(isset($rb_core['sub_width']) && $rb_core['sub_width'] == "100") {
 $sql_seo = " select * from rb_seo limit 1";
 $seo = sql_fetch($sql_seo);
 
-
+/* 2.2.4 { */
+$rb_core['main_bg'] = !empty($rb_config['co_main_bg']) ? $rb_config['co_main_bg'] : '#ffffff'; // 메인배경컬러
+$rb_core['sub_bg'] = !empty($rb_config['co_sub_bg']) ? $rb_config['co_sub_bg'] : '#ffffff'; // 서브배경컬러
+$rb_core['gap_mo'] = !empty($rb_config['co_gap_mo']) ? $rb_config['co_gap_mo'] : '0'; // 간격
+/* } */
 
 /*********************************************/
 

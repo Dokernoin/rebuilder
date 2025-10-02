@@ -8,8 +8,8 @@
 }
 
 @media all and (max-width:1024px) {
-    html, body {overflow-x: hidden; background-color: #fff !important; height:auto;}
-    main {background-color: #fff !important;}
+    html, body {overflow-x: hidden; height:auto;}
+    main {}
     .mobile {display: block}
     .pc {display: none;}
     

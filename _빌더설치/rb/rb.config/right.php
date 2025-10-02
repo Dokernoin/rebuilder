@@ -14,6 +14,37 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
 <script>
     window.RB_WIDGET_CSRF = "<?php echo $_SESSION['rb_widget_csrf'] ?>";
+
+    (function fixShopRadioCheckboxNamesOnce() {
+        if (window.RB_IS_SHOP != 1) return;
+
+        // 1) id가 *_shop 인 라디오/체크박스 → name을 base+"_shop"로 강제
+        $('[id$="_shop"][type="radio"], [id$="_shop"][type="checkbox"]').each(function () {
+          var id = this.id;
+          var base = id.replace(/_shop$/, '');      // ex) md_title_hide_shop → md_title_hide
+          $(this).attr('name', base + '_shop');     // name=md_title_hide_shop 으로 강제
+        });
+
+        // 2) 같은 name의 일반 쌍둥이 → name에 __common 붙여서 무시되게
+        $('input[type="radio"], input[type="checkbox"]').each(function () {
+          var $el = $(this);
+          var id   = $el.attr('id')   || '';
+          var name = $el.attr('name') || '';
+
+          // 이미 *_shop 그룹이면 건드리지 않음
+          if (/_shop$/.test(id) || /_shop$/.test(name)) return;
+
+          // 내 base에 해당하는 *_shop 쌍둥이가 존재하면 일반 쪽 name을 치움
+          var base = id || name;
+          var hasShopTwin =
+            document.getElementById(base + '_shop') ||
+            document.getElementsByName(base + '_shop').length;
+
+          if (hasShopTwin) {
+            $el.attr('name', (name || base) + '__common'); // 저장 시 제외됨
+          }
+        });
+      })();
 </script>
 
 <div class="sh-side-options-container" style="margin-top:100px">
@@ -78,6 +109,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                     <h6 class="font-R rb_config_sub_txt">웹사이트의 전반적인 환경설정 입니다.<br>서브영역 전용 설정의 경우<br>서브페이지에서 패널을 오픈해주세요.</h6>
                     <ul class="rb_config_sec">
                         <h6 class="font-B">강조컬러 설정 (공용)</h6>
+                        <h6 class="font-R rb_config_sub_txt">버튼, 뱃지, 오버 등 강조되는 컬러를 설정할 수 있습니다.</h6>
                         <div class="config_wrap">
                             <ul>
 
@@ -96,41 +128,6 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                         <h6 class="font-B">헤더컬러 설정 (공용)</h6>
                         <h6 class="font-R rb_config_sub_txt">헤더 컬러 적용시 헤더의 텍스트는 흰색으로 고정 됩니다.<br>밝은톤의 헤더 컬러의 경우 자동 감지하여 강조컬러가 적용됩니다.<br>투명도가 30% 이하로 떨어지는 경우 강조컬러가 적용 됩니다.</h6>
                         <div class="config_wrap">
-                            <style>
-                                .co_header_ex {
-                                    float: left;
-                                    width: 70%;
-                                }
-
-                                .co_header_ex_dd {
-                                    border: 1px solid #fff;
-                                    margin-top: 15px;
-                                }
-
-                                .co_header_chk {
-                                    float: left;
-                                    width: 30%;
-                                    padding-left: 15px;
-                                    line-height: 40px;
-                                }
-
-                                .co_header_ex dd {
-                                    border-radius: 10px;
-                                    width: 100%;
-                                    padding: 12px 20px 12px 20px;
-                                    margin-bottom: 5px;
-                                }
-
-                                .co_header_ex dd span {
-                                    float: left;
-                                    margin-top: 3px;
-                                }
-
-                                .co_header_ex dd i {
-                                    float: right;
-                                    margin-top: 2px;
-                                }
-                            </style>
 
                             <ul>
 
@@ -138,23 +135,42 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                     <input type="text" class="coloris coloris2 mod_co_header" name="co_header" value="<?php echo !empty($rb_config['co_header']) ? $rb_config['co_header'] : ''; ?>">
                                 </div>
 
-                                <li class="co_header_ex">
-                                    <dd class="co_header_ex_dd">
-                                        <span class="font-B">Aa 가 123</span>
-                                        <i>
-                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.49928 1.91687e-08C7.14387 0.000115492 5.80814 0.324364 4.60353 0.945694C3.39893 1.56702 2.36037 2.46742 1.57451 3.57175C0.788656 4.67609 0.278287 5.95235 0.0859852 7.29404C-0.106316 8.63574 0.0250263 10.004 0.469055 11.2846C0.913084 12.5652 1.65692 13.7211 2.63851 14.6557C3.6201 15.5904 4.81098 16.2768 6.11179 16.6576C7.4126 17.0384 8.78562 17.1026 10.1163 16.8449C11.447 16.5872 12.6967 16.015 13.7613 15.176L17.4133 18.828C17.6019 19.0102 17.8545 19.111 18.1167 19.1087C18.3789 19.1064 18.6297 19.0012 18.8151 18.8158C19.0005 18.6304 19.1057 18.3796 19.108 18.1174C19.1102 17.8552 19.0094 17.6026 18.8273 17.414L15.1753 13.762C16.1633 12.5086 16.7784 11.0024 16.9504 9.41573C17.1223 7.82905 16.8441 6.22602 16.1475 4.79009C15.4509 3.35417 14.3642 2.14336 13.0116 1.29623C11.659 0.449106 10.0952 -0.000107143 8.49928 1.91687e-08ZM1.99928 8.5C1.99928 6.77609 2.6841 5.12279 3.90308 3.90381C5.12207 2.68482 6.77537 2 8.49928 2C10.2232 2 11.8765 2.68482 13.0955 3.90381C14.3145 5.12279 14.9993 6.77609 14.9993 8.5C14.9993 10.2239 14.3145 11.8772 13.0955 13.0962C11.8765 14.3152 10.2232 15 8.49928 15C6.77537 15 5.12207 14.3152 3.90308 13.0962C2.6841 11.8772 1.99928 10.2239 1.99928 8.5Z" fill="#25282B" />
-                                            </svg>
-                                        </i>
-                                        <div class="cb"></div>
-                                    </dd>
-                                </li>
-                                <li class="co_header_chk"></li>
                                 <div class="cb"></div>
                             </ul>
 
                         </div>
                     </ul>
+
+                    <?php if (!defined("_INDEX_")) { ?>
+                    <ul class="rb_config_sec">
+                        <h6 class="font-B">서브 배경컬러 설정</h6>
+                        <h6 class="font-R rb_config_sub_txt">서브페이지 전체 백그라운드 컬러를 설정할 수 있습니다.</h6>
+                        <div class="config_wrap">
+                            <ul>
+
+                                <div class="color_set_wrap square" style="position: relative;">
+                                    <input type="text" class="coloris mod_co_sub_bg" name="co_sub_bg" value="<?php echo !empty($rb_config['co_sub_bg']) ? $rb_config['co_sub_bg'] : '#ffffff'; ?>">
+                                </div>
+
+                            </ul>
+                        </div>
+                    </ul>
+                    <?php } else { ?>
+                    <ul class="rb_config_sec">
+                        <h6 class="font-B">메인 배경컬러 설정</h6>
+                        <h6 class="font-R rb_config_sub_txt">메인페이지 백그라운드 컬러를 설정할 수 있습니다.</h6>
+                        <div class="config_wrap">
+                            <ul>
+
+                                <div class="color_set_wrap square" style="position: relative;">
+                                    <input type="text" class="coloris mod_co_main_bg" name="co_main_bg" value="<?php echo !empty($rb_config['co_main_bg']) ? $rb_config['co_main_bg'] : '#ffffff'; ?>">
+                                </div>
+
+                            </ul>
+                        </div>
+                    </ul>
+                    <?php } ?>
+
 
                     <ul class="rb_config_sec">
                         <h6 class="font-B">
@@ -173,13 +189,13 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                             </div>
 
                         </h6>
-                        <h6 class="font-R rb_config_sub_txt">모듈간 간격을 일괄 설정할 수 있습니다.<br>설정된 간격은 모바일에서 동일하게 적용 됩니다.<br>최소 10px, 최대 20px 을 권장합니다.</h6>
+                        <h6 class="font-R rb_config_sub_txt">모듈간 간격을 일괄 설정할 수 있습니다.<br>설정된 간격은 모바일에서 동일하게 적용 됩니다.</h6>
                         <div class="config_wrap">
 
                             <ul class="rows_inp_lr mt-10">
                                 <li class="rows_inp_l rows_inp_l_span">
                                     <span class="font-B">간격</span><br>
-                                    0~50px
+                                    0~30px
                                 </li>
                                 <li class="rows_inp_r mt-15">
                                     <div id="co_gap_pc_range" class="rb_range_item"></div>
@@ -225,49 +241,35 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
                             <input type="hidden" id="co_inner_padding_pc" class="" name="co_inner_padding_pc" value="">
 
-                            <!-- 임시제거
                             <ul class="rows_inp_lr mt-10">
                                 <li class="rows_inp_l rows_inp_l_span">
-                                    <span class="font-B">내부 여백 (PC)</span><br>
-                                    0~30px
+                                    <span class="font-B">모바일 간격</span><br>
+                                    gap
                                 </li>
-                                <li class="rows_inp_r mt-15">
-                                    <div id="co_inner_padding_pc_range" class="rb_range_item"></div>
-                                    <input type="hidden" id="co_inner_padding_pc" class="co_range_send" name="co_inner_padding_pc" value="<?php echo !empty($rb_core['inner_padding_pc']) ? $rb_core['inner_padding_pc'] : '0'; ?>">
+                                <li class="rows_inp_r mt-5">
+                                    <input type="checkbox" name="co_gap_mo" id="co_gap_mo" class="magic-checkbox" value="1" <?php if (isset($rb_core['gap_mo']) && $rb_core['gap_mo'] == "1") { ?>checked<?php } ?>><label for="co_gap_mo">Gap 적용</label>
                                 </li>
-                                
-                                <script type="text/javascript">
-
-                                $("#co_inner_padding_pc_range").slider({
-                                  range: "min",
-                                  min: 0,
-                                  max: 30,
-                                  value: <?php echo !empty($rb_core['inner_padding_pc']) ? $rb_core['inner_padding_pc'] : '0'; ?>,
-                                  step: 5,
-                                  slide: function(e, ui) {
-                                    $("#co_inner_padding_pc_range .ui-slider-handle").html(ui.value);
-                                    $("#co_inner_padding_pc").val(ui.value); // hidden input에 값 업데이트
-                                    executeAjax();
-                                    
-                                    // 기존 클래스 제거 후 새로운 클래스 추가
-                                    $('.contents_wrap section.index').removeClass(function(index, className) {
-                                        return (className.match(/co_inner_padding_pc_\d+/g) || []).join(' ');
-                                    }).addClass('co_inner_padding_pc_' + ui.value);
-                                    
-                                  }
-                                });
-
-                                $("#co_inner_padding_pc_range .ui-slider-handle").html("<?php echo !empty($rb_core['inner_padding_pc']) ? $rb_core['inner_padding_pc'] : '0'; ?>");
-                                $("#co_inner_padding_pc").val("<?php echo !empty($rb_core['inner_padding_pc']) ? $rb_core['inner_padding_pc'] : '0'; ?>"); // 초기값 설정
-
-                                </script>
                                 <div class="cb"></div>
+
+                                <div class="rb-help" data-open="false">
+                                <button type="button" class="rb-help-btn" data-img="<?php echo G5_URL ?>/rb/rb.config/image/guide/help-img-2.png" data-txt="간격이 20px 설정인 경우 각 모듈에 20px씩 여백이 들어가면 실제 간격은 40px 이 되요. 모바일에서는 다소 넓어보일 수 있으므로 Gap 적용 시 각 모듈에 여백을 제거하고 간격설정 값 만큼의 Gap이 적용되어 넓어진 간격을 좁힐 수 있어요." data-title="Gap 적용이란?" data-alt="미리보기" aria-expanded="false">
+                                    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+                                        <g fill='none'>
+                                            <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
+                                            <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
+                                        </g>
+                                    </svg>
+                                </button>
+                                <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                            </div>
                             </ul>
-                            -->
 
 
                         </div>
+
+
                     </ul>
+
 
 
                     <?php if(defined('_SHOP_')) { // 영카트?>
@@ -450,7 +452,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                 <div class="cb"></div>
                             </ul>
 
-                            <ul class="rows_inp_lr mt-5">
+                            <ul class="rows_inp_lr mt-5 js-sidemenu-shop-dep">
                                 <li class="rows_inp_l rows_inp_l_span">
                                     <span class="font-B">모바일 버전</span><br>
                                     숨김설정
@@ -463,7 +465,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                 <div class="cb"></div>
                             </ul>
 
-                            <ul class="rows_inp_lr mt-10">
+                            <ul class="rows_inp_lr mt-10 js-sidemenu-shop-dep">
                                 <li class="rows_inp_l rows_inp_l_span">
                                     <span class="font-B">가로 크기</span><br>
                                     200~500px
@@ -504,7 +506,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                             </ul>
 
 
-                            <ul class="rows_inp_lr mt-10">
+                            <ul class="rows_inp_lr mt-10 js-sidemenu-shop-dep">
                                 <li class="rows_inp_l rows_inp_l_span">
                                     <span class="font-B">여백</span><br>
                                     0~30px
@@ -518,9 +520,9 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                     $("#co_sidemenu_padding_shop_range").slider({
                                         range: "min",
                                         min: 0,
-                                        max: 30,
+                                        max: 70,
                                         value: <?php echo !empty($rb_core['sidemenu_padding_shop']) ? $rb_core['sidemenu_padding_shop'] : '0'; ?>,
-                                        step: 5,
+                                        step: 1,
                                         slide: function(e, ui) {
                                             $("#co_sidemenu_padding_shop_range .ui-slider-handle").html(ui.value);
                                             $("#co_sidemenu_padding_shop").val(ui.value); // hidden input에 값 업데이트
@@ -544,6 +546,26 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                 </script>
                                 <div class="cb"></div>
                             </ul>
+
+                            <script>
+                              // 테두리 의존 섹션 토글
+                              function rb_togglesidemenushopDeps() {
+                                var v = $('input[name="co_sidemenu_shop"]:checked').val() || '';
+                                if (v === '') {
+                                  // 없음 → 숨김
+                                  $('.js-sidemenu-shop-dep').css('display', 'none');
+                                } else {
+                                  // 실선/점선 등 → 표시
+                                  $('.js-sidemenu-shop-dep').css('display', '');
+                                }
+                              }
+
+                              // 페이지 로드 시 & 라디오 변경 시 반영
+                              $(function(){
+                                rb_togglesidemenushopDeps();
+                                $(document).on('change', 'input[name="co_sidemenu_shop"]', rb_togglesidemenushopDeps);
+                              });
+                            </script>
 
 
                         </div>
@@ -570,7 +592,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                 <div class="cb"></div>
                             </ul>
 
-                            <ul class="rows_inp_lr mt-5">
+                            <ul class="rows_inp_lr mt-5 js-sidemenu-dep">
                                 <li class="rows_inp_l rows_inp_l_span">
                                     <span class="font-B">모바일 버전</span><br>
                                     숨김설정
@@ -583,7 +605,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                 <div class="cb"></div>
                             </ul>
 
-                            <ul class="rows_inp_lr mt-10">
+                            <ul class="rows_inp_lr mt-10 js-sidemenu-dep">
                                 <li class="rows_inp_l rows_inp_l_span">
                                     <span class="font-B">가로 크기</span><br>
                                     200~500px
@@ -624,7 +646,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                             </ul>
 
 
-                            <ul class="rows_inp_lr mt-10">
+                            <ul class="rows_inp_lr mt-10 js-sidemenu-dep">
                                 <li class="rows_inp_l rows_inp_l_span">
                                     <span class="font-B">여백</span><br>
                                     0~30px
@@ -638,9 +660,9 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                     $("#co_sidemenu_padding_range").slider({
                                         range: "min",
                                         min: 0,
-                                        max: 30,
+                                        max: 70,
                                         value: <?php echo !empty($rb_core['sidemenu_padding']) ? $rb_core['sidemenu_padding'] : '0'; ?>,
-                                        step: 5,
+                                        step: 1,
                                         slide: function(e, ui) {
                                             $("#co_sidemenu_padding_range .ui-slider-handle").html(ui.value);
                                             $("#co_sidemenu_padding").val(ui.value); // hidden input에 값 업데이트
@@ -665,7 +687,25 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                             </ul>
 
 
+                            <script>
+                              // 테두리 의존 섹션 토글
+                              function rb_togglesidemenuDeps() {
+                                var v = $('input[name="co_sidemenu"]:checked').val() || '';
+                                if (v === '') {
+                                  // 없음 → 숨김
+                                  $('.js-sidemenu-dep').css('display', 'none');
+                                } else {
+                                  // 실선/점선 등 → 표시
+                                  $('.js-sidemenu-dep').css('display', '');
+                                }
+                              }
 
+                              // 페이지 로드 시 & 라디오 변경 시 반영
+                              $(function(){
+                                rb_togglesidemenuDeps();
+                                $(document).on('change', 'input[name="co_sidemenu"]', rb_togglesidemenuDeps);
+                              });
+                            </script>
 
 
                         </div>
@@ -3131,6 +3171,9 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                 toggleSideOptions_open_sec()
                 toggleSideOptions_open()
 
+                Coloris({ el: '.coloris' });
+                Coloris.setInstance('.coloris', { parent: '.sh-side-demos-container' });
+
             },
             error: function(xhr, status, error) {
                 console.error('처리에 문제가 있습니다. 잠시 후 이용해주세요.');
@@ -3371,8 +3414,13 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
         var co_color = $('input[name="co_color"]').val();
         var co_header = $('input[name="co_header"]').val();
+
+        var co_main_bg = $('input[name="co_main_bg"]').val();
+        var co_sub_bg = $('input[name="co_sub_bg"]').val();
+
         var co_font = $('select[name="co_font"]').val();
         var co_gap_pc = $('input[name="co_gap_pc"]').val();
+        var co_gap_mo = $('input[name="co_gap_mo"]:checked').val();
         var co_inner_padding_pc = $('input[name="co_inner_padding_pc"]').val();
 
         var co_layout_shop = $('select[name="co_layout_shop"]').val();
@@ -3493,8 +3541,11 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
             data: {
                 "co_color": co_color,
                 "co_header": co_header,
+                "co_main_bg": co_main_bg,
+                "co_sub_bg": co_sub_bg,
                 "co_font": co_font,
                 "co_gap_pc": co_gap_pc,
+                "co_gap_mo": co_gap_mo,
                 "co_inner_padding_pc": co_inner_padding_pc,
 
                 "co_layout_shop": co_layout_shop,
@@ -4959,15 +5010,25 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         delete data.md_id;
         delete data.md_sec_key;
         delete data.md_sec_uid;
-        delete data.md_layout;
+        // md_layout는 프리셋 기준 필터로도 쓰이므로 제거하지 않음
+
+        // is_shop, csrf, md_theme, md_layout 보강
+        var extra = {
+            action: 'save',
+            csrf: (window.RB_WIDGET_CSRF || ''),
+            <?php if (defined('_SHOP_')) { ?>
+            is_shop: '1',
+            <?php } else { ?>
+            is_shop: '0',
+            <?php } ?>
+            md_theme: $('input[name="md_theme"]').val() || ''
+        };
 
         $.ajax({
-            url: '<?php echo G5_URL ?>/rb/rb.config/ajax.module_set.php',
+            url: '<?php echo G5_URL ?>/rb/rb.config/ajax.module_lib.php',
             type: 'POST',
             dataType: 'json',
-            data: $.extend({}, data, {
-                preset_action: 'preset_save'
-            })
+            data: $.extend({}, data, extra)
         }).done(function(res) {
             if (res && res.status === 'ok') {
                 $('.rb-sh-side-lib').css('transition', 'all 600ms cubic-bezier(0.86,0,0.07,1)').addClass('open');
@@ -5732,20 +5793,21 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         function rb_lib_list_reload() {
             var md_theme = $('input[name="md_theme"]').val() || '';
 
-            $.ajax({
-                url: '<?php echo G5_URL ?>/rb/rb.config/ajax.module_set.php',
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    preset_action: 'preset_list',
-                    csrf: window.RB_WIDGET_CSRF,
-                    <?php if (defined('_SHOP_')) { ?>
-                    is_shop: '1',
-                    <?php } else { ?>
-                    is_shop: '0',
-                    <?php } ?>
-                    md_theme: md_theme
-                }
+           $.ajax({
+            url: '<?php echo G5_URL ?>/rb/rb.config/ajax.module_lib.php',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                action: 'list',
+                csrf: window.RB_WIDGET_CSRF,
+                <?php if (defined('_SHOP_')) { ?>
+                is_shop: '1',
+                <?php } else { ?>
+                is_shop: '0',
+                <?php } ?>
+                md_theme: md_theme
+                // md_layout는 절대 보내지 않음
+            }
             }).done(function(res) {
                 if (!res || res.status !== 'ok') return;
                 var $wrap = $('.rb-lib-st-list');
@@ -5787,15 +5849,25 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         rb_lib_list_reload(); // 기존 기능 그대로 유지, 필터만 적용됨
     });
 
+    if (typeof window.RB_IS_SHOP === 'undefined') {
+        window.RB_IS_SHOP = <?php if (defined('_SHOP_')) { ?> 1 <?php } else { ?> 0 <?php } ?>;
+    }
+
+
+
+
+
+
+
     if (typeof rb_lib_apply !== 'function') {
         function rb_lib_apply(lib_id) {
 
             $.ajax({
-                url: '<?php echo G5_URL ?>/rb/rb.config/ajax.module_set.php',
+                url: '<?php echo G5_URL ?>/rb/rb.config/ajax.module_lib.php',
                 type: 'GET',
                 dataType: 'json',
                 data: {
-                    preset_action: 'preset_get',
+                    action: 'get',
                     csrf: window.RB_WIDGET_CSRF,
                     <?php if (defined('_SHOP_')) { ?>
                     is_shop: '1',
@@ -5825,10 +5897,121 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
 
 
-                    populateModuleForm(res.payload);
-                    drawTabsFromHidden();
-                    drawItemTabsFromHidden();
-                    rb_syncSlidersFromHidden();
+                   // --- 변경 후 ---
+var payload = res.payload || {};
+
+// 서버 기준 Shop 여부(문자열 '1'|'0'로 고정)
+var RB_IS_SHOP = <?php echo defined('_SHOP_') ? "'1'" : "'0'"; ?>;
+
+/**
+ * 주입 타겟 찾기 (Shop이면 *_shop 우선)
+ * - 공용/Shop 쌍둥이, 배열형, id/name 모두 커버
+ */
+function findTargets(key) {
+  var sels = [];
+  if (RB_IS_SHOP === '1') {
+    sels.push('#' + key + '_shop', '[name="' + key + '_shop"]', '[name="' + key + '_shop[]"]');
+  }
+  sels.push('#' + key, '[name="' + key + '"]', '[name="' + key + '[]"]');
+  // 공용을 __common 으로 밀어낸 경우 제외
+  var $els = $();
+  sels.forEach(function(sel){ $els = $els.add($(sel).not('[name$="__common"]')); });
+  return $els;
+}
+
+/** 체크박스/라디오 값 보조 */
+function toArray(v){
+  if (Array.isArray(v)) return v.map(String);
+  if (v == null) return [];
+  var s = String(v).trim();
+  if (!s) return [];
+  return s.split(',').map(function(x){ return x.trim(); }).filter(Boolean);
+}
+
+/** 값 주입기: 타입별로 강제 주입 + 이벤트 통지 */
+function forceApply(key, val){
+  var $targets = findTargets(key);
+  if (!$targets.length) return false;
+
+  // 라디오 그룹: name 기준으로 묶어서 처리
+  if ($targets.first().attr('type') && $targets.first().attr('type').toLowerCase() === 'radio') {
+    var name = $targets.first().attr('name') || (RB_IS_SHOP === '1' ? key + '_shop' : key);
+    var $grp = $('input[type="radio"][name="' + name + '"]');
+    $grp.prop('checked', false);
+    $grp.filter('[value="' + String(val) + '"]').prop('checked', true);
+    $grp.first().trigger('change');
+    return true;
+  }
+
+  // 체크박스: name 기준으로 묶어서 처리(단일/다중 모두 커버)
+  if ($targets.first().attr('type') && $targets.first().attr('type').toLowerCase() === 'checkbox') {
+    var name = $targets.first().attr('name') || (RB_IS_SHOP === '1' ? key + '_shop' : key);
+    var $grp = $('input[type="checkbox"][name="' + name + '"]');
+    var arr = toArray(val);
+    $grp.prop('checked', false);
+    if (arr.length) {
+      arr.forEach(function(v){ $grp.filter('[value="' + v + '"]').prop('checked', true); });
+      // 단일 체크박스(값이 '1' 등)도 커버
+      if (!$grp.filter(':checked').length && (val === 1 || val === '1' || val === true)) {
+        $grp.first().prop('checked', true);
+      }
+    }
+    $grp.first().trigger('change');
+    return true;
+  }
+
+  // select[multiple]
+  if ($targets.is('select[multiple]')) {
+    var arr = toArray(val);
+    $targets.each(function(){
+      $(this).val(arr).trigger('change');
+    });
+    return true;
+  }
+
+  // 일반 select / input / textarea
+  $targets.each(function(){
+    $(this).val(String(val));
+    try { $(this).trigger('input').trigger('change'); } catch(e){}
+  });
+
+  // Coloris 미리보기 동기화 (대표 예: md_title_color 등)
+  if (/color/i.test(String(key))) {
+    $targets.each(function(){
+      var field = this.closest('.clr-field,.color_set_wrap');
+      if (field && field.style) field.style.setProperty('--clr-color', String(val));
+    });
+    if (window.Coloris) { try { Coloris({ el: '.coloris' }); } catch(e){} }
+  }
+
+  return true;
+}
+
+// 1) 원래 로직 있으면 먼저 실행(선택)
+//    주석 처리되어 있던 기존 함수가 정상 동작하는 경우를 위해 유지
+try { if (typeof populateModuleForm === 'function') populateModuleForm(payload); } catch(e){}
+
+// 2) 강제 주입 (모든 md_* 키를 실제 필드에 꽂음)
+var applied = 0, missed = [];
+Object.keys(payload).forEach(function(key){
+  // 대응 관계: *_shop ↔ 기본키 둘 다 시도
+  var ok = forceApply(key, payload[key]);
+  if (!ok && /_shop$/.test(key)) {
+    var base = key.replace(/_shop$/, '');
+    ok = forceApply(base, payload[key]);
+  } else if (!ok) {
+    ok = forceApply(key + '_shop', payload[key]);
+  }
+  if (ok) applied++; else missed.push(key);
+});
+
+// 3) 이후 부가 렌더/동기화
+try { if (typeof drawTabsFromHidden === 'function') drawTabsFromHidden(); } catch(e){}
+try { if (typeof drawItemTabsFromHidden === 'function') drawItemTabsFromHidden(); } catch(e){}
+try { if (typeof rb_syncSlidersFromHidden === 'function') rb_syncSlidersFromHidden(); } catch(e){}
+
+// 4) 디버그 로그(개발자도구 콘솔에서 확인)
+console.log('[rb] applied fields:', applied, 'missed:', missed);
 
 
                     if (typeof window.rb_after_form_populate === 'function') {
@@ -5930,11 +6113,11 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                 if (!confirmed) return; // 취소 시 종료
 
                 $.ajax({
-                    url: '<?php echo G5_URL ?>/rb/rb.config/ajax.module_set.php',
+                    url: '<?php echo G5_URL ?>/rb/rb.config/ajax.module_lib.php',
                     type: 'POST',
                     dataType: 'json',
                     data: {
-                        preset_action: 'preset_delete',
+                        action: 'delete',
                         csrf: (window.RB_WIDGET_CSRF || ''),
                         <?php if (defined('_SHOP_')) { ?>
                         is_shop: '1',
@@ -5956,10 +6139,6 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         }
     }
 
-    if (typeof window.RB_IS_SHOP === 'undefined') {
-        window.RB_IS_SHOP =
-            <?php if (defined('_SHOP_')) { ?> 1 <?php } else { ?> 0 <?php } ?>;
-    }
 
     if (typeof populateModuleForm !== 'function') {
         function populateModuleForm(p) {
@@ -5991,20 +6170,47 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                 return [s];
             }
             // 같은 name이 일반/SHOP 두 벌일 때 현재 모드의 요소만 선택
-            function pickByMode(name) {
-                var $all = $root.find('[name="' + name + '"], [name="' + name + '[]"]');
-                if (!$all.length) return $all;
-                var $shop = $all.filter('[id$="_shop"]')
-                    .add($all.filter(function() {
-                        return $(this).closest('[data-scope="shop"], .shop-panel, #shop-pane').length > 0;
-                    }))
-                    .add($all.filter('[data-shop="1"]'));
-                var $norm = $all.filter(':not([id$="_shop"])')
-                    .filter(function() {
-                        return $(this).closest('[data-scope="shop"], .shop-panel, #shop-pane').length === 0;
-                    })
-                    .filter(':not([data-shop="1"])');
-                return IN_SHOP ? ($shop.length ? $shop : $all) : ($norm.length ? $norm : $all);
+            function pickByMode(name){
+              var $all = $(document).find('[name="'+name+'"], [name="'+name+'[]"]');
+              if (!$all.length) return $all;
+
+              var isShop = (window.RB_IS_SHOP == 1);
+
+              if (isShop){
+                // 1순위: id가 정확히 name_shop 인 요소
+                var $idShop = $('#'+name+'_shop');
+                if ($idShop.length) return $idShop;
+
+                // 2순위: 같은 name 중에서 shop 영역 우선
+                /*
+                var $inShopScope = $all.filter(function(){
+                  var $el = $(this);
+                  return $el.is('[data-shop="1"]') ||
+                         ($el.attr('id')||'').endsWith('_shop') ||
+                         $el.closest('[data-scope="shop"], .shop-panel, #shop-pane').length > 0;
+                });
+                */
+                if ($inShopScope.length) return $inShopScope;
+
+                // 3순위: 폴백으로 같은 name 전체
+                return $all;
+              } else {
+                // 일반 모드
+                // 1순위: id가 정확히 name 인 요소 (id가 *_shop 인 것은 제외)
+                var $id = $('#'+name);
+                if ($id.length && !$id.is('#'+name+'_shop')) return $id;
+
+                // 2순위: 같은 name 중 *_shop 가 아닌 것 우선
+                var $notShop = $all.filter(function(){
+                  var id = this.id || '';
+                  var inShopScope = $(this).closest('[data-scope="shop"], .shop-panel, #shop-pane').length > 0;
+                  return !id.endsWith('_shop') && !inShopScope && !$(this).is('[data-shop="1"]');
+                });
+                if ($notShop.length) return $notShop;
+
+                // 3순위: 폴백
+                return $all;
+              }
             }
 
             // 슬라이더 동기화: hidden.co_range_send ↔ #<base>_range
@@ -6048,7 +6254,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
             Object.keys(p || {}).forEach(function(key) {
                 var val = p[key];
 
-                // ✅ 태그 출력 로직을 건드리지 않기 위해:
+                // 태그 출력 로직을 건드리지 않기 위해:
                 //    md_item_tab_list / md_tab_list는 hidden 값만 정확히 채우고 종료
                 if (key === 'md_item_tab_list' || key === 'md_tab_list') {
                     var str = (typeof rbNormalizeSerialized === 'function') ?

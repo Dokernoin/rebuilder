@@ -26,6 +26,9 @@ $admin = get_admin("super");
             <?php if(isset($it_id) && $it_id) { ?>
                 <div class="rb_it_btm flex_box" data-layout="rb_it_btm_shop_<?php echo $it_id ?>"></div>
             <?php } ?>
+            <?php if(isset($fr_id) && $fr_id) { ?>
+                <div class="rb_fr_btm flex_box" data-layout="rb_fr_btm_shop_<?php echo $fr_id ?>"></div>
+            <?php } ?>
         <?php } ?>
 
         <?php if (!defined('_INDEX_') && !$sidebar_hidden) { ?>

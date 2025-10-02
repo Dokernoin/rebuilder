@@ -17,6 +17,10 @@ if(isset($is_shop) && $is_shop == 1) {
 if($mod_type == 1) { //환경설정
     $co_color = !empty($_POST['co_color']) ? $_POST['co_color'] : 'AA20FF';
     $co_header = !empty($_POST['co_header']) ? $_POST['co_header'] : '0';
+
+    $co_main_bg = !empty($_POST['co_main_bg']) ? $_POST['co_main_bg'] : '#FFFFFF';
+    $co_sub_bg = !empty($_POST['co_sub_bg']) ? $_POST['co_sub_bg'] : '#FFFFFF';
+    $co_gap_mo = !empty($_POST['co_gap_mo']) ? $_POST['co_gap_mo'] : '0';
    
     $co_layout = !empty($_POST['co_layout']) ? $_POST['co_layout'] : 'basic';
     $co_layout_hd = !empty($_POST['co_layout_hd']) ? $_POST['co_layout_hd'] : 'basic';
@@ -94,13 +98,16 @@ if($mod_type == "del_sec") { //섹션삭제
 <?php
     
             if($is_admin) {
-            $sql = " update rb_config set co_layout = '{$co_layout}', co_layout_hd = '{$co_layout_hd}', co_layout_ft = '{$co_layout_ft}', co_layout_shop = '{$co_layout_shop}', co_layout_hd_shop = '{$co_layout_hd_shop}', co_layout_ft_shop = '{$co_layout_ft_shop}', co_color = '{$co_color}', co_header = '{$co_header}', co_font = '{$co_font}', co_gap_pc = '{$co_gap_pc}', co_inner_padding_pc = '{$co_inner_padding_pc}', co_sub_width = '{$co_sub_width}', co_main_width = '{$co_main_width}', co_tb_width = '{$co_tb_width}', co_padding_top = '{$co_padding_top}', co_padding_top_sub = '{$co_padding_top_sub}', co_padding_top_shop = '{$co_padding_top_shop}', co_padding_top_sub_shop = '{$co_padding_top_sub_shop}', co_padding_btm = '{$co_padding_btm}', co_padding_btm_sub = '{$co_padding_btm_sub}', co_padding_btm_shop = '{$co_padding_btm_shop}', co_padding_btm_sub_shop = '{$co_padding_btm_sub_shop}', co_menu_shop = '{$co_menu_shop}', co_sidemenu_padding = '{$co_sidemenu_padding}', co_sidemenu_padding_shop = '{$co_sidemenu_padding_shop}', co_sidemenu_hide = '{$co_sidemenu_hide}', co_sidemenu_hide_shop = '{$co_sidemenu_hide_shop}', co_side_skin = '{$co_side_skin}', co_side_skin_shop = '{$co_side_skin_shop}', co_sidemenu = '{$co_sidemenu}', co_sidemenu_shop = '{$co_sidemenu_shop}', co_sidemenu_width = '{$co_sidemenu_width}', co_sidemenu_width_shop = '{$co_sidemenu_width_shop}', co_datetime = '".G5_TIME_YMDHIS."', co_ip = '{$_SERVER['REMOTE_ADDR']}' ";
+            $sql = " update rb_config set co_layout = '{$co_layout}', co_layout_hd = '{$co_layout_hd}', co_layout_ft = '{$co_layout_ft}', co_layout_shop = '{$co_layout_shop}', co_layout_hd_shop = '{$co_layout_hd_shop}', co_layout_ft_shop = '{$co_layout_ft_shop}', co_color = '{$co_color}', co_header = '{$co_header}', co_main_bg = '{$co_main_bg}', co_sub_bg = '{$co_sub_bg}', co_gap_mo = '{$co_gap_mo}', co_font = '{$co_font}', co_gap_pc = '{$co_gap_pc}', co_inner_padding_pc = '{$co_inner_padding_pc}', co_sub_width = '{$co_sub_width}', co_main_width = '{$co_main_width}', co_tb_width = '{$co_tb_width}', co_padding_top = '{$co_padding_top}', co_padding_top_sub = '{$co_padding_top_sub}', co_padding_top_shop = '{$co_padding_top_shop}', co_padding_top_sub_shop = '{$co_padding_top_sub_shop}', co_padding_btm = '{$co_padding_btm}', co_padding_btm_sub = '{$co_padding_btm_sub}', co_padding_btm_shop = '{$co_padding_btm_shop}', co_padding_btm_sub_shop = '{$co_padding_btm_sub_shop}', co_menu_shop = '{$co_menu_shop}', co_sidemenu_padding = '{$co_sidemenu_padding}', co_sidemenu_padding_shop = '{$co_sidemenu_padding_shop}', co_sidemenu_hide = '{$co_sidemenu_hide}', co_sidemenu_hide_shop = '{$co_sidemenu_hide_shop}', co_side_skin = '{$co_side_skin}', co_side_skin_shop = '{$co_side_skin_shop}', co_sidemenu = '{$co_sidemenu}', co_sidemenu_shop = '{$co_sidemenu_shop}', co_sidemenu_width = '{$co_sidemenu_width}', co_sidemenu_width_shop = '{$co_sidemenu_width_shop}', co_datetime = '".G5_TIME_YMDHIS."', co_ip = '{$_SERVER['REMOTE_ADDR']}' ";
             sql_query($sql);
             }
 
             $data = array(
                 'co_color' => $co_color,
                 'co_header' => $co_header,
+                'co_main_bg' => $co_main_bg,
+                'co_sub_bg' => $co_sub_bg,
+                'co_gap_mo' => $co_gap_mo,
                 'co_layout' => $co_layout,
                 'co_layout_hd' => $co_layout_hd,
                 'co_layout_ft' => $co_layout_ft,
@@ -259,7 +266,7 @@ if($mod_type == "del_sec") { //섹션삭제
                     margin: 0, // margin
                     swatchesOnly: false, // 색상 견본만 표시여부
                     alpha: true, // 알파(투명) 활성여부
-                    theme: 'polaroid', // default, large, polaroid, pill
+                    //theme: 'polaroid', // default, large, polaroid, pill
                     themeMode: 'Light', // dark, Light
                     focusInput: true, // 색상코드 Input에 포커스 여부
                     selectInput: true, // 선택기가 열릴때 색상값을 select 여부
@@ -403,11 +410,12 @@ if($mod_type == "del_sec") { //섹션삭제
                 <?php echo rb_widget_select('rb.widget', $md_widget); ?>
             </select>
             
-            <button type="button" class="main_rb_bg font-B" id="widget_add_btn" onclick="add_widget_mod_open(this, document.querySelector('select[name=md_widget]').value)">위젯 생성/관리</button>
+            <button type="button" class="main_rb_bg font-B" id="widget_add_btn" onclick="add_widget_mod_open(this, document.querySelector('select[name=md_widget]').value)">위젯 라이브 커스텀</button>
 
             <h6 class="font-R rb_config_sub_txt">
                 직접 추가하신 위젯을 선택/출력할 수 있어요.<br>
-                [위젯 생성/관리] 를 통해 위젯을 생성하거나 관리할 수 있어요.
+                [위젯 라이브커스텀] 으로 위젯을 하드코딩 하거나 위젯의 코드를<br>
+                바로 편집할 수 있어요.
             </h6>
 
         </ul>
