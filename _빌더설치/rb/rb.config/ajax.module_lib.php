@@ -23,8 +23,12 @@ if (!$is_admin) {
     exit;
 }
 
-$is_shop = isset($_REQUEST['is_shop']) ? trim($_REQUEST['is_shop']) : '0';
-$table = ($is_shop == '1') ? 'rb_module_lib_shop' : 'rb_module_lib';
+$client_is_shop = isset($_REQUEST['is_shop']) ? trim((string)$_REQUEST['is_shop']) : '0';
+$server_is_shop = defined('_SHOP_') ? '1' : '0';
+$is_shop_mode   = ($client_is_shop === '1' || $server_is_shop === '1') ? '1' : '0';
+
+// 단일 테이블 사용
+$table = 'rb_module_lib';
 
 $action = isset($_REQUEST['action']) ? trim($_REQUEST['action']) : '';
 header('Content-Type: application/json; charset=utf-8');
@@ -56,7 +60,17 @@ if ($action === 'save') {
     $md_type     = (isset($_POST['md_type']) && $_POST['md_type'] !== '')
                     ? $_POST['md_type']
                     : (isset($_POST['md_module']) ? $_POST['md_module'] : '');
-    $width_txt   = isset($_POST['md_size']) ? $_POST['md_size'] : '';
+    // width_text는 사이즈 단위와 숫자 폭을 함께 저장
+    $md_size  = isset($_POST['md_size'])  ? trim($_POST['md_size'])  : '';
+    $md_width = isset($_POST['md_width']) ? trim($_POST['md_width']) : '';
+
+    // "37.5%" 같은 입력에서 첫 번째 실수만 추출 (음수/소수점 지원, 로케일 무관)
+    preg_match('/-?\d+(?:\.\d+)?/', (string)$md_width, $m);
+    $md_width_num = isset($m[0]) ? $m[0] : '';
+
+    // 표시 문자열: 빈값이면 단위만 안 붙이고, 소수점 끝 0/점 정리는 원하면 아래 참고
+$width_txt = ($md_width_num === '' ? '' : $md_width_num) . $md_size;
+
     $md_show   = isset($_POST['md_show']) ? $_POST['md_show'] : '';
 
     $payload_json = json_encode($payload, JSON_UNESCAPED_UNICODE);
@@ -81,13 +95,19 @@ if ($action === 'save') {
 
 if ($action === 'list') {
     $md_theme  = isset($_GET['md_theme'])  ? $_GET['md_theme']  : '';
-    $md_layout = isset($_GET['md_layout']) ? $_GET['md_layout'] : '';
+
     $q = "SELECT lib_id, title, md_type, md_show, width_text, created_at
-          FROM {$table}
-          WHERE 1 ";
+      FROM {$table}
+      WHERE 1 ";
     if ($md_theme !== '')  $q .= " AND md_theme = '".rb_sql_escape($md_theme)."' ";
-    if ($md_layout !== '') $q .= " AND md_layout = '".rb_sql_escape($md_layout)."' ";
+
+    if ($is_shop_mode !== '1') {
+        $q .= " AND (md_type IS NULL OR TRIM(md_type) = '' OR LOWER(TRIM(md_type)) NOT IN ('item','item_tab')) ";
+    }
+
+    // md_layout 필터는 사용하지 않음
     $q .= " ORDER BY lib_id DESC ";
+
     $rs = sql_query($q);
 
     $rows = [];
@@ -107,8 +127,21 @@ if ($action === 'get') {
 
     $payload = json_decode($row['payload_json'], true);
     if (!is_array($payload)) $payload = [];
+    $payload = array_diff_key($payload, array_flip(['md_layout']));
 
     echo json_encode(['status'=>'ok','payload'=>$payload]);
+    exit;
+}
+
+if ($action === 'delete') {
+    $lib_id = isset($_POST['lib_id']) ? trim($_POST['lib_id']) : '';
+    if ($lib_id === '') {
+        echo json_encode(['status'=>'error','msg'=>'lib_id required']);
+        exit;
+    }
+    $q = "DELETE FROM {$table} WHERE lib_id = '".rb_sql_escape($lib_id)."'";
+    sql_query($q);
+    echo json_encode(['status'=>'ok']);
     exit;
 }
 
