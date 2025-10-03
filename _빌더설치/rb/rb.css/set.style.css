@@ -117,7 +117,10 @@ section.co_gap_pc_25 {margin-top: -5px;}
 section.co_gap_pc_30 {margin-top: -10px;}
 */
 
-.rb_sidemenu .content_box {padding-top: 1px !important;}
+#rb_sidemenu .content_box {padding-top: 1px !important;}
+#rb_sidemenu_shop .content_box {padding-top: 1px !important;}
+#rb_sidemenu_float .content_box {padding-top: 1px !important;}
+#rb_sidemenu_float_shop .content_box {padding-top: 1px !important;}
 
 @media all and (max-width:1024px) {
 
@@ -134,15 +137,6 @@ section.co_gap_pc_30 {margin-top: -10px;}
     .rb_module_padding_20 .rb-module-wrap {padding: 20px;}
     .rb_module_padding_25 .rb-module-wrap {padding: 25px;}
     .rb_module_padding_30 .rb-module-wrap {padding: 30px;}
-
-    .co_gap_pc_ .rb_ca_top {transform: translateX(-0px) !important; width: calc(100% + 0px) !important;}
-    .co_gap_pc_0 .rb_ca_top {transform: translateX(-0px) !important; width: calc(100% + 0px) !important;}
-    .co_gap_pc_5 .rb_ca_top {transform: translateX(-5px) !important; width: calc(100% + 10px) !important;}
-    .co_gap_pc_10 .rb_ca_top {transform: translateX(-10px) !important; width: calc(100% + 20px) !important;}
-    .co_gap_pc_15 .rb_ca_top {transform: translateX(-15px) !important; width: calc(100% + 30px) !important;}
-    .co_gap_pc_20 .rb_ca_top {transform: translateX(-20px) !important; width: calc(100% + 40px) !important;}
-    .co_gap_pc_25 .rb_ca_top {transform: translateX(-25px) !important; width: calc(100% + 50px) !important;}
-    .co_gap_pc_30 .rb_ca_top {transform: translateX(-30px) !important; width: calc(100% + 60px) !important;}
 
     main.gap_pc_ #header {padding-left: 0px; padding-right: 0px;}
     main.gap_pc_0 #header {padding-left: 0px; padding-right: 0px;}

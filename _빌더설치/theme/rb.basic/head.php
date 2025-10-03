@@ -115,13 +115,13 @@ include_once(G5_PATH.'/rb/rb.mod/alarm/alarm.php'); // 실시간 알림
 
         <?php if (!defined("_INDEX_")) { ?>
             <?php if(isset($bo_table) && $bo_table) { ?>
-                <div class="rb_bo_top flex_box" data-layout="rb_bo_top_<?php echo $bo_table ?>"></div>
+                <div class="rb_bo_top flex_box rb_sub_module" data-layout="rb_bo_top_<?php echo $bo_table ?>"></div>
             <?php } ?>
             <?php if(isset($co_id) && $co_id) { ?>
-                <div class="rb_co_top flex_box" data-layout="rb_co_top_<?php echo $co_id ?>"></div>
+                <div class="rb_co_top flex_box rb_sub_module" data-layout="rb_co_top_<?php echo $co_id ?>"></div>
             <?php } ?>
             <?php if(isset($fr_id) && $fr_id) { ?>
-                <div class="rb_fr_top flex_box" data-layout="rb_fr_top_<?php echo $fr_id ?>"></div>
+                <div class="rb_fr_top flex_box rb_sub_module" data-layout="rb_fr_top_<?php echo $fr_id ?>"></div>
             <?php } ?>
         <?php } ?>
 

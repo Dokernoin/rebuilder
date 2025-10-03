@@ -110,22 +110,22 @@ if(defined('_INDEX_')) { // index에서만 실행
 
         <?php if (!defined("_INDEX_")) { ?>
             <?php if(isset($bo_table) && $bo_table) { ?>
-                <div class="rb_bo_top flex_box" data-layout="rb_bo_top_shop_<?php echo $bo_table ?>"></div>
+                <div class="rb_bo_top flex_box rb_sub_module" data-layout="rb_bo_top_shop_<?php echo $bo_table ?>"></div>
             <?php } ?>
             <?php if(isset($co_id) && $co_id) { ?>
-                <div class="rb_co_top flex_box" data-layout="rb_co_top_shop_<?php echo $co_id ?>"></div>
+                <div class="rb_co_top flex_box rb_sub_module" data-layout="rb_co_top_shop_<?php echo $co_id ?>"></div>
             <?php } ?>
             <?php if(isset($_GET['ca_id']) && $_GET['ca_id']) { ?>
-                <div class="rb_ca_top flex_box" data-layout="rb_ca_top_shop_<?php echo $_GET['ca_id'] ?>"></div>
+                <div class="rb_ca_top flex_box rb_sub_module" data-layout="rb_ca_top_shop_<?php echo $_GET['ca_id'] ?>"></div>
             <?php } ?>
             <?php if(isset($_GET['ev_id']) && $_GET['ev_id']) { ?>
-                <div class="rb_ev_top flex_box" data-layout="rb_ev_top_shop_<?php echo $_GET['ev_id'] ?>"></div>
+                <div class="rb_ev_top flex_box rb_sub_module" data-layout="rb_ev_top_shop_<?php echo $_GET['ev_id'] ?>"></div>
             <?php } ?>
             <?php if(isset($it_id) && $it_id) { ?>
-                <div class="rb_it_top flex_box" data-layout="rb_it_top_shop_<?php echo $it_id ?>"></div>
+                <div class="rb_it_top flex_box rb_sub_module" data-layout="rb_it_top_shop_<?php echo $it_id ?>"></div>
             <?php } ?>
             <?php if(isset($fr_id) && $fr_id) { ?>
-                <div class="rb_fr_top flex_box" data-layout="rb_fr_top_shop_<?php echo $fr_id ?>"></div>
+                <div class="rb_fr_top flex_box rb_sub_module" data-layout="rb_fr_top_shop_<?php echo $fr_id ?>"></div>
             <?php } ?>
 
 
