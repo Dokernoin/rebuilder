@@ -95,7 +95,36 @@ foreach ($layouts as $layout_no) {
 
     // start output buffer content
     $rb_module_table = "rb_module_shop";
-    $output  = "<?php\nob_start();\n\n\$rb_module_table = 'rb_module_shop';\n\$GLOBALS['rb_module_table'] = \$rb_module_table;\n\$is_admin = " . var_export($is_admin, true) . ";\n?>\n";
+
+    // 레벨처리 변경 {
+    $output  = "<?php
+    ob_start();
+
+    \$rb_module_table = 'rb_module';
+    \$GLOBALS['rb_module_table'] = \$rb_module_table;
+    \$is_admin = " . var_export($is_admin, true) . ";
+
+    // -- 회원 레벨 가시성 헬퍼 (관리자 제외)
+    if (!function_exists('rb__level_visible')) {
+        function rb__level_visible(\$mb_level, \$rule, \$level) {
+            \$mb_level = (int)\$mb_level;
+            \$rule     = (int)\$rule;
+            \$level    = (int)\$level;
+            if (!\$rule || !\$level) return true; // 설정 없으면 항상 출력
+
+            switch (\$rule) {
+                case 1: return \$mb_level === \$level;
+                case 2: return \$mb_level !== \$level;
+                case 3: return \$mb_level >=  \$level;
+                case 4: return \$mb_level <   \$level;
+                case 5: return \$mb_level >=  \$level;
+                case 6: return \$mb_level <   \$level;
+                default: return true;
+            }
+        }
+    }
+    ?>\n";
+    // }
 
 
     // render items in unified order
@@ -104,6 +133,11 @@ foreach ($layouts as $layout_no) {
             $row_mod = $it['row'];
             ob_start();
             echo "<?php\n\$row_mod = " . var_export($row_mod, true) . ";\n?>\n";
+
+            // 레벨처리 추가 {
+            echo "<?php \$__rb_mb_level = isset(\$GLOBALS['member']['mb_level']) ? (int)\$GLOBALS['member']['mb_level'] : 1;
+            if (!\$is_admin && !rb__level_visible(\$__rb_mb_level, " . (int)($row_mod['md_level_is'] ?? 0) . ", " . (int)($row_mod['md_level'] ?? 0) . ")) { } else { ?>\n";
+            // }
         ?>
 
         <div
@@ -542,6 +576,11 @@ foreach ($layouts as $layout_no) {
 
         <?php
         $output .= ob_get_clean();
+
+        // 레벨처리 추가 {
+        $output .= "<?php } ?>\n";
+        // 레벨처리 추가 }
+
     } else {
          $row_sec = $it['row'];
             ob_start();

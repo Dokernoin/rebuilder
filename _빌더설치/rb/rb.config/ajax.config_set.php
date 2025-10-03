@@ -225,6 +225,8 @@ if($mod_type == "del_sec") { //섹션삭제
                 $md_box_shadow_c = !empty($rb_module['md_box_shadow_c']) ? $rb_module['md_box_shadow_c'] : '';
 
                 $md_level = !empty($rb_module['md_level']) ? $rb_module['md_level'] : '';
+                $md_level_is = !empty($rb_module['md_level_is']) ? $rb_module['md_level_is'] : '';
+
                 $md_module = !empty($rb_module['md_module']) ? $rb_module['md_module'] : '';
                 $md_soldout_hidden = !empty($rb_module['md_soldout_hidden']) ? $rb_module['md_soldout_hidden'] : '';
                 $md_soldout_asc = !empty($rb_module['md_soldout_asc']) ? $rb_module['md_soldout_asc'] : '';
@@ -366,6 +368,21 @@ if($mod_type == "del_sec") { //섹션삭제
             <input type="radio" name="md_show" id="md_show_1" class="magic-radio" value="" <?php if (isset($md_show) && $md_show == "" || empty($md_show)) { ?>checked<?php } ?>><label for="md_show_1">공용</label>
             <input type="radio" name="md_show" id="md_show_2" class="magic-radio" value="pc" <?php if (isset($md_show) && $md_show == "pc") { ?>checked<?php } ?>><label for="md_show_2">PC 전용</label>
             <input type="radio" name="md_show" id="md_show_3" class="magic-radio" value="mobile" <?php if (isset($md_show) && $md_show == "mobile") { ?>checked<?php } ?>><label for="md_show_3">Mobile 전용</label>
+        </ul>
+
+        <ul class="mt-10">
+            <?php echo rb_member_level_select('md_level', 1, $member['mb_level'], $md_level) ?>
+
+            <select id="md_level_is" name="md_level_is" class="select select_tiny w30">
+            <option value="" <?php if (isset($md_level_is) && $md_level_is == "") { ?>selected<?php } ?>>출력조건</option>
+            <option value="1" <?php if (isset($md_level_is) && $md_level_is == "1") { ?>selected<?php } ?>>레벨만 출력</option>
+            <option value="2" <?php if (isset($md_level_is) && $md_level_is == "2") { ?>selected<?php } ?>>레벨만 숨김</option>
+            <option value="3" <?php if (isset($md_level_is) && $md_level_is == "3") { ?>selected<?php } ?>>레벨 이상만 출력</option>
+            <option value="4" <?php if (isset($md_level_is) && $md_level_is == "4") { ?>selected<?php } ?>>레벨 이하만 출력</option>
+            <option value="5" <?php if (isset($md_level_is) && $md_level_is == "5") { ?>selected<?php } ?>>레벨 이상만 숨김</option>
+            <option value="6" <?php if (isset($md_level_is) && $md_level_is == "6") { ?>selected<?php } ?>>레벨 이하만 숨김</option>
+
+            </select>
         </ul>
 
 

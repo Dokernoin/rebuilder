@@ -40,6 +40,8 @@ $md_row_mo = isset($_POST['md_row_mo']) ? $_POST['md_row_mo'] : '1';
 $md_width = isset($_POST['md_width']) ? $_POST['md_width'] : '100%';
 $md_height = isset($_POST['md_height']) ? $_POST['md_height'] : '';
 $md_show = isset($_POST['md_show']) ? $_POST['md_show'] : '';
+$md_level = isset($_POST['md_level']) ? $_POST['md_level'] : '';
+$md_level_is = isset($_POST['md_level_is']) ? $_POST['md_level_is'] : '';
 $md_size = isset($_POST['md_size']) ? $_POST['md_size'] : '%';
 $md_subject_is = isset($_POST['md_subject_is']) ? $_POST['md_subject_is'] : '';
 $md_thumb_is = isset($_POST['md_thumb_is']) ? $_POST['md_thumb_is'] : '';
@@ -211,6 +213,8 @@ if (isset($is_height) && $is_height == "1") {
                 md_width = '{$md_width}',
                 md_height = '{$md_height}',
                 md_show = '{$md_show}',
+                md_level = '{$md_level}',
+                md_level_is = '{$md_level_is}',
                 md_size = '{$md_size}',
                 md_subject_is = '{$md_subject_is}',
                 md_thumb_is = '{$md_thumb_is}',
@@ -299,6 +303,8 @@ if (isset($is_height) && $is_height == "1") {
                 md_width = '{$md_width}',
                 md_height = '{$md_height}',
                 md_show = '{$md_show}',
+                md_level = '{$md_level}',
+                md_level_is = '{$md_level_is}',
                 md_size = '{$md_size}',
                 md_subject_is = '{$md_subject_is}',
                 md_thumb_is = '{$md_thumb_is}',

@@ -4095,6 +4095,8 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         var md_height = $('input[name="md_height"]').val();
         var md_size = $('input[name="md_size"]:checked').val();
         var md_show = $('input[name="md_show"]:checked').val();
+        var md_level = $('select[name="md_level"]').val();
+        var md_level_is = $('select[name="md_level_is"]').val();
 
         if (md_type == "item" || md_type == "item_tab") {
             var md_subject_is = $('#md_subject_is_shop:checked').val();
@@ -4287,6 +4289,8 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                     "md_height": md_height,
                     "md_size": md_size,
                     "md_show": md_show,
+                    "md_level": md_level,
+                    "md_level_is": md_level_is,
                     "md_subject_is": md_subject_is,
                     "md_thumb_is": md_thumb_is,
                     "md_nick_is": md_nick_is,
