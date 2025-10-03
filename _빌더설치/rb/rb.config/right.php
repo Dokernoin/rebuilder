@@ -6119,68 +6119,74 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
                     window.__rb_last_applied_keys = window.__rb_last_applied_keys || [];
 
-function rbClearTargetsForKey(key){
-  // key와 짝꿍 키( *_shop ↔ 기본 ) 모두 클리어 시도
-  var keys = [key];
-  if (/_shop$/.test(key)) keys.push(key.replace(/_shop$/, ''));
-  else                    keys.push(key + '_shop');
+                    function rbClearTargetsForKey(key) {
+                        // key와 짝꿍 키( *_shop ↔ 기본 ) 모두 클리어 시도
+                        var keys = [key];
+                        if (/_shop$/.test(key)) keys.push(key.replace(/_shop$/, ''));
+                        else keys.push(key + '_shop');
 
-  keys.forEach(function(k){
-    var $targets = findTargets(k);
-    if (!$targets.length) return;
+                        keys.forEach(function(k) {
+                            var $targets = findTargets(k);
+                            if (!$targets.length) return;
 
-    var $first = $targets.first();
-    var type = ($first.attr('type') || '').toLowerCase();
+                            var $first = $targets.first();
+                            var type = ($first.attr('type') || '').toLowerCase();
 
-    // 라디오/체크박스는 그룹 전체 해제
-    if (type === 'radio') {
-      var name = $first.attr('name');
-      if (name) $('input[type="radio"][name="'+name+'"]').prop('checked', false).first().trigger('change');
-      return;
-    }
-    if (type === 'checkbox') {
-      var name = $first.attr('name');
-      if (name) $('input[type="checkbox"][name="'+name+'"]').prop('checked', false).first().trigger('change');
-      return;
-    }
+                            // 라디오/체크박스는 그룹 전체 해제
+                            if (type === 'radio') {
+                                var name = $first.attr('name');
+                                if (name) $('input[type="radio"][name="' + name + '"]').prop('checked', false).first().trigger('change');
+                                return;
+                            }
+                            if (type === 'checkbox') {
+                                var name = $first.attr('name');
+                                if (name) $('input[type="checkbox"][name="' + name + '"]').prop('checked', false).first().trigger('change');
+                                return;
+                            }
 
-    // 멀티셀렉트는 빈 배열
-    if ($targets.is('select[multiple]')) {
-      $targets.each(function(){ $(this).val([]).trigger('change'); });
-      return;
-    }
+                            // 멀티셀렉트는 빈 배열
+                            if ($targets.is('select[multiple]')) {
+                                $targets.each(function() {
+                                    $(this).val([]).trigger('change');
+                                });
+                                return;
+                            }
 
-    // 탭 히든은 명시적으로 빈 배열 문자열로
-    if (k === 'md_tab_list' || k === 'md_item_tab_list') {
-      $targets.each(function(){ $(this).val('[]').trigger('input').trigger('change'); });
-      return;
-    }
+                            // 탭 히든은 명시적으로 빈 배열 문자열로
+                            if (k === 'md_tab_list' || k === 'md_item_tab_list') {
+                                $targets.each(function() {
+                                    $(this).val('[]').trigger('input').trigger('change');
+                                });
+                                return;
+                            }
 
-    // 일반 input/select/textarea는 공란
-    $targets.each(function(){ $(this).val('').trigger('input').trigger('change'); });
+                            // 일반 input/select/textarea는 공란
+                            $targets.each(function() {
+                                $(this).val('').trigger('input').trigger('change');
+                            });
 
-    // Coloris 같은 색상 프리뷰 동기화
-    if (/color/i.test(String(k))) {
-      $targets.each(function(){
-        var field = this.closest('.clr-field,.color_set_wrap');
-        if (field && field.style) field.style.setProperty('--clr-color', '');
-      });
-    }
-  });
-}
+                            // Coloris 같은 색상 프리뷰 동기화
+                            if (/color/i.test(String(k))) {
+                                $targets.each(function() {
+                                    var field = this.closest('.clr-field,.color_set_wrap');
+                                    if (field && field.style) field.style.setProperty('--clr-color', '');
+                                });
+                            }
+                        });
+                    }
 
-// 이번 payload에 있는(적용 대상) 키 모음
-var _newKeys = new Set(Object.keys(payload || {}));
+                    // 이번 payload에 있는(적용 대상) 키 모음
+                    var _newKeys = new Set(Object.keys(payload || {}));
 
-// 이전에 적용했던 키 중에서, 이번에는 없는 키들만 선제 클리어
-window.__rb_last_applied_keys.forEach(function(prevKey){
-  // prevKey 자체가 없고, 그 짝꿍키도 없으면 클리어
-  var hasNow =
-    _newKeys.has(prevKey) ||
-    (_newKeys.has(prevKey.replace(/_shop$/, ''))) ||
-    (_newKeys.has(prevKey + '_shop'));
-  if (!hasNow) rbClearTargetsForKey(prevKey);
-});
+                    // 이전에 적용했던 키 중에서, 이번에는 없는 키들만 선제 클리어
+                    window.__rb_last_applied_keys.forEach(function(prevKey) {
+                        // prevKey 자체가 없고, 그 짝꿍키도 없으면 클리어
+                        var hasNow =
+                            _newKeys.has(prevKey) ||
+                            (_newKeys.has(prevKey.replace(/_shop$/, ''))) ||
+                            (_newKeys.has(prevKey + '_shop'));
+                        if (!hasNow) rbClearTargetsForKey(prevKey);
+                    });
 
                     // 2) 강제 주입 (모든 md_* 키를 실제 필드에 꽂음)
                     var applied = 0,
