@@ -19,32 +19,32 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         if (window.RB_IS_SHOP != 1) return;
 
         // 1) id가 *_shop 인 라디오/체크박스 → name을 base+"_shop"로 강제
-        $('[id$="_shop"][type="radio"], [id$="_shop"][type="checkbox"]').each(function () {
-          var id = this.id;
-          var base = id.replace(/_shop$/, '');      // ex) md_title_hide_shop → md_title_hide
-          $(this).attr('name', base + '_shop');     // name=md_title_hide_shop 으로 강제
+        $('[id$="_shop"][type="radio"], [id$="_shop"][type="checkbox"]').each(function() {
+            var id = this.id;
+            var base = id.replace(/_shop$/, ''); // ex) md_title_hide_shop → md_title_hide
+            $(this).attr('name', base + '_shop'); // name=md_title_hide_shop 으로 강제
         });
 
         // 2) 같은 name의 일반 쌍둥이 → name에 __common 붙여서 무시되게
-        $('input[type="radio"], input[type="checkbox"]').each(function () {
-          var $el = $(this);
-          var id   = $el.attr('id')   || '';
-          var name = $el.attr('name') || '';
+        $('input[type="radio"], input[type="checkbox"]').each(function() {
+            var $el = $(this);
+            var id = $el.attr('id') || '';
+            var name = $el.attr('name') || '';
 
-          // 이미 *_shop 그룹이면 건드리지 않음
-          if (/_shop$/.test(id) || /_shop$/.test(name)) return;
+            // 이미 *_shop 그룹이면 건드리지 않음
+            if (/_shop$/.test(id) || /_shop$/.test(name)) return;
 
-          // 내 base에 해당하는 *_shop 쌍둥이가 존재하면 일반 쪽 name을 치움
-          var base = id || name;
-          var hasShopTwin =
-            document.getElementById(base + '_shop') ||
-            document.getElementsByName(base + '_shop').length;
+            // 내 base에 해당하는 *_shop 쌍둥이가 존재하면 일반 쪽 name을 치움
+            var base = id || name;
+            var hasShopTwin =
+                document.getElementById(base + '_shop') ||
+                document.getElementsByName(base + '_shop').length;
 
-          if (hasShopTwin) {
-            $el.attr('name', (name || base) + '__common'); // 저장 시 제외됨
-          }
+            if (hasShopTwin) {
+                $el.attr('name', (name || base) + '__common'); // 저장 시 제외됨
+            }
         });
-      })();
+    })();
 </script>
 
 <div class="sh-side-options-container" style="margin-top:100px">
@@ -252,16 +252,16 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                                 <div class="cb"></div>
 
                                 <div class="rb-help" data-open="false">
-                                <button type="button" class="rb-help-btn" data-img="<?php echo G5_URL ?>/rb/rb.config/image/guide/help-img-2.png" data-txt="간격이 20px 설정인 경우 각 모듈에 20px씩 여백이 들어가면 실제 간격은 40px 이 되요. 모바일에서는 다소 넓어보일 수 있으므로 Gap 적용 시 각 모듈에 여백을 제거하고 간격설정 값 만큼의 Gap이 적용되어 넓어진 간격을 좁힐 수 있어요." data-title="Gap 적용이란?" data-alt="미리보기" aria-expanded="false">
-                                    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
-                                        <g fill='none'>
-                                            <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
-                                            <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
-                                        </g>
-                                    </svg>
-                                </button>
-                                <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
-                            </div>
+                                    <button type="button" class="rb-help-btn" data-img="<?php echo G5_URL ?>/rb/rb.config/image/guide/help-img-2.png" data-txt="간격이 20px 설정인 경우 각 모듈에 20px씩 여백이 들어가면 실제 간격은 40px 이 되요. 모바일에서는 다소 넓어보일 수 있으므로 Gap 적용 시 각 모듈에 여백을 제거하고 간격설정 값 만큼의 Gap이 적용되어 넓어진 간격을 좁힐 수 있어요." data-title="Gap 적용이란?" data-alt="미리보기" aria-expanded="false">
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+                                            <g fill='none'>
+                                                <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
+                                                <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
+                                            </g>
+                                        </svg>
+                                    </button>
+                                    <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                                </div>
                             </ul>
 
 
@@ -548,23 +548,23 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                             </ul>
 
                             <script>
-                              // 테두리 의존 섹션 토글
-                              function rb_togglesidemenushopDeps() {
-                                var v = $('input[name="co_sidemenu_shop"]:checked').val() || '';
-                                if (v === '') {
-                                  // 없음 → 숨김
-                                  $('.js-sidemenu-shop-dep').css('display', 'none');
-                                } else {
-                                  // 실선/점선 등 → 표시
-                                  $('.js-sidemenu-shop-dep').css('display', '');
+                                // 테두리 의존 섹션 토글
+                                function rb_togglesidemenushopDeps() {
+                                    var v = $('input[name="co_sidemenu_shop"]:checked').val() || '';
+                                    if (v === '') {
+                                        // 없음 → 숨김
+                                        $('.js-sidemenu-shop-dep').css('display', 'none');
+                                    } else {
+                                        // 실선/점선 등 → 표시
+                                        $('.js-sidemenu-shop-dep').css('display', '');
+                                    }
                                 }
-                              }
 
-                              // 페이지 로드 시 & 라디오 변경 시 반영
-                              $(function(){
-                                rb_togglesidemenushopDeps();
-                                $(document).on('change', 'input[name="co_sidemenu_shop"]', rb_togglesidemenushopDeps);
-                              });
+                                // 페이지 로드 시 & 라디오 변경 시 반영
+                                $(function() {
+                                    rb_togglesidemenushopDeps();
+                                    $(document).on('change', 'input[name="co_sidemenu_shop"]', rb_togglesidemenushopDeps);
+                                });
                             </script>
 
 
@@ -688,23 +688,23 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
 
                             <script>
-                              // 테두리 의존 섹션 토글
-                              function rb_togglesidemenuDeps() {
-                                var v = $('input[name="co_sidemenu"]:checked').val() || '';
-                                if (v === '') {
-                                  // 없음 → 숨김
-                                  $('.js-sidemenu-dep').css('display', 'none');
-                                } else {
-                                  // 실선/점선 등 → 표시
-                                  $('.js-sidemenu-dep').css('display', '');
+                                // 테두리 의존 섹션 토글
+                                function rb_togglesidemenuDeps() {
+                                    var v = $('input[name="co_sidemenu"]:checked').val() || '';
+                                    if (v === '') {
+                                        // 없음 → 숨김
+                                        $('.js-sidemenu-dep').css('display', 'none');
+                                    } else {
+                                        // 실선/점선 등 → 표시
+                                        $('.js-sidemenu-dep').css('display', '');
+                                    }
                                 }
-                              }
 
-                              // 페이지 로드 시 & 라디오 변경 시 반영
-                              $(function(){
-                                rb_togglesidemenuDeps();
-                                $(document).on('change', 'input[name="co_sidemenu"]', rb_togglesidemenuDeps);
-                              });
+                                // 페이지 로드 시 & 라디오 변경 시 반영
+                                $(function() {
+                                    rb_togglesidemenuDeps();
+                                    $(document).on('change', 'input[name="co_sidemenu"]', rb_togglesidemenuDeps);
+                                });
                             </script>
 
 
@@ -3171,8 +3171,12 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                 toggleSideOptions_open_sec()
                 toggleSideOptions_open()
 
-                Coloris({ el: '.coloris' });
-                Coloris.setInstance('.coloris', { parent: '.sh-side-demos-container' });
+                Coloris({
+                    el: '.coloris'
+                });
+                Coloris.setInstance('.coloris', {
+                    parent: '.sh-side-demos-container'
+                });
 
             },
             error: function(xhr, status, error) {
@@ -4313,10 +4317,10 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                     "md_radius": md_radius,
                     "md_module": md_module,
                     "md_padding": md_padding,
-                    "md_padding_lr_pc":md_padding_lr_pc,
-                    "md_padding_lr_mo":md_padding_lr_mo,
-                    "md_padding_tb_pc":md_padding_tb_pc,
-                    "md_padding_tb_mo":md_padding_tb_mo,
+                    "md_padding_lr_pc": md_padding_lr_pc,
+                    "md_padding_lr_mo": md_padding_lr_mo,
+                    "md_padding_tb_pc": md_padding_tb_pc,
+                    "md_padding_tb_mo": md_padding_tb_mo,
                     "md_margin_top_pc": md_margin_top_pc,
                     "md_margin_top_mo": md_margin_top_mo,
                     "md_margin_btm_pc": md_margin_btm_pc,
@@ -5677,7 +5681,13 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 </script>
 <script>
     function drawTabsFromHidden() {
-        var raw = $('#md_tab_list').val();
+        var $inp = $('#md_tab_list');
+        if (!$inp.length) return;
+
+        var raw = String($inp.val() || '').trim()
+            .replace(/\\&quot;/g, '"')
+            .replace(/&quot;/g, '"');
+
         if (!raw) {
             $('#tab_selects').empty();
             return;
@@ -5732,7 +5742,12 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
     }
 
     function drawItemTabsFromHidden() {
-        var raw = $('#md_item_tab_list').val();
+        var $inp = $('#md_item_tab_list');
+        if (!$inp.length) return;
+
+        var raw = String($inp.val() || '').trim()
+            .replace(/\\&quot;/g, '"')
+            .replace(/&quot;/g, '"');
         var $wrap = $('#item_tab_selects').empty();
 
         if (!raw) {
@@ -5774,44 +5789,44 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
 
     function rb_syncSlidersFromHidden() {
-      // 공통 헬퍼: 값 파싱 + 슬라이더/핸들 동기화
-      function syncIntSlider(inputSel, sliderSel) {
-        var v = parseInt($(inputSel).val() || '0', 10);
-        if (isNaN(v)) v = 0;
+        // 공통 헬퍼: 값 파싱 + 슬라이더/핸들 동기화
+        function syncIntSlider(inputSel, sliderSel) {
+            var v = parseInt($(inputSel).val() || '0', 10);
+            if (isNaN(v)) v = 0;
 
-        var $slider = $(sliderSel);
-        if ($slider.data('ui-slider')) {
-          $slider.slider('value', v);
-          $slider.find('.ui-slider-handle').text(v);
+            var $slider = $(sliderSel);
+            if ($slider.data('ui-slider')) {
+                $slider.slider('value', v);
+                $slider.find('.ui-slider-handle').text(v);
+            }
         }
-      }
 
-      // radius, padding 단일 키만 사용
-      syncIntSlider('#md_radius',  '#md_radius_range');
-      syncIntSlider('#md_padding', '#md_padding_range');
+        // radius, padding 단일 키만 사용
+        syncIntSlider('#md_radius', '#md_radius_range');
+        syncIntSlider('#md_padding', '#md_padding_range');
         syncIntSlider('#md_border_width', '#md_border_width_range');
-}
+    }
 
 
     if (typeof rb_lib_list_reload !== 'function') {
         function rb_lib_list_reload() {
             var md_theme = $('input[name="md_theme"]').val() || '';
 
-           $.ajax({
-            url: '<?php echo G5_URL ?>/rb/rb.config/ajax.module_lib.php',
-            type: 'GET',
-            dataType: 'json',
-            data: {
-                action: 'list',
-                csrf: window.RB_WIDGET_CSRF,
-                <?php if (defined('_SHOP_')) { ?>
-                is_shop: '1',
-                <?php } else { ?>
-                is_shop: '0',
-                <?php } ?>
-                md_theme: md_theme
-                // md_layout는 절대 보내지 않음
-            }
+            $.ajax({
+                url: '<?php echo G5_URL ?>/rb/rb.config/ajax.module_lib.php',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    action: 'list',
+                    csrf: window.RB_WIDGET_CSRF,
+                    <?php if (defined('_SHOP_')) { ?>
+                    is_shop: '1',
+                    <?php } else { ?>
+                    is_shop: '0',
+                    <?php } ?>
+                    md_theme: md_theme
+                    // md_layout는 절대 보내지 않음
+                }
             }).done(function(res) {
                 if (!res || res.status !== 'ok') return;
                 var $wrap = $('.rb-lib-st-list');
@@ -5860,7 +5875,51 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
 
 
+    (function rbRefreshTabsAfterApply() {
+        function decodeEntities(s) {
+            if (s == null) return '';
+            var t = String(s).trim();
+            return t.replace(/\\&quot;/g, '"').replace(/&quot;/g, '"');
+        }
 
+        function fire($el) {
+            try {
+                $el[0].dispatchEvent(new Event('input', {
+                    bubbles: true
+                }));
+            } catch (e) {}
+            try {
+                $el[0].dispatchEvent(new Event('change', {
+                    bubbles: true
+                }));
+            } catch (e) {}
+            $el.trigger('input').trigger('change');
+        }
+        // 히든 두 개(공용/영카트 전용) 값 정규화 + 이벤트 발생
+        var $md = $('#md_tab_list');
+        var $itm = $('#md_item_tab_list'); // 없는 화면(일반)일 수 있음
+
+        if ($md.length) {
+            $md.val(decodeEntities($md.val() || ''));
+            fire($md);
+        }
+        if ($itm.length) {
+            $itm.val(decodeEntities($itm.val() || ''));
+            fire($itm);
+        }
+
+        // DOM이 ajax로 교체된 직후 타이밍 보정: rAF → setTimeout(0)
+        requestAnimationFrame(function() {
+            setTimeout(function() {
+                try {
+                    if (typeof drawTabsFromHidden === 'function') drawTabsFromHidden();
+                } catch (e) {}
+                try {
+                    if (typeof drawItemTabsFromHidden === 'function') drawItemTabsFromHidden();
+                } catch (e) {}
+            }, 0);
+        });
+    })();
 
 
     if (typeof rb_lib_apply !== 'function') {
@@ -5901,121 +5960,302 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
 
 
-                   // --- 변경 후 ---
-var payload = res.payload || {};
+                    // --- 변경 후 ---
+                    var payload = res.payload || {};
 
-// 서버 기준 Shop 여부(문자열 '1'|'0'로 고정)
-var RB_IS_SHOP = <?php echo defined('_SHOP_') ? "'1'" : "'0'"; ?>;
+                    // 서버 기준 Shop 여부(문자열 '1'|'0'로 고정)
+                    var RB_IS_SHOP = <?php echo defined('_SHOP_') ? "'1'" : "'0'"; ?>;
 
-/**
- * 주입 타겟 찾기 (Shop이면 *_shop 우선)
- * - 공용/Shop 쌍둥이, 배열형, id/name 모두 커버
- */
-function findTargets(key) {
-  var sels = [];
-  if (RB_IS_SHOP === '1') {
-    sels.push('#' + key + '_shop', '[name="' + key + '_shop"]', '[name="' + key + '_shop[]"]');
-  }
-  sels.push('#' + key, '[name="' + key + '"]', '[name="' + key + '[]"]');
-  // 공용을 __common 으로 밀어낸 경우 제외
-  var $els = $();
-  sels.forEach(function(sel){ $els = $els.add($(sel).not('[name$="__common"]')); });
-  return $els;
-}
+                    /**
+                     * 주입 타겟 찾기 (Shop이면 *_shop 우선)
+                     * - 공용/Shop 쌍둥이, 배열형, id/name 모두 커버
+                     */
+                    function findTargets(key) {
+                        var sels = [];
+                        if (RB_IS_SHOP === '1') {
+                            sels.push('#' + key + '_shop', '[name="' + key + '_shop"]', '[name="' + key + '_shop[]"]');
+                        }
+                        sels.push('#' + key, '[name="' + key + '"]', '[name="' + key + '[]"]');
+                        // 공용을 __common 으로 밀어낸 경우 제외
+                        var $els = $();
+                        sels.forEach(function(sel) {
+                            $els = $els.add($(sel).not('[name$="__common"]'));
+                        });
+                        return $els;
+                    }
 
-/** 체크박스/라디오 값 보조 */
-function toArray(v){
-  if (Array.isArray(v)) return v.map(String);
-  if (v == null) return [];
-  var s = String(v).trim();
-  if (!s) return [];
-  return s.split(',').map(function(x){ return x.trim(); }).filter(Boolean);
-}
+                    /** 체크박스/라디오 값 보조 */
+                    function toArray(v) {
+                        if (Array.isArray(v)) return v.map(String);
+                        if (v == null) return [];
+                        var s = String(v).trim();
+                        if (!s) return [];
+                        return s.split(',').map(function(x) {
+                            return x.trim();
+                        }).filter(Boolean);
+                    }
 
-/** 값 주입기: 타입별로 강제 주입 + 이벤트 통지 */
-function forceApply(key, val){
-  var $targets = findTargets(key);
-  if (!$targets.length) return false;
+                    /** 값 주입기: 타입별로 강제 주입 + 이벤트 통지 */
+                    function forceApply(key, val) {
+                        var $targets = findTargets(key);
+                        if (!$targets.length) return false;
 
-  // 라디오 그룹: name 기준으로 묶어서 처리
-  if ($targets.first().attr('type') && $targets.first().attr('type').toLowerCase() === 'radio') {
-    var name = $targets.first().attr('name') || (RB_IS_SHOP === '1' ? key + '_shop' : key);
-    var $grp = $('input[type="radio"][name="' + name + '"]');
-    $grp.prop('checked', false);
-    $grp.filter('[value="' + String(val) + '"]').prop('checked', true);
-    $grp.first().trigger('change');
-    return true;
-  }
+                        // 라디오 그룹: name 기준으로 묶어서 처리
+                        if ($targets.first().attr('type') && $targets.first().attr('type').toLowerCase() === 'radio') {
+                            var name = $targets.first().attr('name') || (RB_IS_SHOP === '1' ? key + '_shop' : key);
+                            var $grp = $('input[type="radio"][name="' + name + '"]');
+                            $grp.prop('checked', false);
+                            $grp.filter('[value="' + String(val) + '"]').prop('checked', true);
+                            $grp.first().trigger('change');
+                            return true;
+                        }
 
-  // 체크박스: name 기준으로 묶어서 처리(단일/다중 모두 커버)
-  if ($targets.first().attr('type') && $targets.first().attr('type').toLowerCase() === 'checkbox') {
-    var name = $targets.first().attr('name') || (RB_IS_SHOP === '1' ? key + '_shop' : key);
-    var $grp = $('input[type="checkbox"][name="' + name + '"]');
-    var arr = toArray(val);
-    $grp.prop('checked', false);
-    if (arr.length) {
-      arr.forEach(function(v){ $grp.filter('[value="' + v + '"]').prop('checked', true); });
-      // 단일 체크박스(값이 '1' 등)도 커버
-      if (!$grp.filter(':checked').length && (val === 1 || val === '1' || val === true)) {
-        $grp.first().prop('checked', true);
-      }
+                        // 체크박스: name 기준으로 묶어서 처리(단일/다중 모두 커버)
+                        if ($targets.first().attr('type') && $targets.first().attr('type').toLowerCase() === 'checkbox') {
+                            var name = $targets.first().attr('name') || (RB_IS_SHOP === '1' ? key + '_shop' : key);
+                            var $grp = $('input[type="checkbox"][name="' + name + '"]');
+                            var arr = toArray(val);
+                            $grp.prop('checked', false);
+                            if (arr.length) {
+                                arr.forEach(function(v) {
+                                    $grp.filter('[value="' + v + '"]').prop('checked', true);
+                                });
+                                // 단일 체크박스(값이 '1' 등)도 커버
+                                if (!$grp.filter(':checked').length && (val === 1 || val === '1' || val === true)) {
+                                    $grp.first().prop('checked', true);
+                                }
+                            }
+                            $grp.first().trigger('change');
+                            return true;
+                        }
+
+                        // select[multiple]
+                        if ($targets.is('select[multiple]')) {
+                            var arr = toArray(val);
+                            $targets.each(function() {
+                                $(this).val(arr).trigger('change');
+                            });
+                            return true;
+                        }
+
+                        if (key === 'md_tab_list' || key === 'md_item_tab_list') {
+                            var formatted;
+
+                            try {
+                                if (Array.isArray(val)) {
+                                    // ex) [101, 102] → '["101","102"]'
+                                    formatted = JSON.stringify(val.map(function(x) {
+                                        return String(x).trim();
+                                    }));
+                                } else if (val == null || String(val).trim() === '') {
+                                    formatted = '[]';
+                                } else {
+                                    var s = String(val).trim()
+                                        .replace(/\\&quot;/g, '"')
+                                        .replace(/&quot;/g, '"');
+                                    if (s[0] === '[' && s.slice(-1) === ']') {
+                                        // 이미 JSON 배열 형식이면 그대로 사용
+                                        formatted = s;
+                                    } else if (s.indexOf(',') > -1) {
+                                        // "101, 102" → ["101","102"]
+                                        formatted = JSON.stringify(s.split(',')
+                                            .map(function(x) {
+                                                return String(x).trim();
+                                            })
+                                            .filter(Boolean));
+                                    } else {
+                                        // "101" 단일 → ["101"]
+                                        formatted = JSON.stringify([s]);
+                                    }
+                                }
+                            } catch (e) {
+                                formatted = '[]';
+                            }
+
+                            formatted = String(formatted)
+                                .replace(/\\"/g, '"')
+                                .replace(/\\&quot;/g, '&quot;');
+
+                            $targets.each(function() {
+                                $(this).val(formatted);
+                                try {
+                                    $(this).trigger('input').trigger('change');
+                                } catch (e) {}
+                            });
+                            return true;
+                        }
+
+                        // 일반 select / input / textarea
+                        $targets.each(function() {
+                            $(this).val(String(val));
+                            try {
+                                $(this).trigger('input').trigger('change');
+                            } catch (e) {}
+                        });
+
+                        // Coloris 미리보기 동기화 (대표 예: md_title_color 등)
+                        if (/color/i.test(String(key))) {
+                            $targets.each(function() {
+                                var field = this.closest('.clr-field,.color_set_wrap');
+                                if (field && field.style) field.style.setProperty('--clr-color', String(val));
+                            });
+                            if (window.Coloris) {
+                                try {
+                                    Coloris({
+                                        el: '.coloris'
+                                    });
+                                } catch (e) {}
+                            }
+                        }
+
+                        return true;
+                    }
+
+                    // 1) 원래 로직 있으면 먼저 실행(선택)
+                    //    주석 처리되어 있던 기존 함수가 정상 동작하는 경우를 위해 유지
+                    try {
+                        if (typeof populateModuleForm === 'function') populateModuleForm(payload);
+                    } catch (e) {}
+
+                    window.__rb_last_applied_keys = window.__rb_last_applied_keys || [];
+
+function rbClearTargetsForKey(key){
+  // key와 짝꿍 키( *_shop ↔ 기본 ) 모두 클리어 시도
+  var keys = [key];
+  if (/_shop$/.test(key)) keys.push(key.replace(/_shop$/, ''));
+  else                    keys.push(key + '_shop');
+
+  keys.forEach(function(k){
+    var $targets = findTargets(k);
+    if (!$targets.length) return;
+
+    var $first = $targets.first();
+    var type = ($first.attr('type') || '').toLowerCase();
+
+    // 라디오/체크박스는 그룹 전체 해제
+    if (type === 'radio') {
+      var name = $first.attr('name');
+      if (name) $('input[type="radio"][name="'+name+'"]').prop('checked', false).first().trigger('change');
+      return;
     }
-    $grp.first().trigger('change');
-    return true;
-  }
+    if (type === 'checkbox') {
+      var name = $first.attr('name');
+      if (name) $('input[type="checkbox"][name="'+name+'"]').prop('checked', false).first().trigger('change');
+      return;
+    }
 
-  // select[multiple]
-  if ($targets.is('select[multiple]')) {
-    var arr = toArray(val);
-    $targets.each(function(){
-      $(this).val(arr).trigger('change');
-    });
-    return true;
-  }
+    // 멀티셀렉트는 빈 배열
+    if ($targets.is('select[multiple]')) {
+      $targets.each(function(){ $(this).val([]).trigger('change'); });
+      return;
+    }
 
-  // 일반 select / input / textarea
-  $targets.each(function(){
-    $(this).val(String(val));
-    try { $(this).trigger('input').trigger('change'); } catch(e){}
+    // 탭 히든은 명시적으로 빈 배열 문자열로
+    if (k === 'md_tab_list' || k === 'md_item_tab_list') {
+      $targets.each(function(){ $(this).val('[]').trigger('input').trigger('change'); });
+      return;
+    }
+
+    // 일반 input/select/textarea는 공란
+    $targets.each(function(){ $(this).val('').trigger('input').trigger('change'); });
+
+    // Coloris 같은 색상 프리뷰 동기화
+    if (/color/i.test(String(k))) {
+      $targets.each(function(){
+        var field = this.closest('.clr-field,.color_set_wrap');
+        if (field && field.style) field.style.setProperty('--clr-color', '');
+      });
+    }
   });
-
-  // Coloris 미리보기 동기화 (대표 예: md_title_color 등)
-  if (/color/i.test(String(key))) {
-    $targets.each(function(){
-      var field = this.closest('.clr-field,.color_set_wrap');
-      if (field && field.style) field.style.setProperty('--clr-color', String(val));
-    });
-    if (window.Coloris) { try { Coloris({ el: '.coloris' }); } catch(e){} }
-  }
-
-  return true;
 }
 
-// 1) 원래 로직 있으면 먼저 실행(선택)
-//    주석 처리되어 있던 기존 함수가 정상 동작하는 경우를 위해 유지
-try { if (typeof populateModuleForm === 'function') populateModuleForm(payload); } catch(e){}
+// 이번 payload에 있는(적용 대상) 키 모음
+var _newKeys = new Set(Object.keys(payload || {}));
 
-// 2) 강제 주입 (모든 md_* 키를 실제 필드에 꽂음)
-var applied = 0, missed = [];
-Object.keys(payload).forEach(function(key){
-  // 대응 관계: *_shop ↔ 기본키 둘 다 시도
-  var ok = forceApply(key, payload[key]);
-  if (!ok && /_shop$/.test(key)) {
-    var base = key.replace(/_shop$/, '');
-    ok = forceApply(base, payload[key]);
-  } else if (!ok) {
-    ok = forceApply(key + '_shop', payload[key]);
-  }
-  if (ok) applied++; else missed.push(key);
+// 이전에 적용했던 키 중에서, 이번에는 없는 키들만 선제 클리어
+window.__rb_last_applied_keys.forEach(function(prevKey){
+  // prevKey 자체가 없고, 그 짝꿍키도 없으면 클리어
+  var hasNow =
+    _newKeys.has(prevKey) ||
+    (_newKeys.has(prevKey.replace(/_shop$/, ''))) ||
+    (_newKeys.has(prevKey + '_shop'));
+  if (!hasNow) rbClearTargetsForKey(prevKey);
 });
 
-// 3) 이후 부가 렌더/동기화
-try { if (typeof drawTabsFromHidden === 'function') drawTabsFromHidden(); } catch(e){}
-try { if (typeof drawItemTabsFromHidden === 'function') drawItemTabsFromHidden(); } catch(e){}
-try { if (typeof rb_syncSlidersFromHidden === 'function') rb_syncSlidersFromHidden(); } catch(e){}
+                    // 2) 강제 주입 (모든 md_* 키를 실제 필드에 꽂음)
+                    var applied = 0,
+                        missed = [];
 
-// 4) 디버그 로그(개발자도구 콘솔에서 확인)
-console.log('[rb] applied fields:', applied, 'missed:', missed);
+                    var appliedKeys = [];
+
+                    Object.keys(payload).forEach(function(key) {
+                        // 대응 관계: *_shop ↔ 기본키 둘 다 시도
+                        var ok = forceApply(key, payload[key]);
+                        if (!ok && /_shop$/.test(key)) {
+                            var base = key.replace(/_shop$/, '');
+                            ok = forceApply(base, payload[key]);
+                        } else if (!ok) {
+                            ok = forceApply(key + '_shop', payload[key]);
+                        }
+                        if (ok) appliedKeys.push(key);
+                        if (ok) applied++;
+                        else missed.push(key);
+                    });
+
+                    window.__rb_last_applied_keys = appliedKeys.slice();
+
+                    // 3) 이후 부가 렌더/동기화
+                    (function rbDeferredTagRender() {
+                        function safeDraw(attempt) {
+                            attempt = attempt || 0;
+
+                            // 컨테이너가 아직 없으면 조금 뒤에 다시 시도 (최대 10회 ≈ 500ms)
+                            var hasWrap = ($('#tab_selects').length || $('#item_tab_selects').length);
+                            if (!hasWrap && attempt < 10) {
+                                return setTimeout(function() {
+                                    safeDraw(attempt + 1);
+                                }, 50);
+                            }
+
+                            // 히든 값이 &quot;로 들어온 경우를 대비해 한 번 더 이벤트 깨우기
+                            ['#md_tab_list', '#md_item_tab_list'].forEach(function(sel) {
+                                var $el = $(sel);
+                                if (!$el.length) return;
+                                try {
+                                    $el[0].dispatchEvent(new Event('input', {
+                                        bubbles: true
+                                    }));
+                                } catch (e) {}
+                                try {
+                                    $el[0].dispatchEvent(new Event('change', {
+                                        bubbles: true
+                                    }));
+                                } catch (e) {}
+                                $el.trigger('input').trigger('change');
+                            });
+
+                            try {
+                                if (typeof drawTabsFromHidden === 'function') drawTabsFromHidden();
+                            } catch (e) {}
+                            try {
+                                if (typeof drawItemTabsFromHidden === 'function') drawItemTabsFromHidden();
+                            } catch (e) {}
+                        }
+
+                        // DOM 페인트가 끝난 다음 호출
+                        requestAnimationFrame(function() {
+                            setTimeout(function() {
+                                safeDraw(0);
+                            }, 0);
+                        });
+                    })();
+
+                    try {
+                        if (typeof rb_syncSlidersFromHidden === 'function') rb_syncSlidersFromHidden();
+                    } catch (e) {}
+
+                    // 4) 디버그 로그(개발자도구 콘솔에서 확인)
+                    console.log('[rb] applied fields:', applied, 'missed:', missed);
 
 
                     if (typeof window.rb_after_form_populate === 'function') {
@@ -6100,6 +6340,13 @@ console.log('[rb] applied fields:', applied, 'missed:', missed);
                     //console.warn('rb_confirm error:', err);
                 });
 
+                try {
+                    if (typeof drawTabsFromHidden === 'function') drawTabsFromHidden();
+                } catch (e) {}
+                try {
+                    if (typeof drawItemTabsFromHidden === 'function') drawItemTabsFromHidden();
+                } catch (e) {}
+
             }).fail(function(xhr) {
                 alert('서버 오류: ' + xhr.status);
             });
@@ -6174,47 +6421,47 @@ console.log('[rb] applied fields:', applied, 'missed:', missed);
                 return [s];
             }
             // 같은 name이 일반/SHOP 두 벌일 때 현재 모드의 요소만 선택
-            function pickByMode(name){
-              var $all = $(document).find('[name="'+name+'"], [name="'+name+'[]"]');
-              if (!$all.length) return $all;
+            function pickByMode(name) {
+                var $all = $(document).find('[name="' + name + '"], [name="' + name + '[]"]');
+                if (!$all.length) return $all;
 
-              var isShop = (window.RB_IS_SHOP == 1);
+                var isShop = (window.RB_IS_SHOP == 1);
 
-              if (isShop){
-                // 1순위: id가 정확히 name_shop 인 요소
-                var $idShop = $('#'+name+'_shop');
-                if ($idShop.length) return $idShop;
+                if (isShop) {
+                    // 1순위: id가 정확히 name_shop 인 요소
+                    var $idShop = $('#' + name + '_shop');
+                    if ($idShop.length) return $idShop;
 
-                // 2순위: 같은 name 중에서 shop 영역 우선
-                /*
-                var $inShopScope = $all.filter(function(){
-                  var $el = $(this);
-                  return $el.is('[data-shop="1"]') ||
-                         ($el.attr('id')||'').endsWith('_shop') ||
-                         $el.closest('[data-scope="shop"], .shop-panel, #shop-pane').length > 0;
-                });
-                */
-                if ($inShopScope.length) return $inShopScope;
+                    // 2순위: 같은 name 중에서 shop 영역 우선
+                    /*
+                    var $inShopScope = $all.filter(function(){
+                      var $el = $(this);
+                      return $el.is('[data-shop="1"]') ||
+                             ($el.attr('id')||'').endsWith('_shop') ||
+                             $el.closest('[data-scope="shop"], .shop-panel, #shop-pane').length > 0;
+                    });
+                    */
+                    if ($inShopScope.length) return $inShopScope;
 
-                // 3순위: 폴백으로 같은 name 전체
-                return $all;
-              } else {
-                // 일반 모드
-                // 1순위: id가 정확히 name 인 요소 (id가 *_shop 인 것은 제외)
-                var $id = $('#'+name);
-                if ($id.length && !$id.is('#'+name+'_shop')) return $id;
+                    // 3순위: 폴백으로 같은 name 전체
+                    return $all;
+                } else {
+                    // 일반 모드
+                    // 1순위: id가 정확히 name 인 요소 (id가 *_shop 인 것은 제외)
+                    var $id = $('#' + name);
+                    if ($id.length && !$id.is('#' + name + '_shop')) return $id;
 
-                // 2순위: 같은 name 중 *_shop 가 아닌 것 우선
-                var $notShop = $all.filter(function(){
-                  var id = this.id || '';
-                  var inShopScope = $(this).closest('[data-scope="shop"], .shop-panel, #shop-pane').length > 0;
-                  return !id.endsWith('_shop') && !inShopScope && !$(this).is('[data-shop="1"]');
-                });
-                if ($notShop.length) return $notShop;
+                    // 2순위: 같은 name 중 *_shop 가 아닌 것 우선
+                    var $notShop = $all.filter(function() {
+                        var id = this.id || '';
+                        var inShopScope = $(this).closest('[data-scope="shop"], .shop-panel, #shop-pane').length > 0;
+                        return !id.endsWith('_shop') && !inShopScope && !$(this).is('[data-shop="1"]');
+                    });
+                    if ($notShop.length) return $notShop;
 
-                // 3순위: 폴백
-                return $all;
-              }
+                    // 3순위: 폴백
+                    return $all;
+                }
             }
 
             // 슬라이더 동기화: hidden.co_range_send ↔ #<base>_range
@@ -6326,21 +6573,20 @@ console.log('[rb] applied fields:', applied, 'missed:', missed);
 
 
 <script>
+    $(document).on('click', '.rb-resize-s-reset', function(e) {
+        e.preventDefault();
 
-    $(document).on('click', '.rb-resize-s-reset', function(e){
-      e.preventDefault();
+        // 이 버튼이 속한 모듈 카드/랩퍼 찾기
+        const $card = $(this).closest('.rb_layout_box');
+        const $wrap = $card.find('.rb-module-wrap').first();
 
-      // 이 버튼이 속한 모듈 카드/랩퍼 찾기
-      const $card = $(this).closest('.rb_layout_box');
-      const $wrap = $card.find('.rb-module-wrap').first();
+        // UI 리셋: 높이 auto로
+        $wrap.css('height', 'auto');
 
-      // UI 리셋: 높이 auto로
-      $wrap.css('height', 'auto');
-
-      // 서버 저장: md_height = 'auto'
-      if (typeof rbSaveModuleHeight === 'function') {
-        rbSaveModuleHeight($wrap, 'auto');
-      }
+        // 서버 저장: md_height = 'auto'
+        if (typeof rbSaveModuleHeight === 'function') {
+            rbSaveModuleHeight($wrap, 'auto');
+        }
     });
 
 
