@@ -801,6 +801,11 @@ select#ct_send_cost {width: 150px;}
 
 .more_btn {background-color: #fff;}
 .swiper-button-prev, .swiper-button-next {background-color: #fff;}
+.mod_bn_wrap .swiper-button-prev, .mod_bn_wrap .swiper-button-next {border-radius: 4px;}
+.mod_bn_wrap .swiper-button-prev svg, .mod_bn_wrap .swiper-button-next svg {width: 7px;}
+.mod_bn_wrap .swiper-button-prev {left:0px; border-top-left-radius: 0px; border-bottom-left-radius: 0px;}
+.mod_bn_wrap .swiper-button-next {right: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px;}
+
 /* } */
 
 

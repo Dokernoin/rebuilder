@@ -962,6 +962,7 @@ input#md_title_hide + label:after {
 
 .content_box .admin_ov {
     border-radius: 0px;
+    min-height: 75px;
 }
 
 .content_box .admin_ov .middle_y button {
