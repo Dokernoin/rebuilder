@@ -326,6 +326,31 @@ $seo = sql_fetch($sql_seo);
 $rb_core['main_bg'] = !empty($rb_config['co_main_bg']) ? $rb_config['co_main_bg'] : '#ffffff'; // 메인배경컬러
 $rb_core['sub_bg'] = !empty($rb_config['co_sub_bg']) ? $rb_config['co_sub_bg'] : '#ffffff'; // 서브배경컬러
 $rb_core['gap_mo'] = !empty($rb_config['co_gap_mo']) ? $rb_config['co_gap_mo'] : '0'; // 간격
+
+function rb_member_level_select($name, $start_id = 0, $end_id = 10, $selected = "", $event = "")
+{
+    global $g5;
+
+    $str = "\n<select class=\"select select_tiny\" style=\"margin-left:0px\" id=\"{$name}\" name=\"{$name}\"";
+    if ($event) {
+        $str .= " $event";
+    }
+    $str .= ">\n";
+
+    $str .= '<option value=""';
+    $str .= ' selected="selected"';
+    $str .= ">레벨</option>\n";
+
+    for ($i = $start_id; $i <= $end_id; $i++) {
+        $str .= '<option value="' . $i . '"';
+        if ($i == $selected) {
+            $str .= ' selected="selected"';
+        }
+        $str .= ">{$i}</option>\n";
+    }
+    $str .= "</select>\n";
+    return $str;
+}
 /* } */
 
 /*********************************************/

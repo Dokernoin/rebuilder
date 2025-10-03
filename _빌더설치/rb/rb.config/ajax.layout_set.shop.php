@@ -100,7 +100,6 @@ foreach ($layouts as $layout_no) {
     $output  = "<?php
     ob_start();
 
-    \$rb_module_table = 'rb_module';
     \$GLOBALS['rb_module_table'] = \$rb_module_table;
     \$is_admin = " . var_export($is_admin, true) . ";
 
