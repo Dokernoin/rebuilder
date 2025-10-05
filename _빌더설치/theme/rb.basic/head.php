@@ -77,18 +77,7 @@ include_once(G5_PATH.'/rb/rb.mod/alarm/alarm.php'); // 실시간 알림
         co_gap_ : (0~30)
         -->
 
-        <section class="<?php if (defined("_INDEX_")) { ?>index co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } else { ?>sub co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } ?>"
-        style="
-        <?php if (!defined("_INDEX_")) { ?>
-        width:<?php echo $rb_core['sub_width'] ?>px;
-        <?php echo rb_inline_padding($rb_core, 'padding_top_sub'); ?>
-        <?php echo rb_inline_padding($rb_core, 'padding_btm_sub'); ?>
-        <?php } else { ?>
-        width:<?php echo $rb_core['main_width'] ?>px;
-        <?php echo rb_inline_padding($rb_core, 'padding_top'); ?>
-        <?php echo rb_inline_padding($rb_core, 'padding_btm'); ?>
-        <?php } ?>
-        ">
+        <section class="<?php if (defined("_INDEX_")) { ?>index co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } else { ?>sub co_gap_pc_<?php echo $rb_core['gap_pc'] ?><?php } ?>">
 
         <?php
             $safe = sql_escape_string($rb_page_urls);

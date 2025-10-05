@@ -464,7 +464,7 @@ select#ct_send_cost {width: 150px;}
 .rb_bbs_wrap .rb_bbs_top li.cnts {float:left;}
 .module_banner_wrap {overflow: hidden;}
 .bn_radius {overflow: hidden;}
-.rb_module_wide {width: 100vw;position: relative;left: 50%;transform: translateX(-50%);}
+.rb_module_wide{width: 100vw;margin-left: calc(50% - 50vw);margin-right: calc(50% - 50vw);left: auto; right: auto; transform: none;}
 .rb_module_mid {width: 1920px;position: relative;left: 50%;transform: translateX(-50%);}
 .index {padding-bottom: 30px; padding-top: 20px;}
 

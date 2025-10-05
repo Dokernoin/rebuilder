@@ -896,7 +896,6 @@ input#md_title_hide + label:after {
 
 .content_box_set {
     position: relative;
-    margin: 0;
     overflow: hidden;
 }
 
