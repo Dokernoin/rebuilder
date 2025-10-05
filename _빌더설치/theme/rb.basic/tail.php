@@ -241,6 +241,48 @@ if(G5_COMMUNITY_USE === false) {
         window.comment_box.__patched = true;
     })();
 </script>
+<script>
+(function () {
+  // 1) check_byte를 원형 보존 + 최근 target만 기록 (동작은 100% 동일)
+  if (typeof window.check_byte === 'function' && !window.check_byte.__rb_wrapped) {
+    var __orig_check_byte = window.check_byte;
+    window.__rb_last_cb_target = null;
+
+    window.check_byte = function (content, target) {
+      window.__rb_last_cb_target = target || window.__rb_last_cb_target;
+      return __orig_check_byte.apply(this, arguments);
+    };
+    window.check_byte.__rb_wrapped = true;
+    window.check_byte.__rb_orig = __orig_check_byte;
+  }
+
+  // 2) comment_box 원본 보존 후, 실행 직후 "한 번만" 재계산
+  if (typeof window.comment_box === 'function' && !window.comment_box.__rb_patched) {
+    var _orig_comment_box = window.comment_box;
+
+    window.comment_box = function () {
+      var ret = _orig_comment_box.apply(this, arguments);
+
+      setTimeout(function () {
+        // 최근에 페이지가 사용한 target을 우선 사용
+        var target = window.__rb_last_cb_target
+                  || (document.getElementById('char_count') ? 'char_count' : null)
+                  || (document.getElementById('char_cnt')   ? 'char_cnt'   : null);
+
+        if (typeof window.check_byte === 'function' && target) {
+          // 원래 출력 형식(N 글자 등)을 그대로 유지하려고 원본 check_byte를 호출
+          var fn = window.check_byte.__rb_orig || window.check_byte;
+          fn('wr_content', target);
+        }
+      }, 0);
+
+      return ret;
+    };
+    window.comment_box.__rb_patched = true;
+  }
+})();
+</script>
+
 <?php } ?>
 
 <link rel="stylesheet" href="<?php echo G5_THEME_URL ?>/rb.css/datepicker.css" />
