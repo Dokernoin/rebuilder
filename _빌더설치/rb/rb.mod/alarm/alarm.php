@@ -31,7 +31,7 @@ if (!in_array(basename($_SERVER['PHP_SELF']), $except_alarm_page)) {
         $dirs_chk = str_replace('/', '', $dirs);
         ?>
         
-        <?php if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == $app['ap_title']) { ?>
+        <?php if (($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === ($app['ap_title'] ?? '')) { ?>
         <script src="<?php echo $alarm_url ?>/alarm.app.js"></script>
         <?php } else { ?>
         <script src="<?php echo $alarm_url ?>/alarm.js"></script>
