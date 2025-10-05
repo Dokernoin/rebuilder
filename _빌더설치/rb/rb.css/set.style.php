@@ -71,10 +71,11 @@ $is_shop = isset($_GET['rb_is_shop']) ? $_GET['rb_is_shop'] : 0;
 
 <?php } ?>
 
-
-<?php if($rb_gap_mo == 1) { ?>
 @media all and (max-width:1024px) {
+   #rb_sidemenu {margin-top:var(--rb-gap);}
+   #rb_sidemenu_shop {margin-top:var(--rb-gap);}
+   <?php if($rb_gap_mo == 1) { ?>
     .flex_box {gap:var(--rb-gap) 0px;}
-    .content_box {padding-top:0px !important; padding-bottom: 0px !important;}
+    .content_box {padding-top:0px !important; padding-bottom: 0px !important
+    <?php } ?>
 }
-<?php } ?>
