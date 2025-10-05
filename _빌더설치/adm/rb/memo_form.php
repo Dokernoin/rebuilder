@@ -111,6 +111,9 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
         $name1 = isset($mbx1['mb_nick']) ? get_text($mbx1['mb_nick']) : '';
         $name2 = isset($mbx2['mb_nick']) ? get_text($mbx2['mb_nick']) : '';
 
+        $mb_nick1 = get_sideview($mbx1['mb_id'], get_text($mbx1['mb_nick']), $mbx1['mb_email'], $mbx1['mb_homepage']);
+        $mb_nick2 = get_sideview($mbx2['mb_id'], get_text($mbx2['mb_nick']), $mbx2['mb_email'], $mbx2['mb_homepage']);
+
         $bg = 'bg'.($i%2);
      ?>
     <tr style="background-color:#fff;">
@@ -121,14 +124,14 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
             <input type="hidden" name="me_id[<?php echo $i; ?>]" value="<?php echo $rowss['me_id']; ?>">
             <input type="hidden" name="mb_id[<?php echo $i; ?>]" value="<?php echo $mbx2['mb_id']; ?>">
         </td>
-        <td class="td_datetime" nowrap>
+        <td class="td_name sv_use" nowrap>
         <?php if(isset($name1) && $name1) { ?>
-        <a href="../member_form.php?w=u&mb_id=<?php echo $rowss['me_send_mb_id'] ?>"><?php echo $name1; ?></a>
+        <div><?php echo $mb_nick1; ?></div>
         <?php } else { ?>
         <span style="color:#ff4081">시스템</span>
         <?php } ?>
         </td>
-        <td class="td_datetime" nowrap><a href="../member_form.php?w=u&mb_id=<?php echo $rowss['me_recv_mb_id'] ?>"><?php echo $name2; ?></a></td>
+        <td class="td_name sv_use" nowrap><div><?php echo $mb_nick2; ?></div></td>
         <td class="td_left">
             <?php echo $rowss['me_memo']; ?>
         </td>
@@ -154,7 +157,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
     </table>
 </div>
 
-<div class="btn_fixed_top" style="right:60px;">
+<div class="btn_fixed_top">
     <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn btn_02">
     <input type="submit" name="act_button" value="전체삭제" onclick="document.pressed=this.value" class="btn btn_02">
 </div>
@@ -246,8 +249,8 @@ function fitemqalist_submit(f)
     
 
 
-    <div class="btn_fixed_top">
-        <input type="submit" name="act_button" value="발송" onclick="document.pressed=this.value" class="btn btn_01">
+    <div class="">
+        <input type="submit" name="act_button" value="발송하기" onclick="document.pressed=this.value" class="btn btn_01">
     </div>
 </form>
 
