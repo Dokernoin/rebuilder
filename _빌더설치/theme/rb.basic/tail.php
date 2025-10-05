@@ -213,6 +213,36 @@ if(G5_COMMUNITY_USE === false) {
     })
 </script>
 
+<?php if($bo_table && $wr_id) { // 댓글 수정모드일때 높이값 갱신?>
+<script>
+    (function() {
+        if (!window.comment_box || window.comment_box.__patched) return;
+
+        var _orig = window.comment_box;
+
+        function kick() {
+            var ta = document.getElementById('wr_content');
+            if (!ta) return;
+            if (window.jQuery) $('#wr_content').trigger('input');
+            else {
+                ta.style.minHeight = '150px';
+                ta.style.height = 'auto';
+                ta.style.height = ta.scrollHeight + 'px';
+            }
+        }
+
+        window.comment_box = function() {
+            var ret = _orig.apply(this, arguments);
+            // 레이아웃 반영 후 두 번 정도 태워줌
+            requestAnimationFrame(kick);
+            setTimeout(kick, 0);
+            return ret;
+        };
+        window.comment_box.__patched = true;
+    })();
+</script>
+<?php } ?>
+
 <link rel="stylesheet" href="<?php echo G5_THEME_URL ?>/rb.css/datepicker.css" />
 <!-- } -->
 
