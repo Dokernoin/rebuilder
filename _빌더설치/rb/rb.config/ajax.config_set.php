@@ -2317,90 +2317,111 @@ if($mod_type == "del_sec") { //섹션삭제
     </h6>
     <h6 class="font-R rb_config_sub_txt">섹션 및 섹션 내부 컨테이너의 스타일을 설정할 수 있습니다.<br>섹션은 가로 100% 로 생성 됩니다.</h6>
     <div class="config_wrap">
+
+
         <input type="hidden" name="sec_width" value="1">
 
+        <div class="config_wrap_bg">
+            <ul class="rows_inp_lr mt-10">
+                <li class="rows_inp_l rows_inp_l_span">
+                    <span class="font-B">컨테이너 사이즈</span><br>
+                    container width
+                </li>
+                <li class="rows_inp_r mt-5">
+                    <input type="radio" name="sec_con_width" id="sec_con_width_1" class="magic-radio" value="" <?php if (isset($sec_con_width) && $sec_con_width == "" || empty($sec_con_width)) { ?>checked<?php } ?>><label for="sec_con_width_1">기본</label>
+                    <input type="radio" name="sec_con_width" id="sec_con_width_2" class="magic-radio" value="1" <?php if (isset($sec_con_width) && $sec_con_width == "1") { ?>checked<?php } ?>><label for="sec_con_width_2">100%</label>
+                </li>
 
-        <ul class="rows_inp_lr mt-10">
-            <li class="rows_inp_l rows_inp_l_span">
-                <span class="font-B">컨테이너 사이즈</span><br>
-                container width
-            </li>
-            <li class="rows_inp_r mt-5">
-                <input type="radio" name="sec_con_width" id="sec_con_width_1" class="magic-radio" value="" <?php if (isset($sec_con_width) && $sec_con_width == "" || empty($sec_con_width)) { ?>checked<?php } ?>><label for="sec_con_width_1">기본</label>
-                <input type="radio" name="sec_con_width" id="sec_con_width_2" class="magic-radio" value="1" <?php if (isset($sec_con_width) && $sec_con_width == "1") { ?>checked<?php } ?>><label for="sec_con_width_2">100%</label>
-            </li>
+                <div class="cb"></div>
 
-            <div class="cb"></div>
+                <div class="rb-help" data-open="false">
+                    <button type="button" class="rb-help-btn" data-img="" data-txt="생성된 섹션에는 내부에 컨테이너(DIV)가 존재하고, 해당 DIV의 가로 크기를 말해요. [기본] 인 경우 100% 섹션 중앙에 1024(설정값) 크기의 컨테이너가 들어가요." data-title="컨테이너 사이즈란?" data-alt="미리보기" aria-expanded="false">
+                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+                            <g fill='none'>
+                                <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
+                                <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
+                            </g>
+                        </svg>
+                    </button>
+                    <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                </div>
 
-            <div class="rb-help" data-open="false">
-                <button type="button" class="rb-help-btn" data-img="" data-txt="생성된 섹션에는 내부에 컨테이너(DIV)가 존재하고, 해당 DIV의 가로 크기를 말해요. [기본] 인 경우 100% 섹션 중앙에 1024(설정값) 크기의 컨테이너가 들어가요." data-title="컨테이너 사이즈란?" data-alt="미리보기" aria-expanded="false">
-                    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
-                        <g fill='none'>
-                            <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
-                            <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
-                        </g>
-                    </svg>
-                </button>
-                <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
-            </div>
+            </ul>
 
-        </ul>
+            <ul class="rows_inp_lr mt-10">
+                <li class="rows_inp_l rows_inp_l_span">
+                    <span class="font-B">백그라운드</span><br>
+                    bg color
+                </li>
+                <li class="rows_inp_r mt-5">
+                    <div class="color_set_wrap square none_inp_cl" style="position: relative;">
+                        <input type="text" class="coloris" name="sec_bg" value="<?php echo !empty($sec_bg) ? $sec_bg : '#FFFFFF'; ?>" style="width:25px !important;"> 컬러
+                    </div>
+                </li>
 
-        <ul class="rows_inp_lr mt-10">
-            <li class="rows_inp_l rows_inp_l_span">
-                <span class="font-B">상단 간격</span><br>
-                margin-top
-            </li>
-            <li class="rows_inp_r mt-5">
-                <input type="number" id="sec_margin_top_pc" class="tiny_input w25 ml-0" name="sec_margin_top_pc" placeholder="PC" value="<?php echo (isset($sec_margin_top_pc) && $sec_margin_top_pc !== '') ? $sec_margin_top_pc : ''; ?>"> <span class="font-12">px　</span>
-                <input type="number" id="sec_margin_top_mo" class="tiny_input w25 ml-0" name="sec_margin_top_mo" placeholder="Mobile" value="<?php echo (isset($sec_margin_top_mo) && $sec_margin_top_mo !== '') ? $sec_margin_top_mo : ''; ?>"> <span class="font-12">px</span>
-            </li>
+                <div class="cb"></div>
+            </ul>
 
-            <div class="cb"></div>
+        </div>
 
-            <div class="rb-help" data-open="false">
-                <button type="button" class="rb-help-btn" data-img="" data-txt="섹션 위쪽으로 Margin(간격) 값이 들어가요. 마이너스(-)도 입력이 가능하고 모바일 간격의 경우 모바일기기로 접속시에만 반영되요." data-title="상단 간격이란?" data-alt="미리보기" aria-expanded="false">
-                    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
-                        <g fill='none'>
-                            <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
-                            <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
-                        </g>
-                    </svg>
-                </button>
-                <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
-            </div>
-        </ul>
+        <div class="config_wrap_bg">
 
+            <ul class="rows_inp_lr">
+                <li class="rows_inp_l rows_inp_l_span">
+                    <span class="font-B">상단 간격</span><br>
+                    margin-top
+                </li>
+                <li class="rows_inp_r mt-5">
+                    <input type="number" id="sec_margin_top_pc" class="tiny_input w25 ml-0" name="sec_margin_top_pc" placeholder="PC" value="<?php echo (isset($sec_margin_top_pc) && $sec_margin_top_pc !== '') ? $sec_margin_top_pc : ''; ?>"> <span class="font-12">px　</span>
+                    <input type="number" id="sec_margin_top_mo" class="tiny_input w25 ml-0" name="sec_margin_top_mo" placeholder="Mobile" value="<?php echo (isset($sec_margin_top_mo) && $sec_margin_top_mo !== '') ? $sec_margin_top_mo : ''; ?>"> <span class="font-12">px</span>
+                </li>
 
-        <ul class="rows_inp_lr mt-10">
-            <li class="rows_inp_l rows_inp_l_span">
-                <span class="font-B">하단 간격</span><br>
-                margin-bottom
-            </li>
-            <li class="rows_inp_r mt-5">
-                <input type="number" id="sec_margin_btm_pc" class="tiny_input w25 ml-0" name="sec_margin_btm_pc" placeholder="PC" value="<?php echo (isset($sec_margin_btm_pc) && $sec_margin_btm_pc !== '') ? $sec_margin_btm_pc : ''; ?>"> <span class="font-12">px　</span>
-                <input type="number" id="sec_margin_btm_mo" class="tiny_input w25 ml-0" name="sec_margin_btm_mo" placeholder="Mobile" value="<?php echo (isset($sec_margin_btm_mo) && $sec_margin_btm_mo !== '') ? $sec_margin_btm_mo : ''; ?>"> <span class="font-12">px</span>
-            </li>
+                <div class="cb"></div>
 
-            <div class="cb"></div>
-
-            <div class="rb-help" data-open="false">
-                <button type="button" class="rb-help-btn" data-img="" data-txt="섹션 아래쪽으로 Margin(간격) 값이 들어가요. 마이너스(-)도 입력이 가능하고 모바일 간격의 경우 모바일기기로 접속시에만 반영되요." data-title="하단 간격이란?" data-alt="미리보기" aria-expanded="false">
-                    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
-                        <g fill='none'>
-                            <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
-                            <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
-                        </g>
-                    </svg>
-                </button>
-                <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
-            </div>
-        </ul>
+                <div class="rb-help" data-open="false">
+                    <button type="button" class="rb-help-btn" data-img="" data-txt="섹션 위쪽으로 Margin(간격) 값이 들어가요. 마이너스(-)도 입력이 가능하고 모바일 간격의 경우 모바일기기로 접속시에만 반영되요." data-title="상단 간격이란?" data-alt="미리보기" aria-expanded="false">
+                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+                            <g fill='none'>
+                                <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
+                                <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
+                            </g>
+                        </svg>
+                    </button>
+                    <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                </div>
+            </ul>
 
 
+            <ul class="rows_inp_lr mt-10">
+                <li class="rows_inp_l rows_inp_l_span">
+                    <span class="font-B">하단 간격</span><br>
+                    margin-bottom
+                </li>
+                <li class="rows_inp_r mt-5">
+                    <input type="number" id="sec_margin_btm_pc" class="tiny_input w25 ml-0" name="sec_margin_btm_pc" placeholder="PC" value="<?php echo (isset($sec_margin_btm_pc) && $sec_margin_btm_pc !== '') ? $sec_margin_btm_pc : ''; ?>"> <span class="font-12">px　</span>
+                    <input type="number" id="sec_margin_btm_mo" class="tiny_input w25 ml-0" name="sec_margin_btm_mo" placeholder="Mobile" value="<?php echo (isset($sec_margin_btm_mo) && $sec_margin_btm_mo !== '') ? $sec_margin_btm_mo : ''; ?>"> <span class="font-12">px</span>
+                </li>
+
+                <div class="cb"></div>
+
+                <div class="rb-help" data-open="false">
+                    <button type="button" class="rb-help-btn" data-img="" data-txt="섹션 아래쪽으로 Margin(간격) 값이 들어가요. 마이너스(-)도 입력이 가능하고 모바일 간격의 경우 모바일기기로 접속시에만 반영되요." data-title="하단 간격이란?" data-alt="미리보기" aria-expanded="false">
+                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+                            <g fill='none'>
+                                <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
+                                <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
+                            </g>
+                        </svg>
+                    </button>
+                    <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                </div>
+            </ul>
+        </div>
 
 
-                    <ul class="rows_inp_lr mt-10">
+
+        <div class="config_wrap_bg">
+                    <ul class="rows_inp_lr">
                         <li class="rows_inp_l rows_inp_l_span">
                             <span class="font-B">내부 여백 (가로축)</span><br>
                             padding
@@ -2490,22 +2511,7 @@ if($mod_type == "del_sec") { //섹션삭제
                     <input type="hidden" id="sec_padding_pc" class="tiny_input w25 ml-0" name="sec_padding_pc" placeholder="PC" value="<?php echo !empty($sec_padding_pc) ? $sec_padding_pc : ''; ?>">
                     <input type="hidden" id="sec_padding_mo" class="tiny_input w25 ml-0" name="sec_padding_mo" placeholder="Mobile" value="<?php echo !empty($sec_padding_mo) ? $sec_padding_mo : ''; ?>">
 
-
-
-        <ul class="rows_inp_lr mt-10">
-            <li class="rows_inp_l rows_inp_l_span">
-                <span class="font-B">백그라운드</span><br>
-                bg color
-            </li>
-            <li class="rows_inp_r mt-5">
-                <div class="color_set_wrap square none_inp_cl" style="position: relative;">
-                    <input type="text" class="coloris" name="sec_bg" value="<?php echo !empty($sec_bg) ? $sec_bg : '#FFFFFF'; ?>" style="width:25px !important;"> 컬러
-                </div>
-            </li>
-
-            <div class="cb"></div>
-        </ul>
-
+        </div>
 
     </div>
 </ul>
