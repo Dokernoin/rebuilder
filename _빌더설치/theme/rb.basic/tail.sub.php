@@ -539,13 +539,14 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
             var $btn = $wrap.children('button.add_section_btns');
             if (!$btn.length) return;
 
-            var inNoneSection = $wrap.closest('.rb-none-section').length > 0;
+            var inNoneSection = $wrap.closest('.rb-none-section, #rb_sidemenu, #rb_sidemenu_float, #rb_sidemenu_shop, #rb_sidemenu_float_shop').length > 0;
+
 
             if (inNoneSection) {
                 // 비활성 모드: 반투명 + 클릭 시 경고
                 $btn
                     .css('opacity', 0.3)
-                    .attr('onclick', "javascript:alert('섹션은 100% 크기를 가지므로 부모영역이 100% 이어야만 사용할 수 있어요.');");
+                    .attr('onclick', "javascript:alert('섹션을 사용할 수 없어요.\\n섹션은 가로 100% 영역에만 사용이 가능해요.');");
             } else {
                 // 정상 모드: 불투명 + 원래 핸들러
                 $btn

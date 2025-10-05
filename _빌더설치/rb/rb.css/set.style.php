@@ -12,15 +12,15 @@ $rb_gap_mo = !empty($rb_core['gap_mo']) ? $rb_core['gap_mo'] : '';
 $rb_main_bg = !empty($rb_core['main_bg']) ? $rb_core['main_bg'] : '';
 $rb_sub_bg = !empty($rb_core['sub_bg']) ? $rb_core['sub_bg'] : '';
 
-$rb_padding_top_sub = isset($rb_core['padding_top_sub']) && $rb_core['padding_top_sub'] != "" ? $rb_core['padding_top_sub'].'px' : '30px';
-$rb_padding_btm_sub = isset($rb_core['padding_btm_sub']) && $rb_core['padding_btm_sub'] != "" ? $rb_core['padding_btm_sub'].'px' : '30px';
-$rb_padding_top = isset($rb_core['padding_top']) && $rb_core['padding_top'] != "" ? $rb_core['padding_top'].'px' : '30px';
-$rb_padding_btm = isset($rb_core['padding_btm']) && $rb_core['padding_btm'] != "" ? $rb_core['padding_btm'].'px' : '30px';
+$rb_padding_top_sub = isset($rb_core['padding_top_sub']) && $rb_core['padding_top_sub'] != "" ? $rb_core['padding_top_sub'].'px' : '40px';
+$rb_padding_btm_sub = isset($rb_core['padding_btm_sub']) && $rb_core['padding_btm_sub'] != "" ? $rb_core['padding_btm_sub'].'px' : '40px';
+$rb_padding_top = isset($rb_core['padding_top']) && $rb_core['padding_top'] != "" ? $rb_core['padding_top'].'px' : '40px';
+$rb_padding_btm = isset($rb_core['padding_btm']) && $rb_core['padding_btm'] != "" ? $rb_core['padding_btm'].'px' : '40px';
 
-$rb_padding_top_sub_shop = isset($rb_core['padding_top_sub_shop']) && $rb_core['padding_top_sub_shop'] != "" ? $rb_core['padding_top_sub_shop'].'px' : '30px';
-$rb_padding_btm_sub_shop = isset($rb_core['padding_btm_sub_shop']) && $rb_core['padding_btm_sub_shop'] != "" ? $rb_core['padding_btm_sub_shop'].'px' : '30px';
-$rb_padding_top_shop = isset($rb_core['padding_top_shop']) && $rb_core['padding_top_shop'] != "" ? $rb_core['padding_top_shop'].'px' : '30px';
-$rb_padding_btm_shop = isset($rb_core['padding_btm_shop']) && $rb_core['padding_btm_shop'] != "" ? $rb_core['padding_btm_shop'].'px' : '30px';
+$rb_padding_top_sub_shop = isset($rb_core['padding_top_sub_shop']) && $rb_core['padding_top_sub_shop'] != "" ? $rb_core['padding_top_sub_shop'].'px' : '40px';
+$rb_padding_btm_sub_shop = isset($rb_core['padding_btm_sub_shop']) && $rb_core['padding_btm_sub_shop'] != "" ? $rb_core['padding_btm_sub_shop'].'px' : '40px';
+$rb_padding_top_shop = isset($rb_core['padding_top_shop']) && $rb_core['padding_top_shop'] != "" ? $rb_core['padding_top_shop'].'px' : '40px';
+$rb_padding_btm_shop = isset($rb_core['padding_btm_shop']) && $rb_core['padding_btm_shop'] != "" ? $rb_core['padding_btm_shop'].'px' : '40px';
 
 $is_index = isset($_GET['rb_is_index']) ? $_GET['rb_is_index'] : 0;
 $is_shop = isset($_GET['rb_is_shop']) ? $_GET['rb_is_shop'] : 0;

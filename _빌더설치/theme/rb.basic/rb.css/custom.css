@@ -810,6 +810,8 @@ select#ct_send_cost {width: 150px;}
 
 #file_list {flex-wrap: wrap; gap:7px;}
 #file_list .swiper-slide_lists {margin-right: 0px !important;}
+
+.rb_sub_module .add_section_wrap  {display: none !important;}
 /* } */
 
 
@@ -1069,7 +1071,6 @@ select#ct_send_cost {width: 150px;}
 
     #file_list {flex-wrap:nowrap;}
     #file_list .swiper-slide_lists {margin-right:inherit;}
-
     html, body {height: inherit;}
     /* } */
 
