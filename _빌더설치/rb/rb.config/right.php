@@ -3856,6 +3856,12 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         var sec_padding_pc = $('input[name="sec_padding_pc"]').val();
         var sec_padding_mo = $('input[name="sec_padding_mo"]').val();
 
+        var sec_padding = $('input[name="sec_padding"]').val();
+        var sec_padding_lr_pc = $('input[name="sec_padding_lr_pc"]').val();
+        var sec_padding_lr_mo = $('input[name="sec_padding_lr_mo"]').val();
+        var sec_padding_tb_pc = $('input[name="sec_padding_tb_pc"]').val();
+        var sec_padding_tb_mo = $('input[name="sec_padding_tb_mo"]').val();
+
         var sec_margin_top_pc = $('input[name="sec_margin_top_pc"]').val();
         var sec_margin_top_mo = $('input[name="sec_margin_top_mo"]').val();
         var sec_margin_btm_pc = $('input[name="sec_margin_btm_pc"]').val();
@@ -3918,6 +3924,12 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                     "sec_con_width": sec_con_width,
                     "sec_padding_pc": sec_padding_pc,
                     "sec_padding_mo": sec_padding_mo,
+
+                    "sec_padding": sec_padding,
+                    "sec_padding_lr_pc": sec_padding_lr_pc,
+                    "sec_padding_lr_mo": sec_padding_lr_mo,
+                    "sec_padding_tb_pc": sec_padding_tb_pc,
+                    "sec_padding_tb_mo": sec_padding_tb_mo,
 
                     "sec_margin_top_pc": sec_margin_top_pc,
                     "sec_margin_top_mo": sec_margin_top_mo,

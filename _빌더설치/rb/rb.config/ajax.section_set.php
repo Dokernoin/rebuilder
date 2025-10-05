@@ -34,6 +34,12 @@ $sec_margin_btm_pc   = $_POST['sec_margin_btm_pc']   ?? '0';
 $sec_margin_btm_mo   = $_POST['sec_margin_btm_mo']   ?? '0';
 $sec_bg           = $_POST['sec_bg']           ?? '#FFFFFF';
 
+$sec_padding = isset($_POST['sec_padding']) ? $_POST['sec_padding'] : '0';
+$sec_padding_lr_pc = isset($_POST['sec_padding_lr_pc']) ? $_POST['sec_padding_lr_pc'] : '';
+$sec_padding_lr_mo = isset($_POST['sec_padding_lr_mo']) ? $_POST['sec_padding_lr_mo'] : '';
+$sec_padding_tb_pc = isset($_POST['sec_padding_tb_pc']) ? $_POST['sec_padding_tb_pc'] : '';
+$sec_padding_tb_mo = isset($_POST['sec_padding_tb_mo']) ? $_POST['sec_padding_tb_mo'] : '';
+
 $del              = $_POST['del']              ?? '';
 $is_shop          = $_POST['is_shop']          ?? '';
 
@@ -165,6 +171,12 @@ if (is_new_sec($sec_id)) {
         sec_margin_btm_mo   = '".esc($sec_margin_btm_mo)."',
         sec_bg           = '".esc($sec_bg)."',
 
+        sec_padding   = '".esc($sec_padding)."',
+        sec_padding_lr_pc   = '".esc($sec_padding_lr_pc)."',
+        sec_padding_lr_mo   = '".esc($sec_padding_lr_mo)."',
+        sec_padding_tb_pc   = '".esc($sec_padding_tb_pc)."',
+        sec_padding_tb_mo   = '".esc($sec_padding_tb_mo)."',
+
         sec_order_id     = {$next_order},
         sec_key          = '".esc($sec_key)."',
         sec_uid          = '".esc($sec_uid)."',
@@ -227,6 +239,12 @@ if (is_new_sec($sec_id)) {
         sec_margin_btm_pc   = '".esc($sec_margin_btm_pc)."',
         sec_margin_btm_mo   = '".esc($sec_margin_btm_mo)."',
         sec_bg           = '".esc($sec_bg)."',
+
+        sec_padding   = '".esc($sec_padding)."',
+        sec_padding_lr_pc   = '".esc($sec_padding_lr_pc)."',
+        sec_padding_lr_mo  = '".esc($sec_padding_lr_mo)."',
+        sec_padding_tb_pc   = '".esc($sec_padding_tb_pc)."',
+        sec_padding_tb_mo   = '".esc($sec_padding_tb_mo)."',
 
         sec_datetime     = '".G5_TIME_YMDHIS."',
         sec_ip           = '".esc($_SERVER['REMOTE_ADDR'] ?? '')."'

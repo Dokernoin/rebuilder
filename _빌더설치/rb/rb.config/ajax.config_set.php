@@ -2186,6 +2186,12 @@ if($mod_type == "del_sec") { //섹션삭제
                 $sec_padding_pc = !empty($rb_section['sec_padding_pc']) ? $rb_section['sec_padding_pc'] : '0';
                 $sec_padding_mo = !empty($rb_section['sec_padding_mo']) ? $rb_section['sec_padding_mo'] : '0';
 
+                $sec_padding = empty($rb_section['sec_padding']) ? '0' : $rb_section['sec_padding'];
+                $sec_padding_lr_pc = $rb_section['sec_padding_lr_pc'] ?? '';
+                $sec_padding_lr_mo = $rb_section['sec_padding_lr_mo'] ?? '';
+                $sec_padding_tb_pc = $rb_section['sec_padding_tb_pc'] ?? '';
+                $sec_padding_tb_mo = $rb_section['sec_padding_tb_mo'] ?? '';
+
                 $sec_margin_top_pc = !empty($rb_section['sec_margin_top_pc']) ? $rb_section['sec_margin_top_pc'] : '0';
                 $sec_margin_top_mo = !empty($rb_section['sec_margin_top_mo']) ? $rb_section['sec_margin_top_mo'] : '0';
                 $sec_margin_btm_pc = !empty($rb_section['sec_margin_btm_pc']) ? $rb_section['sec_margin_btm_pc'] : '0';
@@ -2393,30 +2399,98 @@ if($mod_type == "del_sec") { //섹션삭제
 
 
 
-        <ul class="rows_inp_lr mt-10">
-            <li class="rows_inp_l rows_inp_l_span">
-                <span class="font-B">여백</span><br>
-                padding
-            </li>
-            <li class="rows_inp_r mt-5">
-                <input type="number" id="sec_padding_pc" class="tiny_input w25 ml-0" name="sec_padding_pc" placeholder="PC" value="<?php echo !empty($sec_padding_pc) ? $sec_padding_pc : ''; ?>"> <span class="font-12">px　</span>
-                <input type="number" id="sec_padding_mo" class="tiny_input w25 ml-0" name="sec_padding_mo" placeholder="Mobile" value="<?php echo !empty($sec_padding_mo) ? $sec_padding_mo : ''; ?>"> <span class="font-12">px</span>
-            </li>
 
-            <div class="cb"></div>
+                    <ul class="rows_inp_lr mt-10">
+                        <li class="rows_inp_l rows_inp_l_span">
+                            <span class="font-B">내부 여백 (가로축)</span><br>
+                            padding
+                        </li>
 
-            <div class="rb-help" data-open="false">
-                <button type="button" class="rb-help-btn" data-img="" data-txt="섹션 내부에 4방향으로 padding(여백) 값이 들어가요. 모바일 여백의 경우 모바일기기로 접속시에만 반영되요." data-title="여백 이란?" data-alt="미리보기" aria-expanded="false">
-                    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
-                        <g fill='none'>
-                            <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
-                            <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
-                        </g>
-                    </svg>
-                </button>
-                <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
-            </div>
-        </ul>
+                        <li class="rows_inp_r mt-5">
+                            <input type="number" id="sec_padding_lr_pc" class="tiny_input w30 ml-0" name="sec_padding_lr_pc" placeholder="PC" value="<?php echo (isset($sec_padding_lr_pc) && $sec_padding_lr_pc !== '') ? $sec_padding_lr_pc : ''; ?>"> <span class="font-12">px</span>
+                            <input type="number" id="sec_padding_lr_mo" class="tiny_input w30 ml-0" name="sec_padding_lr_mo" placeholder="Mobile" value="<?php echo (isset($sec_padding_lr_mo) && $sec_padding_lr_mo !== '') ? $sec_padding_lr_mo : ''; ?>"> <span class="font-12">px</span>
+                        </li>
+                        <div class="cb"></div>
+                        <div class="rb-help" data-open="false">
+                            <button type="button" class="rb-help-btn" data-img="" data-txt="섹션 내부 (좌/우) 에 동일한 padding(여백) 값을 설정할 수 있어요. 모바일 여백의 경우 모바일기기로 접속시에만 반영되요." data-title="내부 여백(가로축) 이란?" data-alt="미리보기" aria-expanded="false">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+                                    <g fill='none'>
+                                        <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
+                                        <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
+                                    </g>
+                                </svg>
+                            </button>
+                            <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                        </div>
+                    </ul>
+
+                    <ul class="rows_inp_lr mt-5">
+                        <li class="rows_inp_l rows_inp_l_span">
+                            <span class="font-B">내부 여백 (세로축)</span><br>
+                            padding
+                        </li>
+
+                        <li class="rows_inp_r mt-5">
+                            <input type="number" id="sec_padding_tb_pc" class="tiny_input w30 ml-0" name="sec_padding_tb_pc" placeholder="PC" value="<?php echo (isset($sec_padding_tb_pc) && $sec_padding_tb_pc !== '') ? $sec_padding_tb_pc : ''; ?>"> <span class="font-12">px</span>
+                            <input type="number" id="sec_padding_tb_mo" class="tiny_input w30 ml-0" name="sec_padding_tb_mo" placeholder="Mobile" value="<?php echo (isset($sec_padding_tb_mo) && $sec_padding_tb_mo !== '') ? $sec_padding_tb_mo : ''; ?>"> <span class="font-12">px</span>
+                        </li>
+                        <div class="cb"></div>
+
+                        <div class="rb-help" data-open="false">
+                            <button type="button" class="rb-help-btn" data-img="" data-txt="섹션 내부 (상/하) 에 동일한 padding(여백) 값을 설정할 수 있어요. 모바일 여백의 경우 모바일기기로 접속시에만 반영되요." data-title="내부 여백(세로축) 이란?" data-alt="미리보기" aria-expanded="false">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+                                    <g fill='none'>
+                                        <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
+                                        <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
+                                    </g>
+                                </svg>
+                            </button>
+                            <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                        </div>
+
+                    </ul>
+
+                    <ul class="rows_inp_lr mt-5">
+                        <li class="rows_inp_l rows_inp_l_span">
+                            <span class="font-B">일괄설정</span><br>
+                            padding
+                        </li>
+
+                        <li class="rows_inp_r mt-20">
+                            <div id="sec_padding_range" class="rb_range_item"></div>
+                            <input type="hidden" id="sec_padding" class="co_range_send" name="sec_padding" value="<?php echo !empty($sec_padding) ? $sec_padding : '0'; ?>">
+                        </li>
+
+                        <script type="text/javascript">
+                            $("#sec_padding_range").slider({
+                                range: "min",
+                                min: 0,
+                                max: 100,
+                                value: <?php echo !empty($sec_padding) ? $sec_padding : '0'; ?>,
+                                step: 1,
+                                slide: function(e, ui) {
+                                    $("#sec_padding_range .ui-slider-handle").html(ui.value);
+                                    $("#sec_padding").val(ui.value);
+                                    $("#sec_padding_lr_pc").val(ui.value);
+                                    $("#sec_padding_lr_mo").val(ui.value);
+                                    $("#sec_padding_tb_pc").val(ui.value);
+                                    $("#sec_padding_tb_mo").val(ui.value);
+                                }
+                            });
+
+                            $("#sec_padding_range .ui-slider-handle").html("<?php echo !empty($sec_padding) ? $sec_padding : '0'; ?>");
+                            $("#sec_padding").val("<?php echo !empty($sec_padding) ? $sec_padding : '0'; ?>"); // 초기값 설정
+                        </script>
+
+                        <div class="cb"></div>
+
+                    </ul>
+
+
+                    <input type="hidden" id="sec_padding_pc" class="tiny_input w25 ml-0" name="sec_padding_pc" placeholder="PC" value="<?php echo !empty($sec_padding_pc) ? $sec_padding_pc : ''; ?>">
+                    <input type="hidden" id="sec_padding_mo" class="tiny_input w25 ml-0" name="sec_padding_mo" placeholder="Mobile" value="<?php echo !empty($sec_padding_mo) ? $sec_padding_mo : ''; ?>">
+
+
 
         <ul class="rows_inp_lr mt-10">
             <li class="rows_inp_l rows_inp_l_span">
