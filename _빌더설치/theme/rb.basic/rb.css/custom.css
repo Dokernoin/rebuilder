@@ -806,6 +806,10 @@ select#ct_send_cost {width: 150px;}
 .mod_bn_wrap .swiper-button-prev {left:0px; border-top-left-radius: 0px; border-bottom-left-radius: 0px;}
 .mod_bn_wrap .swiper-button-next {right: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px;}
 
+.au_file_list img {object-fit: cover;}
+
+#file_list {flex-wrap: wrap; gap:7px;}
+#file_list .swiper-slide_lists {margin-right: 0px !important;}
 /* } */
 
 
@@ -1062,6 +1066,9 @@ select#ct_send_cost {width: 150px;}
     .rb-btns-icon {padding: 0px 0px !important;}
     .rb_sub_module .content_box {padding-left: 0px !important; padding-right: 0px !important;}
     #rb_sidemenu .content_box {padding-left: 0px !important; padding-right: 0px !important;}
+
+    #file_list {flex-wrap:nowrap;}
+    #file_list .swiper-slide_lists {margin-right:inherit;}
 
     html, body {height: inherit;}
     /* } */
