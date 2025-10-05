@@ -8,7 +8,7 @@ $rb_main_width = !empty($rb_core['main_width']) ? $rb_core['main_width'].'px' : 
 $rb_sub_width = !empty($rb_core['sub_width']) ? $rb_core['sub_width'].'px' : '';
 $rb_tb_width = !empty($tb_width_inner) ? $tb_width_inner : '';
 $rb_gap = !empty($rb_core['gap_pc']) ? $rb_core['gap_pc'].'px' : '';
-$rb_gap_mo = !empty($rb_core['gap_mo']) ? $rb_core['gap_mo'].'px' : '';
+$rb_gap_mo = !empty($rb_core['gap_mo']) ? $rb_core['gap_mo'] : '';
 $rb_main_bg = !empty($rb_core['main_bg']) ? $rb_core['main_bg'] : '';
 $rb_sub_bg = !empty($rb_core['sub_bg']) ? $rb_core['sub_bg'] : '';
 
@@ -37,7 +37,6 @@ $is_shop = isset($_GET['rb_is_shop']) ? $_GET['rb_is_shop'] : 0;
   --rb-header-width: <?php echo $rb_tb_width; ?>;
   --rb-footer-width: <?php echo $rb_tb_width; ?>;
   --rb-gap: <?php echo $rb_gap; ?>;
-
   --rb-padding-top: <?php echo $rb_padding_top; ?>;
   --rb-padding-btm: <?php echo $rb_padding_btm; ?>;
   --rb-padding-top-sub: <?php echo $rb_padding_top_sub; ?>;
@@ -75,7 +74,7 @@ $is_shop = isset($_GET['rb_is_shop']) ? $_GET['rb_is_shop'] : 0;
 
 <?php if($rb_gap_mo == 1) { ?>
 @media all and (max-width:1024px) {
-    .flex_box {gap:20px 0px;}
+    .flex_box {gap:var(--rb-gap) 0px;}
     .content_box {padding-top:0px !important; padding-bottom: 0px !important;}
 }
 <?php } ?>
