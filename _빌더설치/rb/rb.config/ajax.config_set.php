@@ -17,7 +17,7 @@ if(isset($is_shop) && $is_shop == 1) {
 if($mod_type == 1) { //환경설정
     $co_color = !empty($_POST['co_color']) ? $_POST['co_color'] : 'AA20FF';
     $co_header = !empty($_POST['co_header']) ? $_POST['co_header'] : '0';
-
+    
     $co_main_bg = !empty($_POST['co_main_bg']) ? $_POST['co_main_bg'] : '#FFFFFF';
     $co_sub_bg = !empty($_POST['co_sub_bg']) ? $_POST['co_sub_bg'] : '#FFFFFF';
     $co_gap_mo = !empty($_POST['co_gap_mo']) ? $_POST['co_gap_mo'] : '0';
@@ -226,7 +226,7 @@ if($mod_type == "del_sec") { //섹션삭제
 
                 $md_level = !empty($rb_module['md_level']) ? $rb_module['md_level'] : '';
                 $md_level_is = !empty($rb_module['md_level_is']) ? $rb_module['md_level_is'] : '';
-
+    
                 $md_module = !empty($rb_module['md_module']) ? $rb_module['md_module'] : '';
                 $md_soldout_hidden = !empty($rb_module['md_soldout_hidden']) ? $rb_module['md_soldout_hidden'] : '';
                 $md_soldout_asc = !empty($rb_module['md_soldout_asc']) ? $rb_module['md_soldout_asc'] : '';
@@ -235,18 +235,18 @@ if($mod_type == "del_sec") { //섹션삭제
                 $md_arrow_type  = !empty($rb_module['md_arrow_type']) ? $rb_module['md_arrow_type'] : '0';
                 $md_radius = empty($rb_module['md_radius']) ? '0' : $rb_module['md_radius'];
                 $md_padding = empty($rb_module['md_padding']) ? '0' : $rb_module['md_padding'];
-
+    
                 $md_margin_top_pc = $rb_module['md_margin_top_pc'] ?? '';
                 $md_margin_top_mo = $rb_module['md_margin_top_mo'] ?? '';
                 $md_margin_btm_pc = $rb_module['md_margin_btm_pc'] ?? '';
                 $md_margin_btm_mo = $rb_module['md_margin_btm_mo'] ?? '';
-
+    
                 $md_padding_lr_pc = $rb_module['md_padding_lr_pc'] ?? '';
                 $md_padding_lr_mo = $rb_module['md_padding_lr_mo'] ?? '';
                 $md_padding_tb_pc = $rb_module['md_padding_tb_pc'] ?? '';
                 $md_padding_tb_mo = $rb_module['md_padding_tb_mo'] ?? '';
-
-
+    
+    
     
                 ?>
 
@@ -348,7 +348,7 @@ if($mod_type == "del_sec") { //섹션삭제
             </select>
 
             <div style="margin-left:auto;">
-                <input type="checkbox" name="md_title_hide" id="md_title_hide" class="magic-checkbox" value="1" <?php if (isset($md_title_hide) && $md_title_hide == "1") { ?>checked<?php } ?>><label for="md_title_hide">숨김</label>
+                <input type="checkbox" name="md_title_hide" id="md_title_hide" class="magic-checkbox" value="1" <?php if (isset($md_title_hide) && $md_title_hide == "1") { ?>checked<?php } ?>><label for="md_title_hide">숨김</label>　
             </div>
 
         </ul>
@@ -364,9 +364,9 @@ if($mod_type == "del_sec") { //섹션삭제
     <div class="config_wrap">
 
         <ul>
-            <input type="radio" name="md_show" id="md_show_1" class="magic-radio" value="" <?php if (isset($md_show) && $md_show == "" || empty($md_show)) { ?>checked<?php } ?>><label for="md_show_1">공용</label>
-            <input type="radio" name="md_show" id="md_show_2" class="magic-radio" value="pc" <?php if (isset($md_show) && $md_show == "pc") { ?>checked<?php } ?>><label for="md_show_2">PC 전용</label>
-            <input type="radio" name="md_show" id="md_show_3" class="magic-radio" value="mobile" <?php if (isset($md_show) && $md_show == "mobile") { ?>checked<?php } ?>><label for="md_show_3">Mobile 전용</label>
+            <input type="radio" name="md_show" id="md_show_1" class="magic-radio" value="" <?php if (isset($md_show) && $md_show == "" || empty($md_show)) { ?>checked<?php } ?>><label for="md_show_1">공용</label>　
+            <input type="radio" name="md_show" id="md_show_2" class="magic-radio" value="pc" <?php if (isset($md_show) && $md_show == "pc") { ?>checked<?php } ?>><label for="md_show_2">PC 전용</label>　
+            <input type="radio" name="md_show" id="md_show_3" class="magic-radio" value="mobile" <?php if (isset($md_show) && $md_show == "mobile") { ?>checked<?php } ?>><label for="md_show_3">Mobile 전용</label>　
         </ul>
 
         <ul class="mt-10">
@@ -828,8 +828,8 @@ if($mod_type == "del_sec") { //섹션삭제
 
         <div>
             <ul class="mt-5 selected_item selected_select">
-                <input type="checkbox" name="md_soldout_asc" id="md_soldout_asc" value="1" <?php if (isset($md_soldout_asc) && $md_soldout_asc == "1") { ?>checked<?php } ?>><label for="md_soldout_asc">품절상품 후순위 정렬</label>
-                <input type="checkbox" name="md_soldout_hidden" id="md_soldout_hidden" value="1" <?php if (isset($md_soldout_hidden) && $md_soldout_hidden == "1") { ?>checked<?php } ?>><label for="md_soldout_hidden">품절상품 숨김</label>
+                <input type="checkbox" name="md_soldout_asc" id="md_soldout_asc" value="1" <?php if (isset($md_soldout_asc) && $md_soldout_asc == "1") { ?>checked<?php } ?>><label for="md_soldout_asc">품절상품 후순위 정렬</label>　
+                <input type="checkbox" name="md_soldout_hidden" id="md_soldout_hidden" value="1" <?php if (isset($md_soldout_hidden) && $md_soldout_hidden == "1") { ?>checked<?php } ?>><label for="md_soldout_hidden">품절상품 숨김</label>　
             </ul>
         </div>
 
@@ -1078,7 +1078,7 @@ if($mod_type == "del_sec") { //섹션삭제
 
         <div>
             <ul class="mt-5 selected_latest_tab selected_select">
-                <input type="checkbox" name="md_notice" id="md_notice" value="1" <?php if (isset($md_notice) && $md_notice == "1") { ?>checked<?php } ?>><label for="md_notice">공지 상단고정</label>
+                <input type="checkbox" name="md_notice" id="md_notice" value="1" <?php if (isset($md_notice) && $md_notice == "1") { ?>checked<?php } ?>><label for="md_notice">공지 상단고정</label>　
             </ul>
         </div>
 
@@ -1174,8 +1174,8 @@ if($mod_type == "del_sec") { //섹션삭제
                         </li>
                         <li class="rows_inp_r mt-5">
 
-                            <input type="radio" name="md_wide_is" id="md_wide_is_1" class="magic-radio" value="" <?php if (isset($md_wide_is) && $md_wide_is == "" || empty($md_wide_is)) { ?>checked<?php } ?>><label for="md_wide_is_1">기본</label>
-                            <input type="radio" name="md_wide_is" id="md_wide_is_2" class="magic-radio" value="1" <?php if (isset($md_wide_is) && $md_wide_is == "1") { ?>checked<?php } ?>><label for="md_wide_is_2">100%</label>
+                            <input type="radio" name="md_wide_is" id="md_wide_is_1" class="magic-radio" value="" <?php if (isset($md_wide_is) && $md_wide_is == "" || empty($md_wide_is)) { ?>checked<?php } ?>><label for="md_wide_is_1">기본</label>　
+                            <input type="radio" name="md_wide_is" id="md_wide_is_2" class="magic-radio" value="1" <?php if (isset($md_wide_is) && $md_wide_is == "1") { ?>checked<?php } ?>><label for="md_wide_is_2">100%</label>　
 
                         </li>
 
@@ -1253,6 +1253,18 @@ if($mod_type == "del_sec") { //섹션삭제
 
                         <div class="cb"></div>
                     </ul>
+
+                    <ul class="rows_inp_lr mt-5">
+                        <li class="rows_inp_l rows_inp_l_span mt-15">
+                            <span class="font-B">일괄변경</span>
+                        </li>
+                        <li class="rows_inp_r mt-5">
+                            <input type="hidden" name="md_cb_batch" value="">
+                            <input type="checkbox" id="md_color_border_batch_checkbox" class="magic-checkbox">
+                            <label for="md_color_border_batch_checkbox">색상, 모서리 일괄변경</label>
+                        </li>
+                        <div class="cb"></div>
+                    </ul>
                 </div>
 
 
@@ -1265,9 +1277,9 @@ if($mod_type == "del_sec") { //섹션삭제
                         </li>
                         <li class="rows_inp_r mt-5">
 
-                            <input type="radio" name="md_border" id="md_border_1" class="magic-radio" value="" <?php if (isset($md_border) && $md_border == "" || empty($md_border)) { ?>checked<?php } ?>><label for="md_border_1">없음</label>
-                            <input type="radio" name="md_border" id="md_border_2" class="magic-radio" value="solid" <?php if (isset($md_border) && $md_border == "solid") { ?>checked<?php } ?>><label for="md_border_2">실선</label>
-                            <input type="radio" name="md_border" id="md_border_3" class="magic-radio" value="dashed" <?php if (isset($md_border) && $md_border == "dashed") { ?>checked<?php } ?>><label for="md_border_3">점선</label>
+                            <input type="radio" name="md_border" id="md_border_1" class="magic-radio" value="" <?php if (isset($md_border) && $md_border == "" || empty($md_border)) { ?>checked<?php } ?>><label for="md_border_1">없음</label>　
+                            <input type="radio" name="md_border" id="md_border_2" class="magic-radio" value="solid" <?php if (isset($md_border) && $md_border == "solid") { ?>checked<?php } ?>><label for="md_border_2">실선</label>　
+                            <input type="radio" name="md_border" id="md_border_3" class="magic-radio" value="dashed" <?php if (isset($md_border) && $md_border == "dashed") { ?>checked<?php } ?>><label for="md_border_3">점선</label>　
 
                         </li>
 
@@ -1320,6 +1332,18 @@ if($mod_type == "del_sec") { //섹션삭제
                         <div class="cb"></div>
                     </ul>
 
+                    <ul class="rows_inp_lr mt-5">
+                        <li class="rows_inp_l rows_inp_l_span mt-15">
+                            <span class="font-B">일괄변경</span>
+                        </li>
+                        <li class="rows_inp_r mt-5">
+                            <input type="hidden" name="md_border_batch" value="">
+                            <input type="checkbox" id="md_border_batch_checkbox" class="magic-checkbox">
+                            <label for="md_border_batch_checkbox">테두리 일괄변경</label>
+                        </li>
+                        <div class="cb"></div>
+                    </ul>
+
 
                     <script>
                         // 테두리 의존 섹션 토글
@@ -1355,9 +1379,9 @@ if($mod_type == "del_sec") { //섹션삭제
                             shadow
                         </li>
                         <li class="rows_inp_r mt-5">
-                            <input type="radio" name="md_box_shadow" id="md_box_shadow_1" class="magic-radio" value="" <?php if (isset($md_box_shadow) && $md_box_shadow == "" || empty($md_box_shadow)) { ?>checked<?php } ?>><label for="md_box_shadow_1">없음</label>
-                            <input type="radio" name="md_box_shadow" id="md_box_shadow_2" class="magic-radio" value="1" <?php if (isset($md_box_shadow) && $md_box_shadow == "1") { ?>checked<?php } ?>><label for="md_box_shadow_2">기본</label>
-                            <input type="radio" name="md_box_shadow" id="md_box_shadow_3" class="magic-radio" value="2" <?php if (isset($md_box_shadow) && $md_box_shadow == "2") { ?>checked<?php } ?>><label for="md_box_shadow_3">설정</label>
+                            <input type="radio" name="md_box_shadow" id="md_box_shadow_1" class="magic-radio" value="" <?php if (isset($md_box_shadow) && $md_box_shadow == "" || empty($md_box_shadow)) { ?>checked<?php } ?>><label for="md_box_shadow_1">없음</label>　
+                            <input type="radio" name="md_box_shadow" id="md_box_shadow_2" class="magic-radio" value="1" <?php if (isset($md_box_shadow) && $md_box_shadow == "1") { ?>checked<?php } ?>><label for="md_box_shadow_2">기본</label>　
+                            <input type="radio" name="md_box_shadow" id="md_box_shadow_3" class="magic-radio" value="2" <?php if (isset($md_box_shadow) && $md_box_shadow == "2") { ?>checked<?php } ?>><label for="md_box_shadow_3">설정</label>　
                         </li>
 
                         <div class="cb"></div>
@@ -1421,6 +1445,18 @@ if($mod_type == "del_sec") { //섹션삭제
                             </button>
                             <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
                         </div>
+                    </ul>
+
+                    <ul class="rows_inp_lr mt-5">
+                        <li class="rows_inp_l rows_inp_l_span mt-15">
+                            <span class="font-B">일괄변경</span>
+                        </li>
+                        <li class="rows_inp_r mt-5">
+                            <input type="hidden" name="md_shadow_batch" value="">
+                            <input type="checkbox" id="md_shadow_batch_checkbox" class="magic-checkbox">
+                            <label for="md_shadow_batch_checkbox">그림자 일괄변경</label>
+                        </li>
+                        <div class="cb"></div>
                     </ul>
 
                     <script>
@@ -1618,6 +1654,17 @@ if($mod_type == "del_sec") { //섹션삭제
                         </div>
                     </ul>
 
+                    <ul class="rows_inp_lr mt-5">
+                        <li class="rows_inp_l rows_inp_l_span mt-15">
+                            <span class="font-B">일괄변경</span>
+                        </li>
+                        <li class="rows_inp_r mt-5">
+                            <input type="hidden" name="md_margin_batch" value="">
+                            <input type="checkbox" id="md_margin_batch_checkbox" class="magic-checkbox">
+                            <label for="md_margin_batch_checkbox">상/하단 간격 일괄변경</label>
+                        </li>
+                        <div class="cb"></div>
+                    </ul>
                 </div>
 
                 <div class="config_wrap_bg">
@@ -1629,7 +1676,7 @@ if($mod_type == "del_sec") { //섹션삭제
                         </li>
 
                         <li class="rows_inp_r mt-5">
-                            <input type="number" id="md_padding_lr_pc" class="tiny_input w30 ml-0" name="md_padding_lr_pc" placeholder="PC" value="<?php echo (isset($md_padding_lr_pc) && $md_padding_lr_pc !== '') ? $md_padding_lr_pc : ''; ?>"> <span class="font-12">px</span>
+                            <input type="number" id="md_padding_lr_pc" class="tiny_input w30 ml-0" name="md_padding_lr_pc" placeholder="PC" value="<?php echo (isset($md_padding_lr_pc) && $md_padding_lr_pc !== '') ? $md_padding_lr_pc : ''; ?>"> <span class="font-12">px</span>　
                             <input type="number" id="md_padding_lr_mo" class="tiny_input w30 ml-0" name="md_padding_lr_mo" placeholder="Mobile" value="<?php echo (isset($md_padding_lr_mo) && $md_padding_lr_mo !== '') ? $md_padding_lr_mo : ''; ?>"> <span class="font-12">px</span>
                         </li>
                         <div class="cb"></div>
@@ -1653,7 +1700,7 @@ if($mod_type == "del_sec") { //섹션삭제
                         </li>
 
                         <li class="rows_inp_r mt-5">
-                            <input type="number" id="md_padding_tb_pc" class="tiny_input w30 ml-0" name="md_padding_tb_pc" placeholder="PC" value="<?php echo (isset($md_padding_tb_pc) && $md_padding_tb_pc !== '') ? $md_padding_tb_pc : ''; ?>"> <span class="font-12">px</span>
+                            <input type="number" id="md_padding_tb_pc" class="tiny_input w30 ml-0" name="md_padding_tb_pc" placeholder="PC" value="<?php echo (isset($md_padding_tb_pc) && $md_padding_tb_pc !== '') ? $md_padding_tb_pc : ''; ?>"> <span class="font-12">px</span>　
                             <input type="number" id="md_padding_tb_mo" class="tiny_input w30 ml-0" name="md_padding_tb_mo" placeholder="Mobile" value="<?php echo (isset($md_padding_tb_mo) && $md_padding_tb_mo !== '') ? $md_padding_tb_mo : ''; ?>"> <span class="font-12">px</span>
                         </li>
                         <div class="cb"></div>
@@ -1707,6 +1754,18 @@ if($mod_type == "del_sec") { //섹션삭제
                         <div class="cb"></div>
 
                     </ul>
+
+                    <ul class="rows_inp_lr mt-5">
+                        <li class="rows_inp_l rows_inp_l_span mt-15">
+                            <span class="font-B">일괄변경</span>
+                        </li>
+                        <li class="rows_inp_r mt-5">
+                            <input type="hidden" name="md_padding_batch" value="">
+                            <input type="checkbox" id="md_padding_batch_checkbox" class="magic-checkbox">
+                            <label for="md_padding_batch_checkbox">내부 여백 일괄변경</label>
+                        </li>
+                        <div class="cb"></div>
+                    </ul>
                 </div>
 
 
@@ -1741,10 +1800,10 @@ if($mod_type == "del_sec") { //섹션삭제
             <div class="config_wrap">
                 <ul class="rows_inp_lr">
                     <li class="rows_inp_l">
-                        <input type="number" name="md_cnt" id="md_cnt_shop" class="input w70 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="개수" autocomplete="off" autocomplete="off">　<span>개</span>
+                        <input type="number" name="md_cnt" id="md_cnt_shop" class="input w70 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="개수" autocomplete="off" autocomplete="off">　<span>개</span>　
                     </li>
                     <li class="rows_inp_r">
-                        <input type="number" name="md_col" id="md_col_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_col) ? $md_col : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
+                        <input type="number" name="md_col" id="md_col_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_col) ? $md_col : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>　
                         <input type="number" name="md_row" id="md_row_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_row) ? $md_row : ''; ?>" placeholder="행" autocomplete="off">
                     </li>
                     <div class="cb"></div>
@@ -1755,7 +1814,7 @@ if($mod_type == "del_sec") { //섹션삭제
                         1024px 이하
                     </li>
                     <li class="rows_inp_r">
-                        <input type="number" name="md_col_mo" id="md_col_mo_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_col_mo) ? $md_col_mo : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
+                        <input type="number" name="md_col_mo" id="md_col_mo_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_col_mo) ? $md_col_mo : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>　
                         <input type="number" name="md_row_mo" id="md_row_mo_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_row_mo) ? $md_row_mo : ''; ?>" placeholder="행" autocomplete="off">
                     </li>
                     <div class="cb"></div>
@@ -1816,17 +1875,17 @@ if($mod_type == "del_sec") { //섹션삭제
                 스와이프 및 자동롤링 처리 유무를 설정할 수 있습니다.
             </h6>
             <div class="config_wrap">
-                <input type="checkbox" name="md_swiper_is" class="md_swiper_is_shop" id="md_swiper_is_shop" class="magic-checkbox" value="1" <?php if (isset($md_swiper_is) && $md_swiper_is == 1) { ?>checked<?php } ?>><label for="md_swiper_is_shop">스와이프 사용</label>
+                <input type="checkbox" name="md_swiper_is" class="md_swiper_is_shop" id="md_swiper_is_shop" class="magic-checkbox" value="1" <?php if (isset($md_swiper_is) && $md_swiper_is == 1) { ?>checked<?php } ?>><label for="md_swiper_is_shop">스와이프 사용</label>　
             </div>
 
             <div class="config_wrap">
-                <input type="radio" name="md_arrow_type_shop" id="md_arrow_type_shop_0" class="magic-radio" value="" <?php if (isset($md_arrow_type) && $md_arrow_type == "" || empty($md_arrow_type)) { ?>checked<?php } ?>><label for="md_arrow_type_shop_0">기본버튼</label>
-                <input type="radio" name="md_arrow_type_shop" id="md_arrow_type_shop_1" class="magic-radio" value="1" <?php if (isset($md_arrow_type) && $md_arrow_type == "1") { ?>checked<?php } ?>><label for="md_arrow_type_shop_1">원형버튼(오버)</label>
-                <input type="radio" name="md_arrow_type_shop" id="md_arrow_type_shop_2" class="magic-radio" value="2" <?php if (isset($md_arrow_type) && $md_arrow_type == "2") { ?>checked<?php } ?>><label for="md_arrow_type_shop_2">버튼숨김</label>
+                <input type="radio" name="md_arrow_type_shop" id="md_arrow_type_shop_0" class="magic-radio" value="" <?php if (isset($md_arrow_type) && $md_arrow_type == "" || empty($md_arrow_type)) { ?>checked<?php } ?>><label for="md_arrow_type_shop_0">기본버튼</label>　
+                <input type="radio" name="md_arrow_type_shop" id="md_arrow_type_shop_1" class="magic-radio" value="1" <?php if (isset($md_arrow_type) && $md_arrow_type == "1") { ?>checked<?php } ?>><label for="md_arrow_type_shop_1">원형버튼(오버)</label>　
+                <input type="radio" name="md_arrow_type_shop" id="md_arrow_type_shop_2" class="magic-radio" value="2" <?php if (isset($md_arrow_type) && $md_arrow_type == "2") { ?>checked<?php } ?>><label for="md_arrow_type_shop_2">버튼숨김</label>　
             </div>
 
             <div class="config_wrap">
-                <input type="checkbox" name="md_auto_is" id="md_auto_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_auto_is) && $md_auto_is == 1) { ?>checked<?php } ?>><label for="md_auto_is_shop">자동롤링 사용</label>
+                <input type="checkbox" name="md_auto_is" id="md_auto_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_auto_is) && $md_auto_is == 1) { ?>checked<?php } ?>><label for="md_auto_is_shop">자동롤링 사용</label>　
                 <input type="number" name="md_auto_time" id="md_auto_time_shop" class="input w30 h40 text-center" value="<?php echo !empty($md_auto_time) ? $md_auto_time : ''; ?>" placeholder="밀리초" autocomplete="off">　<span>3000=3초</span>
             </div>
 
@@ -1844,13 +1903,13 @@ if($mod_type == "del_sec") { //섹션삭제
             </h6>
             <div class="config_wrap">
                 <ul>
-                    <input type="checkbox" name="md_ca_is" id="md_ca_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_ca_is) && $md_ca_is == 1) { ?>checked<?php } ?>><label for="md_ca_is_shop">카테고리</label>
-                    <input type="checkbox" name="md_thumb_is" id="md_thumb_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_thumb_is) && $md_thumb_is == 1) { ?>checked<?php } ?>><label for="md_thumb_is_shop">상품이미지</label>
+                    <input type="checkbox" name="md_ca_is" id="md_ca_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_ca_is) && $md_ca_is == 1) { ?>checked<?php } ?>><label for="md_ca_is_shop">카테고리</label>　
+                    <input type="checkbox" name="md_thumb_is" id="md_thumb_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_thumb_is) && $md_thumb_is == 1) { ?>checked<?php } ?>><label for="md_thumb_is_shop">상품이미지</label>　
                     <input type="checkbox" name="md_subject_is" id="md_subject_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_subject_is) && $md_subject_is == 1) { ?>checked<?php } ?>><label for="md_subject_is_shop">상품명</label>　<br>
-                    <input type="checkbox" name="md_content_is" id="md_content_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_content_is) && $md_content_is == 1) { ?>checked<?php } ?>><label for="md_content_is_shop">상품설명</label>
-                    <input type="checkbox" name="md_date_is" id="md_date_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_date_is) && $md_date_is == 1) { ?>checked<?php } ?>><label for="md_date_is_shop">등록일</label>
-                    <input type="checkbox" name="md_comment_is" id="md_comment_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_comment_is) && $md_comment_is == 1) { ?>checked<?php } ?>><label for="md_comment_is_shop">찜개수</label>
-                    <input type="checkbox" name="md_icon_is" id="md_icon_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_icon_is) && $md_icon_is == 1) { ?>checked<?php } ?>><label for="md_icon_is_shop">아이콘</label>
+                    <input type="checkbox" name="md_content_is" id="md_content_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_content_is) && $md_content_is == 1) { ?>checked<?php } ?>><label for="md_content_is_shop">상품설명</label>　
+                    <input type="checkbox" name="md_date_is" id="md_date_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_date_is) && $md_date_is == 1) { ?>checked<?php } ?>><label for="md_date_is_shop">등록일</label>　
+                    <input type="checkbox" name="md_comment_is" id="md_comment_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_comment_is) && $md_comment_is == 1) { ?>checked<?php } ?>><label for="md_comment_is_shop">찜개수</label>　
+                    <input type="checkbox" name="md_icon_is" id="md_icon_is_shop" class="magic-checkbox" value="1" <?php if(isset($md_icon_is) && $md_icon_is == 1) { ?>checked<?php } ?>><label for="md_icon_is_shop">아이콘</label>　
                 </ul>
             </div>
         </ul>
@@ -1897,11 +1956,11 @@ if($mod_type == "del_sec") { //섹션삭제
             </li>
 
             <li class="rows_inp_l selected_latest_tab selected_select">
-                <input type="number" name="md_cnt" id="md_cnt" class="input w70 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="개수" autocomplete="off" autocomplete="off">　<span>개</span>
+                <input type="number" name="md_cnt" id="md_cnt" class="input w70 h40 text-center" value="<?php echo !empty($md_cnt) ? $md_cnt : ''; ?>" placeholder="개수" autocomplete="off" autocomplete="off">　<span>개</span>　
             </li>
 
             <li class="rows_inp_r">
-                <input type="number" name="md_col" id="md_col" class="input w30 h40 text-center" value="<?php echo !empty($md_col) ? $md_col : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
+                <input type="number" name="md_col" id="md_col" class="input w30 h40 text-center" value="<?php echo !empty($md_col) ? $md_col : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>　
                 <input type="number" name="md_row" id="md_row" class="input w30 h40 text-center" value="<?php echo !empty($md_row) ? $md_row : ''; ?>" placeholder="행" autocomplete="off">
             </li>
             <div class="cb"></div>
@@ -1912,7 +1971,7 @@ if($mod_type == "del_sec") { //섹션삭제
                 1024px 이하
             </li>
             <li class="rows_inp_r">
-                <input type="number" name="md_col_mo" id="md_col_mo" class="input w30 h40 text-center" value="<?php echo !empty($md_col_mo) ? $md_col_mo : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>
+                <input type="number" name="md_col_mo" id="md_col_mo" class="input w30 h40 text-center" value="<?php echo !empty($md_col_mo) ? $md_col_mo : ''; ?>" placeholder="열" autocomplete="off">　<span>X</span>　
                 <input type="number" name="md_row_mo" id="md_row_mo" class="input w30 h40 text-center" value="<?php echo !empty($md_row_mo) ? $md_row_mo : ''; ?>" placeholder="행" autocomplete="off">
             </li>
             <div class="cb"></div>
@@ -1971,17 +2030,17 @@ if($mod_type == "del_sec") { //섹션삭제
         스와이프 및 자동롤링 처리 유무를 설정할 수 있습니다.
     </h6>
     <div class="config_wrap">
-        <input type="checkbox" name="md_swiper_is" class="md_swiper_is" id="md_swiper_is" class="magic-checkbox" value="1" <?php if (isset($md_swiper_is) && $md_swiper_is == 1) { ?>checked<?php } ?>><label for="md_swiper_is">스와이프 사용</label>
+        <input type="checkbox" name="md_swiper_is" class="md_swiper_is" id="md_swiper_is" class="magic-checkbox" value="1" <?php if (isset($md_swiper_is) && $md_swiper_is == 1) { ?>checked<?php } ?>><label for="md_swiper_is">스와이프 사용</label>　
     </div>
 
     <div class="config_wrap">
-        <input type="radio" name="md_arrow_type" id="md_arrow_type_0" class="magic-radio" value="" <?php if (isset($md_arrow_type) && $md_arrow_type == "" || empty($md_arrow_type)) { ?>checked<?php } ?>><label for="md_arrow_type_0">기본버튼</label>
-        <input type="radio" name="md_arrow_type" id="md_arrow_type_1" class="magic-radio" value="1" <?php if (isset($md_arrow_type) && $md_arrow_type == "1") { ?>checked<?php } ?>><label for="md_arrow_type_1">원형버튼(오버)</label>
-        <input type="radio" name="md_arrow_type" id="md_arrow_type_2" class="magic-radio" value="2" <?php if (isset($md_arrow_type) && $md_arrow_type == "2") { ?>checked<?php } ?>><label for="md_arrow_type_2">버튼숨김</label>
+        <input type="radio" name="md_arrow_type" id="md_arrow_type_0" class="magic-radio" value="" <?php if (isset($md_arrow_type) && $md_arrow_type == "" || empty($md_arrow_type)) { ?>checked<?php } ?>><label for="md_arrow_type_0">기본버튼</label>　
+        <input type="radio" name="md_arrow_type" id="md_arrow_type_1" class="magic-radio" value="1" <?php if (isset($md_arrow_type) && $md_arrow_type == "1") { ?>checked<?php } ?>><label for="md_arrow_type_1">원형버튼(오버)</label>　
+        <input type="radio" name="md_arrow_type" id="md_arrow_type_2" class="magic-radio" value="2" <?php if (isset($md_arrow_type) && $md_arrow_type == "2") { ?>checked<?php } ?>><label for="md_arrow_type_2">버튼숨김</label>　
     </div>
 
     <div class="config_wrap">
-        <input type="checkbox" name="md_auto_is" id="md_auto_is" class="magic-checkbox" value="1" <?php if(isset($md_auto_is) && $md_auto_is == 1) { ?>checked<?php } ?>><label for="md_auto_is">자동롤링 사용</label>
+        <input type="checkbox" name="md_auto_is" id="md_auto_is" class="magic-checkbox" value="1" <?php if(isset($md_auto_is) && $md_auto_is == 1) { ?>checked<?php } ?>><label for="md_auto_is">자동롤링 사용</label>　
         <input type="number" name="md_auto_time" id="md_auto_time" class="input w30 h40 text-center" value="<?php echo !empty($md_auto_time) ? $md_auto_time : ''; ?>" placeholder="밀리초" autocomplete="off">　<span>3000=3초</span>
     </div>
 </ul>
@@ -2003,8 +2062,8 @@ if($mod_type == "del_sec") { //섹션삭제
                 %, PX
             </li>
             <li class="rows_inp_r">
-                <input type="radio" name="md_size" id="md_size_1" class="magic-radio" value="%" <?php if (isset($md_size) && $md_size == "" || isset($md_size) && $md_size == "%" || empty($md_size)) { ?>checked<?php } ?>><label for="md_size_1">%</label>
-                <input type="radio" name="md_size" id="md_size_2" class="magic-radio" value="px" <?php if (isset($md_size) && $md_size == "px") { ?>checked<?php } ?>><label for="md_size_2">px</label>
+                <input type="radio" name="md_size" id="md_size_1" class="magic-radio" value="%" <?php if (isset($md_size) && $md_size == "" || isset($md_size) && $md_size == "%" || empty($md_size)) { ?>checked<?php } ?>><label for="md_size_1">%</label>　
+                <input type="radio" name="md_size" id="md_size_2" class="magic-radio" value="px" <?php if (isset($md_size) && $md_size == "px") { ?>checked<?php } ?>><label for="md_size_2">px</label>　
             </li>
 
             <div class="cb"></div>
@@ -2028,7 +2087,7 @@ if($mod_type == "del_sec") { //섹션삭제
                 PX
             </li>
             <li class="rows_inp_r">
-                <input type="text" name="md_height" class="input w40 h40 text-center" value="<?php echo !empty($md_height) ? $md_height : 'auto'; ?>" placeholder="auto" autocomplete="off">　<span class="">px</span>
+                <input type="text" name="md_height" class="input w40 h40 text-center" value="<?php echo !empty($md_height) ? $md_height : 'auto'; ?>" placeholder="auto" autocomplete="off">　<span class="">px</span>　
 
                 <input type="checkbox" id="md_height_auto" class="magic-checkbox" <?php if (isset($md_height) && $md_height == 'auto') { ?>checked<?php } ?>><label for="md_height_auto">Auto</label>
 
@@ -2076,6 +2135,88 @@ if($mod_type == "del_sec") { //섹션삭제
         </script>
 
 
+        <!-- 일괄설정 항목 -->
+        <script>
+            (function () {
+                /* 모서리, 배경색상 */
+                const md_cb_chk = document.getElementById('md_color_border_batch_checkbox');     // 체크박스
+                const md_cb_inp = document.querySelector('input[name="md_cb_batch"]');  // 숨김 input
+                if (!md_cb_chk || !md_cb_inp) return;
+
+                // 초기 동기화
+                md_cb_inp.value = md_cb_chk.checked ? '1' : '0';
+
+                // 체크 변경 시 동기화
+                md_cb_chk.addEventListener('change', function () {
+                    md_cb_inp.value = this.checked ? '1' : '0';
+                    console.log('md_cb_batch value =', md_cb_inp.value);
+                });
+
+
+                /* 테두리 */
+                const md_border_chk = document.getElementById('md_border_batch_checkbox');     // 체크박스
+                const md_border_inp = document.querySelector('input[name="md_border_batch"]');  // 숨김 input
+                if (!md_border_chk || !md_border_inp) return;
+
+                // 초기 동기화
+                md_border_inp.value = md_border_chk.checked ? '1' : '0';
+
+                // 체크 변경 시 동기화
+                md_border_chk.addEventListener('change', function () {
+                    md_border_inp.value = this.checked ? '1' : '0';
+                    console.log('md_border_inp value =', md_border_inp.value);
+                });
+
+
+             
+                /* 그림자 */
+                const md_shadow_chk = document.getElementById('md_shadow_batch_checkbox');     // 체크박스
+                const md_shadow_inp = document.querySelector('input[name="md_shadow_batch"]');  // 숨김 input
+                if (!md_shadow_chk || !md_shadow_inp) return;
+
+                // 초기 동기화
+                md_shadow_inp.value = md_shadow_chk.checked ? '1' : '0';
+
+                // 체크 변경 시 동기화
+                md_shadow_chk.addEventListener('change', function () {
+                    md_shadow_inp.value = this.checked ? '1' : '0';
+                    console.log('md_shadow_inp value =', md_shadow_inp.value);
+                });
+   
+
+
+                /* 상/하단 간격 */
+                const md_margin_chk = document.getElementById('md_margin_batch_checkbox');     // 체크박스
+                const md_margin_inp = document.querySelector('input[name="md_margin_batch"]');  // 숨김 input
+                if (!md_margin_chk || !md_margin_inp) return;
+
+                // 초기 동기화
+                md_margin_inp.value = md_margin_chk.checked ? '1' : '0';
+
+                // 체크 변경 시 동기화
+                md_margin_chk.addEventListener('change', function () {
+                    md_margin_inp.value = this.checked ? '1' : '0';
+                    console.log('md_margin_inp value =', md_margin_inp.value);
+                });
+
+
+
+                /* 내부 간격 */
+                const md_padding_chk = document.getElementById('md_padding_batch_checkbox');     // 체크박스
+                const md_padding_inp = document.querySelector('input[name="md_padding_batch"]');  // 숨김 input
+                if (!md_padding_chk || !md_padding_inp) return;
+
+                // 초기 동기화
+                md_padding_inp.value = md_padding_chk.checked ? '1' : '0';
+
+                // 체크 변경 시 동기화
+                md_padding_chk.addEventListener('change', function () {
+                    md_padding_inp.value = this.checked ? '1' : '0';
+                    console.log('md_padding_inp value =', md_padding_inp.value);
+                });
+            })();
+        </script>
+
 
     </div>
 
@@ -2088,14 +2229,14 @@ if($mod_type == "del_sec") { //섹션삭제
     </h6>
     <div class="config_wrap">
         <ul>
-            <input type="checkbox" name="md_subject_is" id="md_subject_is" class="magic-checkbox" value="1" <?php if(isset($md_subject_is) && $md_subject_is == 1) { ?>checked<?php } ?>><label for="md_subject_is">제목</label>
-            <input type="checkbox" name="md_thumb_is" id="md_thumb_is" class="magic-checkbox" value="1" <?php if(isset($md_thumb_is) && $md_thumb_is == 1) { ?>checked<?php } ?>><label for="md_thumb_is">썸네일</label>
-            <input type="checkbox" name="md_nick_is" id="md_nick_is" class="magic-checkbox" value="1" <?php if(isset($md_nick_is) && $md_nick_is == 1) { ?>checked<?php } ?>><label for="md_nick_is">닉네임</label>
-            <input type="checkbox" name="md_date_is" id="md_date_is" class="magic-checkbox" value="1" <?php if(isset($md_date_is) && $md_date_is == 1) { ?>checked<?php } ?>><label for="md_date_is">작성일</label>
-            <input type="checkbox" name="md_ca_is" id="md_ca_is" class="magic-checkbox" value="1" <?php if(isset($md_ca_is) && $md_ca_is == 1) { ?>checked<?php } ?>><label for="md_ca_is">카테고리</label>
-            <input type="checkbox" name="md_comment_is" id="md_comment_is" class="magic-checkbox" value="1" <?php if(isset($md_comment_is) && $md_comment_is == 1) { ?>checked<?php } ?>><label for="md_comment_is">댓글</label>
-            <input type="checkbox" name="md_content_is" id="md_content_is" class="magic-checkbox" value="1" <?php if(isset($md_content_is) && $md_content_is == 1) { ?>checked<?php } ?>><label for="md_content_is">본문내용</label>
-            <input type="checkbox" name="md_icon_is" id="md_icon_is" class="magic-checkbox" value="1" <?php if(isset($md_icon_is) && $md_icon_is == 1) { ?>checked<?php } ?>><label for="md_icon_is">아이콘</label>
+            <input type="checkbox" name="md_subject_is" id="md_subject_is" class="magic-checkbox" value="1" <?php if(isset($md_subject_is) && $md_subject_is == 1) { ?>checked<?php } ?>><label for="md_subject_is">제목</label>　
+            <input type="checkbox" name="md_thumb_is" id="md_thumb_is" class="magic-checkbox" value="1" <?php if(isset($md_thumb_is) && $md_thumb_is == 1) { ?>checked<?php } ?>><label for="md_thumb_is">썸네일</label>　
+            <input type="checkbox" name="md_nick_is" id="md_nick_is" class="magic-checkbox" value="1" <?php if(isset($md_nick_is) && $md_nick_is == 1) { ?>checked<?php } ?>><label for="md_nick_is">닉네임</label>　
+            <input type="checkbox" name="md_date_is" id="md_date_is" class="magic-checkbox" value="1" <?php if(isset($md_date_is) && $md_date_is == 1) { ?>checked<?php } ?>><label for="md_date_is">작성일</label>　
+            <input type="checkbox" name="md_ca_is" id="md_ca_is" class="magic-checkbox" value="1" <?php if(isset($md_ca_is) && $md_ca_is == 1) { ?>checked<?php } ?>><label for="md_ca_is">카테고리</label>　
+            <input type="checkbox" name="md_comment_is" id="md_comment_is" class="magic-checkbox" value="1" <?php if(isset($md_comment_is) && $md_comment_is == 1) { ?>checked<?php } ?>><label for="md_comment_is">댓글</label>　
+            <input type="checkbox" name="md_content_is" id="md_content_is" class="magic-checkbox" value="1" <?php if(isset($md_content_is) && $md_content_is == 1) { ?>checked<?php } ?>><label for="md_content_is">본문내용</label>　
+            <input type="checkbox" name="md_icon_is" id="md_icon_is" class="magic-checkbox" value="1" <?php if(isset($md_icon_is) && $md_icon_is == 1) { ?>checked<?php } ?>><label for="md_icon_is">아이콘</label>　
         </ul>
     </div>
 </ul>
@@ -2185,7 +2326,7 @@ if($mod_type == "del_sec") { //섹션삭제
                 $sec_con_width = !empty($rb_section['sec_con_width']) ? $rb_section['sec_con_width'] : '0';
                 $sec_padding_pc = !empty($rb_section['sec_padding_pc']) ? $rb_section['sec_padding_pc'] : '0';
                 $sec_padding_mo = !empty($rb_section['sec_padding_mo']) ? $rb_section['sec_padding_mo'] : '0';
-
+    
                 $sec_padding = empty($rb_section['sec_padding']) ? '0' : $rb_section['sec_padding'];
                 $sec_padding_lr_pc = $rb_section['sec_padding_lr_pc'] ?? '';
                 $sec_padding_lr_mo = $rb_section['sec_padding_lr_mo'] ?? '';
@@ -2246,7 +2387,7 @@ if($mod_type == "del_sec") { //섹션삭제
             </select>
 
             <div style="position: absolute; top:22px; right:0px;">
-                <input type="checkbox" name="sec_title_hide" id="sec_title_hide" class="magic-checkbox" value="1" <?php if (isset($sec_title_hide) && $sec_title_hide == "1") { ?>checked<?php } ?>><label for="sec_title_hide">숨김</label>
+                <input type="checkbox" name="sec_title_hide" id="sec_title_hide" class="magic-checkbox" value="1" <?php if (isset($sec_title_hide) && $sec_title_hide == "1") { ?>checked<?php } ?>><label for="sec_title_hide">숨김</label>　
             </div>
 
         </ul>
@@ -2288,7 +2429,7 @@ if($mod_type == "del_sec") { //섹션삭제
             </select>
 
             <div style="position: absolute; top:22px; right:0px;">
-                <input type="checkbox" name="sec_sub_title_hide" id="sec_sub_title_hide" class="magic-checkbox" value="1" <?php if (isset($sec_sub_title_hide) && $sec_sub_title_hide == "1") { ?>checked<?php } ?>><label for="sec_sub_title_hide">숨김</label>
+                <input type="checkbox" name="sec_sub_title_hide" id="sec_sub_title_hide" class="magic-checkbox" value="1" <?php if (isset($sec_sub_title_hide) && $sec_sub_title_hide == "1") { ?>checked<?php } ?>><label for="sec_sub_title_hide">숨김</label>　
             </div>
 
         </ul>
@@ -2317,8 +2458,8 @@ if($mod_type == "del_sec") { //섹션삭제
     </h6>
     <h6 class="font-R rb_config_sub_txt">섹션 및 섹션 내부 컨테이너의 스타일을 설정할 수 있습니다.<br>섹션은 가로 100% 로 생성 됩니다.</h6>
     <div class="config_wrap">
-
-
+       
+        
         <input type="hidden" name="sec_width" value="1">
 
         <div class="config_wrap_bg">
@@ -2328,8 +2469,8 @@ if($mod_type == "del_sec") { //섹션삭제
                     container width
                 </li>
                 <li class="rows_inp_r mt-5">
-                    <input type="radio" name="sec_con_width" id="sec_con_width_1" class="magic-radio" value="" <?php if (isset($sec_con_width) && $sec_con_width == "" || empty($sec_con_width)) { ?>checked<?php } ?>><label for="sec_con_width_1">기본</label>
-                    <input type="radio" name="sec_con_width" id="sec_con_width_2" class="magic-radio" value="1" <?php if (isset($sec_con_width) && $sec_con_width == "1") { ?>checked<?php } ?>><label for="sec_con_width_2">100%</label>
+                    <input type="radio" name="sec_con_width" id="sec_con_width_1" class="magic-radio" value="" <?php if (isset($sec_con_width) && $sec_con_width == "" || empty($sec_con_width)) { ?>checked<?php } ?>><label for="sec_con_width_1">기본</label>　
+                    <input type="radio" name="sec_con_width" id="sec_con_width_2" class="magic-radio" value="1" <?php if (isset($sec_con_width) && $sec_con_width == "1") { ?>checked<?php } ?>><label for="sec_con_width_2">100%</label>　
                 </li>
 
                 <div class="cb"></div>
@@ -2347,7 +2488,7 @@ if($mod_type == "del_sec") { //섹션삭제
                 </div>
 
             </ul>
-
+        
             <ul class="rows_inp_lr mt-10">
                 <li class="rows_inp_l rows_inp_l_span">
                     <span class="font-B">백그라운드</span><br>
@@ -2361,9 +2502,9 @@ if($mod_type == "del_sec") { //섹션삭제
 
                 <div class="cb"></div>
             </ul>
-
+        
         </div>
-
+        
         <div class="config_wrap_bg">
 
             <ul class="rows_inp_lr">
@@ -2417,8 +2558,8 @@ if($mod_type == "del_sec") { //섹션삭제
                 </div>
             </ul>
         </div>
-
-
+        
+        
 
         <div class="config_wrap_bg">
                     <ul class="rows_inp_lr">
@@ -2428,7 +2569,7 @@ if($mod_type == "del_sec") { //섹션삭제
                         </li>
 
                         <li class="rows_inp_r mt-5">
-                            <input type="number" id="sec_padding_lr_pc" class="tiny_input w30 ml-0" name="sec_padding_lr_pc" placeholder="PC" value="<?php echo (isset($sec_padding_lr_pc) && $sec_padding_lr_pc !== '') ? $sec_padding_lr_pc : ''; ?>"> <span class="font-12">px</span>
+                            <input type="number" id="sec_padding_lr_pc" class="tiny_input w30 ml-0" name="sec_padding_lr_pc" placeholder="PC" value="<?php echo (isset($sec_padding_lr_pc) && $sec_padding_lr_pc !== '') ? $sec_padding_lr_pc : ''; ?>"> <span class="font-12">px</span>　
                             <input type="number" id="sec_padding_lr_mo" class="tiny_input w30 ml-0" name="sec_padding_lr_mo" placeholder="Mobile" value="<?php echo (isset($sec_padding_lr_mo) && $sec_padding_lr_mo !== '') ? $sec_padding_lr_mo : ''; ?>"> <span class="font-12">px</span>
                         </li>
                         <div class="cb"></div>
@@ -2452,7 +2593,7 @@ if($mod_type == "del_sec") { //섹션삭제
                         </li>
 
                         <li class="rows_inp_r mt-5">
-                            <input type="number" id="sec_padding_tb_pc" class="tiny_input w30 ml-0" name="sec_padding_tb_pc" placeholder="PC" value="<?php echo (isset($sec_padding_tb_pc) && $sec_padding_tb_pc !== '') ? $sec_padding_tb_pc : ''; ?>"> <span class="font-12">px</span>
+                            <input type="number" id="sec_padding_tb_pc" class="tiny_input w30 ml-0" name="sec_padding_tb_pc" placeholder="PC" value="<?php echo (isset($sec_padding_tb_pc) && $sec_padding_tb_pc !== '') ? $sec_padding_tb_pc : ''; ?>"> <span class="font-12">px</span>　
                             <input type="number" id="sec_padding_tb_mo" class="tiny_input w30 ml-0" name="sec_padding_tb_mo" placeholder="Mobile" value="<?php echo (isset($sec_padding_tb_mo) && $sec_padding_tb_mo !== '') ? $sec_padding_tb_mo : ''; ?>"> <span class="font-12">px</span>
                         </li>
                         <div class="cb"></div>
@@ -2507,10 +2648,10 @@ if($mod_type == "del_sec") { //섹션삭제
 
                     </ul>
 
-
+        
                     <input type="hidden" id="sec_padding_pc" class="tiny_input w25 ml-0" name="sec_padding_pc" placeholder="PC" value="<?php echo !empty($sec_padding_pc) ? $sec_padding_pc : ''; ?>">
                     <input type="hidden" id="sec_padding_mo" class="tiny_input w25 ml-0" name="sec_padding_mo" placeholder="Mobile" value="<?php echo !empty($sec_padding_mo) ? $sec_padding_mo : ''; ?>">
-
+        
         </div>
 
     </div>
