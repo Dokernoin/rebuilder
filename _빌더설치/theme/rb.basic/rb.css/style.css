@@ -106,9 +106,9 @@ label {word-break: keep-all !important;}
 .cbp-hrmenu .cbp-hrsub-inner:after {clear: both;}
 .cbp-hrmenu .cbp-hrsub-inner > div a {line-height: 130%;color:#999 !important;font-size: 14px; font-family:'font-B',sans-serif; padding-top: 7px; padding-bottom: 7px; word-break: keep-all; display: block; width: 100%;}
 .cbp-hrmenu .cbp-hrsub-inner > div a:hover{color:#000 !important;}
-.cbp-hrsub h4 {color: #000;padding: 0px 0 15px;margin: 0;font-size: 18px;line-height: 130%; cursor: pointer}
+.cbp-hrsub h4 {color: #000;padding: 0px 0 15px;margin: 0;font-size: 18px;line-height: 130%;}
 
-.cbp-hrmenu-btm {position: fixed; top:0px; left: -100%; width: 100%; background-color: #fff; z-index: 98; height:100%; box-shadow: 10px 10px 20px rgba(0,0,0,0.05); overflow-y: scroll; transition: all 600ms cubic-bezier(0.86, 0, 0.07, 1);}
+.cbp-hrmenu-btm {position: fixed; top:0px; left: -100%; width: 100%; background-color: #fff; z-index: 103; height:100%; box-shadow: 10px 10px 20px rgba(0,0,0,0.05); overflow-y: scroll; transition: all 600ms cubic-bezier(0.86, 0, 0.07, 1);}
 .cbp-hrmenu-btm > ul,.cbp-hrmenu .cbp-hrsub-inner {width: 100%;padding: 0;}
 .cbp-hrmenu-btm > ul > li {display: block;border-bottom: 1px solid #eee; padding-left: 0px; padding-right: 0px; text-indent: 20px;}
 .cbp-hrmenu-btm > ul > li > a { display: block;padding: 0; width: 100%; line-height: 60px; font-size: 18px;}
@@ -204,15 +204,6 @@ label {word-break: keep-all !important;}
 
 .bn_border {box-shadow: 0 0 0 1px #ddd, 0 1px 2px 0 rgba(0,0,0,.04);}
 .bn_radius {border-radius: 10px;}
-/* } */
-
-/* 메인 3버튼 { */
-.q_btns {margin-top: -1px;}
-.q_btns button {font-size: 15px; background-color: #fff; border:1px solid #ddd; border-radius: 10px; height:47px; width: 100%; margin-top: 12.8px; letter-spacing: -0.5px; box-sizing: border-box;}
-.q_btns button:hover {border:1px solid #25282B;}
-.q_btns button:first-child {margin-top: 0px;}
-.q_btns button i {float:left; margin-top: -2px; margin-right: 10px; margin-left: 20px;}
-.q_btns button span {float:left;}
 /* } */
 
 /* 컨텐츠 { */
@@ -438,6 +429,5 @@ footer .footer_btn:hover {border-color:#fff; color:#fff;}
 
 /* 20240604 추가 { */
 #logo_img {height:40px; width:auto;}
-#bo_v_con img {border:1px solid #eee; box-sizing: border-box;}
 /* } */
 
