@@ -150,6 +150,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
                                 <div class="color_set_wrap square" style="position: relative;">
                                     <input type="text" class="coloris mod_co_sub_bg" name="co_sub_bg" value="<?php echo !empty($rb_config['co_sub_bg']) ? $rb_config['co_sub_bg'] : '#ffffff'; ?>">
+                                    <input type="hidden" name="co_main_bg" value="<?php echo !empty($rb_config['co_main_bg']) ? $rb_config['co_main_bg'] : '#ffffff'; ?>">
                                 </div>
 
                             </ul>
@@ -164,6 +165,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
                                 <div class="color_set_wrap square" style="position: relative;">
                                     <input type="text" class="coloris mod_co_main_bg" name="co_main_bg" value="<?php echo !empty($rb_config['co_main_bg']) ? $rb_config['co_main_bg'] : '#ffffff'; ?>">
+                                    <input type="hidden" name="co_sub_bg" value="<?php echo !empty($rb_config['co_sub_bg']) ? $rb_config['co_sub_bg'] : '#ffffff'; ?>">
                                 </div>
 
                             </ul>
