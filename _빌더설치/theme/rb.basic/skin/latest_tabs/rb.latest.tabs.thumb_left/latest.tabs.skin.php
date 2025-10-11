@@ -186,7 +186,7 @@ $rb_skin['md_tab_list'] 탭 설정
                                                 <span class="prof_tiny_name font-B"><?php echo $row['wr_name'] ?></span>
                                                 <?php } ?>
 
-                                                <?php if($rb_skin['md_ca_is'] == 1 && $list[$i]['ca_name']) { //모듈설정:카테고리 출력여부(1,0) || 카테고리 있을때만?>
+                                                <?php if($rb_skin['md_ca_is'] == 1 && $row['ca_name']) { //모듈설정:카테고리 출력여부(1,0) || 카테고리 있을때만?>
                                                 <?php echo $row['ca_name'] ?>
                                                 <?php } ?>
 
