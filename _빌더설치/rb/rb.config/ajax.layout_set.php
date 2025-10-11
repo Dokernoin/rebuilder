@@ -326,7 +326,7 @@ foreach ($layouts as $layout_no) {
                             : (!empty($row_sec['sec_padding_pc']) ? $row_sec['sec_padding_pc'] : '0');
                     ?>px;
                     <?php if(IS_MOBILE()) { ?>
-                        <?php if(isset($row_sec['sec_padding_lr_mo']) && $row_sec['sec_padding_lr_mo'] != '') { ?>padding-left:<?php echo $row_sec['sec_padding_lr_mo'] ?>px; padding-right:<?php echo $row_sec['md_padding_lr_mo'] ?>px; <?php } ?>
+                        <?php if(isset($row_sec['sec_padding_lr_mo']) && $row_sec['sec_padding_lr_mo'] != '') { ?>padding-left:<?php echo $row_sec['sec_padding_lr_mo'] ?>px; padding-right:<?php echo $row_sec['sec_padding_lr_mo'] ?>px; <?php } ?>
                         <?php if(isset($row_sec['sec_padding_tb_mo']) && $row_sec['sec_padding_tb_mo'] != '') { ?>padding-top:<?php echo $row_sec['sec_padding_tb_mo'] ?>px; padding-bottom:<?php echo $row_sec['sec_padding_tb_mo'] ?>px; <?php } ?>
                     <?php } else { ?>
                         <?php if(isset($row_sec['sec_padding_lr_pc']) && $row_sec['sec_padding_lr_pc'] != '') { ?>padding-left:<?php echo $row_sec['sec_padding_lr_pc'] ?>px; padding-right:<?php echo $row_sec['sec_padding_lr_pc'] ?>px; <?php } ?>
