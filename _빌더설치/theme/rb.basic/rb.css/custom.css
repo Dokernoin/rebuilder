@@ -1074,6 +1074,13 @@ select#ct_send_cost {width: 150px;}
     html, body {height: inherit;}
     /* } */
 
+    /* 2.2.4.1 { */
+    .new_win .rb_prof_tab .cont_info_wrap_l dd:nth-child(1) {padding-left: 20px;}
+    .new_win .rb_prof_tab .cont_info_wrap_r dd:nth-child(1) {padding-left: 20px;}
+    .new_win .rb_prof_tab .cont_info_wrap_l dd:nth-child(2) {padding-right: 20px;}
+    .new_win .rb_prof_tab .cont_info_wrap_r dd:nth-child(2) {padding-right: 20px;}
+    /* } */
+
 }
 
 @media all and (max-width:512px){
