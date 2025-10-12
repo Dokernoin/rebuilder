@@ -83,6 +83,12 @@ $md_box_shadow_c = isset($_POST['md_box_shadow_c']) ? $_POST['md_box_shadow_c'] 
 $md_border_width = isset($_POST['md_border_width']) ? $_POST['md_border_width'] : '';
 $md_border_color = isset($_POST['md_border_color']) ? $_POST['md_border_color'] : '';
 
+$md_cb_batch = isset($_POST['md_cb_batch']) ? $_POST['md_cb_batch'] : '';
+$md_border_batch = isset($_POST['md_border_batch']) ? $_POST['md_border_batch'] : '';
+$md_shadow_batch = isset($_POST['md_shadow_batch']) ? $_POST['md_shadow_batch'] : '';
+$md_margin_batch = isset($_POST['md_margin_batch']) ? $_POST['md_margin_batch'] : '';
+$md_padding_batch = isset($_POST['md_padding_batch']) ? $_POST['md_padding_batch'] : '';
+
 //와이드 설정인 경우 가로사이즈를 100%로 강제함
 if (isset($md_wide_is) && $md_wide_is == "1") {
     $md_size  = '%';
@@ -100,7 +106,79 @@ if(isset($is_shop) && $is_shop == 1) {
     $rb_module_tables = "rb_module";
 }
 
+function rb_config_batch() {
+    global $rb_module_tables, $md_theme, $md_layout_name;
+    global $md_cb_batch, $md_border_batch, $md_shadow_batch, $md_margin_batch, $md_padding_batch;
+    global $md_banner_bg, $md_radius, $md_border, $md_border_width, $md_border_color, $md_box_shadow, $md_box_shadow_w, $md_box_shadow_c;
+    global $md_margin_top_pc, $md_margin_top_mo, $md_margin_btm_pc, $md_margin_btm_mo;
+    global $md_padding, $md_padding_lr_pc, $md_padding_lr_mo, $md_padding_tb_pc, $md_padding_tb_mo;
 
+
+    $set = [];
+
+    // 배경색 / 라운드
+    if (!empty($md_cb_batch)) {
+        $set['md_banner_bg'] = $md_banner_bg;
+        $set['md_radius']    = $md_radius;
+    }
+
+    // 테두리
+    if (!empty($md_border_batch)) {
+        $set['md_border']        = $md_border;
+        $set['md_border_color']  = $md_border_color;
+        $set['md_border_width']  = $md_border_width;
+    }
+
+    // 그림자
+    if (!empty($md_shadow_batch)) {
+        $set['md_box_shadow']   = $md_box_shadow;
+        $set['md_box_shadow_w'] = $md_box_shadow_w;
+        $set['md_box_shadow_c'] = $md_box_shadow_c;
+    }
+
+    // 상/하단 간격
+    if (!empty($md_margin_batch)) {
+        $set['md_margin_top_pc'] = $md_margin_top_pc;
+        $set['md_margin_top_mo'] = $md_margin_top_mo;
+        $set['md_margin_btm_pc'] = $md_margin_btm_pc;
+        $set['md_margin_btm_mo'] = $md_margin_btm_mo;
+    }
+
+    // 내부 여백
+    if (!empty($md_padding_batch)) {
+        $set['md_padding']        = $md_padding;
+        $set['md_padding_lr_pc']  = $md_padding_lr_pc;
+        $set['md_padding_lr_mo']  = $md_padding_lr_mo;
+        $set['md_padding_tb_pc']  = $md_padding_tb_pc;
+        $set['md_padding_tb_mo']  = $md_padding_tb_mo;
+    }
+
+    $numericCols = [
+    'md_border_width',
+    'md_box_shadow_w',
+    'md_margin_top_pc','md_margin_top_mo','md_margin_btm_pc','md_margin_btm_mo',
+    'md_padding_lr_pc','md_padding_lr_mo','md_padding_tb_pc','md_padding_tb_mo'
+    ];
+
+    $assignments = [];
+    foreach ($set as $col => $val) {
+        if (in_array($col, $numericCols, true)) {
+            $assignments[] = "`{$col}` = " . (int)$val;
+        } else {
+            $assignments[] = "`{$col}` = '" . sql_real_escape_string($val) . "'";
+        }
+    }
+
+    if ($assignments) {
+        $sql = "
+            UPDATE `{$rb_module_tables}`
+            SET " . implode(",\n            ", $assignments) . "
+            WHERE TRIM(md_theme) = '" . sql_real_escape_string(trim($md_theme)) . "'
+            AND TRIM(md_layout_name) = '" . sql_real_escape_string(trim($md_layout_name)) . "'
+        ";
+        sql_query($sql);
+    }
+}
 
 //높이값 변경
 if (isset($is_height) && $is_height == "1") {
@@ -261,6 +339,10 @@ if (isset($is_height) && $is_height == "1") {
                     'md_title' => $md_title,
                     'status' => 'ok',
                 );
+
+                // 일괄변경
+                rb_config_batch();
+
                 echo json_encode($data);
 
             } else {
@@ -351,6 +433,10 @@ if (isset($is_height) && $is_height == "1") {
                     'md_title' => $md_title,
                     'status' => 'ok',
                 );
+
+                // 일괄변경
+                rb_config_batch();
+
                 echo json_encode($data);
 
 

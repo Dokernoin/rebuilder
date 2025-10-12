@@ -4088,6 +4088,13 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         var layout_name = '<?php echo $rb_core['layout'] ?>';
         <?php } ?>
 
+        // 일괄설정 항목
+        var md_cb_batch = $('input[name="md_cb_batch"]').val();
+        var md_border_batch = $('input[name="md_border_batch"]').val();
+        var md_shadow_batch = $('input[name="md_shadow_batch"]').val();
+        var md_margin_batch = $('input[name="md_margin_batch"]').val();
+        var md_padding_batch = $('input[name="md_padding_batch"]').val();
+
         var md_wide_is = $('input[name="md_wide_is"]:checked').val();
         var md_border = $('input[name="md_border"]:checked').val();
         var md_border_width = $('input[name="md_border_width"]').val();
@@ -4358,6 +4365,11 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                     "md_order_banner": md_order_banner,
                     "md_soldout_hidden": md_soldout_hidden,
                     "md_soldout_asc": md_soldout_asc,
+                    "md_cb_batch": md_cb_batch,
+                    "md_border_batch": md_border_batch,
+                    "md_shadow_batch": md_shadow_batch,
+                    "md_margin_batch": md_margin_batch,
+                    "md_padding_batch": md_padding_batch,
                 },
 
 

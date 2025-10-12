@@ -1253,6 +1253,31 @@ if($mod_type == "del_sec") { //섹션삭제
 
                         <div class="cb"></div>
                     </ul>
+
+                    <ul class="rows_inp_lr mt-5">
+                        <li class="rows_inp_l rows_inp_l_span mt-15">
+                            <span class="font-B">일괄적용</span>
+                        </li>
+                        <li class="rows_inp_r mt-5">
+                            <input type="hidden" name="md_cb_batch" value="">
+                            <input type="checkbox" id="md_color_border_batch_checkbox" class="magic-checkbox">
+                            <label for="md_color_border_batch_checkbox">컬러, 모서리 일괄적용</label>
+                        </li>
+                        <div class="cb"></div>
+
+                        <div class="rb-help" data-open="false">
+                            <button type="button" class="rb-help-btn" data-img="" data-txt="동일 레이아웃의 다른 모듈에 현재 설정을 일괄 적용할 수 있어요." data-title="일괄적용 이란?" data-alt="미리보기" aria-expanded="false">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+                                    <g fill='none'>
+                                        <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
+                                        <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
+                                    </g>
+                                </svg>
+                            </button>
+                            <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                        </div>
+                    </ul>
+
                 </div>
 
 
@@ -1303,7 +1328,6 @@ if($mod_type == "del_sec") { //섹션삭제
 
                         <div class="cb"></div>
                     </ul>
-
                     <ul class="rows_inp_lr mt-5 js-border-dep">
                         <li class="rows_inp_l rows_inp_l_span">
                             <span class="font-B">테두리 컬러</span><br>
@@ -1318,6 +1342,30 @@ if($mod_type == "del_sec") { //섹션삭제
                         </li>
 
                         <div class="cb"></div>
+                    </ul>
+
+                    <ul class="rows_inp_lr mt-5">
+                        <li class="rows_inp_l rows_inp_l_span mt-15">
+                            <span class="font-B">일괄적용</span>
+                        </li>
+                        <li class="rows_inp_r mt-5">
+                            <input type="hidden" name="md_border_batch" value="">
+                            <input type="checkbox" id="md_border_batch_checkbox" class="magic-checkbox">
+                            <label for="md_border_batch_checkbox">테두리 일괄적용</label>
+                        </li>
+                        <div class="cb"></div>
+
+                        <div class="rb-help" data-open="false">
+                            <button type="button" class="rb-help-btn" data-img="" data-txt="동일 레이아웃의 다른 모듈에 현재 설정을 일괄 적용할 수 있어요." data-title="일괄적용 이란?" data-alt="미리보기" aria-expanded="false">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+                                    <g fill='none'>
+                                        <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
+                                        <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
+                                    </g>
+                                </svg>
+                            </button>
+                            <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                        </div>
                     </ul>
 
 
@@ -1412,6 +1460,30 @@ if($mod_type == "del_sec") { //섹션삭제
 
                         <div class="rb-help" data-open="false">
                             <button type="button" class="rb-help-btn" data-img="<?php echo G5_URL ?>/rb/rb.config/image/guide/help-img-5.png" data-txt="모듈에 그림자를 추가할 수 있어요. 기본의 경우 프리셋이 적용되며, 설정 선택시 임의설정이 가능해요. 그림자는 테두리나 컬러선택에서 투명도를 함께 사용하는게 좋아요!" data-title="그림자 란?" data-alt="미리보기" aria-expanded="false">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+                                    <g fill='none'>
+                                        <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
+                                        <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
+                                    </g>
+                                </svg>
+                            </button>
+                            <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                        </div>
+                    </ul>
+
+                    <ul class="rows_inp_lr mt-5">
+                        <li class="rows_inp_l rows_inp_l_span mt-15">
+                            <span class="font-B">일괄적용</span>
+                        </li>
+                        <li class="rows_inp_r mt-5">
+                            <input type="hidden" name="md_shadow_batch" value="">
+                            <input type="checkbox" id="md_shadow_batch_checkbox" class="magic-checkbox">
+                            <label for="md_shadow_batch_checkbox">그림자 일괄적용</label>
+                        </li>
+                        <div class="cb"></div>
+
+                        <div class="rb-help" data-open="false">
+                            <button type="button" class="rb-help-btn" data-img="" data-txt="동일 레이아웃의 다른 모듈에 현재 설정을 일괄 적용할 수 있어요." data-title="일괄적용 이란?" data-alt="미리보기" aria-expanded="false">
                                 <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
                                     <g fill='none'>
                                         <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
@@ -1618,6 +1690,30 @@ if($mod_type == "del_sec") { //섹션삭제
                         </div>
                     </ul>
 
+                    <ul class="rows_inp_lr mt-5">
+                        <li class="rows_inp_l rows_inp_l_span mt-15">
+                            <span class="font-B">일괄적용</span>
+                        </li>
+                        <li class="rows_inp_r mt-5">
+                            <input type="hidden" name="md_margin_batch" value="">
+                            <input type="checkbox" id="md_margin_batch_checkbox" class="magic-checkbox">
+                            <label for="md_margin_batch_checkbox">상/하단 간격 일괄적용</label>
+                        </li>
+                        <div class="cb"></div>
+
+                        <div class="rb-help" data-open="false">
+                            <button type="button" class="rb-help-btn" data-img="" data-txt="동일 레이아웃의 다른 모듈에 현재 설정을 일괄 적용할 수 있어요." data-title="일괄적용 이란?" data-alt="미리보기" aria-expanded="false">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+                                    <g fill='none'>
+                                        <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
+                                        <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
+                                    </g>
+                                </svg>
+                            </button>
+                            <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                        </div>
+                    </ul>
+
                 </div>
 
                 <div class="config_wrap_bg">
@@ -1706,6 +1802,30 @@ if($mod_type == "del_sec") { //섹션삭제
 
                         <div class="cb"></div>
 
+                    </ul>
+
+                    <ul class="rows_inp_lr mt-5">
+                        <li class="rows_inp_l rows_inp_l_span mt-15">
+                            <span class="font-B">일괄적용</span>
+                        </li>
+                        <li class="rows_inp_r mt-5">
+                            <input type="hidden" name="md_padding_batch" value="">
+                            <input type="checkbox" id="md_padding_batch_checkbox" class="magic-checkbox">
+                            <label for="md_padding_batch_checkbox">내부 여백 일괄적용</label>
+                        </li>
+                        <div class="cb"></div>
+
+                        <div class="rb-help" data-open="false">
+                            <button type="button" class="rb-help-btn" data-img="" data-txt="동일 레이아웃의 다른 모듈에 현재 설정을 일괄 적용할 수 있어요." data-title="일괄적용 이란?" data-alt="미리보기" aria-expanded="false">
+                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+                                    <g fill='none'>
+                                        <path d='M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z' />
+                                        <path fill='#DDDDDDFF' d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 14a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-9.5a3.625 3.625 0 0 0-3.625 3.625 1 1 0 1 0 2 0 1.625 1.625 0 1 1 2.23 1.51c-.676.27-1.605.962-1.605 2.115V14a1 1 0 1 0 2 0c0-.244.05-.366.261-.47l.087-.04A3.626 3.626 0 0 0 12 6.5' />
+                                    </g>
+                                </svg>
+                            </button>
+                            <aside role="tooltip" class="rb-help-pop" aria-hidden="true"></aside>
+                        </div>
                     </ul>
                 </div>
 
@@ -2073,6 +2193,88 @@ if($mod_type == "del_sec") { //섹션삭제
 
             // 페이지 로드시 적용
             $(document).ready(updateUnitSpan);
+        </script>
+
+        <!-- 일괄설정 항목 -->
+        <script>
+            (function () {
+                /* 모서리, 배경색상 */
+                const md_cb_chk = document.getElementById('md_color_border_batch_checkbox');     // 체크박스
+                const md_cb_inp = document.querySelector('input[name="md_cb_batch"]');  // 숨김 input
+                if (!md_cb_chk || !md_cb_inp) return;
+
+                // 초기 동기화
+                md_cb_inp.value = md_cb_chk.checked ? '1' : '0';
+
+                // 체크 변경 시 동기화
+                md_cb_chk.addEventListener('change', function () {
+                    md_cb_inp.value = this.checked ? '1' : '0';
+                    console.log('md_cb_batch value =', md_cb_inp.value);
+                });
+
+
+                /* 테두리 */
+                const md_border_chk = document.getElementById('md_border_batch_checkbox');     // 체크박스
+                const md_border_inp = document.querySelector('input[name="md_border_batch"]');  // 숨김 input
+                if (!md_border_chk || !md_border_inp) return;
+
+                // 초기 동기화
+                md_border_inp.value = md_border_chk.checked ? '1' : '0';
+
+                // 체크 변경 시 동기화
+                md_border_chk.addEventListener('change', function () {
+                    md_border_inp.value = this.checked ? '1' : '0';
+                    console.log('md_border_inp value =', md_border_inp.value);
+                });
+
+
+
+                /* 그림자 */
+                const md_shadow_chk = document.getElementById('md_shadow_batch_checkbox');     // 체크박스
+                const md_shadow_inp = document.querySelector('input[name="md_shadow_batch"]');  // 숨김 input
+                if (!md_shadow_chk || !md_shadow_inp) return;
+
+                // 초기 동기화
+                md_shadow_inp.value = md_shadow_chk.checked ? '1' : '0';
+
+                // 체크 변경 시 동기화
+                md_shadow_chk.addEventListener('change', function () {
+                    md_shadow_inp.value = this.checked ? '1' : '0';
+                    console.log('md_shadow_inp value =', md_shadow_inp.value);
+                });
+
+
+
+                /* 상/하단 간격 */
+                const md_margin_chk = document.getElementById('md_margin_batch_checkbox');     // 체크박스
+                const md_margin_inp = document.querySelector('input[name="md_margin_batch"]');  // 숨김 input
+                if (!md_margin_chk || !md_margin_inp) return;
+
+                // 초기 동기화
+                md_margin_inp.value = md_margin_chk.checked ? '1' : '0';
+
+                // 체크 변경 시 동기화
+                md_margin_chk.addEventListener('change', function () {
+                    md_margin_inp.value = this.checked ? '1' : '0';
+                    console.log('md_margin_inp value =', md_margin_inp.value);
+                });
+
+
+
+                /* 내부 간격 */
+                const md_padding_chk = document.getElementById('md_padding_batch_checkbox');     // 체크박스
+                const md_padding_inp = document.querySelector('input[name="md_padding_batch"]');  // 숨김 input
+                if (!md_padding_chk || !md_padding_inp) return;
+
+                // 초기 동기화
+                md_padding_inp.value = md_padding_chk.checked ? '1' : '0';
+
+                // 체크 변경 시 동기화
+                md_padding_chk.addEventListener('change', function () {
+                    md_padding_inp.value = this.checked ? '1' : '0';
+                    console.log('md_padding_inp value =', md_padding_inp.value);
+                });
+            })();
         </script>
 
 
