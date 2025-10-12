@@ -70,7 +70,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'?bo_table='.$bo_table.'" class="
 //$sql_wheres .= " and bo_table != 'ccc' ";
 
 $sql_wheres = isset($sql_wheres) ? $sql_wheres : '';
-$sql_b = "SELECT bo_table, bo_subject FROM " . (isset($g5['board_table']) ? $g5['board_table'] : '') . " " . $sql_wheres . " ORDER BY bo_mobile_subject";
+$sql_b = "SELECT bo_table, bo_subject FROM " . (isset($g5['board_table']) ? $g5['board_table'] : '') . " " . $sql_wheres . " ORDER BY bo_subject";
 $res_b = sql_query($sql_b);
 
 
@@ -98,7 +98,7 @@ $res_b = sql_query($sql_b);
     <?php echo $listall; ?>
     -->
     <?php if($bo_table) { ?>
-    <span class="btn_ov01"><span class="ov_txt"> <?php echo $board['bo_mobile_subject']; ?> </span><span class="ov_num"> <?php echo $total_count; ?>건</span></span>
+    <span class="btn_ov01"><span class="ov_txt"> <?php echo $board['bo_subject']; ?> </span><span class="ov_num"> <?php echo $total_count; ?>건</span></span>
     <?php } else { ?>
     <span class="btn_ov01"><span class="ov_txt"> 미선택</span><span class="ov_num">게시판을 선택해주세요.</span></span>
     <?php } ?>
