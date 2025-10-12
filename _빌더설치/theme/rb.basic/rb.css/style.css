@@ -125,7 +125,7 @@ label {word-break: keep-all !important;}
 .cbp-hrmenu-btm .cbp-hrsub ul li a {padding-top: 5px; padding-bottom: 5px; display: block; font-size: 16px;}
 
 .cbp-hrmenu-btm.active {left: 0%;}
-#m_gnb_close_btn {position: fixed; top:0px; right:0px; z-index: 99; display: none; background-color: transparent; width:80px; height:80px;}
+#m_gnb_close_btn {position: fixed; top:0px; right:0px; z-index: 104; display: none; background-color: transparent; width:80px; height:80px;}
 #m_gnb_close_btn img {width: 15px;}
 #m_gnb_close_btn.active {display: block;}
 /* } */
