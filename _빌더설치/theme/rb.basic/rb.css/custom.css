@@ -814,6 +814,10 @@ select#ct_send_cost {width: 150px;}
 .rb_sub_module .add_section_wrap  {display: none !important;}
 /* } */
 
+/* 2.2.4.1 { */
+.rb_shop_list5 .list_wish_int {top:3px !important; right:10px !important;}
+#smb_my_list .wish_new_chk_box {top:0px !important; right:40px !important;}
+/* } *
 
 @media all and (max-width:1024px){
 
@@ -1079,6 +1083,8 @@ select#ct_send_cost {width: 150px;}
     .new_win .rb_prof_tab .cont_info_wrap_r dd:nth-child(1) {padding-left: 20px;}
     .new_win .rb_prof_tab .cont_info_wrap_l dd:nth-child(2) {padding-right: 20px;}
     .new_win .rb_prof_tab .cont_info_wrap_r dd:nth-child(2) {padding-right: 20px;}
+    #smb_my {padding-left: 0px; padding-right: 0px;}
+    #smb_my_list .wish_new_chk_box {right:35px !important;}
     /* } */
 
 }
