@@ -89,6 +89,17 @@ $md_shadow_batch = isset($_POST['md_shadow_batch']) ? $_POST['md_shadow_batch'] 
 $md_margin_batch = isset($_POST['md_margin_batch']) ? $_POST['md_margin_batch'] : '';
 $md_padding_batch = isset($_POST['md_padding_batch']) ? $_POST['md_padding_batch'] : '';
 
+$md_1 = isset($_POST['md_1']) ? $_POST['md_1'] : '';
+$md_2 = isset($_POST['md_2']) ? $_POST['md_2'] : '';
+$md_3 = isset($_POST['md_3']) ? $_POST['md_3'] : '';
+$md_4 = isset($_POST['md_4']) ? $_POST['md_4'] : '';
+$md_5 = isset($_POST['md_5']) ? $_POST['md_5'] : '';
+$md_6 = isset($_POST['md_6']) ? $_POST['md_6'] : '';
+$md_7 = isset($_POST['md_7']) ? $_POST['md_7'] : '';
+$md_8 = isset($_POST['md_8']) ? $_POST['md_8'] : '';
+$md_9 = isset($_POST['md_9']) ? $_POST['md_9'] : '';
+$md_10 = isset($_POST['md_10']) ? $_POST['md_10'] : '';
+
 //와이드 설정인 경우 가로사이즈를 100%로 강제함
 if (isset($md_wide_is) && $md_wide_is == "1") {
     $md_size  = '%';
@@ -329,6 +340,16 @@ if (isset($is_height) && $is_height == "1") {
                 md_box_shadow_c = '{$md_box_shadow_c}',
                 md_border_width = '{$md_border_width}',
                 md_border_color = '{$md_border_color}',
+                md_1 = '{$md_1}',
+                md_2 = '{$md_2}',
+                md_3 = '{$md_3}',
+                md_4 = '{$md_4}',
+                md_5 = '{$md_5}',
+                md_6 = '{$md_6}',
+                md_7 = '{$md_7}',
+                md_8 = '{$md_8}',
+                md_9 = '{$md_9}',
+                md_10 = '{$md_10}',
                 md_datetime = '".G5_TIME_YMDHIS."',
                 md_ip = '{$_SERVER['REMOTE_ADDR']}',
                 md_order_id = '{$md_order_id}' ";
@@ -423,6 +444,16 @@ if (isset($is_height) && $is_height == "1") {
                 md_box_shadow_c = '{$md_box_shadow_c}',
                 md_border_width = '{$md_border_width}',
                 md_border_color = '{$md_border_color}',
+                md_1 = '{$md_1}',
+                md_2 = '{$md_2}',
+                md_3 = '{$md_3}',
+                md_4 = '{$md_4}',
+                md_5 = '{$md_5}',
+                md_6 = '{$md_6}',
+                md_7 = '{$md_7}',
+                md_8 = '{$md_8}',
+                md_9 = '{$md_9}',
+                md_10 = '{$md_10}',
                 md_datetime = '".G5_TIME_YMDHIS."',
                 md_ip = '{$_SERVER['REMOTE_ADDR']}'
                 where md_id = '{$md_id}'";

@@ -246,6 +246,17 @@ if($mod_type == "del_sec") { //섹션삭제
                 $md_padding_tb_pc = $rb_module['md_padding_tb_pc'] ?? '';
                 $md_padding_tb_mo = $rb_module['md_padding_tb_mo'] ?? '';
 
+                $md_1 = !empty($rb_module['md_1']) ? $rb_module['md_1'] : '';
+                $md_2 = !empty($rb_module['md_2']) ? $rb_module['md_2'] : '';
+                $md_3 = !empty($rb_module['md_3']) ? $rb_module['md_3'] : '';
+                $md_4 = !empty($rb_module['md_4']) ? $rb_module['md_4'] : '';
+                $md_5 = !empty($rb_module['md_5']) ? $rb_module['md_5'] : '';
+                $md_6 = !empty($rb_module['md_6']) ? $rb_module['md_6'] : '';
+                $md_7 = !empty($rb_module['md_7']) ? $rb_module['md_7'] : '';
+                $md_8 = !empty($rb_module['md_8']) ? $rb_module['md_8'] : '';
+                $md_9 = !empty($rb_module['md_9']) ? $rb_module['md_9'] : '';
+                $md_10 = !empty($rb_module['md_10']) ? $rb_module['md_10'] : '';
+
 
     
                 ?>
@@ -2401,6 +2412,17 @@ if($mod_type == "del_sec") { //섹션삭제
 
                 $sec_bg = !empty($rb_section['sec_bg']) ? $rb_section['sec_bg'] : '#FFFFFF';
     
+                $sec_1 = !empty($rb_section['sec_1']) ? $rb_section['sec_1'] : '';
+                $sec_2 = !empty($rb_section['sec_2']) ? $rb_section['sec_2'] : '';
+                $sec_3 = !empty($rb_section['sec_3']) ? $rb_section['sec_3'] : '';
+                $sec_4 = !empty($rb_section['sec_4']) ? $rb_section['sec_4'] : '';
+                $sec_5 = !empty($rb_section['sec_5']) ? $rb_section['sec_5'] : '';
+                $sec_6 = !empty($rb_section['sec_6']) ? $rb_section['sec_6'] : '';
+                $sec_7 = !empty($rb_section['sec_7']) ? $rb_section['sec_7'] : '';
+                $sec_8 = !empty($rb_section['sec_8']) ? $rb_section['sec_8'] : '';
+                $sec_9 = !empty($rb_section['sec_9']) ? $rb_section['sec_9'] : '';
+                $sec_10 = !empty($rb_section['sec_10']) ? $rb_section['sec_10'] : '';
+
                 ?>
 
 <?php } else { ?>

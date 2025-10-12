@@ -40,6 +40,17 @@ $sec_padding_lr_mo = isset($_POST['sec_padding_lr_mo']) ? $_POST['sec_padding_lr
 $sec_padding_tb_pc = isset($_POST['sec_padding_tb_pc']) ? $_POST['sec_padding_tb_pc'] : '';
 $sec_padding_tb_mo = isset($_POST['sec_padding_tb_mo']) ? $_POST['sec_padding_tb_mo'] : '';
 
+$sec_1        = $_POST['sec_1']        ?? '';
+$sec_2        = $_POST['sec_2']        ?? '';
+$sec_3        = $_POST['sec_3']        ?? '';
+$sec_4        = $_POST['sec_4']        ?? '';
+$sec_5        = $_POST['sec_5']        ?? '';
+$sec_6        = $_POST['sec_6']        ?? '';
+$sec_7        = $_POST['sec_7']        ?? '';
+$sec_8        = $_POST['sec_8']        ?? '';
+$sec_9        = $_POST['sec_9']        ?? '';
+$sec_10        = $_POST['sec_10']        ?? '';
+
 $del              = $_POST['del']              ?? '';
 $is_shop          = $_POST['is_shop']          ?? '';
 
@@ -177,6 +188,17 @@ if (is_new_sec($sec_id)) {
         sec_padding_tb_pc   = '".esc($sec_padding_tb_pc)."',
         sec_padding_tb_mo   = '".esc($sec_padding_tb_mo)."',
 
+        sec_1        = '".esc($sec_1)."',
+        sec_2        = '".esc($sec_2)."',
+        sec_3        = '".esc($sec_3)."',
+        sec_4        = '".esc($sec_4)."',
+        sec_5        = '".esc($sec_5)."',
+        sec_6        = '".esc($sec_6)."',
+        sec_7        = '".esc($sec_7)."',
+        sec_8        = '".esc($sec_8)."',
+        sec_9        = '".esc($sec_9)."',
+        sec_10        = '".esc($sec_10)."',
+
         sec_order_id     = {$next_order},
         sec_key          = '".esc($sec_key)."',
         sec_uid          = '".esc($sec_uid)."',
@@ -245,6 +267,17 @@ if (is_new_sec($sec_id)) {
         sec_padding_lr_mo  = '".esc($sec_padding_lr_mo)."',
         sec_padding_tb_pc   = '".esc($sec_padding_tb_pc)."',
         sec_padding_tb_mo   = '".esc($sec_padding_tb_mo)."',
+
+        sec_1        = '".esc($sec_1)."',
+        sec_2        = '".esc($sec_2)."',
+        sec_3        = '".esc($sec_3)."',
+        sec_4        = '".esc($sec_4)."',
+        sec_5        = '".esc($sec_5)."',
+        sec_6        = '".esc($sec_6)."',
+        sec_7        = '".esc($sec_7)."',
+        sec_8        = '".esc($sec_8)."',
+        sec_9        = '".esc($sec_9)."',
+        sec_10        = '".esc($sec_10)."',
 
         sec_datetime     = '".G5_TIME_YMDHIS."',
         sec_ip           = '".esc($_SERVER['REMOTE_ADDR'] ?? '')."'

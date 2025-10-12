@@ -3883,6 +3883,18 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         var sec_margin_btm_pc = $('input[name="sec_margin_btm_pc"]').val();
         var sec_margin_btm_mo = $('input[name="sec_margin_btm_mo"]').val();
 
+        // 여분필드가 필요한 경우 사용하세요. input 은 상황에 맞게 변경하세요.
+        //var sec_1 = $('input[name="sec_1"]').val();
+        //var sec_2 = $('input[name="sec_2"]').val();
+        //var sec_3 = $('input[name="sec_3"]').val();
+        //var sec_4 = $('input[name="sec_4"]').val();
+        //var sec_5 = $('input[name="sec_5"]').val();
+        //var sec_6 = $('input[name="sec_6"]').val();
+        //var sec_7 = $('input[name="sec_7"]').val();
+        //var sec_8 = $('input[name="sec_8"]').val();
+        //var sec_9 = $('input[name="sec_9"]').val();
+        //var sec_10 = $('input[name="sec_10"]').val();
+
         var sec_bg = $('input[name="sec_bg"]').val();
 
         if (sec_title == "") {
@@ -3951,6 +3963,18 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                     "sec_margin_top_mo": sec_margin_top_mo,
                     "sec_margin_btm_pc": sec_margin_btm_pc,
                     "sec_margin_btm_mo": sec_margin_btm_mo,
+
+                    // 여분필드가 필요한 경우 사용하세요. input 은 상황에 맞게 변경하세요.
+                    //"sec_1": sec_1,
+                    //"sec_2": sec_2,
+                    //"sec_3": sec_3,
+                    //"sec_4": sec_4,
+                    //"sec_5": sec_5,
+                    //"sec_6": sec_6,
+                    //"sec_7": sec_7,
+                    //"sec_8": sec_8,
+                    //"sec_9": sec_9,
+                    //"sec_10": sec_10,
 
                     "sec_bg": sec_bg
                 },
@@ -4179,6 +4203,19 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         var md_item_tab_list = $('input[name="md_item_tab_list"]').val();
         var md_item_tab_skin = $('select[name="md_item_tab_skin"]').val();
 
+        // 여분필드가 필요한 경우 사용하세요. input 은 상황에 맞게 변경하세요.
+        //var md_1 = $('input[name="md_1"]').val();
+        //var md_2 = $('input[name="md_2"]').val();
+        //var md_3 = $('input[name="md_3"]').val();
+        //var md_4 = $('input[name="md_4"]').val();
+        //var md_5 = $('input[name="md_5"]').val();
+        //var md_6 = $('input[name="md_6"]').val();
+        //var md_7 = $('input[name="md_7"]').val();
+        //var md_8 = $('input[name="md_8"]').val();
+        //var md_9 = $('input[name="md_9"]').val();
+        //var md_10 = $('input[name="md_10"]').val();
+
+
         if (md_title == "") {
             alert('모듈 타이틀을 입력해주세요.');
             $('input[name="md_title"]').focus();
@@ -4370,6 +4407,17 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                     "md_shadow_batch": md_shadow_batch,
                     "md_margin_batch": md_margin_batch,
                     "md_padding_batch": md_padding_batch,
+                    // 여분필드가 필요한 경우 사용하세요. input 은 상황에 맞게 변경하세요.
+                    //"md_1": md_1,
+                    //"md_2": md_2,
+                    //"md_3": md_3,
+                    //"md_4": md_4,
+                    //"md_5": md_5,
+                    //"md_6": md_6,
+                    //"md_7": md_7,
+                    //"md_8": md_8,
+                    //"md_9": md_9,
+                    //"md_10": md_10,
                 },
 
 
