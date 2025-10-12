@@ -65,7 +65,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 						    <a href="<?php echo $list[$i]['view_href']; ?>"><?php echo $memo_preview; ?></a>
                         </div>
 					</div>	
-					<a href="<?php echo $list[$i]['del_href']; ?>" onclick="del(this.href); return false;" class="memo_del"><img src="<?php echo G5_THEME_URL ?>/rb.img/icon/icon_close.svg"> <span class="sound_only">삭제</span></a>
+					<a href="<?php echo $list[$i]['del_href']; ?>" onclick="del(this.href); return false;" class="memo_del"><img src="<?php echo G5_THEME_URL ?>/rb.img/icon/icon_del.svg"> <span class="sound_only">삭제</span></a>
 	            </li>
 	            <?php } ?>
 	            <?php if ($i==0) { echo '<li class="empty_table">자료가 없습니다.</li>'; }  ?>

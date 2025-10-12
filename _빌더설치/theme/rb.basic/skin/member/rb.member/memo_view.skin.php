@@ -48,7 +48,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$member_skin_url.'/style.css">', 
 						<li class="memo_view_nick"><?php echo $nick ?></li>
 						<li class="memo_view_date"><span class="sound_only"><?php echo $kind_date ?>시간</span><?php if($memo['me_send_mb_id'] == "system-msg") { ?>시스템메세지　<?php } ?><?php echo $memo['me_send_datetime'] ?></li> 
 						<li class="memo_op_btn list_btn" <?php if($memo['me_send_mb_id'] == "system-msg") { ?>style="top:10px;"<?php } ?>><a href="<?php echo $list_link ?>" class="btn_b01 btn"><img src="<?php echo G5_THEME_URL ?>/rb.img/icon/icon_back.svg"><span class="sound_only">목록</span></a></li>
-						<li class="memo_op_btn del_btn" <?php if($memo['me_send_mb_id'] == "system-msg") { ?>style="top:10px;"<?php } ?>><a href="<?php echo $del_link; ?>" onclick="del(this.href); return false;" class="memo_del btn_b01 btn"><img src="<?php echo G5_THEME_URL ?>/rb.img/icon/icon_close.svg"> <span class="sound_only">삭제</span></a></li>	
+						<li class="memo_op_btn del_btn" <?php if($memo['me_send_mb_id'] == "system-msg") { ?>style="top:10px;"<?php } ?>><a href="<?php echo $del_link; ?>" onclick="del(this.href); return false;" class="memo_del btn_b01 btn"><img src="<?php echo G5_THEME_URL ?>/rb.img/icon/icon_del.svg"> <span class="sound_only">삭제</span></a></li>
 					</ul>
                    <!--
                     <div class="memo_btn">
