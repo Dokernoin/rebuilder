@@ -129,6 +129,22 @@ for ($i=1; $i<=10; $i++) {
     }
 }
 
+// 여분필드 쿼리 세팅
+$wr_extras_set = '';
+$wr_extras_cols = '';
+$wr_extras_vals = '';
+
+for ($i=1; $i<=10; $i++) {
+    $k = "wr_{$i}";
+    // 값에 따옴표 등 포함 가능성 있으므로 DB 이스케이프
+    $v = isset($$k) ? sql_real_escape_string($$k) : '';
+    // UPDATE용
+    $wr_extras_set  .= " , {$k} = '{$v}' ";
+    // INSERT용
+    $wr_extras_cols .= " , {$k} ";
+    $wr_extras_vals .= " , '{$v}' ";
+}
+
 //옵션
 $options = array($html,$secret,$mail);
 $wr_option = implode(',', array_filter(array_map('trim', $options)));
@@ -180,7 +196,8 @@ if ($w == "") {
                      wr_name = '$wr_name',
                      wr_email = '$wr_email',
                      wr_homepage = '$wr_homepage',
-                     wr_datetime = '".G5_TIME_YMDHIS."',
+                     {$wr_extras_set}
+                     , wr_datetime = '".G5_TIME_YMDHIS."',
                      wr_last = '".G5_TIME_YMDHIS."',
                      wr_ip = '{$_SERVER['REMOTE_ADDR']}' ";
     sql_query($sql);
@@ -255,7 +272,8 @@ if ($w == "") {
                      mb_id = '{$mb_id}',
                      wr_name = '{$wr_name}',
                      wr_email = '{$wr_email}',
-                     wr_homepage = '{$wr_homepage}' 
+                     wr_homepage = '{$wr_homepage}'
+                     {$wr_extras_set}
                      {$sql_ip}
                      {$sql_password}
               where wr_id = '{$wr['wr_id']}' ";

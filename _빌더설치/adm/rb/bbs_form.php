@@ -226,7 +226,16 @@ if ($w == 'u') {
     </tr>
     <?php } ?>
     
-
+    <?php
+        for ($i=0; $i<10; $i++) {
+    ?>
+    <tr>
+        <th scope="row"><label for="mb_icon">여분필드 <?php echo $i+1 ?></label></th>
+        <td>
+            <input type="text" name="wr_<?php echo $i+1;?>" title="여분필드 <?php echo $i+1 ?>" class="frm_input" value="<?php echo $wr['wr_'.$i+1];?>">
+        </td>
+    </tr>
+    <?php } ?>
 
 
     </tbody>
