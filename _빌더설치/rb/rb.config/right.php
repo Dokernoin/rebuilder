@@ -48,24 +48,34 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 </script>
 
 <div class="sh-side-options-container" style="margin-top:100px">
-    <a href="javascript:void(0);" class="sh-side-options-item sh-accent-color" id="saveOrderButton" title="모듈정렬 저장">
-        <div class="sh-side-options-item-container"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_check.svg"></div>
-    </a>
 
-    <a href="<?php echo G5_ADMIN_URL  ?>" target="_blank" class="sh-side-options-item sh-accent-color" title="관리자모드">
+    <a href="<?php echo G5_ADMIN_URL  ?>" target="_blank" class="sh-side-options-item sh-accent-color" data-tooltip="관리자모드" data-tooltip-pos="top">
         <div class="sh-side-options-item-container"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_setting.svg"></div>
     </a>
-    <a class="sh-side-options-item sh-accent-color mobule_set_btn" title="모듈설정" onclick="toggleSideOptions();">
+
+
+    <a class="sh-side-options-item sh-accent-color mobule_set_btn" onclick="toggleSideOptions();" data-tooltip="모듈설정" data-tooltip-pos="top">
         <div class="sh-side-options-item-container"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_mod.svg"></div>
     </a>
 
+    <a href="javascript:void(0);" class="sh-side-options-item sh-accent-color" id="saveOrderButton" data-tooltip="현재순서 저장" data-tooltip-pos="top">
+        <div class="sh-side-options-item-container" style="height:38px;">
+
+            <svg width="22" height="22" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.7749 0.391876C16.2979 0.391876 20.7749 4.86888 20.7749 10.3919C20.7749 15.9149 16.2979 20.3919 10.7749 20.3919C5.2519 20.3919 0.774902 15.9149 0.774902 10.3919C0.774902 4.86888 5.2519 0.391876 10.7749 0.391876ZM14.3099 6.77288L9.3599 11.7229L7.2399 9.60188C7.14706 9.50897 7.03682 9.43525 6.91549 9.38494C6.79416 9.33464 6.6641 9.30872 6.53276 9.30867C6.26749 9.30858 6.01304 9.41387 5.8254 9.60138C5.63776 9.78888 5.53229 10.0433 5.5322 10.3085C5.53211 10.5738 5.63739 10.8282 5.8249 11.0159L8.5829 13.7739C8.68505 13.8761 8.80634 13.9571 8.93983 14.0125C9.07332 14.0678 9.21641 14.0962 9.3609 14.0962C9.5054 14.0962 9.64848 14.0678 9.78197 14.0125C9.91547 13.9571 10.0368 13.8761 10.1389 13.7739L15.7249 8.18788C15.9125 8.00024 16.018 7.74574 16.018 7.48038C16.018 7.21501 15.9125 6.96052 15.7249 6.77288C15.5373 6.58524 15.2828 6.47982 15.0174 6.47982C14.752 6.47982 14.4975 6.58524 14.3099 6.77288Z" fill="#00d6ee"/>
+            </svg>
+
+
+        </div>
+    </a>
+
     <?php if (defined("_INDEX_") || !empty($_GET['gr_id']) || !empty($_GET['co_id'])) { ?>
-    <a class="sh-side-options-item sh-accent-color section_set_btn" title="섹션설정" onclick="toggleSideSection();">
+    <a class="sh-side-options-item sh-accent-color section_set_btn" onclick="toggleSideSection();" data-tooltip="섹션설정" data-tooltip-pos="top">
         <div class="sh-side-options-item-container"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_sec.svg"></div>
     </a>
     <?php } ?>
 
-    <a class="sh-side-options-item sh-accent-color setting_set_btn" title="환경설정" onclick="toggleSideOptions_open_set();">
+    <a class="sh-side-options-item sh-accent-color setting_set_btn" onclick="toggleSideOptions_open_set();" data-tooltip="환경설정" data-tooltip-pos="top">
         <div class="sh-side-options-item-container"><img src="<?php echo G5_URL ?>/rb/rb.config/image/icon_set.svg"></div>
     </a>
 </div>
@@ -2107,8 +2117,10 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                 var $btn = $(this);
                 var $h = $btn.closest('.rb-row-handle');
                 var markerIdx = parseInt($h.attr('data-marker'), 10);
+                $('.mobule_set_btn').css('display', 'none');
                 if ($btn.hasClass('rb-row-up')) moveRowByMarker($flex, markerIdx, -1);
                 if ($btn.hasClass('rb-row-down')) moveRowByMarker($flex, markerIdx, +1);
+
             });
         }
 
@@ -2368,6 +2380,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                     start: function(event, ui) {
 
                         ui.helper.addClass("dragging");
+                        $('.mobule_set_btn').css('display', 'none');
 
                         originalWidth = ui.item.outerWidth();
                         originalHeight = ui.item.outerHeight();
@@ -2540,7 +2553,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                 $.when(saveModules()).then(saveSections)
                     .done(function(resp) {
                         $("#saveOrderButton").hide();
-                        alert('모듈 순서를 변경하였습니다.');
+                        location.reload();
                     })
                     .fail(function(xhr, status, err) {
                         console.error('Error saving order:', err);
@@ -2701,6 +2714,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
                     start: function(event, ui) {
                         ui.item.data('_fromFlex', $flexBox);
+                         $('.section_set_btn').css('display', 'none');
                         $(".placeholders_section").css({
                             width: 100,
                             height: 100,
@@ -2959,7 +2973,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                         });
                     }).done(function() {
                         $("#saveOrderButton").hide();
-                        alert('순서를 변경하였습니다.');
+                        location.reload();
 
                     }).fail(function(xhr, status, err) {
                         console.error('Error saving order/layout:', err);
