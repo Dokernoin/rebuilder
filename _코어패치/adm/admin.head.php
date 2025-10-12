@@ -22,7 +22,6 @@ if (is_array($files)) {
 }
 
 require_once G5_PATH . '/head.sub.php';
-add_javascript('<script src="'.G5_URL.'/js/rb.common.js"></script>', 0);
 
 function print_menu1($key, $no = '')
 {
@@ -80,61 +79,40 @@ $adm_menu_cookie = array(
     'btn_gnb'   => '',
 );
 
-if (!empty($_COOKIE['g5_admin_btn_gnb'])) {
+if(is_mobile()) {
     $adm_menu_cookie['container'] = 'container-small';
     $adm_menu_cookie['gnb'] = 'gnb_small';
     $adm_menu_cookie['btn_gnb'] = 'btn_gnb_open';
+} else {
+    if( ! empty($_COOKIE['g5_admin_btn_gnb']) ){
+        $adm_menu_cookie['container'] = 'container-small';
+        $adm_menu_cookie['gnb'] = 'gnb_small';
+        $adm_menu_cookie['btn_gnb'] = 'btn_gnb_open';
+    }
 }
+
+
+// 오늘 날짜
+$today = date("Y-m-d");
+$timestamp = strtotime($today);
+
+// 요일 숫자 (0=일, 6=토)
+$weekday_num = date("w", $timestamp);
+
+// 요일 한글 매핑
+$week_map = array("일요일","월요일","화요일","수요일","목요일","금요일","토요일");
+$week_kor = $week_map[$weekday_num];
+
+// 색상 지정
+$color = "black";
+if ($weekday_num == 0) {
+    $color = "red";   // 일요일
+} else if ($weekday_num == 6) {
+    $color = "blue";  // 토요일
+}
+
 ?>
-<style>
-.rb-custom-alert-popup {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 300px;
-    max-width: 450px;
-    background: #fff;
-    color: #000;
-    padding: 25px 25px;
-    border-radius: 15px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.05);
-    font-size: 14px;
-    text-align: center;
-    word-break: keep-all;
-    line-height: 140%;
-    animation: customAlertShow 0.22s cubic-bezier(.68,-0.55,.27,1.55);
-    z-index: 12345678905;
-}
 
-.rb-custom-alert-popup svg {opacity: 0.2; margin-bottom: 10px;}
-
-.rb-custom-alert-popup-bg {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 12345678904;
-    width: 100%;
-    height:100%;
-    background: rgba(0,0,0,0.2);
-}
-
-.rb-custom-alert-popup .rb-alert-btn {
-    display:inline-block; padding:12px 25px; font-size:15px;
-    color:#25282B; border:none; border-radius:10px; cursor:pointer; background-color: #ced3db !important;
-}
-
-.rb-custom-alert-popup .rb-alert-btn.rb-btn-ok {
-    background-color: #25282B !important;
-    color:#fff !important;
-}
-
-
-@keyframes customAlertShow {
-    from { opacity:0; transform: translate(-50%, -46%) scale(0.97);}
-    to   { opacity:1; transform: translate(-50%, -50%) scale(1);}
-}
-</style>
 <script>
     var g5_admin_csrf_token_key = "<?php echo (function_exists('admin_csrf_token_key')) ? admin_csrf_token_key() : ''; ?>";
     var tempX = 0;
@@ -164,21 +142,29 @@ if (!empty($_COOKIE['g5_admin_btn_gnb'])) {
     <h1><?php echo $config['cf_title'] ?></h1>
     <div id="hd_top">
         <button type="button" id="btn_gnb" class="btn_gnb_close <?php echo $adm_menu_cookie['btn_gnb']; ?>">메뉴</button>
-        <div id="logo"><a href="<?php echo correct_goto_url(G5_ADMIN_URL); ?>"><img src="<?php echo G5_ADMIN_URL ?>/img/logo.png" alt="<?php echo get_text($config['cf_title']); ?> 관리자"></a></div>
+        <div id="logo">
+        <a href="<?php echo correct_goto_url(G5_ADMIN_URL); ?>" title="<?php echo get_text($config['cf_title']); ?> 관리자모드"><strong>Administrator</strong></a>
+        <?php
+        if (defined('RB_VER')) {
+            echo "Rb <strong>".RB_VER."</strong>　";
+        } else {
+            echo '';
+        }
+        ?>
+        <span class="v_times"><?php echo date("Y년 n월 j일", $timestamp) . " <span style='color:{$color};'>{$week_kor}</span>"; ?></span>
+        </div>
 
         <div id="tnb">
             <ul>
                 <?php if (defined('G5_USE_SHOP') && G5_USE_SHOP) { ?>
-                    <li class="tnb_li"><a href="<?php echo G5_SHOP_URL ?>/" class="tnb_shop" target="_blank" title="쇼핑몰 바로가기">쇼핑몰 바로가기</a></li>
+                    <li class="tnb_li"><a href="<?php echo G5_SHOP_URL ?>/" target="_blank" title="쇼핑몰 바로가기"><img src="<?php echo G5_ADMIN_URL ?>/img/sh.svg"></a></li>
                 <?php } ?>
-                <li class="tnb_li"><a href="<?php echo G5_URL ?>/" class="tnb_community" target="_blank" title="커뮤니티 바로가기">커뮤니티 바로가기</a></li>
+                <li class="tnb_li"><a href="<?php echo G5_URL ?>/" target="_blank" title="커뮤니티 바로가기"><img src="<?php echo G5_ADMIN_URL ?>/img/hm.svg"></a></li>
+                <!--
                 <li class="tnb_li"><a href="<?php echo G5_ADMIN_URL ?>/service.php" class="tnb_service">부가서비스</a></li>
-                <li class="tnb_li"><button type="button" class="tnb_mb_btn">관리자<span class="./img/btn_gnb.png">메뉴열기</span></button>
-                    <ul class="tnb_mb_area">
-                        <li><a href="<?php echo G5_ADMIN_URL ?>/member_form.php?w=u&amp;mb_id=<?php echo $member['mb_id'] ?>">관리자정보</a></li>
-                        <li id="tnb_logout"><a href="<?php echo G5_BBS_URL ?>/logout.php">로그아웃</a></li>
-                    </ul>
-                </li>
+                -->
+                <li><a href="<?php echo G5_ADMIN_URL ?>/member_form.php?w=u&amp;mb_id=<?php echo $member['mb_id'] ?>" title="관리자 정보수정"><img src="<?php echo G5_ADMIN_URL ?>/img/am.svg"></a></li>
+                <li id="tnb_logout"><a href="<?php echo G5_BBS_URL ?>/logout.php" title="로그아웃"><img src="<?php echo G5_ADMIN_URL ?>/img/pw.svg"></a></li>
             </ul>
         </div>
     </div>
@@ -223,7 +209,6 @@ if (!empty($_COOKIE['g5_admin_btn_gnb'])) {
 </header>
 <script>
     jQuery(function($) {
-
         var menu_cookie_key = 'g5_admin_btn_gnb';
 
         $(".tnb_mb_btn").click(function() {
@@ -231,27 +216,43 @@ if (!empty($_COOKIE['g5_admin_btn_gnb'])) {
         });
 
         $("#btn_gnb").click(function() {
-
             var $this = $(this);
 
             try {
                 if (!$this.hasClass("btn_gnb_open")) {
+                    // 열릴 때 쿠키 저장
                     set_cookie(menu_cookie_key, 1, 60 * 60 * 24 * 365);
                 } else {
+                    // 닫을 때 쿠키 삭제
                     delete_cookie(menu_cookie_key);
                 }
             } catch (err) {}
 
             $("#container").toggleClass("container-small");
             $("#gnb").toggleClass("gnb_small");
+            $("#logo").toggleClass("logo_small");
             $this.toggleClass("btn_gnb_open");
-
         });
 
         $(".gnb_ul li .btn_op").click(function() {
             $(this).parent().addClass("on").siblings().removeClass("on");
         });
 
+        // 페이지 로딩 시 쿠키값 확인 → 클래스 적용
+        if (get_cookie(menu_cookie_key)) {
+            $("#container").addClass("container-small");
+            $("#gnb").addClass("gnb_small");
+            $("#logo").addClass("logo_small");
+            $("#btn_gnb").addClass("btn_gnb_open");
+        }
+    });
+
+    jQuery(function($){
+      $('.btn_fixed_top').each(function(){
+        if (this.getAttribute('style') && this.style.right === '60px') {
+          this.style.right = '80px';
+        }
+      });
     });
 </script>
 
