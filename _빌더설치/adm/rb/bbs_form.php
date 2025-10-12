@@ -193,6 +193,18 @@ if ($w == 'u') {
         <th scope="row"><label for="wr_content">내용</label></th>
         <td><?php echo editor_html('wr_content', get_text(html_purifier(isset($wr['wr_content']) ? $wr['wr_content'] : ''), 0)); ?></td>
     </tr>
+
+    <?php
+        for ($i=0; $i<10; $i++) {
+    ?>
+    <tr>
+        <th scope="row"><label for="mb_icon">여분필드 <?php echo $i+1 ?></label></th>
+        <td>
+            <input type="text" name="wr_<?php echo $i+1;?>" title="여분필드 <?php echo $i+1 ?>" class="frm_input" value="<?php echo $wr['wr_'.$i+1];?>">
+        </td>
+    </tr>
+    <?php } ?>
+
         
     <?php for ($i=1; $is_link && $i<=G5_LINK_COUNT; $i++) { ?>
         <tr>
@@ -226,16 +238,6 @@ if ($w == 'u') {
     </tr>
     <?php } ?>
     
-    <?php
-        for ($i=0; $i<10; $i++) {
-    ?>
-    <tr>
-        <th scope="row"><label for="mb_icon">여분필드 <?php echo $i+1 ?></label></th>
-        <td>
-            <input type="text" name="wr_<?php echo $i+1;?>" title="여분필드 <?php echo $i+1 ?>" class="frm_input" value="<?php echo $wr['wr_'.$i+1];?>">
-        </td>
-    </tr>
-    <?php } ?>
 
 
     </tbody>
