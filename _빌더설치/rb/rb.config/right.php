@@ -1,6 +1,10 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
+if(defined('_PREVIEW_')) {
+    $rb_config = $preview_config;
+}
+
 // add_stylesheet('css 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
 add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.config/style.css?ver='.G5_TIME_YMDHIS.'">', 0);
 add_stylesheet('<link rel="stylesheet" href="'.G5_URL.'/rb/rb.config/coloris/coloris.css?ver='.G5_TIME_YMDHIS.'">', 0);
@@ -115,8 +119,9 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
                 <div class="rb_config rb_config_mod1">
 
-                    <h2 class="font-B">환경설정</h2>
-                    <h6 class="font-R rb_config_sub_txt">웹사이트의 전반적인 환경설정 입니다.<br>서브영역 전용 설정의 경우<br>서브페이지에서 패널을 오픈해주세요.</h6>
+                    <h2 class="font-B"><?php if(defined('_PREVIEW_')) echo '<span class="main_color">프리뷰 </span>'; ?>환경설정</h2>
+                    <h6 class="font-R rb_config_sub_txt"><?php echo defined('_PREVIEW_') ? '프리뷰' : '웹사이트';?>의 전반적인 환경설정 입니다.<br>서브영역 전용 설정의 경우<br>서브페이지에서 패널을 오픈해주세요.</h6>
+
                     <ul class="rb_config_sec">
                         <h6 class="font-B">강조컬러 설정 (공용)</h6>
                         <h6 class="font-R rb_config_sub_txt">버튼, 뱃지, 오버 등 강조되는 컬러를 설정할 수 있습니다.</h6>
@@ -1413,6 +1418,7 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                         </div>
                     </ul>
 
+                    <?php if(!defined('_PREVIEW_')) { ?>
                     <ul class="rb_config_sec">
                         <h6 class="font-B">사이트맵(xml)생성</h6>
                         <h6 class="font-R rb_config_sub_txt">
@@ -1473,10 +1479,139 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
                         </div>
                     </ul>
+                    <?php } ?>
+
+                    <?php if(defined('_PREVIEW_')) { ?>
+                    <div class="rb_config_sec">
+                        <h6 class="font-B">현재 프리뷰 : <span class="main_color"><?php echo $preview_config['pr_title'];?></span></h6>
+                        <h6 class="font-R rb_config_sub_txt">프리뷰 상단에 표시 될 정보를 입력하세요.</h6>
+                        <div class="config_wrap">
+                            <input type="text" name="pr_title" class="input w100 h40" placeholder="프리뷰 이름" value="<?php echo isset($preview_config['pr_title']) ? $preview_config['pr_title'] : '';?>" autocomplete="off">
+                            <input type="text" name="pr_desc" class="input w100 h40 mt-5" placeholder="프리뷰 한줄소개" value="<?php echo isset($preview_config['pr_desc']) ? $preview_config['pr_desc'] : '';?>" autocomplete="off">
+                        </div>
+                        <ul>
+                            <style>
+                                .preview-btn {color:#fff; text-decoration:none; background-color: #25282B; padding:8px 16px; border-radius:5px; display: inline-block; margin-top: 5px; width: 140px; text-align: center;}
+                                .preview-btn.delete_preview {background-color: #e74c3c;}
+                            </style>
+                            <a id="copy_preview_url_btn" class="preview-btn copy_preview_url" href="javascript:void(0);">프리뷰 URL 복사</a>
+                            <a id="delete_preview_btn" class="preview-btn delete_preview" href="javascript:void(0);">프리뷰 삭제</a>
+                            <script>
+                            (function () {
+                            var copy_url_btn = document.getElementById('copy_preview_url_btn');
+                            var delete_preview_btn = document.getElementById('delete_preview_btn');
+                            if (!copy_url_btn) return;
+
+                            var PREVIEW_URL = '<?php echo G5_URL; ?>/rb/preview.php?pr_id=<?php echo $preview_id; ?>';
+
+                            async function copyText(text) {
+                                try {
+                                if (navigator.clipboard && window.isSecureContext) {
+                                    await navigator.clipboard.writeText(text);
+                                    return true;
+                                }
+                                } catch (e) { /* fallback으로 진행 */ }
+
+                                try {
+                                var ta = document.createElement('textarea');
+                                ta.value = text;
+                                ta.setAttribute('readonly', '');
+                                ta.style.position = 'fixed';
+                                ta.style.top = '-10000px';
+                                document.body.appendChild(ta);
+                                ta.select();
+                                var ok = document.execCommand('copy');
+                                document.body.removeChild(ta);
+                                return ok;
+                                } catch (e) {
+                                return false;
+                                }
+                            }
+
+                            copy_preview_url_btn.addEventListener('click', async function () {
+                                var ok = await copyText(PREVIEW_URL);
+                                if (ok) {
+                                var old = copy_preview_url_btn.textContent;
+                                copy_preview_url_btn.disabled = true;
+                                copy_preview_url_btn.textContent = '복사됨!';
+                                setTimeout(function () {
+                                    copy_preview_url_btn.textContent = old;
+                                    copy_preview_url_btn.disabled = false;
+                                }, 1200);
+                                } else {
+                                alert('복사에 실패했습니다.\n아래 URL을 직접 복사하세요:\n' + PREVIEW_URL);
+                                }
+                            });
+
+                            delete_preview_btn.addEventListener('click', function () {
+                            if (!confirm('정말로 이 프리뷰를 삭제하시겠습니까?\n삭제된 프리뷰는 복구할 수 없습니다.')) {
+                                return;
+                            }
+
+                            fetch('<?php echo G5_URL; ?>/rb/rb.config/ajax.preview_set.php', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+                                body: new URLSearchParams({
+                                preview_type: 'delete',
+                                pr_id: '<?php echo $preview_id; ?>'
+                                })
+                            })
+                            .then(function (res) {
+                                if (!res.ok) throw new Error('HTTP ' + res.status);
+                                return res.json();
+                            })
+                            .then(function (data) {
+                                var ok = (data && (data.status === 'ok' || data.success === true));
+                                if (ok && data.action === 'delete') {
+                                top.location.href = '<?php echo G5_URL; ?>';
+                                } else {
+                                var msg = (data && (data.error || data.message)) || '알 수 없는 오류';
+                                alert('프리뷰 삭제에 실패했습니다: ' + msg);
+                                }
+                            })
+                            .catch(function (err) {
+                                alert('프리뷰 삭제 중 오류가 발생했습니다: ' + err.message);
+                            });
+                            });
+
+
+                            })();
+                            </script>
+                        </ul>
+                    </div>
+                    <?php } ?>
+
+                    <div class="rb_config_sec">
+                        <h6 class="font-B">프리뷰 선택</h6>
+                        <h6 class="font-R rb_config_sub_txt">프리뷰를 선택하면 해당 프리뷰로 이동합니다.</h6>
+
+                        <div class="config_wrap">
+                            <select class="select w100" name="preview_select">
+                                <option value="">프리뷰를 선택하세요.</option>
+                                <?php echo rb_preview_get_select(); ?>
+                            </select>
+                            <script>
+                                document.querySelector('select[name="preview_select"]').addEventListener('change', function() {
+                                    var preview = this.value;
+                                    if (preview) {
+                                        top.location.href = '<?php echo G5_URL ?>/rb/preview.php?pr_id=' + preview;
+                                    }
+                                });
+                            </script>
+                        </div>
+
+                        <button type="button" class="main_rb_bg font-B" id="widget_add_btn" onclick="createPreview();">새로운 프리뷰 생성</button>
+                    
+                        <h6 class="font-R rb_config_sub_txt">
+                            메인 레이아웃을 복제하여 프리뷰를 생성합니다.<br>
+                            프리뷰로 이동하여 세부적으로 레이아웃을 편집할 수 있습니다.
+                        </h6>
+                    </div>
+
 
 
                     <ul class="rb_config_sec">
-
+                        <?php if(!defined('_PREVIEW_')) { ?>
                         <button type="button" class="main_rb_bg" id="clear_cache_btn">캐시 삭제</button>
                         <script>
                             document.getElementById('clear_cache_btn').addEventListener('click', function() {
@@ -1512,6 +1647,8 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
                             });
                         </script>
                         <div class="cb"></div>
+                        <?php } ?>
+
                         <button type="button" class="rb_config_reload mt-5 font-B" onclick="executeAjax()">적용하기</button>
                         <button type="button" class="rb_config_close mt-5 font-B" onclick="toggleSideOptions_close()">취소</button>
                         <div class="cb"></div>
@@ -3428,6 +3565,72 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         ////
     });
 
+    // 프리뷰 생성 함수 정의
+    async function createPreview() {
+    // 1) 먼저 사용자 확인
+    const ok = window.confirm('새로운 프리뷰를 생성할까요?\n프리뷰가 생성되면 프리뷰 페이지로 바로 이동됩니다.');
+    if (!ok) {
+        return;
+    }
+
+    const CREATE_URL   = '<?php echo G5_URL;?>/rb/rb.config/ajax.preview_set.php';
+    const PREVIEW_PATH = '<?php echo G5_URL;?>/rb/preview.php';
+
+    function extractPrId(resp) {
+        if (resp && resp.pr_id)     return String(resp.pr_id);
+        if (resp && resp.co_id)     return String(resp.co_id);
+        if (resp && resp.new_co_id) return String(resp.new_co_id);
+        if (resp && resp.to) {
+        const m = String(resp.to).match(/co_id=([0-9]+)/);
+        if (m) return m[1];
+        }
+        return null;
+    }
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 15000);
+
+    try {
+        const res = await fetch(CREATE_URL, {
+        method: 'POST',
+        data: {
+            preview_type: 'create'
+        },
+        signal: controller.signal,
+        headers: { 'Accept': 'application/json' }
+        });
+        clearTimeout(timer);
+
+        if (!res.ok) {
+        throw new Error('HTTP ' + res.status);
+        }
+
+        const data = await res.json();
+
+        if (!data || data.status !== 'ok') {
+        const msg = (data && data.message) ? data.message : '알 수 없는 오류';
+        alert('[생성 실패] ' + msg);
+        return;
+        }
+
+        const prId = extractPrId(data);
+        if (!prId) {
+        alert('[생성 완료] 응답에서 pr_id(co_id) 값을 찾지 못했습니다.');
+        return;
+        }
+
+        const previewUrl = PREVIEW_PATH + '?pr_id=' + encodeURIComponent(prId);
+
+        // 생성 후 이동
+        top.location.assign(previewUrl);
+
+    } catch (err) {
+        clearTimeout(timer);
+        const msg = (err && err.message) ? err.message : String(err);
+        alert('[요청 실패] ' + msg);
+    }
+    }
+
 
     // Ajax 실행 함수 정의
     async function executeAjax() {
@@ -3545,6 +3748,11 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
 
         <?php } ?>
 
+        <?php if(defined('_PREVIEW_')) { ?>
+        var pr_title = $('input[name="pr_title"]').val();
+        var pr_desc = $('input[name="pr_desc"]').val();
+        <?php } ?>
+
         var mod_type = '1';
 
         <?php if($is_admin) { ?>
@@ -3553,12 +3761,26 @@ if (!isset($_SESSION['rb_widget_csrf'])) {
         return false;
         <?php } ?>
 
+        var config_set_url =  '<?php echo G5_URL ?>/rb/rb.config/ajax.config_set.php';
+        var preview_id = '';
+        <?php if(defined('_PREVIEW_')) { ?>
+            config_set_url =  '<?php echo G5_URL ?>/rb/rb.config/ajax.preview_config_set.php';
+            preview_id = '<?php echo $preview_id; ?>';
+        <?php } ?>
+
         // Ajax 요청 실행
         $.ajax({
-            url: '<?php echo G5_URL ?>/rb/rb.config/ajax.config_set.php', // Ajax 요청을 보낼 엔드포인트 URL
+            url: config_set_url, // Ajax 요청을 보낼 엔드포인트 URL
             method: 'POST', // 또는 'GET' 등의 HTTP 메서드
             dataType: 'json',
             data: {
+                <?php if(defined('_PREVIEW_')) { ?>
+                /* 프리뷰 관련 */
+                "preview_id": preview_id,
+                "pr_title": pr_title,
+                "pr_desc": pr_desc,
+                <?php } ?>
+
                 "co_color": co_color,
                 "co_header": co_header,
                 "co_main_bg": co_main_bg,
