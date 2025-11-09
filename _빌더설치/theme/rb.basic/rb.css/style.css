@@ -427,7 +427,6 @@ footer .footer_btn:hover {border-color:#fff; color:#fff;}
 .user_prof_btns {text-align: center; margin-top: 30px; margin-bottom: 30px;}
 /* } */
 
-/* 20240604 추가 { */
-#logo_img {height:40px; width:auto;}
-/* } */
 
+#logo_img {height:40px; width:auto;}
+html {height: auto !important;}

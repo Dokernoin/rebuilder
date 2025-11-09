@@ -8,7 +8,7 @@
 }
 
 @media all and (max-width:1024px) {
-    html, body {overflow-x: hidden; height:auto;}
+    html, body {overflow-x: hidden; height:auto !important;}
     main {}
     .mobile {display: block}
     .pc {display: none;}
@@ -81,9 +81,7 @@
     main.moves {position: fixed;left:100%;}
     header {transition: all 600ms cubic-bezier(0.86, 0, 0.07, 1); left: 0px;}
     header.moves {position: fixed; left: 100% !important; top:0px; width: 100%;}
-    
-    html::-webkit-scrollbar {display: none;}
-    html {-ms-overflow-style: none;scrollbar-width: none;}
+
     .cbp-hrmenu-btm::-webkit-scrollbar {display: none;}
     .cbp-hrmenu-btm {-ms-overflow-style: none;scrollbar-width: none;}
 
