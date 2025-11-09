@@ -138,29 +138,57 @@ if (!mb_detect_encoding($code, 'UTF-8', true)) {
     $code = mb_convert_encoding($code, 'UTF-8');
 }
 
-// 원자 저장
+/* =========================
+   원자 저장(+직접 저장 Fallback)
+   ========================= */
 $tmp = $target_file . '.tmp_' . uniqid('', true);
 $bytes = @file_put_contents($tmp, $code, LOCK_EX);
+
 if ($bytes === false) {
+    // ---- Fallback: 임시파일이 막히는 환경에서는 바로 대상 파일에 저장 ----
+    $fp = @fopen($target_file, 'wb'); // 필요시 'c' 모드 + flock 고려 가능
+    if ($fp) {
+        $w = @fwrite($fp, $code);
+        @fflush($fp);
+        @fclose($fp);
+        if ($w !== false) {
+            @chmod($target_file, 0644);
+            // 임시파일이 생성되었다면 정리
+            @unlink($tmp);
+            goto __SAVE_DONE;
+        }
+    }
+    // 직접 저장도 실패하면 에러 반환
     $e = error_get_last();
     echo json_encode([
         'ok'=>false,
-        'msg'=>'파일 쓰기 실패(tmp)',
-        'raw'=>($e['message'] ?? '').' tmp='. $tmp
+        'msg'=>'파일 쓰기 실패(tmp/direct)',
+        'raw'=>($e['message'] ?? ''),
+        'path'=>$target_file
     ]);
     exit;
 }
+
+// 임시파일 저장 성공 시 rename으로 원자 교체 (rename 실패 시 copy 대체)
 if (!@rename($tmp, $target_file)) {
     $e = error_get_last();
-    @unlink($tmp);
-    echo json_encode([
-        'ok'=>false,
-        'msg'=>'파일 교체 실패(rename)',
-        'raw'=>($e['message'] ?? '').' target='. $target_file
-    ]);
-    exit;
+    // 먼저 copy를 시도하고 성공하면 그때 임시파일 제거
+    if (@copy($tmp, $target_file)) {
+        @chmod($target_file, 0644);
+        @unlink($tmp);
+    } else {
+        @unlink($tmp);
+        echo json_encode([
+            'ok'=>false,
+            'msg'=>'파일 교체 실패(rename/copy)',
+            'raw'=>($e['message'] ?? '').' target='. $target_file
+        ]);
+        exit;
+    }
 }
 @chmod($target_file, 0644);
+
+__SAVE_DONE:
 
 // ---- 저장 로그 (data/widget_log/{folder}) ----
 $log_dir = $data_base_dir; // 위에서 만든 동일 폴더 재사용
