@@ -124,6 +124,7 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
 
 
         $bg = 'bg'.($i%2);
+
      ?>
     <tr style="background-color:#fff;">
 

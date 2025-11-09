@@ -157,8 +157,11 @@ $res_b = sql_query($sql_b);
     for ($i=0; $row=sql_fetch_array($result); $i++) {
         $row['wr_subject'] = $row['wr_subject'];
 
-        $mb_info = get_member($row['mb_id']);
-        $name = get_sideview($row['mb_id'], get_text($mb_info['mb_nick']), $mb_info['mb_email'], $mb_info['mb_homepage']);
+        if (!empty($row['mb_id']) && ($mb_info = get_member($row['mb_id']))) {
+            $name = get_sideview($row['mb_id'], get_text($mb_info['mb_nick'] ?? ''), $mb_info['mb_email'] ?? '', $mb_info['mb_homepage'] ?? '');
+        } else {
+            $name = '<span style="color:#777">'.$row['wr_name'].'</span>';
+        }
 
         $bg = 'bg'.($i%2);
      ?>
@@ -197,20 +200,12 @@ $res_b = sql_query($sql_b);
 </div>
 
 <div class="btn_fixed_top">
-
-    <?php if(!$bo_table) { ?>
-    <a href="javascript:alert('게시판을 선택해주세요.');" class="btn_02 btn">바로가기</a>
-    <?php } else { ?>
-    <a href="<?php echo get_pretty_url($bo_table); ?>" target="_blank" class="btn_02 btn">바로가기</a>
-    <?php } ?>
-
     <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn btn_02">
     <?php if(!$bo_table) { ?>
-    <a href="javascript:alert('게시판을 선택해주세요.');" id="bo_add" class="btn_01 btn">게시글 등록</a>
+    <a href="javascript:alert('게시판을 선택해주세요.');" id="bo_add" class="btn_01 btn">게시물 보기</a>
     <?php } else { ?>
-    <a href="./bbs_form.php?bo_table=<?php echo $bo_table; ?>" id="bo_add" class="btn_01 btn">게시글 등록</a>
+    <a href="<?php echo get_pretty_url($bo_table); ?>" target="_blank" id="bo_add" class="btn_01 btn">게시물 보기</a>
     <?php } ?>
-
 </div>
 </form>
 
