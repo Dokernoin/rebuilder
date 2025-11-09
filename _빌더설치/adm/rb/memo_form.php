@@ -106,15 +106,40 @@ $listall = '<a href="'.$_SERVER['SCRIPT_NAME'].'" class="ov_listall">전체목�
     <?php
     for ($i=0; $rowss=sql_fetch_array($result_is); $i++) {
         
-        $mbx1 = isset($rowss['me_send_mb_id']) ? get_member($rowss['me_send_mb_id']) : '';
-        $mbx2 = isset($rowss['me_recv_mb_id']) ? get_member($rowss['me_recv_mb_id']) : '';
-        $name1 = isset($mbx1['mb_nick']) ? get_text($mbx1['mb_nick']) : '';
-        $name2 = isset($mbx2['mb_nick']) ? get_text($mbx2['mb_nick']) : '';
+        // // 송신/수신 회원아이디 확보
+        $send_id = isset($rowss['me_send_mb_id']) ? (string)$rowss['me_send_mb_id'] : '';
+        $recv_id = isset($rowss['me_recv_mb_id']) ? (string)$rowss['me_recv_mb_id'] : '';
 
-        $mb_nick1 = get_sideview($mbx1['mb_id'], get_text($mbx1['mb_nick']), $mbx1['mb_email'], $mbx1['mb_homepage']);
-        $mb_nick2 = get_sideview($mbx2['mb_id'], get_text($mbx2['mb_nick']), $mbx2['mb_email'], $mbx2['mb_homepage']);
+        // // get_member() 실패시 빈 배열로 보정(키 접근 안전)
+        $mbx1 = $send_id !== '' ? (get_member($send_id) ?: []) : [];
+        $mbx2 = $recv_id !== '' ? (get_member($recv_id) ?: []) : [];
+
+        // // 필드 안전 추출(미정의 키 방지)
+        $mb1_id   = isset($mbx1['mb_id']) ? $mbx1['mb_id'] : '';
+        $mb1_nick = isset($mbx1['mb_nick']) ? $mbx1['mb_nick'] : '';
+        $mb1_em   = isset($mbx1['mb_email']) ? $mbx1['mb_email'] : '';
+        $mb1_home = isset($mbx1['mb_homepage']) ? $mbx1['mb_homepage'] : '';
+
+        $mb2_id   = isset($mbx2['mb_id']) ? $mbx2['mb_id'] : '';
+        $mb2_nick = isset($mbx2['mb_nick']) ? $mbx2['mb_nick'] : '';
+        $mb2_em   = isset($mbx2['mb_email']) ? $mbx2['mb_email'] : '';
+        $mb2_home = isset($mbx2['mb_homepage']) ? $mbx2['mb_homepage'] : '';
+
+        // // 닉네임 텍스트(없으면 아이디로 대체)
+        $name1_txt = $mb1_nick !== '' ? get_text($mb1_nick) : get_text($send_id);
+        $name2_txt = $mb2_nick !== '' ? get_text($mb2_nick) : get_text($recv_id);
+
+        // // 사이드뷰(아이디 없으면 대체표시)
+        $mb_nick1 = $mb1_id !== ''
+            ? get_sideview($mb1_id, $name1_txt, $mb1_em, $mb1_home)
+            : '<span style="color:#ff4081">시스템</span>';
+
+        $mb_nick2 = $mb2_id !== ''
+            ? get_sideview($mb2_id, $name2_txt, $mb2_em, $mb2_home)
+            : '<span style="color:#999">탈퇴</span>';
 
         $bg = 'bg'.($i%2);
+
      ?>
     <tr style="background-color:#fff;">
 
