@@ -177,8 +177,9 @@ $res_b = sql_query($sql_b);
         <td class="td_datetime"><?php echo $row['wr_datetime']; ?></td>
         <td class="td_name sv_use" nowrap><div><?php echo $name ?></div></td>
         <td class="td_mng td_mng_s"><?php echo $row['wr_hit']; ?></td>
-        <td class="td_mng td_mng_s">
+        <td class="td_mng">
             <a href="./bbs_form.php?w=u&amp;wr_id=<?php echo $row['wr_id']; ?>&amp;<?php echo $qstr; ?>&amp;bo_table=<?php echo $bo_table; ?>" class="btn btn_03"><span class="sound_only"><?php echo get_text($row['wr_subject']); ?> </span>수정</a>
+            <a href="<?php echo get_pretty_url($bo_table, $row['wr_id']); ?>" target="_blank" class="btn btn_02">보기</a>
         </td>
     </tr>
     <?php
@@ -198,9 +199,9 @@ $res_b = sql_query($sql_b);
 <div class="btn_fixed_top">
     <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn btn_02">
     <?php if(!$bo_table) { ?>
-    <a href="javascript:alert('게시판을 선택해주세요.');" id="bo_add" class="btn_01 btn">게시글 등록</a>
+    <a href="javascript:alert('게시판을 선택해주세요.');" id="bo_add" class="btn_01 btn">게시물 보기</a>
     <?php } else { ?>
-    <a href="./bbs_form.php?bo_table=<?php echo $bo_table; ?>" id="bo_add" class="btn_01 btn">게시글 등록</a>
+    <a href="<?php echo get_pretty_url($bo_table); ?>" target="_blank" id="bo_add" class="btn_01 btn">게시물 보기</a>
     <?php } ?>
 </div>
 </form>
