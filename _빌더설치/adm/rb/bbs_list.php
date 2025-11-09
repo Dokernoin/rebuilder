@@ -197,12 +197,20 @@ $res_b = sql_query($sql_b);
 </div>
 
 <div class="btn_fixed_top">
+
+    <?php if(!$bo_table) { ?>
+    <a href="javascript:alert('게시판을 선택해주세요.');" class="btn_02 btn">바로가기</a>
+    <?php } else { ?>
+    <a href="<?php echo get_pretty_url($bo_table); ?>" target="_blank" class="btn_02 btn">바로가기</a>
+    <?php } ?>
+
     <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="btn btn_02">
     <?php if(!$bo_table) { ?>
-    <a href="javascript:alert('게시판을 선택해주세요.');" id="bo_add" class="btn_01 btn">게시물 보기</a>
+    <a href="javascript:alert('게시판을 선택해주세요.');" id="bo_add" class="btn_01 btn">게시글 등록</a>
     <?php } else { ?>
-    <a href="<?php echo get_pretty_url($bo_table); ?>" target="_blank" id="bo_add" class="btn_01 btn">게시물 보기</a>
+    <a href="./bbs_form.php?bo_table=<?php echo $bo_table; ?>" id="bo_add" class="btn_01 btn">게시글 등록</a>
     <?php } ?>
+
 </div>
 </form>
 

@@ -11,8 +11,10 @@ else
 
 check_admin_token();
 
-$bo_table = $_POST['bo_table'];
 global $g5, $board;
+
+$bo_table = $_POST['bo_table'];
+$write_table = $g5['write_prefix'] . $bo_table;
 
 if ($w == 'u') {
     $wr_id = $_POST['wr_id'];
@@ -75,8 +77,12 @@ if ($msg) {
 
 $upload_max_filesize = ini_get('upload_max_filesize');
 
-if (empty($_POST)) {
-    alert("파일 또는 글내용의 크기가 서버에서 설정한 값을 넘어 오류가 발생하였습니다.\\npost_max_size=".ini_get('post_max_size')." , upload_max_filesize=".$upload_max_filesize."\\n서버관리자에게 문의 바랍니다.");
+// POST 용량 초과( post_max_size / upload_max_filesize ) 감지
+$clen = isset($_SERVER['CONTENT_LENGTH']) ? (int)$_SERVER['CONTENT_LENGTH'] : 0;
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $clen > 0 && empty($_POST) && empty($_FILES)) {
+    $post_max = ini_get('post_max_size');
+    $upload_max = ini_get('upload_max_filesize');
+    alert("파일 또는 글내용의 크기가 서버에서 설정한 값을 넘어 오류가 발생하였습니다.\npost_max_size={$post_max} , upload_max_filesize={$upload_max}");
 }
 
 $notice_array = explode(",", $board['bo_notice']);
@@ -134,16 +140,13 @@ $wr_extras_set = '';
 $wr_extras_cols = '';
 $wr_extras_vals = '';
 
+$extras = [];
 for ($i=1; $i<=10; $i++) {
     $k = "wr_{$i}";
-    // 값에 따옴표 등 포함 가능성 있으므로 DB 이스케이프
-    $v = isset($$k) ? sql_real_escape_string($$k) : '';
-    // UPDATE용
-    $wr_extras_set  .= " , {$k} = '{$v}' ";
-    // INSERT용
-    $wr_extras_cols .= " , {$k} ";
-    $wr_extras_vals .= " , '{$v}' ";
+    $v = isset($_POST[$k]) ? (string)$_POST[$k] : '';
+    $extras[] = "{$k} = '".sql_real_escape_string($v)."'";
 }
+$wr_extras_set = implode(', ', $extras);
 
 //옵션
 $options = array($html,$secret,$mail);
@@ -175,34 +178,39 @@ $wr_reply = '';
 
 
 if ($w == "") {
-    $sql = " insert into $write_table
-                set wr_num = '$wr_num',
-                     wr_reply = '$wr_reply',
-                     wr_comment = 0,
-                     ca_name = '$ca_name',
-                     wr_option = '$wr_option',
-                     wr_subject = '$wr_subject',
-                     wr_content = '$wr_content',
-                     wr_seo_title = '$wr_seo_title',
-                     wr_link1 = '$wr_link1',
-                     wr_link2 = '$wr_link2',
-                     wr_link1_hit = 0,
-                     wr_link2_hit = 0,
-                     wr_hit = 0,
-                     wr_good = 0,
-                     wr_nogood = 0,
-                     mb_id = '{$member['mb_id']}',
-                     wr_password = '$wr_password',
-                     wr_name = '$wr_name',
-                     wr_email = '$wr_email',
-                     wr_homepage = '$wr_homepage',
-                     {$wr_extras_set}
-                     , wr_datetime = '".G5_TIME_YMDHIS."',
-                     wr_last = '".G5_TIME_YMDHIS."',
-                     wr_ip = '{$_SERVER['REMOTE_ADDR']}' ";
-    sql_query($sql);
-    
+    $sql  = " insert into {$write_table} set ";
+    $sql .= " wr_num = '{$wr_num}',";
+    $sql .= " wr_reply = '{$wr_reply}',";
+    $sql .= " wr_comment = 0,";
+    $sql .= " ca_name = '{$ca_name}',";
+    $sql .= " wr_option = '{$wr_option}',";
+    $sql .= " wr_subject = '{$wr_subject}',";
+    $sql .= " wr_content = '{$wr_content}',";
+    $sql .= " wr_seo_title = '{$wr_seo_title}',";
+    $sql .= " wr_link1 = '{$wr_link1}',";
+    $sql .= " wr_link2 = '{$wr_link2}',";
+    $sql .= " wr_link1_hit = 0,";
+    $sql .= " wr_link2_hit = 0,";
+    $sql .= " wr_hit = 0,";
+    $sql .= " wr_good = 0,";
+    $sql .= " wr_nogood = 0,";
+    $sql .= " mb_id = '".sql_real_escape_string($member['mb_id'] ?? '')."',";
+    $sql .= " wr_password = '{$wr_password}',";
+    $sql .= " wr_name = '{$wr_name}',";
+    $sql .= " wr_email = '{$wr_email}',";
+    $sql .= " wr_homepage = '{$wr_homepage}',";
+    $sql .= " {$wr_extras_set},";  // ← 위에서 항상 '키=값, 키=값...' 형태라 콤마 OK
+    $sql .= " wr_datetime = '".G5_TIME_YMDHIS."',";
+    $sql .= " wr_last = '".G5_TIME_YMDHIS."',";
+    $sql .= " wr_ip = '{$_SERVER['REMOTE_ADDR']}'";
+
+    // 에러 원인 바로 확인용(원인 확인 후 1 제거)
+    sql_query($sql, 1);
+
     $wr_id = sql_insert_id();
+    if (!$wr_id) {
+        alert('신규 등록에 실패했습니다.');
+    }
 
     // 부모 아이디에 UPDATE
     sql_query(" update $write_table set wr_parent = '$wr_id' where wr_id = '$wr_id' ");
