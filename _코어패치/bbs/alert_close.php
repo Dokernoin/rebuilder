@@ -1,7 +1,7 @@
 <?php
 include_once('./_common.php');
 include_once(G5_PATH.'/head.sub.php');
-add_javascript('<script src="'.G5_THEME_URL.'/rb.js/rb.common.js"></script>', 0);
+add_javascript('<script src="'.G5_URL.'/js/rb.common.js"></script>', 0);
 
 $msg = isset($msg) ? strip_tags($msg) : '';
 
