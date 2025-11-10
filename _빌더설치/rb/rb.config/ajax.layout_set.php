@@ -196,6 +196,15 @@ foreach ($layouts as $layout_no) {
                            <?php if(isset($row_mod['md_radius']) && $row_mod['md_radius'] > 0) { ?>border-radius:<?php echo $row_mod['md_radius'] ?>px; <?php } ?>
                             <?php if(!empty($row_mod['md_box_shadow'])) { ?>box-shadow: 0 2px <?php echo $row_mod['md_box_shadow_w'] ?>px <?php echo $row_mod['md_box_shadow_c'] ?>; <?php } ?>
                             <?php if(!empty($row_mod['md_banner_bg'])) { ?>background-color:<?php echo $row_mod['md_banner_bg'] ?>; <?php } ?>
+
+                            <?php if(IS_MOBILE()) { ?>
+                           <?php if(isset($row_mod['md_padding_lr_mo']) && $row_mod['md_padding_lr_mo'] != '') { ?>padding-left:<?php echo $row_mod['md_padding_lr_mo'] ?>px; padding-right:<?php echo $row_mod['md_padding_lr_mo'] ?>px; <?php } ?>
+                           <?php if(isset($row_mod['md_padding_tb_mo']) && $row_mod['md_padding_tb_mo'] != '') { ?>padding-top:<?php echo $row_mod['md_padding_tb_mo'] ?>px; padding-bottom:<?php echo $row_mod['md_padding_tb_mo'] ?>px; <?php } ?>
+                           <?php } else { ?>
+                           <?php if(isset($row_mod['md_padding_lr_pc']) && $row_mod['md_padding_lr_pc'] != '') { ?>padding-left:<?php echo $row_mod['md_padding_lr_pc'] ?>px; padding-right:<?php echo $row_mod['md_padding_lr_pc'] ?>px; <?php } ?>
+                           <?php if(isset($row_mod['md_padding_tb_pc']) && $row_mod['md_padding_tb_pc'] != '') { ?>padding-top:<?php echo $row_mod['md_padding_tb_pc'] ?>px; padding-bottom:<?php echo $row_mod['md_padding_tb_pc'] ?>px; <?php } ?>
+                           <?php } ?>
+
                            ">
                         <?php
                             $tab_list_clean = addslashes($row_mod['md_tab_list']);
@@ -213,6 +222,15 @@ foreach ($layouts as $layout_no) {
                            <?php if(isset($row_mod['md_radius']) && $row_mod['md_radius'] > 0) { ?>border-radius:<?php echo $row_mod['md_radius'] ?>px; <?php } ?>
                            <?php if(!empty($row_mod['md_box_shadow'])) { ?>box-shadow: 0 2px <?php echo $row_mod['md_box_shadow_w'] ?>px <?php echo $row_mod['md_box_shadow_c'] ?>; <?php } ?>
                            <?php if(!empty($row_mod['md_banner_bg'])) { ?>background-color:<?php echo $row_mod['md_banner_bg'] ?>; <?php } ?>
+
+                           <?php if(IS_MOBILE()) { ?>
+                           <?php if(isset($row_mod['md_padding_lr_mo']) && $row_mod['md_padding_lr_mo'] != '') { ?>padding-left:<?php echo $row_mod['md_padding_lr_mo'] ?>px; padding-right:<?php echo $row_mod['md_padding_lr_mo'] ?>px; <?php } ?>
+                           <?php if(isset($row_mod['md_padding_tb_mo']) && $row_mod['md_padding_tb_mo'] != '') { ?>padding-top:<?php echo $row_mod['md_padding_tb_mo'] ?>px; padding-bottom:<?php echo $row_mod['md_padding_tb_mo'] ?>px; <?php } ?>
+                           <?php } else { ?>
+                           <?php if(isset($row_mod['md_padding_lr_pc']) && $row_mod['md_padding_lr_pc'] != '') { ?>padding-left:<?php echo $row_mod['md_padding_lr_pc'] ?>px; padding-right:<?php echo $row_mod['md_padding_lr_pc'] ?>px; <?php } ?>
+                           <?php if(isset($row_mod['md_padding_tb_pc']) && $row_mod['md_padding_tb_pc'] != '') { ?>padding-top:<?php echo $row_mod['md_padding_tb_pc'] ?>px; padding-bottom:<?php echo $row_mod['md_padding_tb_pc'] ?>px; <?php } ?>
+                           <?php } ?>
+
                            ">
                             <?php echo '<?php @include (G5_PATH . "/rb/' . $row_mod['md_widget'] . '/widget.php"); ?>'; ?>
                         </div>
@@ -236,6 +254,14 @@ foreach ($layouts as $layout_no) {
                            <?php if(!empty($row_mod['md_box_shadow'])) { ?>box-shadow: 0 2px <?php echo $row_mod['md_box_shadow_w'] ?>px <?php echo $row_mod['md_box_shadow_c'] ?>; <?php } ?>
                            <?php if(!empty($row_mod['md_banner_bg'])) { ?>background-color:<?php echo $row_mod['md_banner_bg'] ?>; <?php } ?>
 
+                           <?php if(IS_MOBILE()) { ?>
+                           <?php if(isset($row_mod['md_padding_lr_mo']) && $row_mod['md_padding_lr_mo'] != '') { ?>padding-left:<?php echo $row_mod['md_padding_lr_mo'] ?>px; padding-right:<?php echo $row_mod['md_padding_lr_mo'] ?>px; <?php } ?>
+                           <?php if(isset($row_mod['md_padding_tb_mo']) && $row_mod['md_padding_tb_mo'] != '') { ?>padding-top:<?php echo $row_mod['md_padding_tb_mo'] ?>px; padding-bottom:<?php echo $row_mod['md_padding_tb_mo'] ?>px; <?php } ?>
+                           <?php } else { ?>
+                           <?php if(isset($row_mod['md_padding_lr_pc']) && $row_mod['md_padding_lr_pc'] != '') { ?>padding-left:<?php echo $row_mod['md_padding_lr_pc'] ?>px; padding-right:<?php echo $row_mod['md_padding_lr_pc'] ?>px; <?php } ?>
+                           <?php if(isset($row_mod['md_padding_tb_pc']) && $row_mod['md_padding_tb_pc'] != '') { ?>padding-top:<?php echo $row_mod['md_padding_tb_pc'] ?>px; padding-bottom:<?php echo $row_mod['md_padding_tb_pc'] ?>px; <?php } ?>
+                           <?php } ?>
+
                            ">
                             <?php echo '<?php echo rb_banners("' . $row_mod['md_banner'] . '", "' . $row_mod['md_banner_id'] . '", "' . $row_mod['md_banner_skin'] . '", "' . $row_mod['md_order_banner'] . '"); ?>'; ?>
                         </div>
@@ -258,6 +284,14 @@ foreach ($layouts as $layout_no) {
                            <?php if(isset($row_mod['md_radius']) && $row_mod['md_radius'] > 0) { ?>border-radius:<?php echo $row_mod['md_radius'] ?>px; <?php } ?>
                            <?php if(!empty($row_mod['md_box_shadow'])) { ?>box-shadow: 0 2px <?php echo $row_mod['md_box_shadow_w'] ?>px <?php echo $row_mod['md_box_shadow_c'] ?>; <?php } ?>
                            <?php if(!empty($row_mod['md_banner_bg'])) { ?>background-color:<?php echo $row_mod['md_banner_bg'] ?>; <?php } ?>
+
+                           <?php if(IS_MOBILE()) { ?>
+                           <?php if(isset($row_mod['md_padding_lr_mo']) && $row_mod['md_padding_lr_mo'] != '') { ?>padding-left:<?php echo $row_mod['md_padding_lr_mo'] ?>px; padding-right:<?php echo $row_mod['md_padding_lr_mo'] ?>px; <?php } ?>
+                           <?php if(isset($row_mod['md_padding_tb_mo']) && $row_mod['md_padding_tb_mo'] != '') { ?>padding-top:<?php echo $row_mod['md_padding_tb_mo'] ?>px; padding-bottom:<?php echo $row_mod['md_padding_tb_mo'] ?>px; <?php } ?>
+                           <?php } else { ?>
+                           <?php if(isset($row_mod['md_padding_lr_pc']) && $row_mod['md_padding_lr_pc'] != '') { ?>padding-left:<?php echo $row_mod['md_padding_lr_pc'] ?>px; padding-right:<?php echo $row_mod['md_padding_lr_pc'] ?>px; <?php } ?>
+                           <?php if(isset($row_mod['md_padding_tb_pc']) && $row_mod['md_padding_tb_pc'] != '') { ?>padding-top:<?php echo $row_mod['md_padding_tb_pc'] ?>px; padding-bottom:<?php echo $row_mod['md_padding_tb_pc'] ?>px; <?php } ?>
+                           <?php } ?>
                            ">
                             <?php echo '<?php echo poll("' . $row_mod['md_poll'] . '", "' . $row_mod['md_poll_id'] . '"); ?>'; ?>
                         </div>
