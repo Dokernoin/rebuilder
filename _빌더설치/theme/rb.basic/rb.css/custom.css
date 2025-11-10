@@ -994,7 +994,7 @@ select#ct_send_cost {width: 150px;}
     #rb_topvisual_shop {width: 100%;}
 
     .rb_sec_wide{width:100%; min-width: 100% !important; left:auto; transform:none; padding-left: 0px;padding-right: 0px;}
-    .rb_section_box {padding-left: 0px !important; padding-right: 0px !important; display: block;}
+    .rb_section_box {display: block;}
     .rb_section_box .flex_box {width: 100% !important;}
     .rb_section_box .rb_section_title {padding-left: 20px; padding-right: 20px;}
     .contents_wrap {display:block;}
